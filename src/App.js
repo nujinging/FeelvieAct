@@ -55,6 +55,27 @@ function App() {
                       );
                       return acc;
                   }, [])}
+              {/*    c.map((cValue, idx) => {*/}
+              {/*    console.log(cValue, d[idx])*/}
+              {/*})*/}
+              {/*    setLists({*/}
+              {/*    playing: {*/}
+              {/*    title: '지금 상영중이에요!',*/}
+              {/*    listData: play.data.results,*/}
+              {/*},*/}
+              {/*    popular: {*/}
+              {/*    title: '가장 인기있는 영화',*/}
+              {/*    listData: popular.data.results,*/}
+              {/*},*/}
+              {/*    day: {*/}
+              {/*    title: '오늘 하루 가장 많이 본 영화',*/}
+              {/*    listData: day.data.results,*/}
+              {/*},*/}
+              {/*    week: {*/}
+              {/*    title: '이번 주 가장 많이 본 영화',*/}
+              {/*    listData: week.data.results,*/}
+              {/*}*/}
+              {/*});*/}
               </div>
           </div>
       </div>
