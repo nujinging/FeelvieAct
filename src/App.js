@@ -7,6 +7,13 @@ import List from "./components/List";
 
 function App() {
 
+    const titles = {
+        playing: '지금 상영중이에요!',
+        popular: '가장 인기있는 영화',
+        day: '오늘 하루 가장 많이 본 영화',
+        week: '이번 주 가장 많이 본 영화',
+    }
+
     const [lists, setLists] = useState({
         playing : [],
         popular : [],
@@ -36,36 +43,18 @@ function App() {
       <div className="App">
           <div className="container">
               <div className="item_container">
-                  <div className="title">
-                      <h2>지금 상영중이에요!</h2>
-                  </div>
-                  {Object.entries(lists).map(([title, list]) => (
-                      <List list={list}></List>
-                  ))}
-
-                  {/*<div className="title" key={title}>*/}
-                  {/*    <h2>{title === 'playing' ? '지금 상영중이에요!' : title === 'popular' ? '가장 인기있는 컨텐츠' : title === 'day' ? '오늘 가장 많이 찾아 본 컨텐츠' : '이번 주 가장 많이 찾아 본 컨텐츠'}</h2>*/}
-                  {/*    <List list={list} />*/}
-                  {/*</div>*/}
-
-                  {/*<List list={playing}></List>*/}
-
-                  {/*<div className="title">*/}
-                  {/*    <h2>가장 인기있는 컨텐츠</h2>*/}
-                  {/*</div>*/}
-                  {/*<List list={popularList}></List>*/}
-
-
-                  {/*<div className="title">*/}
-                  {/*    <h2>오늘 가장 많이 찾아 본 컨텐츠</h2>*/}
-                  {/*</div>*/}
-                  {/*<List list={dayList}></List>*/}
-
-                  {/*<div className="title">*/}
-                  {/*    <h2>이번 주 가장 많이 찾아 본 컨텐츠</h2>*/}
-                  {/*</div>*/}
-                  {/*<List list={weekList}></List>*/}
-
+                  {Object.entries(titles).reduce((acc, [key, title]) => {
+                      const list = lists[key];
+                      acc.push(
+                          <div key={key}>
+                              <h2>{title}</h2>
+                          </div>
+                      );
+                      acc.push(
+                          <List key={`list_${key}`} list={list}></List>
+                      );
+                      return acc;
+                  }, [])}
               </div>
           </div>
       </div>
