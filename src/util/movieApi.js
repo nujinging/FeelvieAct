@@ -11,5 +11,7 @@ const request  = axios.create({
 
 
 export const movieApi = {
+    nowPlaying: () => request.get(`movie/now_playing`),
     popular: () => request.get(`movie/popular`),
+    today: (time_window) => request.get(`trending/movie/${time_window}`)
 };

@@ -7,7 +7,7 @@ function List(props) {
     console.log(props)
     return (
         <Swiper slidesPerView={'auto'} className="mySwiper">
-            {props && props.popularList.map(item => (
+            {props.list.map(item => (
                 <SwiperSlide className="item_card" key={item.id}>
                     <h3> {item.title} </h3>
                 </SwiperSlide>

@@ -43,7 +43,12 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
-
+.container {overflow:hidden}
+.title {display:flex;align-items:center;margin-bottom:1.875rem}
+.title h2 {color:#fff;font-size:1.875rem;font-weight:bold;line-height:2.5rem}
+@media screen and (max-width: 768px) {
+  .title h2 {font-size:2.125rem}
+}
 .item_container {padding:3.888rem;overflow:hidden}
 .swiper-slide.item_card {width:18.75rem}
 .swiper-slide.item_card+.item_card {margin-left:30px}
