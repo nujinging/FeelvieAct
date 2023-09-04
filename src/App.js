@@ -2,6 +2,8 @@
 import './App.css';
 import { movieApi } from "./util/movieApi";
 import { useState, useEffect } from 'react';
+import List from "./components/List";
+
 
 function App() {
     const [popularList, setPopularList] = useState([]);
@@ -15,14 +17,14 @@ function App() {
         Api();
     }, []);
 
-    // 콘솔용
-    useEffect(() => {
-        console.log(popularList);
-    }, [popularList]);
+    // // 콘솔용
+    // useEffect(() => {
+    //     console.log(popularList);
+    // }, [popularList]);
 
   return (
       <div className="App">
-          {/*<p>{popularList[2].title}</p>*/}
+          <List popularList={popularList}></List>
       </div>
   );
 }
