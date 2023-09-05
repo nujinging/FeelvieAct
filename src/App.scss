@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+* {box-sizing:border-box}
+html { font-family: 'Noto Sans KR', sans-serif;font-size:16px}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {margin: 0;padding: 0;border: 0;font-size: 100%;vertical-align: baseline;}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {display: block;}
+body {line-height: 1;}
+ol, ul {list-style: none;}
+button {cursor:pointer;}
+a {color:initial;text-decoration:none}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content: '';content: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+button {border:none}
+body {color:#fff;line-height:1;background:#000}
+.blind {overflow:hidden;clip:rect(1px,1px,1px,1px);position:absolute !important;width:1px;height:1px}
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: calc(6px + .5vw);
+  }
+}
+@media screen and (min-width: 768px) {
+  html {
+    font-size: calc(6px + .5vw);
+  }
+}
+@media screen and (max-width: 768px) {
+  html {
+    font-size: calc(6px + .5vw);
+  }
+}
+
+.container {
+  overflow:hidden
+}
+
+.title {
+  display:flex;
+  align-items:center;
+  margin-bottom:1.875rem
+}
+.title {
+  h2 {
+    color:#fff;
+    font-size:1.875rem;
+    font-weight:bold;
+    line-height:2.5rem
+  }
+}
+  @media screen and (max-width: 768px) {
+    .title {
+      h2 {
+        font-size:2.125rem
+      }
+    }
+  }
+
+
+.item_container {
+  padding:3.888rem;
+  overflow:hidden
+}
+
+.swiper-slide {
+  &.item_card {
+    width: 18.75rem;
+    +.item_card {
+      margin-left: 30px
+    }
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: 28.125rem;
+    border-radius: 0.5rem
+  }
+  h3 {
+    margin-top:0.938rem;
+    color: #d5d5d5;
+    font-size:1.375rem;
+    font-weight:normal;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+  }
+  &:hover {
+    transform:translate3d(0,-0.75rem,0);
+    transition:transform .3s ease-in-out;
+    cursor:pointer
+  }
+}
+
+
+.swiper {
+  overflow:visible;
+  +.title {
+    margin-top:3.125rem
+  }
+}
+.swiper-wrapper {
+  transform:translateZ(0)
+}
