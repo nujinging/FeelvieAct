@@ -3,6 +3,7 @@ import './App.css';
 import { movieApi } from "./util/movieApi";
 import { useState, useEffect } from 'react';
 import List from "./components/List";
+import HomeSlide from "./components/HomeSlide";
 
 
 function App() {
@@ -41,11 +42,12 @@ function App() {
   return (
       <div className="App">
           <div className="container">
+              <HomeSlide></HomeSlide>
               <div className="item_container">
                   {Object.entries(titles).reduce((acc, [key, title]) => {
                       const list = lists[key];
                       acc.push(
-                          <div key={key}>
+                          <div className="title" key={key}>
                               <h2>{title}</h2>
                           </div>
                       );

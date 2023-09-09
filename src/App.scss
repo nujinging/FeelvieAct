@@ -114,3 +114,41 @@ body {color:#fff;line-height:1;background:#000}
 
 
 
+.home_banner {
+  position:relative;
+  height:48.75rem;
+  margin-bottom:2.25rem;
+  .banner_txt {
+    position:absolute;
+    left:3.125rem;
+    bottom:3.125rem;
+    text-align:left;
+    z-index:10;
+    .tit {
+      font-size:2.5rem
+    }
+    p {
+      margin-top:1.875rem;
+      width:calc(100% - 3.125rem);
+      font-size:1.5rem;
+      line-height:2.125rem;
+      display:-webkit-box;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical
+    }
+  }
+}
+
+.banner {
+  background-size:cover;
+  background-position:center;
+  &:after{content: "";
+    display: block;
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    padding-bottom: 15.833rem;
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));}
+}
