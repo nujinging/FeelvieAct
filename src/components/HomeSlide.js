@@ -1,22 +1,34 @@
-import './../App.css';
+import './../App.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import { Pagination, Navigation } from 'swiper/modules';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-export default function HomeSlide() {
+
+export default function HomeSlide(props) {
+
+    const slideList = props.lists.slice(0, 5)
+
+    const pagination = {
+        clickable: true,
+        renderBullet: function (index, className) {
+            return '<span class="' + className + '"> <span class="blind">' + (index + 1)  + "</span> </span>";
+        },
+    };
+
     return (
         <>
-            <Swiper navigation={true} modules={[Navigation]} className="home_banner">
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                <SwiperSlide>Slide 5</SwiperSlide>
-                <SwiperSlide>Slide 6</SwiperSlide>
-                <SwiperSlide>Slide 7</SwiperSlide>
-                <SwiperSlide>Slide 8</SwiperSlide>
-                <SwiperSlide>Slide 9</SwiperSlide>
+            <Swiper pagination={pagination} navigation={true} modules={[Pagination, Navigation]} className="home_banner">
+                {slideList.map(item => (
+                    <SwiperSlide className="banner" key={item.id} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${item.backdrop_path})` }}>
+                        <div className="banner_txt">
+                            <h2 className="tit">{item.title}</h2>
+                            <p>{item.overview}</p>
+                        </div>
+                    </SwiperSlide>
+                ))}
+
             </Swiper>
         </>
     );

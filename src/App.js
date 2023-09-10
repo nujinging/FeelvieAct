@@ -1,5 +1,5 @@
 
-import './App.css';
+import './App.scss';
 import { movieApi } from "./util/movieApi";
 import { useState, useEffect } from 'react';
 import List from "./components/List";
@@ -19,7 +19,8 @@ function App() {
         playing : [],
         popular : [],
         day : [],
-        week : []
+        week : [],
+        main: []
     })
     useEffect(() => {
         async function Api() {
@@ -42,7 +43,7 @@ function App() {
   return (
       <div className="App">
           <div className="container">
-              <HomeSlide></HomeSlide>
+              <HomeSlide lists={lists.popular}></HomeSlide>
               <div className="item_container">
                   {Object.entries(titles).reduce((acc, [key, title]) => {
                       const list = lists[key];

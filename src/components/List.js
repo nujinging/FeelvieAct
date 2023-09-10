@@ -4,7 +4,7 @@ import "swiper/css";
 import './../App.css';
 
 function List(props) {
-    console.log(props)
+
 
     return (
         <Swiper slidesPerView={'auto'} className="mySwiper">
