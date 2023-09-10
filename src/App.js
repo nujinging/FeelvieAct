@@ -4,6 +4,7 @@ import { movieApi } from "./util/movieApi";
 import { useState, useEffect } from 'react';
 import List from "./components/List";
 import HomeSlide from "./components/HomeSlide";
+import Header from "./components/Header";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
 
   return (
       <div className="App">
+          <Header></Header>
           <div className="container">
               <HomeSlide lists={lists.popular}></HomeSlide>
               <div className="item_container">
