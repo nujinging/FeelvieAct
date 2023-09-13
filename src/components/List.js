@@ -1,7 +1,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import './../App.css';
+import './../App.scss';
 
 function List(props) {
 
