@@ -56,12 +56,6 @@ export default function ItemDetail() {
                 </div>
             </section>
             <div className="item_container">
-                {creditsArray.map(item => {
-                    return(
-                        <p key={item.key}>s</p>
-                        )
-
-                })}
             </div>
 
         </div>
