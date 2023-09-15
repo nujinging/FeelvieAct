@@ -22,8 +22,7 @@ export default function ItemDetail() {
     }, [params.itemId]);
 
 
-    const creditsArray = creditsUrl ? Object.entries(creditsUrl).slice(0,5) : [];
-    console.log(creditsArray)
+    const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
 
 
 
@@ -56,8 +55,8 @@ export default function ItemDetail() {
                 </div>
             </section>
             <div className="item_container">
+                <List list={creditsArray}></List>
             </div>
-
         </div>
     );
 }

@@ -26,7 +26,6 @@ export default function Main() {
             const day = await movieApi.today('day')
             const week = await movieApi.today('week')
 
-
             setLists({
                 playing : play.data.results,
                 popular : popular.data.results,
