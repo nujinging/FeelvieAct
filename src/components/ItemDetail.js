@@ -10,21 +10,29 @@ export default function ItemDetail() {
     const params = useParams();
     const [dataUrl, setDataUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
+    const [similarUrl, setSimilarUrl] = useState();
 
     useEffect(() => {
         async function Api() {
             const detail = await movieApi.detail(params.id);
             const credits = await movieApi.credits(params.id);
+            const similar = await movieApi.similar(params.id);
             setDataUrl(detail.data);
             setCreditsUrl(credits.data.cast);
+            setSimilarUrl(similar.data.results)
         }
         Api();
     }, [params.itemId]);
 
 
+
+    const similarArray = similarUrl ? similarUrl.slice(0,5): [];
+
+    console.log(similarArray)
+
     const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
 
-
+    // console.log(similarArray)
 
     return (
         <div>
@@ -55,7 +63,10 @@ export default function ItemDetail() {
                 </div>
             </section>
             <div className="item_container">
+                <div className="title"><h2>등장인물</h2></div>
                 <List list={creditsArray}></List>
+                <div className="title"><h2>비슷한 작품</h2></div>
+                <List list={similarArray}></List>
             </div>
         </div>
     );

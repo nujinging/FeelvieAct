@@ -8,7 +8,6 @@ import {useNavigate} from "react-router-dom";
 function List(props) {
     const navigate = useNavigate();
     const list = props.list;
-    console.log(list)
     return (
         <Swiper slidesPerView={'auto'} className={`mySwiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`}>
             {list.map(item => (
@@ -18,6 +17,7 @@ function List(props) {
                         alt="Movie Poster"
                     />
                     <h3> {item.title || item.name} </h3>
+                    <p>{item.id}</p>
                 </SwiperSlide>
             ))}
         </Swiper>

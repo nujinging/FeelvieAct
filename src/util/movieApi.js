@@ -17,4 +17,6 @@ export const movieApi = {
 
     detail: (movie_id) => request.get(`movie/${movie_id}`),
     credits: (movie_id) => request.get(`movie/${movie_id}/credits`),
+
+    similar: (movie_id) => request.get(`movie/${movie_id}/similar`),
 };
