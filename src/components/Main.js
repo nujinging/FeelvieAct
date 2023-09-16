@@ -21,7 +21,7 @@ export default function Main() {
     useEffect(() => {
         async function Api() {
             const play = await movieApi.nowPlaying('')
-            const popular = await movieApi.popular('')
+            const popular = await movieApi.popular('movie')
             const day = await movieApi.today('day')
             const week = await movieApi.today('week')
 
