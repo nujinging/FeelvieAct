@@ -21,4 +21,5 @@ export const movieApi = {
     social : (movie_id) => request.get(`/movie/${movie_id}/external_ids`),
 
     genreTitle : () => request.get(`genre/movie/list`),
+    genreList : (genre_number) => request.get(`discover/movie?with_genres=${genre_number}`),
 };
