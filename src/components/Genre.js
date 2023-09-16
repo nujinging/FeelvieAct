@@ -24,13 +24,15 @@ export default function Genre() {
                 const genreUrl = await movieApi.genreList(genreNumber);
                 setGenreList(genreUrl.data.results);
             }
-
         } Api();
     }, [genreNumber]);
 
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
+                <SwiperSlide className="genre_item">
+                    All
+                </SwiperSlide>
                 {genreTitle?.map(item => {
                     return (
                         <SwiperSlide className="genre_item" key={item.id} onClick={() => genreChange(item.id)}>
