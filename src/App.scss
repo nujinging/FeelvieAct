@@ -339,6 +339,12 @@ body {color:#fff;line-height:1;background:#000}
         text-overflow: ellipsis;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
+        &.intro_more {
+          display:block;
+        }
+      }
+      .btn_more {
+        margin-top:10px;
       }
     }
   }

@@ -12,7 +12,11 @@ export default function ItemDetail() {
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
+    const [overviewMore, setOverviewMore] = useState(false);
 
+    const overviewToggle = () => {
+        setOverviewMore(!overviewMore);
+    }
     useEffect(() => {
         async function Api() {
             window.scrollTo(0, 0);
@@ -60,9 +64,12 @@ export default function ItemDetail() {
                         <p className="quites">
                             {dataUrl?.tagline}
                         </p>
-                        <p className="intro">
+                        <p className={`intro ${overviewMore ? 'intro_more' : ''}`}>
                             {dataUrl?.overview}
                         </p>
+                        <button type="button" className="btn_more" onClick={overviewToggle}>
+                            {overviewMore ? '접기' : '더보기'}
+                        </button>
                     </div>
                 </div>
                 <div className="detail_poster">
