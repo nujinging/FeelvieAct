@@ -23,7 +23,7 @@ export default function ItemDetail() {
             setSimilarUrl(similar.data.results);
         }
         Api();
-    }, [params.itemId]);
+    }, [params.id]);
 
 
 

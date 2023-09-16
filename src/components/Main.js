@@ -1,4 +1,3 @@
-import Header from "./Header";
 import HomeSlide from "./HomeSlide";
 import List from "./List";
 import { movieApi } from "./../util/movieApi";
@@ -38,7 +37,6 @@ export default function Main() {
 
     return (
         <div>
-            <Header></Header>
             <div className="container">
                 <HomeSlide lists={lists.popular}></HomeSlide>
                 <div className="item_container">

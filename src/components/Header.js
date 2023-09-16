@@ -10,7 +10,7 @@ function Header() {
         <header className="wrap_header">
             <div className="header_container">
                 <div className="navigation">
-                    <Link>
+                    <Link to="/">
                         <img src={logo} alt="logo" />
                     </Link>
                     <ul className="menu">
