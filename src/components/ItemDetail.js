@@ -14,12 +14,13 @@ export default function ItemDetail() {
 
     useEffect(() => {
         async function Api() {
+            window.scrollTo(0, 0);
             const detail = await movieApi.detail(params.id);
             const credits = await movieApi.credits(params.id);
             const similar = await movieApi.similar(params.id);
             setDataUrl(detail.data);
             setCreditsUrl(credits.data.cast);
-            setSimilarUrl(similar.data.results)
+            setSimilarUrl(similar.data.results);
         }
         Api();
     }, [params.itemId]);

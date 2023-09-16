@@ -29,7 +29,6 @@ function List(props) {
                         alt="Movie Poster"
                     />
                     <h3> {item.title || item.name} </h3>
-                    <p>{item.id}</p>
                 </SwiperSlide>
             ))}
         </Swiper>
