@@ -1,7 +1,7 @@
 import './../App.scss';
 import {Link} from "react-router-dom";
 
-function Header() {
+export default function Header() {
 
 
     const logo = "https://www.tving.com/img/tving-new-logo-pc.svg";
@@ -26,5 +26,3 @@ function Header() {
         </header >
     );
 }
-
-export default Header;

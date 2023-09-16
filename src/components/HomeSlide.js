@@ -28,7 +28,6 @@ export default function HomeSlide(props) {
                         </div>
                     </SwiperSlide>
                 ))}
-
             </Swiper>
         </>
     );

@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Main from "./components/Main";
 import ItemDetail from "./components/ItemDetail";
 import Header from "./components/Header";
+import Genre from "./components/Genre";
 
 
 
@@ -15,6 +16,7 @@ function App() {
           <Routes>
               <Route path='/' element={<Main />} ></Route>
               <Route path='/detail/:id' element={<ItemDetail />} ></Route>
+              <Route path='/genre' element={<Genre />} ></Route>
           </Routes>
       </div>
   );
