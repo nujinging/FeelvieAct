@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 
 export default function Header() {
 
-
     const logo = "https://www.tving.com/img/tving-new-logo-pc.svg";
 
     return (
@@ -15,10 +14,10 @@ export default function Header() {
                     </Link>
                     <ul className="menu">
                         <li>
-                            <Link to="/genre">영화</Link>
+                            <Link to="/genre/movie">영화</Link>
                         </li>
                         <li>
-                            <Link to="/movie">TV프로그램</Link>
+                            <Link to="/genre/tv">TV프로그램</Link>
                         </li>
                     </ul>
                 </div>

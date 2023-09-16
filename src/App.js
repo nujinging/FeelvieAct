@@ -16,7 +16,7 @@ function App() {
           <Routes>
               <Route path='/' element={<Main />} ></Route>
               <Route path='/detail/:id' element={<ItemDetail />} ></Route>
-              <Route path='/genre' element={<Genre />} ></Route>
+              <Route path='/genre/:type' element={<Genre />} ></Route>
           </Routes>
       </div>
   );

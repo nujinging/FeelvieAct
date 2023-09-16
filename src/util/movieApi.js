@@ -20,6 +20,6 @@ export const movieApi = {
     similar: (movie_id) => request.get(`movie/${movie_id}/similar`),
     social : (movie_id) => request.get(`/movie/${movie_id}/external_ids`),
 
-    genreTitle : () => request.get(`genre/movie/list`),
-    genreList : (genre_number) => request.get(`discover/movie?with_genres=${genre_number}`),
+    genreTitle : (type) => request.get(`genre/${type}/list`),
+    genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
 };

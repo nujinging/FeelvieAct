@@ -5,8 +5,12 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 export default function Genre() {
+    const { type } = useParams();
+
+    console.log(type)
 
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState(null);
@@ -18,14 +22,14 @@ export default function Genre() {
 
     useEffect(() => {
         async function Api() {
-            const genre = await movieApi.genreTitle();
+            const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
             if (genreNumber) {
-                const genreUrl = await movieApi.genreList(genreNumber);
+                const genreUrl = await movieApi.genreList(type, genreNumber);
                 setGenreList(genreUrl.data.results);
             }
         } Api();
-    }, [genreNumber]);
+    }, [type, genreNumber]);
 
     return (
         <div className="item_container genre">
