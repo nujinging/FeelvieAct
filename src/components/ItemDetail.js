@@ -11,6 +11,7 @@ export default function ItemDetail() {
     const [dataUrl, setDataUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
+    const [socialUrl, setSocialUrl] = useState();
 
     useEffect(() => {
         async function Api() {
@@ -18,15 +19,22 @@ export default function ItemDetail() {
             const detail = await movieApi.detail(params.id);
             const credits = await movieApi.credits(params.id);
             const similar = await movieApi.similar(params.id);
+            const social = await movieApi.social(params.id);
             setDataUrl(detail.data);
             setCreditsUrl(credits.data.cast);
             setSimilarUrl(similar.data.results);
-            console.log(detail.data)
+            setSocialUrl(social.data)
+            console.log(social.data)
         }
         Api();
     }, [params.id]);
 
-
+    /* 소셜 */
+    const socialMedia = [
+        { name : '페이스북', url : 'http://www.facebook.com', link : `${socialUrl?.facebook_id}`},
+        { name : '트위터', url : 'http://www.twitter.com', link : `${socialUrl?.twitter_id}`},
+        { name : '인스타그램', url : 'http://www.instagram.com', link : `${socialUrl?.instagram_id}`}
+    ]
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
@@ -59,9 +67,13 @@ export default function ItemDetail() {
                 </div>
                 <div className="detail_poster">
                     <ul className="social_links">
-                        <li>
-                            <Link href="">페이스북</Link>
-                        </li>
+                        {socialMedia.map(item => {
+                            return item.link !== "null" ? (
+                                <li>
+                                    <a href={`${item.url}/${item.link}`} target="_blank">{item.name}</a>
+                                </li>
+                            ) : null;
+                        })}
                     </ul>
                     <picture>
                         <img src={`https://image.tmdb.org/t/p/w500/${dataUrl?.poster_path}`} alt="Movie Poster" />
