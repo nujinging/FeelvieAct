@@ -21,19 +21,18 @@ export default function ItemDetail() {
             setDataUrl(detail.data);
             setCreditsUrl(credits.data.cast);
             setSimilarUrl(similar.data.results);
+            console.log(detail.data)
         }
         Api();
     }, [params.id]);
 
 
 
-    const similarArray = similarUrl ? similarUrl.slice(0,5): [];
-
-    console.log(similarArray)
-
+    /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
 
-    // console.log(similarArray)
+    /* 비슷한 작품 */
+    const similarArray = similarUrl ? similarUrl.slice(0,5): [];
 
     return (
         <div>
@@ -41,7 +40,13 @@ export default function ItemDetail() {
                 <div className="detail_info">
                     <h1>{dataUrl?.title}</h1>
                     <div className="meta">
-                        <span className="txt">액션</span>
+                        {dataUrl?.genres.map(item => {
+                            return (
+                                <span className="txt">
+                                    {item.name}
+                                </span>
+                            )
+                        })}
                     </div>
                     <div className="comment">
                         <p className="quites">
