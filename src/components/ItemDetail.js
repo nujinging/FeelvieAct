@@ -1,5 +1,5 @@
 import './../App.scss';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
 import List from "./List";
@@ -14,21 +14,23 @@ export default function ItemDetail() {
     const [socialUrl, setSocialUrl] = useState();
     const [overviewMore, setOverviewMore] = useState(false);
 
+
+    console.log(params.type)
+
     const overviewToggle = () => {
         setOverviewMore(!overviewMore);
     }
     useEffect(() => {
         async function Api() {
             window.scrollTo(0, 0);
-            const detail = await movieApi.detail(params.id);
-            const credits = await movieApi.credits(params.id);
-            const similar = await movieApi.similar(params.id);
-            const social = await movieApi.social(params.id);
+            const detail = await movieApi.detail(params.type, params.id);
+            const credits = await movieApi.credits(params.type, params.id);
+            const similar = await movieApi.similar(params.type, params.id);
+            const social = await movieApi.social(params.type, params.id);
             setDataUrl(detail.data);
             setCreditsUrl(credits.data.cast);
             setSimilarUrl(similar.data.results);
             setSocialUrl(social.data)
-            console.log(social.data)
         }
         Api();
     }, [params.id]);

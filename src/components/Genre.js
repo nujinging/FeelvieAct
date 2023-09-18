@@ -59,7 +59,7 @@ export default function Genre() {
             <ul className="genre_list">
                 {genreList?.map(item => {
                     return (
-                        <li className="list_card" onClick={() => navigate(`/detail/${item.id}`)}>
+                        <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
                             <picture>
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}

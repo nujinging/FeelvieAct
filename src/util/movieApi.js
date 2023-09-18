@@ -15,10 +15,10 @@ export const movieApi = {
     popular: (type) => request.get(`${type}/popular`),
     today: (time_window) => request.get(`trending/movie/${time_window}`),
 
-    detail: (movie_id) => request.get(`movie/${movie_id}`),
-    credits: (movie_id) => request.get(`movie/${movie_id}/credits`),
-    similar: (movie_id) => request.get(`movie/${movie_id}/similar`),
-    social : (movie_id) => request.get(`/movie/${movie_id}/external_ids`),
+    detail: (type, movie_id) => request.get(`${type}/${movie_id}`),
+    credits: (type, movie_id) => request.get(`${type}/${movie_id}/credits`),
+    similar: (type, movie_id) => request.get(`${type}/${movie_id}/similar`),
+    social : (type, movie_id) => request.get(`/${type}/${movie_id}/external_ids`),
 
     genreTitle : (type) => request.get(`genre/${type}/list`),
     genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
