@@ -11,9 +11,9 @@ const request  = axios.create({
 
 
 export const movieApi = {
-    nowPlaying: () => request.get(`movie/now_playing`),
+    nowPlaying: (type) => request.get(`${type}/now_playing`),
     popular: (type) => request.get(`${type}/popular`),
-    today: (time_window) => request.get(`trending/movie/${time_window}`),
+    today: (type, time_window) => request.get(`trending/${type}/${time_window}`),
 
     detail: (type, movie_id) => request.get(`${type}/${movie_id}`),
     credits: (type, movie_id) => request.get(`${type}/${movie_id}/credits`),

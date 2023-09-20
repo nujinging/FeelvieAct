@@ -1,7 +1,7 @@
 import HomeSlide from "./HomeSlide";
 import List from "./List";
-import { movieApi } from "./../util/movieApi";
-import { useState, useEffect } from 'react';
+import {movieApi} from "./../util/movieApi";
+import {useState, useEffect} from 'react';
 
 export default function Main() {
     const titles = {
@@ -12,26 +12,36 @@ export default function Main() {
     }
 
     const [lists, setLists] = useState({
-        playing : [],
-        popular : [],
-        day : [],
-        week : [],
+        playing: [],
+        popular: [],
+        day: [],
+        week: [],
         main: []
     })
+
+    const [typeTab, setTypeTab] = useState('movie')
+
+    const typeChange = (props) => {
+        setTypeTab(props)
+        console.log(typeTab)
+    }
+
+
     useEffect(() => {
         async function Api() {
-            const play = await movieApi.nowPlaying('')
-            const popular = await movieApi.popular('movie')
-            const day = await movieApi.today('day')
-            const week = await movieApi.today('week')
+            const play = await movieApi.nowPlaying(typeTab)
+            const popular = await movieApi.popular(typeTab)
+            const day = await movieApi.today(typeTab, 'day')
+            const week = await movieApi.today(typeTab, 'week')
 
             setLists({
-                playing : play.data.results,
-                popular : popular.data.results,
-                day : day.data.results,
-                week : week.data.results
+                playing: play.data.results,
+                popular: popular.data.results,
+                day: day.data.results,
+                week: week.data.results
             })
         }
+
         Api();
     }, []);
 
@@ -45,6 +55,14 @@ export default function Main() {
                         acc.push(
                             <div className="title" key={key}>
                                 <h2>{title}</h2>
+                                <ul className="type_list">
+                                    <li>
+                                        <button type="button" className={typeTab === 'movie' ? 'active' : ''} onClick={() => typeChange('movie')}>영화</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" className={typeTab === 'tv' ? 'active' : ''} onClick={() => typeChange('tv')}>TV</button>
+                                    </li>
+                                </ul>
                             </div>
                         );
                         acc.push(

@@ -8,6 +8,7 @@ function List(props) {
     const [itemId, setItemId] = useState(null);
     const navigate = useNavigate();
     const list = props.list;
+    console.log(list)
 
     const pageLink = (itemId) => {
         setItemId(itemId);
