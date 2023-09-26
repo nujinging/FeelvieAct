@@ -21,6 +21,7 @@ export default function Header() {
                         </li>
                     </ul>
                 </div>
+                <Link to="/search" className="search"><span className="blind">검색</span></Link>
             </div >
         </header >
     );
