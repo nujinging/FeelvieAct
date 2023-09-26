@@ -26,6 +26,7 @@ function App() {
 
     return (
         <div className="search_container">
+            
             <form>
                 <label className="search_input" htmlFor="search_input">
                     <input id="search_input" type="text"
@@ -36,9 +37,13 @@ function App() {
                 </label>
             </form>
 
-            <div className="search_none">
-                검색결과가 없습니다.
-            </div>
+            {searchList.length === 0 && searchWord.length > 0 && (
+                <div className="search_none">
+                    검색결과가 없습니다.
+                </div>
+            )}
+
+
             <ul className="search_list">
 
                 {
