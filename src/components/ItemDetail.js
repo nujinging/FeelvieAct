@@ -14,9 +14,6 @@ export default function ItemDetail() {
     const [socialUrl, setSocialUrl] = useState();
     const [overviewMore, setOverviewMore] = useState(false);
 
-
-    console.log(params.type)
-
     const overviewToggle = () => {
         setOverviewMore(!overviewMore);
     }
@@ -44,7 +41,6 @@ export default function ItemDetail() {
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
-
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0,5): [];
 

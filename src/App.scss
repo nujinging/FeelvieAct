@@ -720,6 +720,168 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
+.container {
+  position:sticky;
+  top:0;
+  bottom:0;
+  left:0
+}
+.person_detail {display:flex;
+  width:100%;
+  padding:9.375rem 4.375rem 4.375rem;
+  color: #fff;
+  overflow:hidden;
+  picture {
+    position:fixed;
+    display:block;
+    width:18.75rem;
+    overflow:hidden;
+    img {
+      width:100%;
+      border-radius:0.5rem;
+    }
+    &.skeleton {
+      width:18.75rem;
+      height:27.813rem;
+      background:#ddd;
+    }
+  }
+  .profile_info {
+    margin-left:23.125rem;
+    overflow:hidden;
+    .item_container {
+      padding:0;
+    }
+    .profile_name {
+      display:flex;
+      align-items:center;
+      margin-bottom:3.125rem;
+      h1 {
+        font-size:2.813rem;
+        font-weight:bold;
+      }
+      .social_links {
+        display:flex;
+        align-items:center;
+        margin-left:3.125rem;
+        li {
+          display:flex;
+          align-items: center;
+          justify-content: center;
+          width:4.5rem;
+          height:4.5rem;
+          border-radius: 50%;
+          background: #fff;
+          &+li {
+            margin-left:0.938rem
+          }
+          a {
+            width:3.125rem;
+            height:3.125rem;
+            background: #000;
+            &.facebook {
+
+            }
+            &.tritter {
+
+            }
+            .instargram {
+
+            }
+          }
+        }
+      }
+    }
+  }
+  .profile_desc {
+    dl {
+      display:inline-block;
+      margin-bottom:3.125rem;
+      vertical-align:top;
+      font-size:1.75rem;
+      dt {
+        margin-bottom:0.938rem;
+        font-weight:bold;
+      }
+      &+dl {
+        margin-left:3.125rem;
+      }
+    }
+  }
+}
+
+
+.work {
+  padding-top:4.375rem;
+  .work_top {
+    display:flex;
+    align-items:center;
+    margin-bottom:1.875rem;
+    h3 {
+      font-size:2rem;
+      font-weight:bold;
+    }
+    .type_list {
+      display:flex;
+      align-items:center;
+      margin-left:0.938rem;
+      li {
+        button {
+          display:flex;
+          align-items:center;
+          height:2.5rem;
+          padding:0 0.938rem;
+          color:#fff;
+          font-size:1.375rem;
+          border:1px solid #fff;
+          border-radius:3.125rem;
+          background:#000;
+          &.active {
+            color:#000;
+            border-color:#000;
+            background:#fff;
+          }
+        }
+        &+li {
+          margin-left:0.625rem;
+        }
+      }
+    }
+  }
+  .work_list {
+    li {
+      display:flex;
+      align-items:center;
+      font-size:1.25rem;
+      cursor:pointer;
+      &:hover {
+        .tit {
+          color:#4876ef;
+        }
+      }
+      *+li {
+        margin-top:0.938rem;
+      }
+      .date {
+        padding:2px 6px;
+        margin-right:15px;
+      }
+      .char {
+        max-width:30%;
+        margin-left:auto;
+        text-align:right;
+      }
+      p {
+        max-width:50%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+    }
+  }
+}
+
+
 
 @media screen and (max-width: 768px) {
   .wrap_header .header_container {
@@ -826,6 +988,32 @@ body {color:#fff;line-height:1;background:#000}
         :nth-child(3n) {
           margin-right:0;
         }
+      }
+    }
+  }
+  .person_detail {
+    display:block;
+    padding:9.375rem 2.5rem 2.5rem;
+    picture {
+      position:relative;
+      width:15rem;
+      margin:0 auto;
+    }
+    .profile_info {
+      margin-left:0;
+      .profile_name {
+        display:block;
+        margin:0.938rem 0;
+        text-align:center;
+      }
+      .profile_name {
+        .social_links {
+          margin:2rem 0;
+          justify-content:center;
+        }
+      }
+      .profile_desc {
+        text-align:center;
       }
     }
   }

@@ -8,12 +8,17 @@ function List(props) {
     const [itemId, setItemId] = useState(null);
     const navigate = useNavigate();
     const list = props.list;
-    console.log(list)
-
-    const pageLink = (itemId) => {
+    const movieLink = (itemId) => {
         setItemId(itemId);
         navigate(`/detail/${props.type}/${itemId}`);
     }
+
+    const personLink = (itemId) => {
+        setItemId(itemId);
+        navigate(`/person/${itemId}`);
+    }
+
+    console.log(list)
 
     useEffect(() => {
         if (itemId !== null) {
@@ -24,7 +29,15 @@ function List(props) {
     return (
         <Swiper slidesPerView={'auto'} className={`mySwiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`}>
             {list.map(item => (
-                <SwiperSlide className={`${list.some(item => item.profile_path) ? 'person_card' : 'item_card'}`} key={item.id} onClick={() => pageLink(item.id)}>
+                <SwiperSlide className={`${list.some(item => item.profile_path) ? 'person_card' : 'item_card'}`} key={item.id}
+                             onClick={() => {
+                                 if (list.some(item => item.poster_path)) {
+                                     movieLink(item.id)
+                                 } else {
+                                     personLink(item.id)
+                                 }
+                             }}
+                >
                     <img
                         src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path}`}
                         alt="Movie Poster"
