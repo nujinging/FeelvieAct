@@ -5,15 +5,15 @@ import {useEffect, useState} from "react";
 
 
 
-export default function ItemDetail() {
+export default function ItemDetail(props) {
     const params = useParams();
     const [dataUrl, setDataUrl] = useState();
 
-    console.log(params)
+    console.log(props)
 
     useEffect(() => {
         async function Api() {
-            const detail = await movieApi.detail('tv', params.id);
+            const detail = await movieApi.detail('tv', 456);
             setDataUrl(detail.data);
         }
         Api();

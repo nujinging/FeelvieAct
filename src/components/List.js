@@ -8,10 +8,12 @@ function List(props) {
     const [itemId, setItemId] = useState(null);
     const navigate = useNavigate();
     const list = props.list;
+    const type = props.type;
     const movieLink = (itemId) => {
         setItemId(itemId);
         navigate(`/detail/${props.type}/${itemId}`);
     }
+
 
     const personLink = (itemId) => {
         setItemId(itemId);
@@ -32,7 +34,7 @@ function List(props) {
                                  if (list.some(item => item.poster_path)) {
                                      movieLink(item.id)
                                  } else {
-                                     personLink(item.id)
+                                     personLink(props.type, item.id)
                                  }
                              }}
                 >
