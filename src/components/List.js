@@ -18,8 +18,6 @@ function List(props) {
         navigate(`/person/${itemId}`);
     }
 
-    console.log(list)
-
     useEffect(() => {
         if (itemId !== null) {
             window.location.reload();

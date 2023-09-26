@@ -1,6 +1,23 @@
 import './../App.scss';
+import { useParams } from "react-router-dom";
+import {movieApi} from "../util/movieApi";
+import {useEffect, useState} from "react";
 
-function personDetail() {
+
+
+export default function ItemDetail() {
+    const params = useParams();
+    const [dataUrl, setDataUrl] = useState();
+
+    console.log(params)
+
+    useEffect(() => {
+        async function Api() {
+            const detail = await movieApi.detail('tv', params.id);
+            setDataUrl(detail.data);
+        }
+        Api();
+    }, []);
 
     return (
         <div className="container">
@@ -77,7 +94,5 @@ function personDetail() {
                 </div>
             </section>
         </div>
-    )
+    );
 }
-
-export default personDetail;
