@@ -12,7 +12,7 @@ function List(props) {
 
     const pageLink = (itemId) => {
         setItemId(itemId);
-        navigate(`/detail/${itemId}`);
+        navigate(`/detail/${props.type}/${itemId}`);
     }
 
     useEffect(() => {

@@ -50,7 +50,7 @@ export default function ItemDetail() {
 
     return (
         <div>
-            <section className="detail_container" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${dataUrl?.backdrop_path})` }}>
+            <section className="detail_container" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${dataUrl?.backdrop_path})` }}>
                 <div className="detail_info">
                     <h1>{dataUrl?.title}</h1>
                     <div className="meta">
@@ -91,9 +91,9 @@ export default function ItemDetail() {
             </section>
             <div className="item_container">
                 <div className="title"><h2>등장인물</h2></div>
-                <List list={creditsArray}></List>
+                <List type={params.type} list={creditsArray}></List>
                 <div className="title"><h2>비슷한 작품</h2></div>
-                <List list={similarArray}></List>
+                <List type={params.type} list={similarArray}></List>
             </div>
         </div>
     );
