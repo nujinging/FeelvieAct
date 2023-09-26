@@ -1,11 +1,15 @@
 import './../App.scss';
 import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import {debounce} from 'lodash';
 
 function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
+    const [itemId, setItemId] = useState();
+
+    const navigate = useNavigate();
 
     const debounceApiCall = debounce(async (value) => {
         if (value) {
@@ -24,9 +28,15 @@ function App() {
         setSearchWord(value);
     };
 
+    const pageLink = (itemType, itemId) => {
+        setItemId(itemType, itemId);
+        navigate(`/detail/${itemType}/${itemId}`);
+        console.log(itemId)
+    }
+
     return (
         <div className="search_container">
-            
+
             <form>
                 <label className="search_input" htmlFor="search_input">
                     <input id="search_input" type="text"
@@ -49,7 +59,7 @@ function App() {
                 {
                     searchList.map(item => {
                         return (
-                            <li className="list_card">
+                            <li className="list_card" onClick={() => pageLink(item.media_type, item.id)}>
                                 <picture>
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
