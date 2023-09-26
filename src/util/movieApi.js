@@ -18,8 +18,14 @@ export const movieApi = {
     detail: (type, movie_id) => request.get(`${type}/${movie_id}`),
     credits: (type, movie_id) => request.get(`${type}/${movie_id}/credits`),
     similar: (type, movie_id) => request.get(`${type}/${movie_id}/similar`),
-    social : (type, movie_id) => request.get(`/${type}/${movie_id}/external_ids`),
+    social : (type, movie_id) => request.get(`${type}/${movie_id}/external_ids`),
 
     genreTitle : (type) => request.get(`genre/${type}/list`),
     genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
+
+    search : (keyword) => request.get(`search/multi`, {
+        params : {
+            query : keyword
+        }
+    }),
 };
