@@ -22,11 +22,13 @@ export default function PersonDetail(props) {
             const detail = await movieApi.person(params.id);
             setDataUrl(detail.data);
 
-            const art = await movieApi.personArt(params.id, 'movie');
+            const art = await movieApi.personArt(params.id, typeTabs);
             setArtUrl(art.data.cast);
         }
         Api();
-    }, [params.id]);
+    }, [typeTabs, params.id]);
+
+    console.log(artUrl)
 
 
     return (
@@ -74,7 +76,7 @@ export default function PersonDetail(props) {
                         <div className="title">
                             <h2>유명 작품</h2>
                         </div>
-                        <List list={artUrl} />
+                        {/*<List list={artUrl} />*/}
 
                         <div className="work">
                             <div className="work_top">
@@ -90,15 +92,24 @@ export default function PersonDetail(props) {
                             </div>
 
                             <ul className="work_list">
-                                <li>
-                                    <span className="date"></span>
-                                    <p className="tit">
+                                {
+                                    artUrl.map(item => {
+                                        return (
+                                            <li>
+                                                <span className="date">
+                                                    {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
+                                                </span>
+                                                <p className="tit">
+                                                    {item.title || item.original_name}
+                                                </p>
+                                                <span className="char">
+                                                    {item.character} 역
+                                                </span>
+                                            </li>
+                                        )
+                                    })
+                                }
 
-                                    </p>
-                                    <span className="char">
-
-                                </span>
-                                </li>
 
                             </ul>
                         </div>
