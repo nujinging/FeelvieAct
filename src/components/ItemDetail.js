@@ -43,6 +43,9 @@ export default function ItemDetail() {
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
+
+    console.log( creditsArray)
+
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0,5): [];
 
