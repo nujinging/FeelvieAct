@@ -7,10 +7,10 @@ export default function Main() {
 
     const [lists, setLists] = useState({
         playing: [],
+        main: [],
         popular: [],
         day: [],
         week: [],
-        main: []
     })
     const [typeTabs, setTypeTabs] = useState({
         popular: 'movie',
@@ -29,12 +29,14 @@ export default function Main() {
     useEffect(() => {
         async function Api() {
             const play = await movieApi.nowPlaying('movie');
+            const main = await movieApi.popular('movie');
             const popular = await movieApi.popular(typeTabs.popular);
             const day = await movieApi.today(typeTabs.day, 'day');
             const week = await movieApi.today(typeTabs.week, 'week');
 
             setLists({
                 playing: play.data.results,
+                main: main.data.results,
                 popular: popular.data.results,
                 day: day.data.results,
                 week: week.data.results
@@ -47,7 +49,7 @@ export default function Main() {
     return (
         <div>
             <div className="container">
-                <HomeSlide lists={lists.popular}></HomeSlide>
+                <HomeSlide lists={lists.main}></HomeSlide>
                 <div className="item_container">
 
                     <div className="title">
@@ -67,7 +69,7 @@ export default function Main() {
                             </li>
                         </ul>
                     </div>
-                    <List list={lists.popular} />
+                    <List type={typeTabs.popular} list={lists.popular} />
 
 
 
@@ -82,7 +84,7 @@ export default function Main() {
                             </li>
                         </ul>
                     </div>
-                    <List list={lists.day} />
+                    <List type={typeTabs.day} list={lists.day} />
 
                     <div className="title">
                         <h2>이번 주 가장 많이 찾아 본 컨텐츠</h2>
@@ -95,8 +97,7 @@ export default function Main() {
                             </li>
                         </ul>
                     </div>
-                    <List list={lists.week} />
-
+                    <List type={typeTabs.week} list={lists.week} />
 
                 </div>
             </div>
