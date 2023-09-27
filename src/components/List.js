@@ -25,8 +25,6 @@ function List(props) {
         }
     }, [itemId]);
 
-    console.log(list)
-
     return (
         <Swiper slidesPerView={'auto'} className={`mySwiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`}>
             {list.map(item => (

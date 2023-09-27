@@ -7,8 +7,14 @@ import List from "./List";
 
 export default function PersonDetail(props) {
     const params = useParams();
+
+    const [typeTabs, setTypeTabs] = useState('movie');
     const [dataUrl, setDataUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
+
+    const typeChange = (type) => {
+        setTypeTabs(type)
+    };
 
 
     useEffect(() => {
@@ -75,14 +81,10 @@ export default function PersonDetail(props) {
                                 <h3>필모그래피</h3>
                                 <ul className="type_list">
                                     <li>
-                                        <button type="button"
-                                                className="">영화
-                                        </button>
+                                        <button type="button" className={typeTabs === 'movie' ? 'active' : ''} onClick={() => typeChange('movie')}>영화</button>
                                     </li>
                                     <li>
-                                        <button type="button"
-                                                className="">TV
-                                        </button>
+                                        <button type="button" className={typeTabs === 'tv' ? 'active' : ''} onClick={() => typeChange( 'tv')}>TV</button>
                                     </li>
                                 </ul>
                             </div>
