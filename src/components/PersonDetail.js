@@ -2,20 +2,25 @@ import './../App.scss';
 import {movieApi} from "../util/movieApi";
 import { useParams } from "react-router-dom";
 import {useEffect, useState} from "react";
+import List from "./List";
 
 
 export default function PersonDetail(props) {
     const params = useParams();
     const [dataUrl, setDataUrl] = useState();
+    const [artUrl, setArtUrl] = useState([]);
+
 
     useEffect(() => {
         async function Api() {
             const detail = await movieApi.person(params.id);
             setDataUrl(detail.data);
-        }
 
+            const art = await movieApi.personArt(params.id, 'movie');
+            setArtUrl(art.data.cast);
+        }
         Api();
-    }, []);
+    }, [params.id]);
 
 
     return (
@@ -63,6 +68,7 @@ export default function PersonDetail(props) {
                         <div className="title">
                             <h2>유명 작품</h2>
                         </div>
+                        <List list={artUrl} />
 
                         <div className="work">
                             <div className="work_top">

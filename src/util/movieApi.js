@@ -30,5 +30,5 @@ export const movieApi = {
         }
     }),
 
-    // pesronArt : (type, id) => request.get(`person/${id}/${type}_credits`)
+    personArt : (type, id) => request.get(`person/${type}/${id}_credits`)
 };
