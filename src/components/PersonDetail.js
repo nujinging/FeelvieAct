@@ -25,13 +25,25 @@ export default function PersonDetail(props) {
             setDataUrl(detail.data);
 
             const art = await movieApi.personArt(params.id, typeTabs);
-            setArtUrl(art.data.cast);
+
+            const art_list = art.data.cast.sort((a, b) => {
+                const dateA = a.release_date || a.first_air_date;
+                const dateB = b.release_date || b.first_air_date;
+
+                if (dateA && dateB) {
+                    return new Date(dateB) - new Date(dateA);
+                }
+
+                return 0;
+            });
+            setArtUrl(art_list);
+
 
             const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
             setArtPopular(popular)
         }
         Api();
-    }, [typeTabs, params.id]);
+    }, [artUrl, typeTabs, params.id]);
 
     console.log(artPopular)
 
