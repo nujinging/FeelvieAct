@@ -29,4 +29,6 @@ export const movieApi = {
             query : keyword
         }
     }),
+
+    // pesronArt : (type, id) => request.get(`person/${id}/${type}_credits`)
 };

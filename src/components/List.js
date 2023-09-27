@@ -8,7 +8,7 @@ function List(props) {
     const [itemId, setItemId] = useState(null);
     const navigate = useNavigate();
     const list = props.list;
-    const type = props.type;
+    // const type = props.type;
     const movieLink = (itemId) => {
         setItemId(itemId);
         navigate(`/detail/${props.type}/${itemId}`);
