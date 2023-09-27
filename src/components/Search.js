@@ -15,7 +15,6 @@ function App() {
         if (value) {
             const response = await movieApi.search(value);
             setSearchList(response.data.results);
-            console.log(response.data.results);  // 업데이트된 결과 확인
         }
     }, 1000);
 
@@ -31,7 +30,6 @@ function App() {
     const pageLink = (itemType, itemId) => {
         setItemId(itemType, itemId);
         navigate(`/detail/${itemType}/${itemId}`);
-        console.log(itemId)
     }
 
     return (

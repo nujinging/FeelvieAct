@@ -12,8 +12,6 @@ export default function Genre() {
     const { type } = useParams();
     const navigate = useNavigate();
 
-    console.log(type)
-
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState(null);
     const [genreNumber, setGenreNumber] = useState();

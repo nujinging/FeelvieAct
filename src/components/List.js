@@ -14,10 +14,9 @@ function List(props) {
         navigate(`/detail/${props.type}/${itemId}`);
     }
 
-
-    const personLink = (type, itemId) => {
+    const personLink = (itemId) => {
         setItemId(itemId);
-        navigate(`/person/${type}/${itemId}`);
+        navigate(`/person/${itemId}`);
     }
 
     useEffect(() => {
@@ -34,7 +33,7 @@ function List(props) {
                                  if (list.some(item => item.poster_path)) {
                                      movieLink(item.id)
                                  } else {
-                                     personLink(props.type, item.id)
+                                     personLink(item.id)
                                  }
                              }}
                 >

@@ -23,6 +23,7 @@ export const movieApi = {
     genreTitle : (type) => request.get(`genre/${type}/list`),
     genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
 
+    person : (id) => request.get(`person/${id}`),
     search : (keyword) => request.get(`search/multi`, {
         params : {
             query : keyword
