@@ -12,6 +12,8 @@ export default function PersonDetail(props) {
     const [dataUrl, setDataUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
 
+    const [artPopular, setArtPopular] =useState([]);
+
     const typeChange = (type) => {
         setTypeTabs(type)
     };
@@ -24,11 +26,14 @@ export default function PersonDetail(props) {
 
             const art = await movieApi.personArt(params.id, typeTabs);
             setArtUrl(art.data.cast);
+
+            const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
+            setArtPopular(popular)
         }
         Api();
     }, [typeTabs, params.id]);
 
-    console.log(artUrl)
+    console.log(artPopular)
 
 
     return (
@@ -76,7 +81,7 @@ export default function PersonDetail(props) {
                         <div className="title">
                             <h2>유명 작품</h2>
                         </div>
-                        {/*<List list={artUrl} />*/}
+                        <List list={artPopular} />
 
                         <div className="work">
                             <div className="work_top">
@@ -109,8 +114,6 @@ export default function PersonDetail(props) {
                                         )
                                     })
                                 }
-
-
                             </ul>
                         </div>
                     </div>
