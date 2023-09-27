@@ -15,9 +15,9 @@ function List(props) {
     }
 
 
-    const personLink = (itemId) => {
+    const personLink = (type, itemId) => {
         setItemId(itemId);
-        navigate(`/person/${itemId}`);
+        navigate(`/person/${type}/${itemId}`);
     }
 
     useEffect(() => {

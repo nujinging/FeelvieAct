@@ -49,13 +49,13 @@ export default function Main() {
     return (
         <div>
             <div className="container">
-                <HomeSlide lists={lists.main}></HomeSlide>
+                <HomeSlide type="movie" lists={lists.main}></HomeSlide>
                 <div className="item_container">
 
                     <div className="title">
                         <h2>지금 상영중이에요!</h2>
                     </div>
-                    <List list={lists.playing} />
+                    <List type="movie" list={lists.playing} />
 
 
                     <div className="title">

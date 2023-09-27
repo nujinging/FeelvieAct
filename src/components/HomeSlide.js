@@ -15,7 +15,7 @@ export default function HomeSlide(props) {
 
     const pageLink = (itemId) => {
         setItemId(itemId);
-        navigate(`/detail/${itemId}`);
+        navigate(`/detail/${props.type}/${itemId}`);
     }
 
     const slideList = props.lists.slice(0, 5);
