@@ -360,6 +360,7 @@ body {color:#fff;line-height:1;background:#000}
       }
       .intro {
         display: -webkit-box;
+        max-height:7rem;
         font-size: 1.5rem;
         line-height: 2.125rem;
         overflow: hidden;
@@ -368,6 +369,7 @@ body {color:#fff;line-height:1;background:#000}
         -webkit-box-orient: vertical;
         &.intro_more {
           display:block;
+          max-height:initial;
         }
       }
       .btn_more {

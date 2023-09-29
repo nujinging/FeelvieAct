@@ -1,7 +1,7 @@
 import './../App.scss';
 import {Link, useParams } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import List from "./List";
 
 
@@ -13,7 +13,24 @@ export default function ItemDetail() {
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [overviewMore, setOverviewMore] = useState(false);
+    const textContainerRef = useRef(null);
+    const [isOverflowed, setIsOverflowed] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
 
+    useEffect(() => {
+        // 텍스트가 3줄 이상인지 체크
+        const textContainer = textContainerRef.current;
+        if (textContainer) {
+            setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
+
+            console.log(textContainer.scrollHeight)
+        }
+    }, []);
+
+
+    const handleToggleButtonClick = () => {
+        setIsExpanded(!isExpanded);
+    };
 
 
     const overviewToggle = () => {
@@ -30,9 +47,27 @@ export default function ItemDetail() {
             setCreditsUrl(credits.data.cast);
             setSimilarUrl(similar.data.results);
             setSocialUrl(social.data)
+
+            const textContainer = textContainerRef.current;
+            const handleResize = () => {
+                if (textContainer) {
+                    setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
+                    console.log("현재 창 높이:", textContainer.clientHeight);
+                    console.log("전체 내용 높이:", textContainer.scrollHeight);
+                }
+            };
+            handleResize();
+
+            window.addEventListener('resize', handleResize);
+
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
         }
+
+
         Api();
-    }, [params.id]);
+    }, [textContainerRef.current, params.id]);
 
     /* 소셜 */
     const socialMedia = [
@@ -66,12 +101,24 @@ export default function ItemDetail() {
                         <p className="quites">
                             {dataUrl?.tagline}
                         </p>
-                        <p className={`intro ${overviewMore ? 'intro_more' : ''}`}>
+                        <p
+                            ref={textContainerRef}
+                            className={`intro ${isExpanded ? 'intro_more' : ''}`}
+                        >
                             {dataUrl?.overview}
                         </p>
-                        <button type="button" className="btn_more" onClick={overviewToggle}>
-                            {overviewMore ? '접기' : '더보기'}
-                        </button>
+
+                        {isOverflowed && (
+                            <button
+                                className="show-more-button"
+                                onClick={handleToggleButtonClick}
+                            >
+                                {isExpanded ? '접기' : '더보기'}
+                            </button>
+                        )}
+                        {/*<button type="button" className="btn_more" onClick={overviewToggle}>*/}
+                        {/*    {overviewMore ? '접기' : '더보기'}*/}
+                        {/*</button>*/}
                     </div>
                 </div>
                 <div className="detail_poster">
