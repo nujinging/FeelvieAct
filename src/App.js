@@ -8,10 +8,15 @@ import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
 import EventModal from "./components/EventModal";
+import {useState} from "react";
 
 
 
 function App() {
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+
 
   return (
       <div>
