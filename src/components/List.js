@@ -14,6 +14,8 @@ function List(props) {
         navigate(`/detail/${props.type}/${itemId}`);
     }
 
+    console.log(list)
+
     const personLink = (itemId) => {
         setItemId(itemId);
         navigate(`/person/${itemId}`);
@@ -44,6 +46,16 @@ function List(props) {
                     <h3> {item.title || item.name} </h3>
                 </SwiperSlide>
             ))}
+            {
+                list.some(item => item.profile_path) ?
+
+                    <SwiperSlide className="person_card more">
+                        <div>더보기</div>
+                    </SwiperSlide>
+
+
+                    : null
+            }
         </Swiper>
     );
 }

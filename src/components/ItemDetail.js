@@ -44,8 +44,6 @@ export default function ItemDetail() {
             const handleResize = () => {
                 if (textContainer) {
                     setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
-                    console.log("현재 창 높이:", textContainer.clientHeight);
-                    console.log("전체 내용 높이:", textContainer.scrollHeight);
                 }
             };
             handleResize();
@@ -70,7 +68,6 @@ export default function ItemDetail() {
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0,5) : [];
-
 
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0,5): [];

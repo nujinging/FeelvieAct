@@ -468,8 +468,8 @@ body {color:#fff;line-height:1;background:#000}
 .person_list .person_card {
   width: auto;
   cursor: pointer;
-  + .person_card {
-    margin-left: 1.25rem;
+  &+.more {
+    width: 8.313rem;
   }
 
   picture {
