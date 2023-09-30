@@ -18,7 +18,6 @@ export default function ItemDetail() {
     const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
-        // 텍스트가 3줄 이상인지 체크
         const textContainer = textContainerRef.current;
         if (textContainer) {
             setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
@@ -27,15 +26,10 @@ export default function ItemDetail() {
         }
     }, []);
 
-
     const handleToggleButtonClick = () => {
         setIsExpanded(!isExpanded);
     };
 
-
-    const overviewToggle = () => {
-        setOverviewMore(!overviewMore);
-    }
     useEffect(() => {
         async function Api() {
             window.scrollTo(0, 0);
@@ -110,15 +104,12 @@ export default function ItemDetail() {
 
                         {isOverflowed && (
                             <button
-                                className="show-more-button"
+                                className="btn_more"
                                 onClick={handleToggleButtonClick}
                             >
                                 {isExpanded ? '접기' : '더보기'}
                             </button>
                         )}
-                        {/*<button type="button" className="btn_more" onClick={overviewToggle}>*/}
-                        {/*    {overviewMore ? '접기' : '더보기'}*/}
-                        {/*</button>*/}
                     </div>
                 </div>
                 <div className="detail_poster">
