@@ -883,7 +883,54 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
-
+.modalBox {
+  position:relative;
+  z-index:1;
+  .inner {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    .con {
+      width:41rem;
+      border-radius:12px;
+      background:#fff;
+      overflow:hidden;
+      img {
+        width:100%;
+        vertical-align:top;
+      }
+      .btn_close {
+        position:absolute;
+        top:20px;
+        right:20px;
+        display:block;
+        width:24px;
+        height:24px;
+        background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='20' viewBox='0 0 19 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M17.7886 4.87939C18.7258 3.94214 18.7258 2.42253 17.7886 1.48528C16.8513 0.548031 15.3317 0.548031 14.3945 1.48528L9.3033 6.57645L4.21213 1.48528C3.27488 0.548031 1.75527 0.548031 0.818018 1.48528C-0.119233 2.42253 -0.119233 3.94214 0.818018 4.87939L5.90919 9.97056L0.818018 15.0617C-0.11921 15.999 -0.119233 17.5186 0.818018 18.4558C1.75527 19.3931 3.2749 19.3931 4.21213 18.4558L9.3033 13.3647L14.3945 18.4558C15.3317 19.3931 16.8513 19.3931 17.7886 18.4558C18.7258 17.5186 18.7258 15.999 17.7886 15.0617L12.6974 9.97056L17.7886 4.87939Z' fill='white'/%3E%3C/svg%3E") center no-repeat;
+      }
+    }
+  }
+  .btn_box {
+    position:absolute;
+    bottom:-30px;
+    right:0;
+    button {
+      color:#fff;
+      border:none;
+      background:none;
+    }
+  }
+  &:before {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+    content:''
+  }
+}
 
 @media screen and (max-width: 768px) {
   .wrap_header .header_container {
@@ -1017,6 +1064,12 @@ body {color:#fff;line-height:1;background:#000}
       .profile_desc {
         text-align:center;
       }
+    }
+  }
+
+  .modalBox {
+    .inner {
+      width:35rem
     }
   }
 }
