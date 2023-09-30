@@ -7,7 +7,6 @@ import Header from "./components/Header";
 import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
-import EventModal from "./components/EventModal";
 import {useState} from "react";
 
 
@@ -20,7 +19,6 @@ function App() {
 
   return (
       <div>
-          <EventModal></EventModal>
           <Header></Header>
           <Routes>
               <Route path='/' element={<Main />} ></Route>

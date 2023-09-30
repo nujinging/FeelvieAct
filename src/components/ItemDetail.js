@@ -1,5 +1,5 @@
 import './../App.scss';
-import {Link, useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import List from "./List";
@@ -21,8 +21,6 @@ export default function ItemDetail() {
         const textContainer = textContainerRef.current;
         if (textContainer) {
             setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
-
-            console.log(textContainer.scrollHeight)
         }
     }, []);
 
@@ -65,9 +63,9 @@ export default function ItemDetail() {
 
     /* 소셜 */
     const socialMedia = [
-        { name : '페이스북', url : 'http://www.facebook.com', link : `${socialUrl?.facebook_id}`},
-        { name : '트위터', url : 'http://www.twitter.com', link : `${socialUrl?.twitter_id}`},
-        { name : '인스타그램', url : 'http://www.instagram.com', link : `${socialUrl?.instagram_id}`}
+        { name : '페이스북', url : 'http://www.facebook.com', class : "facebook", link : `${socialUrl?.facebook_id}`},
+        { name : '트위터', url : 'http://www.twitter.com', class : "twitter", link : `${socialUrl?.twitter_id}`},
+        { name : '인스타그램', url : 'http://www.instagram.com', class : "instagram", link : `${socialUrl?.instagram_id}`}
     ]
 
     /* 등장인물 */
@@ -117,7 +115,9 @@ export default function ItemDetail() {
                         {socialMedia.map(item => {
                             return item.link !== "null" ? (
                                 <li>
-                                    <a href={`${item.url}/${item.link}`} target="_blank">{item.name}</a>
+                                    <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank">
+                                        <span className="blind">{item.name}</span>
+                                    </a>
                                 </li>
                             ) : null;
                         })}

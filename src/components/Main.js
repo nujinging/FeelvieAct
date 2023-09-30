@@ -2,6 +2,7 @@ import HomeSlide from "./HomeSlide";
 import List from "./List";
 import {movieApi} from "./../util/movieApi";
 import {useState, useEffect} from 'react';
+import EventModal from "./EventModal";
 
 export default function Main() {
 
@@ -48,6 +49,7 @@ export default function Main() {
 
     return (
         <div>
+            <EventModal></EventModal>
             <div className="container">
                 <HomeSlide type="movie" lists={lists.main}></HomeSlide>
                 <div className="item_container">
