@@ -369,7 +369,7 @@ body {color:#fff;line-height:1;background:#000}
         -webkit-box-orient: vertical;
         &.intro_more {
           display:block;
-          max-height:11rem;
+          max-height:8.5rem;
           overflow-y:auto;
           &+.btn_more {
             &:after {
@@ -982,7 +982,8 @@ body {color:#fff;line-height:1;background:#000}
   .detail_container {
     flex-direction: row-reverse;
     flex-wrap:wrap-reverse;
-    height:100%;
+    height:74rem;
+    padding-bottom:25rem;
     .detail_info {
       margin:0;
       text-align:center;
@@ -994,7 +995,8 @@ body {color:#fff;line-height:1;background:#000}
         margin-bottom:2rem;
       }
       .comment {
-        position: relative;
+        top:72px;
+        bottom:auto;
         .quites {
           margin-top:2rem;
         }
