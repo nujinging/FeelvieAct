@@ -20,10 +20,13 @@ function List(props) {
     }
 
     useEffect(() => {
-        if (itemId !== null) {
-            window.location.reload();
-        }
-    }, [itemId]);
+        window.addEventListener('load', () => {
+            setLoading(false);
+        });
+        return () => {
+            window.removeEventListener('load', () => {});
+        };
+    }, []);
 
 
     return (
