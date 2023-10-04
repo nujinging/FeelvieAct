@@ -16,6 +16,7 @@ export default function ItemDetail() {
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const textContainer = textContainerRef.current;
@@ -30,32 +31,36 @@ export default function ItemDetail() {
 
     useEffect(() => {
         async function Api() {
-            window.scrollTo(0, 0);
-            const detail = await movieApi.detail(params.type, params.id);
-            const credits = await movieApi.credits(params.type, params.id);
-            const similar = await movieApi.similar(params.type, params.id);
-            const social = await movieApi.social(params.type, params.id);
-            setDataUrl(detail.data);
-            setCreditsUrl(credits.data.cast);
-            setSimilarUrl(similar.data.results);
-            setSocialUrl(social.data)
+           try {
+               window.scrollTo(0, 0);
+               const detail = await movieApi.detail(params.type, params.id);
+               const credits = await movieApi.credits(params.type, params.id);
+               const similar = await movieApi.similar(params.type, params.id);
+               const social = await movieApi.social(params.type, params.id);
+               setDataUrl(detail.data);
+               setCreditsUrl(credits.data.cast);
+               setSimilarUrl(similar.data.results);
+               setSocialUrl(social.data)
 
-            const textContainer = textContainerRef.current;
-            const handleResize = () => {
-                if (textContainer) {
-                    setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
-                }
-            };
-            handleResize();
+               const textContainer = textContainerRef.current;
 
-            window.addEventListener('resize', handleResize);
+               const handleResize = () => {
+                   if (textContainer) {
+                       setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
+                   }
+               };
+               handleResize();
+               window.addEventListener('resize', handleResize);
 
-            return () => {
-                window.removeEventListener('resize', handleResize);
-            };
+               return () => {
+                   window.removeEventListener('resize', handleResize);
+               };
+           } catch(error) {
+               console.error('Eroror', error);
+           } finally {
+               setLoading(false);
+           }
         }
-
-
         Api();
     }, [textContainerRef.current, params.id]);
 
@@ -71,6 +76,10 @@ export default function ItemDetail() {
 
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0,5): [];
+
+    if (loading) {
+        return <div style={{width: `500px`, height:'500px',background:'#fff'}}>Loading...</div>;
+    }
 
     return (
         <div>
