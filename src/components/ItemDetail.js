@@ -16,7 +16,6 @@ export default function ItemDetail() {
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const textContainer = textContainerRef.current;
@@ -57,8 +56,6 @@ export default function ItemDetail() {
                };
            } catch(error) {
                console.error('Eroror', error);
-           } finally {
-               setLoading(false);
            }
         }
         Api();
@@ -76,10 +73,6 @@ export default function ItemDetail() {
 
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0,5): [];
-
-    if (loading) {
-        return <div style={{width: `500px`, height:'500px',background:'#fff'}}>Loading...</div>;
-    }
 
     return (
         <div>
