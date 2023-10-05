@@ -20,13 +20,14 @@ function List(props) {
     }
 
     useEffect(() => {
-        window.addEventListener('load', () => {
-            setLoading(false);
-        });
-        return () => {
-            window.removeEventListener('load', () => {});
-        };
-    }, []);
+        if (list.length > 0) {
+            const timeoutId = setTimeout(() => {
+                setLoading(false);
+            }, 1200);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [list.length]);
 
 
     return (
