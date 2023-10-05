@@ -65,7 +65,7 @@ export default function Genre() {
                                 />
                             </picture>
                             <p className="tit">
-                                {item.title}
+                                {item.title || item.name}
                             </p>
                         </li>
                     )
