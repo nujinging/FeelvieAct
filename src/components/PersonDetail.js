@@ -53,7 +53,7 @@ export default function PersonDetail(props) {
             {dataUrl ? (
                 <section className="person_detail">
                     <picture>
-                        <img src={`https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}`} alt="이미지"/>
+                        <img src={`https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}`} alt="Person Poster" loading="lazy"/>
                     </picture>
                     <div className="profile_info">
                         <div className="profile_name">

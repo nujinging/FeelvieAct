@@ -34,7 +34,7 @@ export default function EventModal() {
             <div className="modalBox">
                 <div className="inner">
                     <div className="con">
-                        <img src={mainEvent} alt="mainImage"/>
+                        <img src={mainEvent} alt="mainImage" loading="lazy"/>
                         <button type="button" className="btn_close" onClick={openModal}>
                             <span className="blind">닫기</span>
                         </button>

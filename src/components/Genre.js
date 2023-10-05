@@ -62,6 +62,7 @@ export default function Genre() {
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
                                     alt="Movie Poster"
+                                    loading="lazy"
                                 />
                             </picture>
                             <p className="tit">

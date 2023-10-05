@@ -122,7 +122,7 @@ export default function ItemDetail() {
                         })}
                     </ul>
                     <picture>
-                        <img src={`https://image.tmdb.org/t/p/w500/${dataUrl?.poster_path}`} alt="Movie Poster" />
+                        <img src={`https://image.tmdb.org/t/p/w500/${dataUrl?.poster_path}`} alt="Movie Poster" loading="lazy"/>
                     </picture>
                 </div>
             </section>

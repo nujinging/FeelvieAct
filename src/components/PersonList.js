@@ -14,7 +14,7 @@ function PersonList(props) {
         <Swiper slidesPerView={'auto'} className="mySwiper">
             {list.map(item => (
                 <SwiperSlide className="item_card" key={item.id} onClick={() => {navigate(`/detail/${item.id}`)}}>
-                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="Movie Poster" />
+                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="Movie Poster" loading="lazy"/>
                     <h3> {item.original_name} </h3>
                 </SwiperSlide>
             ))}
