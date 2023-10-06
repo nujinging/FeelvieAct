@@ -7,7 +7,9 @@ import { useState, useEffect } from "react";
 function List(props) {
     const [itemId, setItemId] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [swiperKey, setSwiperKey] = useState(0);
     const navigate = useNavigate();
+    const loadLength = 5;
     const list = props.list;
     // const type = props.type;
     const movieLink = (itemId) => {
@@ -23,19 +25,25 @@ function List(props) {
         if (list.length > 0) {
             const timeoutId = setTimeout(() => {
                 setLoading(false);
-            }, 1200);
+                setSwiperKey(prevKey => prevKey + 1);
+            }, 1000);
 
             return () => clearTimeout(timeoutId);
         }
-    }, [list.length]);
-
+    }, [list.length, loading]);
 
     return (
-        <Swiper slidesPerView={'auto'} className={`mySwiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`}>
+        <Swiper key={swiperKey} slidesPerView={'auto'} className={`swiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`} allowTouchMove={!loading}>
             {loading ? (
-                <div style={{width: `500px`, height:'500px',background:'red'}}>Loading...</div>
-            ) : (
-                // Render actual items when not loading
+                Array(loadLength).fill().map((_, index) => (
+                    <SwiperSlide className="load_card" allowTouchMove={!loading}>
+                        <img
+                            src=""
+                            alt="Movie Poster"
+                        />
+                    </SwiperSlide>
+                ))
+            )  : (
                 list.map(item => (
                     <SwiperSlide className={`${list.some(item => item.profile_path) ? 'person_card' : 'item_card'}`} key={item.id}
                                  onClick={() => {
