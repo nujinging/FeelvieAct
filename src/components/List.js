@@ -25,6 +25,7 @@ function List(props) {
         if (list.length > 0) {
             const timeoutId = setTimeout(() => {
                 setLoading(false);
+                // key값을 바꿔 swiper가 재렌더링 될 수 있도록 유도
                 setSwiperKey(prevKey => prevKey + 1);
             }, 1000);
 
