@@ -5,48 +5,56 @@ import {useEffect, useState} from "react";
 import List from "./List";
 
 
-export default function PersonDetail(props) {
+export default function PersonDetail() {
     const params = useParams();
-
     const [typeTabs, setTypeTabs] = useState('movie');
     const [dataUrl, setDataUrl] = useState();
+    const [socialUrl, setSocialUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
-
-    const [artPopular, setArtPopular] =useState([]);
-
-    const typeChange = (type) => {
-        setTypeTabs(type)
-    };
-
+    const [artPopular, setArtPopular] = useState([]);
 
     useEffect(() => {
         async function Api() {
+            // 배우 정보
             const detail = await movieApi.person(params.id);
             setDataUrl(detail.data);
 
+            // 배우 SNS
+            const social = await movieApi.social('person', params.id);
+            setSocialUrl(social.data)
+
+            // 배우 필모그래피
             const art = await movieApi.personArt(params.id, typeTabs);
 
+            // 배우 인기 필모그래피
+            const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
+            setArtPopular(popular)
+
+            // 배우 필모그래피 정렬
             const art_list = art.data.cast.sort((a, b) => {
                 const dateA = a.release_date || a.first_air_date;
                 const dateB = b.release_date || b.first_air_date;
-
                 if (dateA && dateB) {
                     return new Date(dateB) - new Date(dateA);
                 }
-
                 return 0;
             });
             setArtUrl(art_list);
-
-
-            const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
-            setArtPopular(popular)
         }
         Api();
     }, [artUrl, typeTabs, params.id]);
 
-    console.log(artPopular)
+    // 배우 필모그래피 TAB
+    const typeChange = (type) => {
+        setTypeTabs(type)
+    };
 
+    // 배우 SNS
+    const socialMedia = [
+        { name : '페이스북', url : 'http://www.facebook.com', class : "facebook", link : `${socialUrl?.facebook_id}`},
+        { name : '트위터', url : 'http://www.twitter.com', class : "twitter", link : `${socialUrl?.twitter_id}`},
+        { name : '인스타그램', url : 'http://www.instagram.com', class : "instagram", link : `${socialUrl?.instagram_id}`}
+    ]
 
     return (
         <div className="container">
@@ -59,21 +67,15 @@ export default function PersonDetail(props) {
                         <div className="profile_name">
                             <h1>{dataUrl.name}</h1>
                             <ul className="social_links">
-                                <li>
-                                    <a className="facebook" target="_blank">
-                                        <span className="blind">페이스북</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="tritter" target="_blank">
-                                        <span className="blind">트위터</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="instargram" target="_blank">
-                                        <span className="blind">인스타그램</span>
-                                    </a>
-                                </li>
+                                {socialMedia.map(item => {
+                                    return item.link !== "null" ? (
+                                        <li>
+                                            <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank">
+                                                <span className="blind">{item.name}</span>
+                                            </a>
+                                        </li>
+                                    ) : null;
+                                })}
                             </ul>
                         </div>
 
