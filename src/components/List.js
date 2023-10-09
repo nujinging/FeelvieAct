@@ -37,7 +37,7 @@ function List(props) {
         <Swiper key={swiperKey} slidesPerView={'auto'} className={`swiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`} allowTouchMove={!loading}>
             {loading ? (
                 Array(loadLength).fill().map((_, index) => (
-                    <SwiperSlide className="load_card" allowTouchMove={!loading}>
+                    <SwiperSlide className="load_card" key={index}>
                         <img
                             src=""
                             alt="Movie Poster"

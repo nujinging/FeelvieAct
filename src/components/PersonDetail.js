@@ -69,8 +69,8 @@ export default function PersonDetail() {
                             <ul className="social_links">
                                 {socialMedia.map(item => {
                                     return item.link !== "null" ? (
-                                        <li key={item.id}>
-                                            <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank">
+                                        <li key={item.name}>
+                                            <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank" rel="noopener noreferrer">
                                                 <span className="blind">{item.name}</span>
                                             </a>
                                         </li>
