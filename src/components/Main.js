@@ -5,7 +5,6 @@ import {useState, useEffect} from 'react';
 import EventModal from "./EventModal";
 
 export default function Main() {
-
     const [lists, setLists] = useState({
         playing: [],
         main: [],
@@ -20,12 +19,12 @@ export default function Main() {
     });
 
     const typeChange = (section, type) => {
+        // 이전 상태를 유지하면서 section에 해당하는 값을 type으로 업데이트
         setTypeTabs(prevTypeTabs => ({
             ...prevTypeTabs,
             [section]: type
         }));
     };
-
 
     useEffect(() => {
         async function Api() {

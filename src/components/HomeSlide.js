@@ -12,15 +12,15 @@ import {useState} from "react";
 export default function HomeSlide(props) {
     const [itemId, setItemId] = useState(null);
     const navigate = useNavigate();
+    const slideList = props.lists.slice(0, 5);
 
+    // 영화 디테일 페이지 이동
     const pageLink = (itemId) => {
         setItemId(itemId);
         navigate(`/detail/${props.type}/${itemId}`);
     }
 
-    const slideList = props.lists.slice(0, 5);
-
-
+    // Swiper pagination
     const pagination = {
         clickable: true,
         renderBullet: function (index, className) {

@@ -4,24 +4,27 @@ import './../App.scss';
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function List(props) {
+export default function List(props) {
     const [itemId, setItemId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [swiperKey, setSwiperKey] = useState(0);
     const navigate = useNavigate();
     const loadLength = 5;
     const list = props.list;
-    // const type = props.type;
+
+    // 영화 디테일 페이지 이동
     const movieLink = (itemId) => {
         setItemId(itemId);
         navigate(`/detail/${props.type}/${itemId}`);
     }
+    // 인물 디테일 페이지 이동
     const personLink = (itemId) => {
         setItemId(itemId);
         navigate(`/person/${itemId}`);
     }
 
     useEffect(() => {
+        // 데이터가 들어오면 로딩 false로 변경
         if (list.length > 0) {
             const timeoutId = setTimeout(() => {
                 setLoading(false);
@@ -74,5 +77,3 @@ function List(props) {
         </Swiper>
     );
 }
-
-export default List;

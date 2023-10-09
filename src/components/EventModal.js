@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 
 
 export default function EventModal() {
-
     const [modalOpen, setModalOpen] = useState(true);
     const openModal = () => {
         setModalOpen(false)
@@ -16,6 +15,7 @@ export default function EventModal() {
         }
     }, []);
 
+    // 하루동안 보지 않기
     const onedayShow = () => {
         localStorage.setItem('modalOpen', 'false');
         setModalOpen(false);
@@ -24,6 +24,8 @@ export default function EventModal() {
             setModalOpen(true);
         }, 24 * 60 * 60 * 1000);
     };
+
+    // 다시는 보지 않기
     const doNotShow = () => {
         localStorage.setItem('modalOpen', 'false');
         setModalOpen(false);

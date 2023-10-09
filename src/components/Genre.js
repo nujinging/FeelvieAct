@@ -8,15 +8,13 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 export default function Genre() {
-
     const { type } = useParams();
     const navigate = useNavigate();
-
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState(null);
     const [genreNumber, setGenreNumber] = useState();
 
-
+    // 전체 장르
     const genreChange = (itemId) => {
         if (itemId === 'All') {
             setGenreNumber(null); // Set genreNumber to null for popular data

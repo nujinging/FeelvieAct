@@ -17,6 +17,7 @@ export default function ItemDetail() {
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
+    // 영화 상세설명
     useEffect(() => {
         const textContainer = textContainerRef.current;
         if (textContainer) {
@@ -24,6 +25,7 @@ export default function ItemDetail() {
         }
     }, []);
 
+    // 영화 상세설명 더보기
     const handleToggleButtonClick = () => {
         setIsExpanded(!isExpanded);
     };
@@ -36,13 +38,13 @@ export default function ItemDetail() {
                const credits = await movieApi.credits(params.type, params.id);
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
+               const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
                setSocialUrl(social.data)
 
-               const textContainer = textContainerRef.current;
-
+               // 영화 상세설명
                const handleResize = () => {
                    if (textContainer) {
                        setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);

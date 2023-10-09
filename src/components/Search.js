@@ -8,8 +8,24 @@ function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
     const [itemId, setItemId] = useState();
-
     const navigate = useNavigate();
+
+    // 영화 디테일 페이지 이동
+    const pageLink = (itemType, itemId) => {
+        setItemId(itemType, itemId);
+        navigate(`/detail/${itemType}/${itemId}`);
+    }
+
+    // 검색 인풋 값 변경
+    const searchChange = (event) => {
+        const value = event.target.value;
+        setSearchWord(value);
+    };
+
+    // 검색 후 1초 뒤 Api 호출
+    useEffect(() => {
+        debounceApiCall(searchWord);
+    }, [searchWord]);
 
     const debounceApiCall = debounce(async (value) => {
         if (value) {
@@ -17,20 +33,6 @@ function App() {
             setSearchList(response.data.results);
         }
     }, 1000);
-
-    useEffect(() => {
-        debounceApiCall(searchWord);
-    }, [searchWord]);
-
-    const searchChange = (event) => {
-        const value = event.target.value;
-        setSearchWord(value);
-    };
-
-    const pageLink = (itemType, itemId) => {
-        setItemId(itemType, itemId);
-        navigate(`/detail/${itemType}/${itemId}`);
-    }
 
     return (
         <div className="search_container">
