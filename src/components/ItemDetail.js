@@ -82,7 +82,7 @@ export default function ItemDetail() {
                     <div className="meta">
                         {dataUrl?.genres.map(item => {
                             return (
-                                <span className="txt">
+                                <span className="txt" key={item.id}>
                                     {item.name}
                                 </span>
                             )
@@ -114,7 +114,7 @@ export default function ItemDetail() {
                         {socialMedia.map(item => {
                             return item.link !== "null" ? (
                                 <li>
-                                    <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank">
+                                    <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank" key={item.id}>
                                         <span className="blind">{item.name}</span>
                                     </a>
                                 </li>

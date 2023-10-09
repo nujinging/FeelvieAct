@@ -69,7 +69,7 @@ export default function PersonDetail() {
                             <ul className="social_links">
                                 {socialMedia.map(item => {
                                     return item.link !== "null" ? (
-                                        <li>
+                                        <li key={item.id}>
                                             <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank">
                                                 <span className="blind">{item.name}</span>
                                             </a>
@@ -114,7 +114,7 @@ export default function PersonDetail() {
                                 {
                                     artUrl.map(item => {
                                         return (
-                                            <li>
+                                            <li key={item.id}>
                                                 <span className="date">
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>
