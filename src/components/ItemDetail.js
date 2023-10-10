@@ -9,6 +9,7 @@ import List from "./List";
 export default function ItemDetail() {
     const params = useParams();
     const [dataUrl, setDataUrl] = useState();
+    const [seasonUrl, setSeasonUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
@@ -38,11 +39,14 @@ export default function ItemDetail() {
                const credits = await movieApi.credits(params.type, params.id);
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
+               // const season = await movieApi.seasons('3581');
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
-               setSocialUrl(social.data)
+               // setSocialUrl(social.data);
+
+               console.log(seasonUrl)
 
                // 영화 상세설명
                const handleResize = () => {
