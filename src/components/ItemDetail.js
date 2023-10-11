@@ -1,7 +1,7 @@
 import './../App.scss';
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import List from "./List";
 
 export default function ItemDetail() {
@@ -17,8 +17,9 @@ export default function ItemDetail() {
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
+    const seriesId = params.id;
 
-    const seriesId = params.id
+    console.log(dataUrl)
 
     // 영화 상세설명
     useEffect(() => {
@@ -33,15 +34,13 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
-    console.log(dataUrl)
-    console.log()
-
+    // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0,5);
 
+    // 포스터 클릭 시 시리즈페이지 이동
     const seriesLink = (seriesId) => {
         navigate(`/series/${seriesId}`);
     }
-
 
     useEffect(() => {
         async function Api() {
@@ -51,7 +50,6 @@ export default function ItemDetail() {
                const credits = await movieApi.credits(params.type, params.id);
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
-
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
@@ -70,10 +68,8 @@ export default function ItemDetail() {
                        setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
                    }
                };
-               
                handleResize();
                window.addEventListener('resize', handleResize);
-
                return () => {
                    window.removeEventListener('resize', handleResize);
                };
@@ -101,7 +97,7 @@ export default function ItemDetail() {
         <div>
             <section className="detail_container" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${dataUrl?.backdrop_path})` }}>
                 <div className="detail_info">
-                    <h1>{dataUrl?.title}</h1>
+                    <h1>{dataUrl?.title || dataUrl?.name}</h1>
                     <div className="meta">
                         {dataUrl?.genres.map(item => {
                             return (
@@ -158,13 +154,14 @@ export default function ItemDetail() {
                         <div className="last_season">
                             <div className="title"><h2>현재 시즌</h2></div>
                             <div className="season_box">
-                                <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" onClick={() => seriesLink(seriesId)}/>
+                                <Link to={`/series/${seriesId}`}>
+                                    <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" />
+                                </Link>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>
                             </div>
                         </div>
                         : null
                 }
-
 
                 <div className="title"><h2>비슷한 작품</h2></div>
                 <List type={params.type} list={similarArray} class={"item_list"}></List>
