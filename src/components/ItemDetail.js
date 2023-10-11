@@ -19,7 +19,7 @@ export default function ItemDetail() {
     const navigate = useNavigate();
     const seriesId = params.id;
 
-    console.log(dataUrl)
+    console.log(seasonUrl)
 
     // 영화 상세설명
     useEffect(() => {
@@ -36,6 +36,8 @@ export default function ItemDetail() {
 
     // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0,5);
+
+    console.log(seasonList)
 
     // 포스터 클릭 시 시리즈페이지 이동
     const seriesLink = (seriesId) => {
@@ -154,7 +156,7 @@ export default function ItemDetail() {
                         <div className="last_season">
                             <div className="title"><h2>현재 시즌</h2></div>
                             <div className="season_box">
-                                <Link to={`/series/${seriesId}`}>
+                                <Link to={`/series/${seriesId}`} className="season_main">
                                     <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" />
                                 </Link>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>

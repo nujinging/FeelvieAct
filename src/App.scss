@@ -135,7 +135,7 @@ body {color:#fff;line-height:1;background:#000}
       &.item_card {
         width: 18.75rem;
         +.item_card {
-          margin-left: 30px
+          margin-left:1.875rem
         }
       }
       img {
@@ -497,9 +497,18 @@ body {color:#fff;line-height:1;background:#000}
   margin:3.125rem 0;
   .season_box {
     display:flex;
-    img {
-      height:25rem;
-      border-radius:0.5rem;
+    .season_main {
+      img {
+        height:25rem;
+        border-radius:0.5rem;
+      }
+    }
+    .season_list {
+      .item_card {
+        img {
+          height:12rem;
+        }
+      }
     }
   }
 }

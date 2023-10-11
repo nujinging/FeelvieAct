@@ -64,6 +64,13 @@ export default function List(props) {
                             loading="lazy"
                         />
                         <h3> {item.title || item.name} </h3>
+                        {
+                            item.air_date && (
+                                <span className="seasn_date">
+                                    {item.air_date}
+                                </span>
+                            )
+                        }
                     </SwiperSlide>
                 ))
             )}
