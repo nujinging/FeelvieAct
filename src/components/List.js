@@ -59,7 +59,7 @@ export default function List(props) {
                                  }}
                     >
                         <img
-                            src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path}`}
+                            src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path || item.still_path}`}
                             alt="Movie Poster"
                             loading="lazy"
                         />

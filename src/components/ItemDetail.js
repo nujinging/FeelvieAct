@@ -31,10 +31,6 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
-    console.log(dataUrl)
-    console.log(seasonUrl)
-
-
     useEffect(() => {
         async function Api() {
            try {
@@ -150,7 +146,7 @@ export default function ItemDetail() {
                             <div className="title"><h2>현재 시즌</h2></div>
                             <div className="season_box">
                                 <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt=""/>
-                                <List type={params.type} list={seasonUrl.episodes}></List>
+                                <List type={params.type} list={seasonList} class={"season_list"}></List>
                             </div>
                         </div>
                         : null
