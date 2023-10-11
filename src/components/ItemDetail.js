@@ -31,6 +31,7 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
+
     useEffect(() => {
         async function Api() {
            try {
@@ -39,14 +40,18 @@ export default function ItemDetail() {
                const credits = await movieApi.credits(params.type, params.id);
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
-               // const season = await movieApi.seasons('3581');
+
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
-               // setSocialUrl(social.data);
+               setSocialUrl(social.data);
 
-               console.log(seasonUrl)
+               // tv 시리즈
+               if (params.type === 'tv') {
+                   const seasons = await movieApi.seasons(params.id,'1');
+                   setSeasonUrl(seasons.data);
+               }
 
                // 영화 상세설명
                const handleResize = () => {
@@ -135,6 +140,13 @@ export default function ItemDetail() {
             <div className="item_container">
                 <div className="title"><h2>등장인물</h2></div>
                 <List type={params.type} list={creditsArray}></List>
+                {
+                    seasonUrl && seasonUrl.name !== undefined ?
+                        <div>{seasonUrl.name}</div>
+                        : null
+                }
+
+
                 <div className="title"><h2>비슷한 작품</h2></div>
                 <List type={params.type} list={similarArray}></List>
             </div>
