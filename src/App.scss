@@ -189,8 +189,6 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
-
-
 .home_banner {
   position:relative;
   height:48.75rem;
@@ -493,6 +491,17 @@ body {color:#fff;line-height:1;background:#000}
     background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
 }
+
+.last_season {
+  margin:3.125rem 0;
+  .season_box {
+    img {
+      height:25rem;
+      border-radius:0.5rem;
+    }
+  }
+}
+
 .person_list .person_card {
   width: auto;
   cursor: pointer;

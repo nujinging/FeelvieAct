@@ -37,7 +37,7 @@ export default function List(props) {
     }, [list.length, loading]);
 
     return (
-        <Swiper key={swiperKey} slidesPerView={'auto'} className={`swiper ${list.some(item => item.profile_path) ? 'person_list' : 'item_list'}`} allowTouchMove={!loading}>
+        <Swiper key={swiperKey} slidesPerView={'auto'} className={`swiper ${props.class}`} allowTouchMove={!loading}>
             {loading ? (
                 Array(loadLength).fill().map((_, index) => (
                     <SwiperSlide className="load_card" key={index}>

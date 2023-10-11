@@ -95,7 +95,7 @@ export default function PersonDetail() {
                         <div className="title">
                             <h2>유명 작품</h2>
                         </div>
-                        <List list={artPopular} />
+                        <List list={artPopular} class={"item_list"}/>
 
                         <div className="work">
                             <div className="work_top">

@@ -31,6 +31,9 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
+    console.log(dataUrl)
+    console.log(seasonUrl)
+
 
     useEffect(() => {
         async function Api() {
@@ -49,7 +52,7 @@ export default function ItemDetail() {
 
                // tv 시리즈
                if (params.type === 'tv') {
-                   const seasons = await movieApi.seasons(params.id,'1');
+                   const seasons = await movieApi.seasons(params.id, dataUrl.number_of_seasons);
                    setSeasonUrl(seasons.data);
                }
 
@@ -139,16 +142,23 @@ export default function ItemDetail() {
             </section>
             <div className="item_container">
                 <div className="title"><h2>등장인물</h2></div>
-                <List type={params.type} list={creditsArray}></List>
+                <List type={params.type} list={creditsArray} class={"person_list"}></List>
+
                 {
                     seasonUrl && seasonUrl.name !== undefined ?
-                        <div>{seasonUrl.name}</div>
+                        <div className="last_season">
+                            <div className="title"><h2>현재 시즌</h2></div>
+                            <div className="season_box">
+                                <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt=""/>
+                                <List type={params.type} list={seasonUrl.episodes}></List>
+                            </div>
+                        </div>
                         : null
                 }
 
 
                 <div className="title"><h2>비슷한 작품</h2></div>
-                <List type={params.type} list={similarArray}></List>
+                <List type={params.type} list={similarArray} class={"item_list"}></List>
             </div>
         </div>
     );

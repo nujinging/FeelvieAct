@@ -56,7 +56,7 @@ export default function Main() {
                     <div className="title">
                         <h2>지금 상영중이에요!</h2>
                     </div>
-                    <List type="movie" list={lists.playing} />
+                    <List type="movie" list={lists.playing} class={"item_list"} />
 
 
                     <div className="title">
@@ -70,7 +70,7 @@ export default function Main() {
                             </li>
                         </ul>
                     </div>
-                    <List type={typeTabs.popular} list={lists.popular} />
+                    <List type={typeTabs.popular} list={lists.popular} class={"item_list"} />
 
 
 
@@ -98,7 +98,7 @@ export default function Main() {
                             </li>
                         </ul>
                     </div>
-                    <List type={typeTabs.week} list={lists.week} />
+                    <List type={typeTabs.week} list={lists.week} class={"item_list"} />
 
                 </div>
             </div>
