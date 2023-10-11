@@ -31,6 +31,11 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
+    console.log(dataUrl)
+
+    const seasonList = seasonUrl?.episodes.slice(0,5);
+
+
     useEffect(() => {
         async function Api() {
            try {
