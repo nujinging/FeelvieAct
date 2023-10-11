@@ -7,16 +7,9 @@ import Header from "./components/Header";
 import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
-import {useState} from "react";
+import Series from "./components/Series";
 
-
-
-function App() {
-
-    const [modalOpen, setModalOpen] = useState(false);
-
-
-
+export default function App() {
   return (
       <div>
           <Header></Header>
@@ -26,9 +19,8 @@ function App() {
               <Route path='/detail/:type/:id' element={<ItemDetail />} ></Route>
               <Route path='/genre/:type' element={<Genre />} ></Route>
               <Route path='/person/:id' element={<PersonDetail />} ></Route>
+              <Route path='/series/:id' element={<Series />} ></Route>
           </Routes>
       </div>
   );
 }
-
-export default App;

@@ -1,14 +1,13 @@
 import './../App.scss';
-import {useParams } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import List from "./List";
-
-
 
 export default function ItemDetail() {
     const params = useParams();
     const [dataUrl, setDataUrl] = useState();
+    const [dataId, setDataId] = useState();
     const [seasonUrl, setSeasonUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
@@ -17,6 +16,9 @@ export default function ItemDetail() {
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+    const navigate = useNavigate();
+
+    const seriesId = params.id
 
     // 영화 상세설명
     useEffect(() => {
@@ -32,8 +34,13 @@ export default function ItemDetail() {
     };
 
     console.log(dataUrl)
+    console.log()
 
     const seasonList = seasonUrl?.episodes.slice(0,5);
+
+    const seriesLink = (seriesId) => {
+        navigate(`/series/${seriesId}`);
+    }
 
 
     useEffect(() => {
@@ -63,6 +70,7 @@ export default function ItemDetail() {
                        setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
                    }
                };
+               
                handleResize();
                window.addEventListener('resize', handleResize);
 
@@ -150,7 +158,7 @@ export default function ItemDetail() {
                         <div className="last_season">
                             <div className="title"><h2>현재 시즌</h2></div>
                             <div className="season_box">
-                                <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt=""/>
+                                <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" onClick={() => seriesLink(seriesId)}/>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>
                             </div>
                         </div>

@@ -496,6 +496,7 @@ body {color:#fff;line-height:1;background:#000}
 .last_season {
   margin:3.125rem 0;
   .season_box {
+    display:flex;
     img {
       height:25rem;
       border-radius:0.5rem;
