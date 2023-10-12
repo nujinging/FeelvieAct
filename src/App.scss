@@ -885,6 +885,19 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
+.series_detail {
+  display: flex;
+  width: 100%;
+  padding: 9.375rem 4.375rem 4.375rem;
+  color: #fff;
+  overflow: hidden;
+  picture {
+    position: fixed;
+    display: block;
+    width: 18.75rem;
+    overflow: hidden;
+  }
+}
 
 .work {
   padding-top:4.375rem;

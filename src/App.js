@@ -8,6 +8,7 @@ import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
 import Series from "./components/Series";
+import SeriesDetail from "./components/SeriesDetail";
 
 export default function App() {
   return (
@@ -19,7 +20,7 @@ export default function App() {
               <Route path='/detail/:type/:id' element={<ItemDetail />} ></Route>
               <Route path='/genre/:type' element={<Genre />} ></Route>
               <Route path='/person/:id' element={<PersonDetail />} ></Route>
-              <Route path='/series/:id' element={<Series />} ></Route>
+              <Route path='/series/:id' element={<SeriesDetail />} ></Route>
           </Routes>
       </div>
   );
