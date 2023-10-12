@@ -9,6 +9,7 @@ export default function ItemDetail() {
     const [dataUrl, setDataUrl] = useState();
     const [dataId, setDataId] = useState();
     const [seasonUrl, setSeasonUrl] = useState();
+    const [episodeUrl, setEpisodeUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
@@ -18,8 +19,6 @@ export default function ItemDetail() {
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const seriesId = params.id;
-
-    console.log(seasonUrl)
 
     // 영화 상세설명
     useEffect(() => {
@@ -36,8 +35,6 @@ export default function ItemDetail() {
 
     // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0,5);
-
-    console.log(seasonList)
 
     // 포스터 클릭 시 시리즈페이지 이동
     const seriesLink = (seriesId) => {
@@ -62,6 +59,10 @@ export default function ItemDetail() {
                if (params.type === 'tv') {
                    const seasons = await movieApi.seasons(params.id, dataUrl.number_of_seasons);
                    setSeasonUrl(seasons.data);
+                   const episode = await movieApi.episode(params.id, dataUrl.number_of_seasons, '1');
+                   setEpisodeUrl(episode);
+                   console.log(dataUrl.number_of_seasons)
+                   console.log(episode.data)
                }
 
                // 영화 상세설명
