@@ -19,7 +19,7 @@ export default function App() {
               <Route path='/detail/:type/:id' element={<ItemDetail />} ></Route>
               <Route path='/genre/:type' element={<Genre />} ></Route>
               <Route path='/person/:id' element={<PersonDetail />} ></Route>
-              <Route path='/series/:id' element={<SeriesDetail />} ></Route>
+              <Route path='/series/:id/episode/:seriesNumber' element={<SeriesDetail />} ></Route>
           </Routes>
       </div>
   );

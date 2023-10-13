@@ -19,6 +19,7 @@ export default function ItemDetail() {
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const seriesId = params.id;
+    const seasonNumber = seasonUrl?.season_number;
 
     // 영화 상세설명
     useEffect(() => {
@@ -36,12 +37,12 @@ export default function ItemDetail() {
     // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0,5);
 
-    console.log(seasonList)
-
     // 포스터 클릭 시 시리즈페이지 이동
-    const seriesLink = (seriesId) => {
-        navigate(`/series/${seriesId}`);
-    }
+    // const seriesLink = (seasonNumber) => {
+    //     if (seasonNumber) {
+    //         navigate(`/series/${params.id}/episode/${seasonNumber}`);
+    //     }
+    // }
 
     useEffect(() => {
         async function Api() {
@@ -59,9 +60,9 @@ export default function ItemDetail() {
 
                // tv 시리즈
                if (params.type === 'tv') {
-                   const seasons = await movieApi.seasons(params.id, dataUrl.number_of_seasons);
+                   const seasons = await movieApi.seasons(params.id, dataUrl?.number_of_seasons);
                    setSeasonUrl(seasons.data);
-                   const episode = await movieApi.episode(params.id, dataUrl.number_of_seasons, '1');
+                   const episode = await movieApi.episode(params.id, dataUrl?.number_of_seasons, '1');
                    setEpisodeUrl(episode.data);
                }
 
@@ -76,6 +77,7 @@ export default function ItemDetail() {
                return () => {
                    window.removeEventListener('resize', handleResize);
                };
+
            } catch(error) {
                console.error('Eroror', error);
            }
@@ -157,16 +159,15 @@ export default function ItemDetail() {
                         <div className="last_season">
                             <div className="title">
                                 <h2>현재 시즌</h2>
-                                <Link to={`/series/${seriesId}`} className="season_link">
+                                <Link to={`/series/${params.id}/episode/${seasonUrl.season_number}`} className="season_link">
                                     전체 시즌 보기
                                 </Link>
                             </div>
                             <div className="season_box">
-                                <Link to={`/series/${seriesId}`} className="season_main">
+                                <Link to={`/series/${params.id}/episode/${seasonUrl.season_number}`} className="season_main">
                                     <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" />
                                 </Link>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>
-
                             </div>
                         </div>
                         : null
