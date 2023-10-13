@@ -7,7 +7,6 @@ import Header from "./components/Header";
 import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
-import Series from "./components/Series";
 import SeriesDetail from "./components/SeriesDetail";
 
 export default function App() {

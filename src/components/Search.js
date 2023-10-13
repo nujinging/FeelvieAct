@@ -12,8 +12,16 @@ function App() {
 
     // 영화 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
-        setItemId(itemType, itemId);
+        setItemId(itemId);
         navigate(`/detail/${itemType}/${itemId}`);
+    }
+    
+    // event 객체가 undefined 일때 발생하는 오류 방지 - 유효성 확인
+    const searchEnter = (event) => {
+        if (event && event.key === 'Enter') {
+            searchChange(event);
+            event.preventDefault();
+        }
     }
 
     // 검색 인풋 값 변경
@@ -40,7 +48,7 @@ function App() {
             <form>
                 <label className="search_input" htmlFor="search_input">
                     <input id="search_input" type="text"
-                           placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" className="search_txt" onChange={searchChange}/>
+                           placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" className="search_txt" onKeyDown={searchEnter} onChange={searchChange}/>
                     <button type="button" className="icon_search">
                         <span className="blind">검색</span>
                     </button>
