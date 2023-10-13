@@ -5,14 +5,15 @@ import {useParams} from "react-router-dom";
 
 export default function SeriesDetail() {
     const { id, seriesNumber } = useParams();
-    const [episodeUrl, setEpisodeUrl] = useState();
+    const [seasonUrl, setSeasonUrl] = useState();
     useEffect(() => {
         async function Api() {
             try {
-                const episode = await movieApi.episode('456', '1', '1');
-                setEpisodeUrl(episode.data);
-                console.log(id)
+                const seasons = await movieApi.seasons(id, '1');
+                setSeasonUrl(seasons.data);
+                console.log()
                 console.log(seriesNumber)
+                console.log(seasons.data)
             } catch (error) {
                 console.error('Eroror', error);
             }
