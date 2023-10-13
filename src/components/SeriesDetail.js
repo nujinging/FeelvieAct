@@ -11,24 +11,27 @@ export default function SeriesDetail() {
             try {
                 const seasons = await movieApi.seasons(id, '1');
                 setSeasonUrl(seasons.data);
-                console.log()
-                console.log(seriesNumber)
-                console.log(seasons.data)
             } catch (error) {
                 console.error('Eroror', error);
             }
         } Api();
     }, []);
 
+    console.log(seasonUrl)
+
     return (
         <div className="container">
-            <section className="series_detail">
-                <picture>
-                    {/*<img src={} alt="Person Poster" loading="lazy"/>*/}
-                </picture>
-                <div className="profile_info">
-                </div>
-            </section>
+            {
+                seasonUrl ? (
+                    <section className="series_detail">
+                        <picture>
+                            <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" loading="lazy"/>
+                        </picture>
+                        <div className="series_info">
+                        </div>
+                    </section>
+                ) : null
+            }
         </div>
     );
 }

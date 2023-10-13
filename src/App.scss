@@ -912,6 +912,14 @@ body {color:#fff;line-height:1;background:#000}
     display: block;
     width: 18.75rem;
     overflow: hidden;
+    img {
+      width:100%;
+      border-radius:0.5rem;
+    }
+  }
+  .series_info {
+    margin-left:23.125rem;
+    overflow:hidden
   }
 }
 
@@ -1129,7 +1137,7 @@ body {color:#fff;line-height:1;background:#000}
       }
     }
   }
-  .search_container {
+   .search_container {
     .search_input {
       margin:7rem 3rem;
       padding:1rem 0;

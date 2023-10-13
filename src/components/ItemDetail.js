@@ -159,7 +159,7 @@ export default function ItemDetail() {
                             </div>
                             <div className="season_box">
                                 <Link to={`/series/${params.id}/episode`} className="season_main">
-                                    <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" />
+                                    <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" loading="lazy"/>
                                 </Link>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>
                             </div>
