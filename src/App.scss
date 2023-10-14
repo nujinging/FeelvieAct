@@ -922,11 +922,13 @@ body {color:#fff;line-height:1;background:#000}
     height: 25rem;
     background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
-  .series_img {
+  .series_tit {
     position: fixed;
-    display: block;
     width: 18.75rem;
-    overflow: hidden;
+    .series_img {
+      display: block;
+      overflow: hidden;
+    }
     .tit {
       margin:1rem 0;
       font-size:1.75rem;
@@ -940,16 +942,25 @@ body {color:#fff;line-height:1;background:#000}
       border-radius:0.5rem;
     }
   }
+
   .series_info {
-    potision:relative;
+    position:relative;
     z-index:1;
     margin-left:23.125rem;
     overflow:hidden;
+    .series_select {
+      margin-bottom:2.25rem;
+      color:#fff;
+      font-size:2rem;
+      font-weight:bold;
+      border:none;
+      background:none;
+    }
     .episode_list {
       li {
         display:flex;
         &+li {
-          margin-top:1.5rem;
+          margin-top:2rem;
         }
         .episode_img {
           flex-shrink:0;
@@ -1236,6 +1247,38 @@ body {color:#fff;line-height:1;background:#000}
       }
       .profile_desc {
         text-align:center;
+      }
+    }
+  }
+
+  .series_detail {
+    display: block;
+    .series_tit {
+      position:relative;
+      width:auto;
+      margin-bottom:3.5rem;
+      text-align:center;
+      .series_img {
+        position: relative;
+        width: 15rem;
+        margin: 0 auto;
+      }
+      .tit {
+
+      }
+      .overview {
+        margin:0 2rem;
+      }
+    }
+    .series_info {
+      margin-left:0;
+      .episode_list {
+        li {
+          .episode_img {
+            width:auto;
+            height:8rem;
+          }
+        }
       }
     }
   }

@@ -24,17 +24,19 @@ export default function SeriesDetail() {
             {
                 seasonUrl ? (
                     <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${seasonUrl?.backdrop_path})` }}>
-                        <picture className="series_img">
-                            <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" loading="lazy"/>
-                            <h3 className="tit">
-                                {seasonUrl.name}
-                            </h3>
-                            <p className="overview">
-                                {seasonUrl.overview}
-                            </p>
-                        </picture>
+                         <div className="series_tit">
+                             <picture className="series_img">
+                                 <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" loading="lazy"/>
+                             </picture>
+                             <h3 className="tit">
+                                 {seasonUrl.name}
+                             </h3>
+                             <p className="overview">
+                                 {seasonUrl.overview}
+                             </p>
+                         </div>
                         <div className="series_info">
-                            <select>
+                            <select className="series_select">
                                 <option value="">{seasonUrl.name}</option>
                             </select>
                             <ul className="episode_list">
