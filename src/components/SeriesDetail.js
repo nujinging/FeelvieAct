@@ -4,11 +4,10 @@ import {movieApi} from "../util/movieApi";
 import {useParams} from "react-router-dom";
 
 export default function SeriesDetail() {
-
         const { id } = useParams();
         const [detailUrl, setDetailUrl] = useState([]);
         const [seasonUrl, setSeasonUrl] = useState(null);
-        const [selectedSeason, setSelectedSeason] = useState(0);
+        const [selectedSeason, setSelectedSeason] = useState(1);
 
 
         useEffect(() => {
@@ -24,14 +23,11 @@ export default function SeriesDetail() {
             } Api();
         }, [id, selectedSeason]);
 
-        const handleSelectChange = (event) => {
-            setSelectedSeason(event.target.value);
-        };
+    const handleSelectChange = (event) => {
+        setSelectedSeason(event.target.value); // Parse the value to an integer
+    };
 
-        console.log(selectedSeason)
-
-        console.log(detailUrl)
-
+        console.log(seasonUrl)
         return (
             <div className="container">
                 {
@@ -53,7 +49,7 @@ export default function SeriesDetail() {
                                     {
                                         detailUrl?.map((item, key) => {
                                             return (
-                                                <option key={key} value={key}>
+                                                <option key={key} value={item.season_number}>
                                                     {item.name}
                                                 </option>
                                             )
