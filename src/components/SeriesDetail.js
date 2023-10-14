@@ -5,19 +5,22 @@ import {useParams} from "react-router-dom";
 
 export default function SeriesDetail() {
     const { id, seriesNumber } = useParams();
+    const [detailUrl, setDetailUrl] = useState();
     const [seasonUrl, setSeasonUrl] = useState();
     useEffect(() => {
         async function Api() {
             try {
                 const seasons = await movieApi.seasons(id, '1');
                 setSeasonUrl(seasons.data);
+                const detail = await movieApi.detail('tv', id);
+                setDetailUrl(detail.data.seasons)
             } catch (error) {
                 console.error('Eroror', error);
             }
         } Api();
     }, []);
 
-    console.log(seasonUrl)
+    console.log(detailUrl)
 
     return (
         <div className="container">
@@ -37,7 +40,15 @@ export default function SeriesDetail() {
                          </div>
                         <div className="series_info">
                             <select className="series_select">
-                                <option value="">{seasonUrl.name}</option>
+                                {
+                                    detailUrl?.map((item) => {
+                                        return (
+                                            <option>
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })
+                                }
                             </select>
                             <ul className="episode_list">
                                 {

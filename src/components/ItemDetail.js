@@ -38,6 +38,7 @@ export default function ItemDetail() {
     const seasonList = seasonUrl?.episodes.slice(0,5);
 
 
+
     useEffect(() => {
         async function Api() {
            try {
