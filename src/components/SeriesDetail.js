@@ -40,7 +40,7 @@ export default function SeriesDetail() {
                 seasonUrl ? (
                     <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${seasonUrl?.backdrop_path})` }}>
                         <div className="series_tit">
-                            <button onClick={pageBack}>뒤로 가기</button>
+                            <button className="series_back" onClick={pageBack}>뒤로 가기</button>
                             <picture className="series_img">
                                 <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" loading="lazy"/>
                             </picture>

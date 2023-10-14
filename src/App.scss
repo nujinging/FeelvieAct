@@ -925,6 +925,13 @@ body {color:#fff;line-height:1;background:#000}
   .series_tit {
     position: fixed;
     width: 18.75rem;
+    .series_back {
+      padding:0.5rem;
+      color:#fff;
+      font-size:1.75rem;
+      border:none;
+      background:none;
+    }
     .series_img {
       display: block;
       overflow: hidden;
