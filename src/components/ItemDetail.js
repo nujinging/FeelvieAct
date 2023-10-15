@@ -1,3 +1,5 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import './../App.scss';
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
@@ -39,7 +41,6 @@ export default function ItemDetail() {
     const seasonList = seasonUrl?.episodes.slice(0,5);
 
 
-
     useEffect(() => {
         async function Api() {
            try {
@@ -54,7 +55,7 @@ export default function ItemDetail() {
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
                setSocialUrl(social.data);
-               setImagesUrl(images)
+               setImagesUrl(images.data)
 
 
                console.log(images.data)
@@ -178,16 +179,34 @@ export default function ItemDetail() {
                 <List type={params.type} list={similarArray} class={"item_list"}></List>
 
                 <div className="title">
-                    <h2>오늘 가장 많이 찾아 본 컨텐츠</h2>
+                    <h2>미디어</h2>
                     <ul className="type_list">
                         <li>
-                            <button type="button">영화</button>
+                            <button type="button">동영상</button>
                         </li>
                         <li>
-                            <button type="button">TV</button>
+                            <button type="button">배경</button>
+                        </li>
+                        <li>
+                            <button type="button">포스터</button>
                         </li>
                     </ul>
                 </div>
+
+                <Swiper slidesPerView={'auto'} className="media_slide">
+                    {
+                        imagesUrl?.backdrops.map((item) => {
+                            return (
+                                <SwiperSlide className="media_card">
+                                    <button type="button" className="media_link">
+                                        <img src={`https://image.tmdb.org/t/p/w500/${item.file_path}`} alt="Movie Poster" loading="lazy"/>
+                                    </button>
+                                </SwiperSlide>
+                            )
+                        })
+                    }
+
+                </Swiper>
             </div>
         </div>
     );

@@ -128,7 +128,6 @@ body {color:#fff;line-height:1;background:#000}
   +.title {
     margin-top:3.125rem
   }
-
   .swiper-wrapper {
     transform:translateZ(0);
     .item_card {
@@ -1066,6 +1065,19 @@ body {color:#fff;line-height:1;background:#000}
         text-overflow:ellipsis;
         white-space:nowrap;
       }
+    }
+  }
+}
+
+.media_slide {
+  .media_card {
+    width:28.75rem;
+  }
+  .media_link {
+    border:none;
+    background:none;
+    img {
+      width:100%
     }
   }
 }
