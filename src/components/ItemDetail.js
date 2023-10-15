@@ -13,6 +13,7 @@ export default function ItemDetail() {
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
+    const [imagesUrl, setImagesUrl] = useState();
     const [overviewMore, setOverviewMore] = useState(false);
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
@@ -47,11 +48,16 @@ export default function ItemDetail() {
                const credits = await movieApi.credits(params.type, params.id);
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
+               const images = await movieApi.seasonImg(496243);
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
                setSocialUrl(social.data);
+               setImagesUrl(images)
+
+
+               console.log(images.data)
 
                // tv 시리즈
                if (params.type === 'tv') {
@@ -170,6 +176,18 @@ export default function ItemDetail() {
 
                 <div className="title"><h2>비슷한 작품</h2></div>
                 <List type={params.type} list={similarArray} class={"item_list"}></List>
+
+                <div className="title">
+                    <h2>오늘 가장 많이 찾아 본 컨텐츠</h2>
+                    <ul className="type_list">
+                        <li>
+                            <button type="button">영화</button>
+                        </li>
+                        <li>
+                            <button type="button">TV</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

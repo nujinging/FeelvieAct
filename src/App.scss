@@ -968,7 +968,7 @@ body {color:#fff;line-height:1;background:#000}
       li {
         display:flex;
         &+li {
-          margin-top:2rem;
+          margin-top:3rem;
         }
         .episode_img {
           flex-shrink:0;
@@ -1276,7 +1276,7 @@ body {color:#fff;line-height:1;background:#000}
 
       }
       .overview {
-        margin:0 2rem;
+        margin:2rem 2rem 0;
       }
     }
     .series_info {
