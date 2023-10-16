@@ -197,9 +197,6 @@ export default function ItemDetail() {
                         : null
                 }
 
-                <div className="title"><h2>비슷한 작품</h2></div>
-                <List type={params.type} list={similarArray} class={"item_list"}></List>
-
                 <div className="title">
                     <h2>미디어</h2>
                     <ul className="type_list">
@@ -214,7 +211,6 @@ export default function ItemDetail() {
                         </li>
                     </ul>
                 </div>
-
                 <Swiper slidesPerView={'auto'} className="media_slide">
                     {
                         imagesUrl && imagesUrl[mediaType].map((item, index) => (
@@ -226,6 +222,9 @@ export default function ItemDetail() {
                         ))
                     }
                 </Swiper>
+
+                <div className="title"><h2>비슷한 작품</h2></div>
+                <List type={params.type} list={similarArray} class={"item_list"}></List>
             </div>
         </div>
     );
