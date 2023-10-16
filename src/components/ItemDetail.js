@@ -18,6 +18,8 @@ export default function ItemDetail() {
     const [socialUrl, setSocialUrl] = useState();
     const [imagesUrl, setImagesUrl] = useState();
     const [videoUrl, setVideoUrl] = useState();
+
+    const [mediaType, setMediaType] = useState('backdrops');
     const [overviewMore, setOverviewMore] = useState(false);
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
@@ -25,6 +27,7 @@ export default function ItemDetail() {
     const navigate = useNavigate();
     const seriesId = params.id;
     const seasonNumber = seasonUrl?.season_number;
+
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,6 +52,10 @@ export default function ItemDetail() {
     // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0,5);
 
+    // 미디어 - 배경,포스터
+    const mediaTab = (type) => {
+        setMediaType(type);
+    }
 
     useEffect(() => {
         async function Api() {
@@ -58,15 +65,19 @@ export default function ItemDetail() {
                const credits = await movieApi.credits(params.type, params.id);
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
-               const images = await movieApi.seasonImg(496243);
+
                const videos = await movieApi.seasonVideo(496243);
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
                setSocialUrl(social.data);
-               setImagesUrl(images.data)
                setVideoUrl(videos.data.results)
+
+                // 이미지
+               const images = await movieApi.seasonImg(496243);
+               setImagesUrl(images.data);
+
 
 
                console.log(videos.data.results)
@@ -193,69 +204,26 @@ export default function ItemDetail() {
                     <h2>미디어</h2>
                     <ul className="type_list">
                         <li>
-                            <button type="button">동영상</button>
+                            <button type="button" className={mediaType === 'backdrops' ? 'active' : ''} onClick={() => mediaTab('backdrops')} >동영상</button>
                         </li>
                         <li>
-                            <button type="button">배경</button>
+                            <button type="button" className={mediaType === 'backdrops' ? 'active' : ''} onClick={() => mediaTab('backdrops')}>배경</button>
                         </li>
                         <li>
-                            <button type="button">포스터</button>
+                            <button type="button" className={mediaType === 'posters' ? 'active' : ''} onClick={() => mediaTab('posters')}>포스터</button>
                         </li>
                     </ul>
                 </div>
 
-
                 <Swiper slidesPerView={'auto'} className="media_slide">
                     {
-                        videoUrl?.map((item, index) => {
-                            const isModalOpenForThisItem = isModalOpen === index;
-
-                            const handleModalToggleForItem = () => {
-                                setIsModalOpen(isModalOpen === index ? null : index);
-                            };
-                            return (
-                                <SwiperSlide key={index} className="video_card">
-                                    <button onClick={handleModalToggleForItem}>
-                                        <img
-                                            src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`}
-                                            alt="Movie Poster"
-                                            loading="lazy"
-                                        />
-                                    </button>
-                                    {isModalOpenForThisItem && (
-                                        <VideoModal url={item.key}></VideoModal>
-                                    )}
-                                </SwiperSlide>
-                            )
-                        })
-                    }
-                </Swiper>
-
-                <Swiper slidesPerView={'auto'} className="media_slide">
-                    {
-                        imagesUrl?.backdrops.map((item) => {
-                            return (
-                                <SwiperSlide className="bg_card">
-                                    <button type="button" className="media_link">
-                                        <img src={`https://image.tmdb.org/t/p/w500/${item.file_path}`} alt="Movie Poster" loading="lazy"/>
-                                    </button>
-                                </SwiperSlide>
-                            )
-                        })
-                    }
-                </Swiper>
-
-                <Swiper slidesPerView={'auto'} className="media_slide">
-                    {
-                        imagesUrl?.posters.map((item) => {
-                            return (
-                                <SwiperSlide className="poster_card">
-                                    <button type="button" className="media_link">
-                                        <img src={`https://image.tmdb.org/t/p/w500/${item.file_path}`} alt="Movie Poster" loading="lazy"/>
-                                    </button>
-                                </SwiperSlide>
-                            )
-                        })
+                        imagesUrl && imagesUrl[mediaType].map((item, index) => (
+                            <SwiperSlide key={index} className="bg_card">
+                                <button type="button" className="media_link">
+                                    <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster" loading="lazy" />
+                                </button>
+                            </SwiperSlide>
+                        ))
                     }
                 </Swiper>
             </div>
