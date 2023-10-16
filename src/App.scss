@@ -1070,15 +1070,49 @@ body {color:#fff;line-height:1;background:#000}
 }
 
 .media_slide {
-  .media_card {
+  .swiper-slide {
+    img {
+      width:100%;
+      border-radius:0.5rem;
+    }
+    &+.swiper-slide {
+      margin-left:1.875rem;
+    }
+    &:hover {
+      transform: translate3d(0, -0.75rem, 0);
+      transition: transform .3s ease-in-out;
+      cursor: pointer;
+    }
+  }
+  .video_card {
+    display:block;
     width:28.75rem;
   }
+  .video_modal {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    z-index:1000;
+    iframe {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+    }
+  }
+  .bg_card {
+    width:28.75rem;
+  }
+  .poster_card {
+    width:18.75rem;
+  }
   .media_link {
+    padding:0;
     border:none;
     background:none;
-    img {
-      width:100%
-    }
   }
 }
 

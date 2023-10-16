@@ -5,6 +5,7 @@ import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import List from "./List";
+import VideoModal from "./VideoModal";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -16,6 +17,7 @@ export default function ItemDetail() {
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [imagesUrl, setImagesUrl] = useState();
+    const [videoUrl, setVideoUrl] = useState();
     const [overviewMore, setOverviewMore] = useState(false);
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
@@ -23,6 +25,13 @@ export default function ItemDetail() {
     const navigate = useNavigate();
     const seriesId = params.id;
     const seasonNumber = seasonUrl?.season_number;
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleModalToggle = () => {
+        setIsModalOpen(!isModalOpen);
+
+    };
 
     // 영화 상세설명
     useEffect(() => {
@@ -50,15 +59,17 @@ export default function ItemDetail() {
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
                const images = await movieApi.seasonImg(496243);
+               const videos = await movieApi.seasonVideo(496243);
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
                setSocialUrl(social.data);
                setImagesUrl(images.data)
+               setVideoUrl(videos.data.results)
 
 
-               console.log(images.data)
+               console.log(videos.data.results)
 
                // tv 시리즈
                if (params.type === 'tv') {
@@ -193,11 +204,38 @@ export default function ItemDetail() {
                     </ul>
                 </div>
 
+
+                <Swiper slidesPerView={'auto'} className="media_slide">
+                    {
+                        videoUrl?.map((item, index) => {
+                            const isModalOpenForThisItem = isModalOpen === index;
+
+                            const handleModalToggleForItem = () => {
+                                setIsModalOpen(isModalOpen === index ? null : index);
+                            };
+                            return (
+                                <SwiperSlide key={index} className="video_card">
+                                    <button onClick={handleModalToggleForItem}>
+                                        <img
+                                            src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`}
+                                            alt="Movie Poster"
+                                            loading="lazy"
+                                        />
+                                    </button>
+                                    {isModalOpenForThisItem && (
+                                        <VideoModal url={item.key}></VideoModal>
+                                    )}
+                                </SwiperSlide>
+                            )
+                        })
+                    }
+                </Swiper>
+
                 <Swiper slidesPerView={'auto'} className="media_slide">
                     {
                         imagesUrl?.backdrops.map((item) => {
                             return (
-                                <SwiperSlide className="media_card">
+                                <SwiperSlide className="bg_card">
                                     <button type="button" className="media_link">
                                         <img src={`https://image.tmdb.org/t/p/w500/${item.file_path}`} alt="Movie Poster" loading="lazy"/>
                                     </button>
@@ -205,7 +243,20 @@ export default function ItemDetail() {
                             )
                         })
                     }
+                </Swiper>
 
+                <Swiper slidesPerView={'auto'} className="media_slide">
+                    {
+                        imagesUrl?.posters.map((item) => {
+                            return (
+                                <SwiperSlide className="poster_card">
+                                    <button type="button" className="media_link">
+                                        <img src={`https://image.tmdb.org/t/p/w500/${item.file_path}`} alt="Movie Poster" loading="lazy"/>
+                                    </button>
+                                </SwiperSlide>
+                            )
+                        })
+                    }
                 </Swiper>
             </div>
         </div>
