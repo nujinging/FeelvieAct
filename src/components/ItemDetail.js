@@ -5,7 +5,6 @@ import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import List from "./List";
-import VideoModal from "./VideoModal";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -28,13 +27,24 @@ export default function ItemDetail() {
     const seriesId = params.id;
     const seasonNumber = seasonUrl?.season_number;
 
-    const [videoModal, setVideoModal] = useState(false);
+    const [imgModal, setImgModal] = useState(false);
+
+    const [videoOpen, setVideoOpen] = useState(false);
+    const [youtubeUrl, setYoutubeUrl] = useState()
+
+
+
     const [videoLink, setVideoLink] = useState();
     const [videoSize, setVideoSize] = useState({ width: 0, height: 0 });
 
+    // 미디어 - 배경,포스터
+    const mediaTab = (type) => {
+        setMediaType(type);
+    }
 
-    const videoMore = (item) => {
-        setVideoModal(!videoModal);
+    // 이미지 모달
+    const imgMore = (item) => {
+        setImgModal(!imgModal);
         const videoPath = item.file_path;
         setVideoLink(videoPath);
 
@@ -42,12 +52,25 @@ export default function ItemDetail() {
         const video_height = item.height;
         setVideoSize({ width: video_width, height: video_height });
     };
-    const videoModalClose = () => {
-        setVideoModal(!videoModal);
+    const imgModalClose = () => {
+        setImgModal(!imgModal);
     }
 
+    const videoModalClose = () => {
+        setVideoOpen(!videoOpen)
+    }
 
-    console.log(imagesUrl)
+    // 비디오 모달
+    const videoBox = (item) => {
+        setVideoOpen(!videoOpen);
+        const youtube = item.key;
+        setYoutubeUrl(youtube)
+
+    };
+
+
+
+
     // 영화 상세설명
     useEffect(() => {
         const textContainer = textContainerRef.current;
@@ -64,10 +87,7 @@ export default function ItemDetail() {
     // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0,5);
 
-    // 미디어 - 배경,포스터
-    const mediaTab = (type) => {
-        setMediaType(type);
-    }
+
 
     useEffect(() => {
         async function Api() {
@@ -78,19 +98,20 @@ export default function ItemDetail() {
                const similar = await movieApi.similar(params.type, params.id);
                const social = await movieApi.social(params.type, params.id);
 
-               const videos = await movieApi.seasonVideo(496243);
                const textContainer = textContainerRef.current;
                setDataUrl(detail.data);
                setCreditsUrl(credits.data.cast);
                setSimilarUrl(similar.data.results);
                setSocialUrl(social.data);
-               setVideoUrl(videos.data.results)
 
+
+               console.log(params.id)
                 // 이미지
-               const images = await movieApi.seasonImg(496243);
+               const images = await movieApi.seasonImg(params.id);
                setImagesUrl(images.data);
 
-
+               const videos = await movieApi.seasonVideo(496243);
+               setVideoUrl(videos.data.results)
 
                console.log(videos.data.results)
 
@@ -223,11 +244,28 @@ export default function ItemDetail() {
                         </li>
                     </ul>
                 </div>
+
+
+                <Swiper slidesPerView={'auto'} className="media_slide">
+                    {
+                        videoUrl && videoUrl.map((item, index) => (
+                            mediaType === 'video' && (
+                                <SwiperSlide key={index} className="bg_card" onClick={() => videoBox(item)}>
+                                    <span>{item.key}</span>
+                                    <img src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`} alt=""/>
+                                    <iframe src={`https://www.youtube.com/embed/${item.key}`} frameBorder="0" allowFullScreen></iframe>
+                                </SwiperSlide>
+                            )
+                        ))
+                    }
+                </Swiper>
+
+
                 <Swiper slidesPerView={'auto'} className="media_slide">
                     {
                         imagesUrl && imagesUrl[mediaType].map((item, index) => (
                             <SwiperSlide key={index} className="bg_card">
-                                <button type="button" className="media_link" onClick={() => videoMore(item)}>
+                                <button type="button" className="media_link" onClick={() => imgMore(item)}>
                                     <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster" loading="lazy" />
                                 </button>
                             </SwiperSlide>
@@ -238,16 +276,27 @@ export default function ItemDetail() {
                 <div className="title"><h2>비슷한 작품</h2></div>
                 <List type={params.type} list={similarArray} class={"item_list"}></List>
 
-
                 {
-                    videoModal && (
+                    videoOpen && (
+                        <div className="video_modal">
+                            <div className="inner">
+                                <iframe src={`https://www.youtube.com/embed/${youtubeUrl}`} frameBorder="0" allowFullScreen></iframe>
+                                <button type="button" className="modal_close" onClick={videoModalClose}>
+                                    <span className="blind">닫기</span>
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    imgModal && (
                         <div className="video_modal">
                             <div className="inner">
                                 <a href={`https://www.themoviedb.org/t/p/original${videoLink}`} target="_blank">
                                     <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster" loading="lazy" />
                                 </a>
                                 <p className="img_txt">이미지를 클릭하여 원본 ({videoSize.width}X{videoSize.height})을 확인 해보세요!</p>
-                                <button type="button" className="modal_close" onClick={videoModalClose}>
+                                <button type="button" className="modal_close" onClick={imgModalClose}>
                                     <span className="blind">닫기</span>
                                 </button>
                             </div>

@@ -1163,7 +1163,7 @@ body {color:#fff;line-height:1;background:#000}
     left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.65);
+    background:rgba(0,0,0,0.85);
     content:''
   }
   .inner {
@@ -1172,6 +1172,7 @@ body {color:#fff;line-height:1;background:#000}
     left:50%;
     transform:translate(-50%, -50%);
     width:43.75rem;
+    text-align:center;
     box-sizing:border-box;
     img {
       width:100%;
