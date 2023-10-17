@@ -28,12 +28,15 @@ export default function ItemDetail() {
     const seriesId = params.id;
     const seasonNumber = seasonUrl?.season_number;
 
+    const [videoModal, setVideoModal] = useState(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [videoLink, setVideoLink] = useState();
 
-    const handleModalToggle = () => {
-        setIsModalOpen(!isModalOpen);
 
+    const videoMore = (item) => {
+        setVideoModal(!videoModal);
+        const videoPath = item.file_path;
+        setVideoLink(videoPath);
     };
 
     // 영화 상세설명
@@ -215,7 +218,7 @@ export default function ItemDetail() {
                     {
                         imagesUrl && imagesUrl[mediaType].map((item, index) => (
                             <SwiperSlide key={index} className="bg_card">
-                                <button type="button" className="media_link">
+                                <button type="button" className="media_link" onClick={() => videoMore(item)}>
                                     <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster" loading="lazy" />
                                 </button>
                             </SwiperSlide>
@@ -225,6 +228,16 @@ export default function ItemDetail() {
 
                 <div className="title"><h2>비슷한 작품</h2></div>
                 <List type={params.type} list={similarArray} class={"item_list"}></List>
+
+
+                {
+                    videoModal && (
+                        <div className="video_modal">
+                            <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster" loading="lazy" />
+                            <button type="button" className="modal_close"></button>
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

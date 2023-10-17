@@ -1088,23 +1088,8 @@ body {color:#fff;line-height:1;background:#000}
     display:block;
     width:28.75rem;
   }
-  .video_modal {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.65);
-    z-index:1000;
-    iframe {
-      position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%, -50%);
-    }
-  }
   .bg_card {
-    width:28.75rem;
+    width:18.75rem;
   }
   .poster_card {
     width:18.75rem;
@@ -1162,6 +1147,22 @@ body {color:#fff;line-height:1;background:#000}
     height:100%;
     background:rgba(0,0,0,0.55);
     content:''
+  }
+}
+
+.video_modal {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.65);
+  z-index:1000;
+  iframe {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
   }
 }
 
