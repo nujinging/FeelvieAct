@@ -1089,7 +1089,7 @@ body {color:#fff;line-height:1;background:#000}
     width:28.75rem;
   }
   .bg_card {
-    width:18.75rem;
+    width:28.75rem;
   }
   .poster_card {
     width:18.75rem;
@@ -1175,6 +1175,11 @@ body {color:#fff;line-height:1;background:#000}
     box-sizing:border-box;
     img {
       width:100%;
+    }
+    .img_txt {
+      margin:1rem;
+      font-size:1.5rem;
+      text-align:center;
     }
     .modal_close {
       position: absolute;

@@ -29,20 +29,25 @@ export default function ItemDetail() {
     const seasonNumber = seasonUrl?.season_number;
 
     const [videoModal, setVideoModal] = useState(false);
-
     const [videoLink, setVideoLink] = useState();
+    const [videoSize, setVideoSize] = useState({ width: 0, height: 0 });
 
 
     const videoMore = (item) => {
         setVideoModal(!videoModal);
         const videoPath = item.file_path;
         setVideoLink(videoPath);
-    };
 
+        const video_width = item.width;
+        const video_height = item.height;
+        setVideoSize({ width: video_width, height: video_height });
+    };
     const videoModalClose = () => {
         setVideoModal(!videoModal);
     }
 
+
+    console.log(imagesUrl)
     // 영화 상세설명
     useEffect(() => {
         const textContainer = textContainerRef.current;
@@ -238,9 +243,10 @@ export default function ItemDetail() {
                     videoModal && (
                         <div className="video_modal">
                             <div className="inner">
-                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`}>
+                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`} target="_blank">
                                     <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster" loading="lazy" />
                                 </a>
+                                <p className="img_txt">이미지를 클릭하여 원본 ({videoSize.width}X{videoSize.height})을 확인 해보세요!</p>
                                 <button type="button" className="modal_close" onClick={videoModalClose}>
                                     <span className="blind">닫기</span>
                                 </button>
