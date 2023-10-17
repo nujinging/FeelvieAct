@@ -39,6 +39,10 @@ export default function ItemDetail() {
         setVideoLink(videoPath);
     };
 
+    const videoModalClose = () => {
+        setVideoModal(!videoModal);
+    }
+
     // 영화 상세설명
     useEffect(() => {
         const textContainer = textContainerRef.current;
@@ -233,8 +237,14 @@ export default function ItemDetail() {
                 {
                     videoModal && (
                         <div className="video_modal">
-                            <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster" loading="lazy" />
-                            <button type="button" className="modal_close"></button>
+                            <div className="inner">
+                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`}>
+                                    <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster" loading="lazy" />
+                                </a>
+                                <button type="button" className="modal_close" onClick={videoModalClose}>
+                                    <span className="blind">닫기</span>
+                                </button>
+                            </div>
                         </div>
                     )
                 }
