@@ -30,7 +30,9 @@ export default function ItemDetail() {
     const [imgModal, setImgModal] = useState(false);
 
     const [videoOpen, setVideoOpen] = useState(false);
-    const [youtubeUrl, setYoutubeUrl] = useState()
+    const [youtubeUrl, setYoutubeUrl] = useState();
+
+    const mediaTit = (videoUrl && videoUrl.length > 0) ? 'video' : (imagesUrl?.backdrops) ? 'backdrops' : 'posters';
 
 
     const [videoLink, setVideoLink] = useState();
@@ -40,6 +42,7 @@ export default function ItemDetail() {
     const mediaTab = (type) => {
         setMediaType(type);
     }
+
 
     // 이미지 모달
     const imgMore = (item) => {
@@ -152,6 +155,8 @@ export default function ItemDetail() {
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0, 5) : [];
 
+
+console.log(videoUrl)
     return (
         <div>
             <section className="detail_container"
@@ -235,19 +240,31 @@ export default function ItemDetail() {
                     <h2>미디어</h2>
                     <ul className="type_list">
                         <li>
-                            <button type="button" className={mediaType === 'video' ? 'active' : ''}
-                                    onClick={() => mediaTab('video')}>동영상
-                            </button>
+                            {
+                                (videoUrl && videoUrl.length > 0) && (
+                                    <button type="button" className={mediaType === 'video' ? 'active' : ''}
+                                            onClick={() => mediaTab('video')}>동영상
+                                    </button>
+                                )
+                            }
                         </li>
                         <li>
-                            <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
-                                    onClick={() => mediaTab('backdrops')}>배경
-                            </button>
+                            {
+                                imagesUrl?.backdrops && (
+                                    <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
+                                            onClick={() => mediaTab('backdrops')}>배경
+                                    </button>
+                                )
+                            }
                         </li>
                         <li>
-                            <button type="button" className={mediaType === 'posters' ? 'active' : ''}
-                                    onClick={() => mediaTab('posters')}>포스터
-                            </button>
+                            {
+                                imagesUrl?.posters && (
+                                    <button type="button" className={mediaType === 'posters' ? 'active' : ''}
+                                            onClick={() => mediaTab('posters')}>포스터
+                                    </button>
+                                )
+                            }
                         </li>
                     </ul>
                 </div>
