@@ -529,36 +529,41 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
-.person_list .person_card {
-  width: auto;
-  cursor: pointer;
-  &+.more {
-    width: 8.313rem;
-  }
+.person_list {
+  transition:opacity .5s linear;
+  .person_card {
+    width: auto;
+    cursor: pointer;
 
-  picture {
-    display: block;
-    width: 8.313rem;
-    margin-bottom: 0.938rem;
-    font-size: 1.375rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
+    & + .more {
+      width: 8.313rem;
+    }
 
-    img {
-      width: 100%;
+    picture {
+      display: block;
+      width: 8.313rem;
+      margin-bottom: 0.938rem;
+      font-size: 1.375rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+
+      &:hover img {
+        transform: scale(1.1);
+        transition: transform 0.3s ease-in-out;
+      }
     }
-    &:hover img {
-      transform: scale(1.1);
-      transition: transform 0.3s ease-in-out;
+
+    h3 {
+      margin-top: 0.625rem;
+      color: #fff;
+      font-size: 1rem;
     }
-  }
-  h3 {
-    margin-top: 0.625rem;
-    color: #fff;
-    font-size: 1rem;
   }
 }
-
 .media_container {
   margin: 5rem 0;
   .media_top {
