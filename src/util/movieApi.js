@@ -28,6 +28,11 @@ export const movieApi = {
     genreTitle : (type) => request.get(`genre/${type}/list`),
     genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
 
+    genrePopularDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}?sort_by.popularity.desc`),
+    genrePopularAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}?sort_by.popularity.asc`),
+    genreDateDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}?sort_by.primary_release_date.desc`),
+    genreDateAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}?sort_by.primary_release_date.asc`),
+
     person : (id) => request.get(`person/${id}`),
     search : (keyword) => request.get(`search/multi`, {
         params : {

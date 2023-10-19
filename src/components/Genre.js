@@ -14,14 +14,18 @@ export default function Genre() {
     const [genreList, setGenreList] = useState(null);
     const [genreNumber, setGenreNumber] = useState();
 
+    const [sortType, setSortType] = useState();
+
     // 전체 장르
     const genreChange = (itemId) => {
         if (itemId === 'All') {
-            setGenreNumber(null); // Set genreNumber to null for popular data
+            setGenreNumber(null);
         } else {
             setGenreNumber(itemId);
         }
     }
+
+    console.log(genreList)
 
     useEffect(() => {
         async function Api() {
@@ -52,6 +56,17 @@ export default function Genre() {
                     )
                 })}
             </Swiper>
+
+            <div className="genre_sort">
+                <select name="" id="">
+                    <option value="">인기도 내림차순</option>
+                    <option value="">인기도 오름차순</option>
+                    <option value="">상영일 내림차순</option>
+                    <option value="">상열일 오름차순</option>
+                    <option value="">제목 오름차순</option>
+                </select>
+            </div>
+
             <ul className="genre_list">
                 {genreList?.map(item => {
                     return (

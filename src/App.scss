@@ -660,6 +660,18 @@ body {color:#fff;line-height:1;background:#000}
   }
 }
 
+.genre_sort {
+  select {
+    margin-bottom: 2.25rem;
+    padding: 0.5rem 1.25rem 0.5rem 0;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    background: none;
+  }
+}
+
 .genre_list {
   .tit {
     margin-top: 0.938rem;
