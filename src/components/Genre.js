@@ -25,6 +25,10 @@ export default function Genre() {
         }
     }
 
+
+
+
+
     console.log(genreList)
 
     useEffect(() => {
@@ -42,6 +46,22 @@ export default function Genre() {
         } Api();
     }, [type, genreNumber]);
 
+    const SortClick = async (event) => {
+        if (event.target.value === 'popularityDesc') {
+            const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
+        } else if (event.target.value === 'popularityAsc') {
+            const genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
+        } else if (event.target.value === 'dateDesc') {
+            const genreUrl = await movieApi.genreDateDesc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
+        } else {
+            const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
+        }
+    }
+
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
@@ -58,12 +78,11 @@ export default function Genre() {
             </Swiper>
 
             <div className="genre_sort">
-                <select name="" id="">
-                    <option value="">인기도 내림차순</option>
-                    <option value="">인기도 오름차순</option>
-                    <option value="">상영일 내림차순</option>
-                    <option value="">상열일 오름차순</option>
-                    <option value="">제목 오름차순</option>
+                <select onChange={SortClick}>
+                    <option value="popularityDesc">인기도 내림차순</option>
+                    <option value="popularityAsc">인기도 오름차순</option>
+                    <option value="dateDesc">상영일 내림차순</option>
+                    <option value="dateAsc">상열일 오름차순</option>
                 </select>
             </div>
 
