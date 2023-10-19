@@ -25,11 +25,7 @@ export default function Genre() {
         }
     }
 
-
-
-
-
-    console.log(genreList)
+    console.log(genreNumber)
 
     useEffect(() => {
         async function Api() {
@@ -39,6 +35,7 @@ export default function Genre() {
             if (genreNumber !== null) {
                 const genreUrl = await movieApi.genreList(type, genreNumber);
                 setGenreList(genreUrl.data.results);
+                console.log(type, genreNumber)
             } else {
                 const popular = await movieApi.popular(type);
                 setGenreList(popular.data.results);
@@ -50,6 +47,7 @@ export default function Genre() {
         if (event.target.value === 'popularityDesc') {
             const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
             setGenreList(genreUrl.data.results);
+            console.log(genreNumber)
         } else if (event.target.value === 'popularityAsc') {
             const genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
@@ -60,6 +58,7 @@ export default function Genre() {
             const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
         }
+        console.log(event.target.value)
     }
 
     return (
