@@ -243,7 +243,7 @@ console.log(videoUrl)
                             {
                                 (videoUrl && videoUrl.length > 0) && (
                                     <button type="button" className={mediaType === 'video' ? 'active' : ''}
-                                            onClick={() => mediaTab('video')}>동영상
+                                            onClick={() => mediaTab('video')}>동영상 {videoUrl.length}
                                     </button>
                                 )
                             }
@@ -252,7 +252,7 @@ console.log(videoUrl)
                             {
                                 imagesUrl?.backdrops && (
                                     <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
-                                            onClick={() => mediaTab('backdrops')}>배경
+                                            onClick={() => mediaTab('backdrops')}>배경 {imagesUrl.backdrops.length}
                                     </button>
                                 )
                             }
@@ -261,7 +261,7 @@ console.log(videoUrl)
                             {
                                 imagesUrl?.posters && (
                                     <button type="button" className={mediaType === 'posters' ? 'active' : ''}
-                                            onClick={() => mediaTab('posters')}>포스터
+                                            onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
                                     </button>
                                 )
                             }
