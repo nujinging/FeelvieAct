@@ -41,10 +41,7 @@ export default function List(props) {
             {loading ? (
                 Array(loadLength).fill().map((_, index) => (
                     <SwiperSlide className="load_card" key={index}>
-                        <img
-                            src=""
-                            alt="Movie Poster"
-                        />
+                        <span className="blind">로딩</span>
                     </SwiperSlide>
                 ))
             )  : (
