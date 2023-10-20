@@ -35,6 +35,7 @@ export default function Genre() {
                 setGenreList(genreUrl.data.results);
                 console.log(type, genreNumber)
             } else {
+                // genreNumber에 값이 없는 초기화면일 시에는 유명한 작품 먼저 보여주기
                 const popular = await movieApi.popular(type);
                 setGenreList(popular.data.results);
             }

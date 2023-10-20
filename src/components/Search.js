@@ -42,6 +42,8 @@ function App() {
         }
     }, 1000);
 
+    console.log(searchList.length)
+
     return (
         <div className="search_container">
 
@@ -58,6 +60,28 @@ function App() {
             {searchList.length === 0 && searchWord.length > 0 && (
                 <div className="search_none">
                     검색결과가 없습니다.
+                </div>
+            )}
+
+
+
+            {searchList.length === 0 &&  (
+                <div className="search_tip">
+                    <div className="tip_txt">
+                        FeelvieAct는 외국계 회사 TMDB 의 Api를 활용해 만들어졌어요.💻<br/>
+                        너무 방대한 데이터를 가지고 있기때문에 어떤 것을 검색하면 좋을 지 잘 모를때가 있죠.<br/>
+                        다양한 정보를 볼 수 있는 대표적인 작품들을 추천해드릴게요!
+                        <br/>
+                        <br/>
+                        💡 띄어쓰기는 정확히 해주세요 !
+                        <p className="txt">
+                            Movie : 기생충,  바비, 센과 치히로의 행방불명,  어벤져스<br/>
+
+                            TV :  심슨 가족, 스파이 패밀리, 워킹데드, 진격의 거인
+                        </p>
+                    </div>
+
+
                 </div>
             )}
 
