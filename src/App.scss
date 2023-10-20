@@ -704,21 +704,23 @@ body {color:#fff;line-height:1;background:#000}
     display: inline-block;
     margin: 0 1.25rem 2.5rem 0;
     width: calc(100% - 80% - 1rem);
-
     picture {
       display: block;
       border-radius: 0.5rem;
       width: 100%;
       max-height: 31.25rem;
       overflow: hidden;
-
       img {
         width: 100%;
         height: 100%;
-
         &.poster {
           animation: slidein 0.5s;
         }
+      }
+      &.img_none {
+        width:100%;
+        max-height:31.25rem;
+        background:#F2F2F2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23CCCCCC' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23CCCCCC'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23CCCCCC'/%3E%3C/svg%3E") center no-repeat;
       }
     }
 

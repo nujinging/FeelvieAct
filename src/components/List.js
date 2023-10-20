@@ -30,7 +30,7 @@ export default function List(props) {
                 setLoading(false);
                 // key값을 바꿔 swiper가 재렌더링 될 수 있도록 유도
                 setSwiperKey(prevKey => prevKey + 1);
-            }, 5000);
+            }, 1000);
 
             return () => clearTimeout(timeoutId);
         }

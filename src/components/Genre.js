@@ -90,13 +90,19 @@ export default function Genre() {
                 {genreList?.map(item => {
                     return (
                         <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
-                            <picture>
-                                <img
-                                    src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                    alt="Movie Poster"
-                                    loading="lazy"
-                                />
-                            </picture>
+                            {
+                                item.poster_path === null ? (
+                                    <picture className="img_none">
+                                        <span className="blind">이미지 없음</span>
+                                    </picture>
+                                ) : (
+                                    <picture>
+                                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="Movie Poster" loading="lazy"/>
+                                    </picture>
+                                )
+
+                            }
+
                             <p className="tit">
                                 {item.title || item.name}
                             </p>
