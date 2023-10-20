@@ -13,19 +13,17 @@ export default function Genre() {
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState(null);
     const [genreNumber, setGenreNumber] = useState();
-
-    const [sortType, setSortType] = useState();
+    const [selectedValue, setSelectedValue] = useState('');
 
     // 전체 장르
     const genreChange = (itemId) => {
+        setSelectedValue('');
         if (itemId === 'All') {
             setGenreNumber(null);
         } else {
             setGenreNumber(itemId);
         }
     }
-
-    console.log(genreNumber)
 
     useEffect(() => {
         async function Api() {
@@ -43,7 +41,9 @@ export default function Genre() {
         } Api();
     }, [type, genreNumber]);
 
+
     const SortClick = async (event) => {
+        setSelectedValue(event.target.value);
         if (event.target.value === 'popularityDesc') {
             const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
             setGenreList(genreUrl.data.results);
@@ -54,11 +54,11 @@ export default function Genre() {
         } else if (event.target.value === 'dateDesc') {
             const genreUrl = await movieApi.genreDateDesc(type, genreNumber);
             setGenreList(genreUrl.data.results);
+            console.log(genreUrl.data.results)
         } else {
             const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
         }
-        console.log(event.target.value)
     }
 
     return (
@@ -77,7 +77,7 @@ export default function Genre() {
             </Swiper>
 
             <div className="genre_sort">
-                <select onChange={SortClick}>
+                <select onChange={SortClick} value={selectedValue}>
                     <option value="popularityDesc">인기도 내림차순</option>
                     <option value="popularityAsc">인기도 오름차순</option>
                     <option value="dateDesc">상영일 내림차순</option>
