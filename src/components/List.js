@@ -30,30 +30,44 @@ export default function List(props) {
                 setLoading(false);
                 // key값을 바꿔 swiper가 재렌더링 될 수 있도록 유도
                 setSwiperKey(prevKey => prevKey + 1);
-            }, 1000);
+            }, 5000);
 
             return () => clearTimeout(timeoutId);
         }
     }, [list.length, loading]);
 
     return (
-        <Swiper key={swiperKey} slidesPerView={'auto'} className={`swiper ${props.class}`} allowTouchMove={!loading}>
-            {loading ? (
-                Array(loadLength).fill().map((_, index) => (
-                    <SwiperSlide className="load_card" key={index}>
+        <div>
+            {loading && Array(loadLength).fill().map((_, index) => (
+                <Swiper
+                    key={index}
+                    slidesPerView={'auto'}
+                    className={`swiper ${props.class} ${loading ? 'loading' : ''}`}
+                    allowTouchMove={!loading}
+                >
+                    <SwiperSlide className="load_card">
                         <span className="blind">로딩</span>
                     </SwiperSlide>
-                ))
-            )  : (
-                list.map(item => (
-                    <SwiperSlide className={`${list.some(item => item.profile_path) ? 'person_card' : 'item_card'}`} key={item.id}
-                                 onClick={() => {
-                                     if (list.some(item => item.poster_path)) {
-                                         movieLink(item.id)
-                                     } else {
-                                         personLink(item.id)
-                                     }
-                                 }}
+                </Swiper>
+            ))}
+
+            <Swiper
+                key={swiperKey}
+                slidesPerView={'auto'}
+                className={`swiper ${props.class} ${!loading ? 'complete' : ''}`}
+                allowTouchMove={!loading}
+            >
+                {list.map(item => (
+                    <SwiperSlide
+                        className={list.some(item => item.profile_path) ? 'person_card' : 'item_card'}
+                        key={item.id}
+                        onClick={() => {
+                            if (list.some(item => item.poster_path)) {
+                                movieLink(item.id);
+                            } else {
+                                personLink(item.id);
+                            }
+                        }}
                     >
                         <img
                             src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path || item.still_path}`}
@@ -61,28 +75,19 @@ export default function List(props) {
                             loading="lazy"
                         />
                         <h3> {item.title || item.name} </h3>
-                        {
-                            item.air_date && (
-                                <div>
-                                    <span className="episode_date">
-                                        {item.air_date}
-                                    </span>
-                                    <p className="episode_txt">
-                                        {item.overview}
-                                    </p>
-                                </div>
-                            )
-                        }
+                        {item.air_date && (
+                            <div>
+            <span className="episode_date">
+              {item.air_date}
+            </span>
+                                <p className="episode_txt">
+                                    {item.overview}
+                                </p>
+                            </div>
+                        )}
                     </SwiperSlide>
-                ))
-            )}
-            {
-                list.some(item => item.profile_path) ?
-                    <SwiperSlide className="person_card more">
-                        <div>더보기</div>
-                    </SwiperSlide>
-                    : null
-            }
-        </Swiper>
+                ))}
+            </Swiper>
+        </div>
     );
 }

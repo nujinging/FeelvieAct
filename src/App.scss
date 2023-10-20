@@ -125,14 +125,25 @@ body {color:#fff;line-height:1;background:#000}
 
 .swiper {
   overflow:visible;
+  &.item_list {
+    transition: opacity 15s linear;
+    opacity:0;
+    &.loading {
+      opacity:1;
+    }
+    &.complete {
+      opacity:1;
+    }
+  }
+
+
   +.title {
     margin-top:3.125rem
   }
   .swiper-wrapper {
     transform:translateZ(0);
     .item_card {
-      opacity:1;
-      transition: opacity 1s ease-in-out;
+
       &.item_card {
         width: 18.75rem;
         +.item_card {
