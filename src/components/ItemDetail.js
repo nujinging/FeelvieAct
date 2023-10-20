@@ -274,7 +274,7 @@ console.log(videoUrl)
                     {mediaType === 'video' &&
                         (videoUrl &&
                             videoUrl.map((item, index) => (
-                                <SwiperSlide key={index} className="bg_card" onClick={() => videoBox(item)}>
+                                <SwiperSlide key={index} className="video_card" onClick={() => videoBox(item)}>
                                     <img src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`} alt=""/>
                                 </SwiperSlide>
                             )))}
@@ -282,8 +282,8 @@ console.log(videoUrl)
                     {(mediaType === 'backdrops' || mediaType === 'posters') &&
                         (imagesUrl[mediaType] &&
                             imagesUrl[mediaType].map((item, index) => (
-                                <SwiperSlide key={index} className="bg_card">
-                                    <button type="button" className="media_link" onClick={() => imgMore(item)}>
+                                <SwiperSlide key={index} className="bg_card" onClick={() => imgMore(item)}>
+                                    <button type="button" className="media_link" >
                                         <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster"
                                              loading="lazy"/>
                                     </button>
@@ -310,9 +310,9 @@ console.log(videoUrl)
                 }
                 {
                     imgModal && (
-                        <div className="video_modal">
+                        <div className="img_modal">
                             <div className="inner">
-                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`} target="_blank">
+                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`} className={`img_link ${videoSize.width > videoSize.height ? 'img_width' : 'img_height'}`} target="_blank">
                                     <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster"
                                          loading="lazy"/>
                                 </a>
