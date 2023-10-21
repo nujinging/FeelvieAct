@@ -3,6 +3,7 @@ import "swiper/css";
 import './../App.scss';
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import mainEvent from './../images/img_main_event.png'
 
 export default function List(props) {
     const [itemId, setItemId] = useState(null);
@@ -11,6 +12,8 @@ export default function List(props) {
     const navigate = useNavigate();
     const loadLength = 5;
     const list = props.list;
+    const [visible, setVisible] = useState(false);
+    const [visible2, setVisible2] = useState(true);
 
     // 영화 디테일 페이지 이동
     const movieLink = (itemId) => {
@@ -26,68 +29,56 @@ export default function List(props) {
     useEffect(() => {
         // 데이터가 들어오면 로딩 false로 변경
         if (list.length > 0) {
-            const timeoutId = setTimeout(() => {
+            const timer = setTimeout(() => {
                 setLoading(false);
-                // key값을 바꿔 swiper가 재렌더링 될 수 있도록 유도
-                setSwiperKey(prevKey => prevKey + 1);
-            }, 1000);
+                setVisible(true);
+                setVisible2(false);
+            }, 10000);
 
-            return () => clearTimeout(timeoutId);
+            return () => {
+                clearTimeout(timer);
+            };
         }
     }, [list.length, loading]);
 
     return (
-        <div>
-            {loading && Array(loadLength).fill().map((_, index) => (
-                <Swiper
-                    key={index}
-                    slidesPerView={'auto'}
-                    className={`swiper ${props.class} ${loading ? 'loading' : ''}`}
-                    allowTouchMove={!loading}
+        <Swiper
+            key={swiperKey}
+            slidesPerView={'auto'}
+            className={`swiper ${props.class} `}
+            allowTouchMove={!loading}
+        >
+            <SwiperSlide className={`item_card test2 ${visible2 ? 'visible' : ''}`}>
+                    <img src={mainEvent} alt=""/>
+            </SwiperSlide>
+            {list.map(item => (
+                <SwiperSlide
+                    className={list.some(item => item.profile_path) ? 'person_card' : `item_card ${visible ? 'visible' : ''}`}
+                    key={item.id}
+                    onClick={() => {
+                        if (list.some(item => item.poster_path)) {
+                            movieLink(item.id);
+                        } else {
+                            personLink(item.id);
+                        }
+                    }}
                 >
-                    <SwiperSlide className="load_card">
-                        <span className="blind">로딩</span>
-                    </SwiperSlide>
-                </Swiper>
-            ))}
-
-            <Swiper
-                key={swiperKey}
-                slidesPerView={'auto'}
-                className={`swiper ${props.class} ${!loading ? 'complete' : ''}`}
-                allowTouchMove={!loading}
-            >
-                {list.map(item => (
-                    <SwiperSlide
-                        className={list.some(item => item.profile_path) ? 'person_card' : 'item_card'}
-                        key={item.id}
-                        onClick={() => {
-                            if (list.some(item => item.poster_path)) {
-                                movieLink(item.id);
-                            } else {
-                                personLink(item.id);
-                            }
-                        }}
-                    >
+                    <div>
                         <img
                             src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path || item.still_path}`}
                             alt="Movie Poster"
                             loading="lazy"
                         />
-                        <h3> {item.title || item.name} </h3>
+                        <h3>{item.title || item.name}</h3>
                         {item.air_date && (
                             <div>
-            <span className="episode_date">
-              {item.air_date}
-            </span>
-                                <p className="episode_txt">
-                                    {item.overview}
-                                </p>
+                                <span className="episode_date">{item.air_date}</span>
+                                <p className="episode_txt">{item.overview}</p>
                             </div>
                         )}
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 }
