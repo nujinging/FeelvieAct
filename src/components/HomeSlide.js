@@ -2,12 +2,9 @@ import './../App.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-
-
 
 export default function HomeSlide(props) {
     const [itemId, setItemId] = useState(null);
