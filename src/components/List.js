@@ -45,7 +45,7 @@ export default function List(props) {
         >
             {list.map(item => (
                 <SwiperSlide
-                    className={`${list.some(item => item.profile_path) ? 'person_card' : 'item_card'} ${hiddenCard ? 'hidden' : ''} ${showCard ? 'show' : ''}`}
+                    className={`list_card ${list.some(item => item.profile_path) ? 'person_card' : 'item_card'} ${hiddenCard ? 'hidden' : ''} ${showCard ? 'show' : ''}`}
                     key={item.id}
                     onClick={() => {
                         if (list.some(item => item.poster_path)) {

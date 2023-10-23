@@ -123,6 +123,62 @@ body {color:#fff;line-height:1;background:#000}
   overflow:hidden
 }
 
+.item_card {
+  &.item_card {
+    width: 18.75rem;
+    +.item_card {
+      margin-left:1.875rem
+    }
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: 28.125rem;
+    border-radius: 0.5rem
+  }
+  h3 {
+    margin-top:0.938rem;
+    color: #d5d5d5;
+    font-size:1.375rem;
+    font-weight:normal;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+  }
+  &:hover {
+    transform:translate3d(0,-0.75rem,0);
+    transition:transform .3s ease-in-out;
+    cursor:pointer
+  }
+}
+
+.list_card {
+  .card_hidden {
+    position:absolute;
+    top:0;
+    transition: opacity 0.5s linear;
+  }
+  .card_show {
+    transition: opacity 0.5s linear;
+  }
+  &.hidden {
+    .card_show {
+      opacity:0;
+    }
+    .card_hidden {
+      opacity:1;
+    }
+  }
+  &.show {
+    .card_show {
+      opacity:1;
+    }
+    .card_hidden {
+      opacity:0;
+    }
+  }
+}
+
 .swiper {
   overflow:visible;
   &.load {
@@ -133,9 +189,6 @@ body {color:#fff;line-height:1;background:#000}
           transform:translate3d(0, 0,0);
           cursor:initial;
         }
-        h3 {
-          display:none
-        }
       }
     }
   }
@@ -144,61 +197,10 @@ body {color:#fff;line-height:1;background:#000}
   }
   .swiper-wrapper {
     transform:translateZ(0);
-    .item_card {
-      transition: opacity 0.5s linear;
-      .card_hidden {
-        position:absolute;
-        top:0;
-        transition: opacity 0.5s linear;
-      }
-      .card_show {
-        transition: opacity 0.5s linear;
-      }
-      &.hidden {
-        .card_show {
-          opacity:0;
-        }
-        .card_hidden {
-          opacity:1;
-        }
-      }
-      &.show {
-        .card_show {
-          opacity:1;
-        }
-        .card_hidden {
-          opacity:0;
-        }
-      }
-      &.item_card {
-        width: 18.75rem;
-        +.item_card {
-          margin-left:1.875rem
-        }
-      }
-      img {
-        display: block;
-        width: 100%;
-        height: 28.125rem;
-        border-radius: 0.5rem
-      }
-      h3 {
-        margin-top:0.938rem;
-        color: #d5d5d5;
-        font-size:1.375rem;
-        font-weight:normal;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap
-      }
-      &:hover {
-        transform:translate3d(0,-0.75rem,0);
-        transition:transform .3s ease-in-out;
-        cursor:pointer
-      }
-    }
   }
 }
+
+
 
 .home_banner {
   position:relative;
@@ -207,6 +209,7 @@ body {color:#fff;line-height:1;background:#000}
   .banner {
     background-size:cover;
     background-position:center;
+    cursor:pointer;
     &:after{content: "";
       display:block;
       position:absolute;
@@ -522,7 +525,7 @@ body {color:#fff;line-height:1;background:#000}
     .season_main {
       margin-right:3.125rem;
       img {
-        height:25rem;
+        height:17.5rem;
         border-radius:0.5rem;
       }
     }
