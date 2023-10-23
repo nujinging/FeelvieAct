@@ -1,8 +1,8 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import './../App.scss';
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
+import {useState, useEffect} from "react";
 import mainEvent from './../images/img_main_event.png'
 
 export default function List(props) {
@@ -12,8 +12,8 @@ export default function List(props) {
     const navigate = useNavigate();
     const loadLength = 5;
     const list = props.list;
-    const [visible, setVisible] = useState(false);
-    const [visible2, setVisible2] = useState(true);
+    const [showCard, setShowCard] = useState(false);
+    const [hiddenCard, setHiddenCard] = useState(true);
 
     // 영화 디테일 페이지 이동
     const movieLink = (itemId) => {
@@ -31,9 +31,9 @@ export default function List(props) {
         if (list.length > 0) {
             const timer = setTimeout(() => {
                 setLoading(false);
-                setVisible(true);
-                setVisible2(false);
-            }, 10000);
+                setShowCard(true);
+                setHiddenCard(false);
+            }, 3000);
 
             return () => {
                 clearTimeout(timer);
@@ -46,14 +46,11 @@ export default function List(props) {
             key={swiperKey}
             slidesPerView={'auto'}
             className={`swiper ${props.class} `}
-            allowTouchMove={!loading}
         >
-            <SwiperSlide className={`item_card test2 ${visible2 ? 'visible' : ''}`}>
-                    <img src={mainEvent} alt=""/>
-            </SwiperSlide>
+
             {list.map(item => (
                 <SwiperSlide
-                    className={list.some(item => item.profile_path) ? 'person_card' : `item_card ${visible ? 'visible' : ''}`}
+                    className={`${list.some(item => item.profile_path) ? 'person_card' : 'item_card'} ${hiddenCard ? 'hidden' : ''} ${showCard ? 'show' : ''}`}
                     key={item.id}
                     onClick={() => {
                         if (list.some(item => item.poster_path)) {
@@ -63,7 +60,12 @@ export default function List(props) {
                         }
                     }}
                 >
-                    <div>
+
+                    <div className={`card_state hidden`}>
+                        <img src={mainEvent} alt=""/>
+                    </div>
+
+                    <div className={`card_state show`}>
                         <img
                             src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path || item.still_path}`}
                             alt="Movie Poster"
@@ -77,6 +79,30 @@ export default function List(props) {
                             </div>
                         )}
                     </div>
+
+                    {/*{*/}
+                    {/*    hiddenCard ? (*/}
+                    {/*            <div className={`load ${!hiddenCard ? 'hidden' : ''}`}>*/}
+                    {/*                <img src={mainEvent} alt=""/>*/}
+                    {/*            </div>*/}
+                    {/*        ) :*/}
+                    {/*        <div className={`card_info show`}>*/}
+                    {/*            <img*/}
+                    {/*                src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path || item.still_path}`}*/}
+                    {/*                alt="Movie Poster"*/}
+                    {/*                loading="lazy"*/}
+                    {/*            />*/}
+                    {/*            <h3>{item.title || item.name}</h3>*/}
+                    {/*            {item.air_date && (*/}
+                    {/*                <div>*/}
+                    {/*                    <span className="episode_date">{item.air_date}</span>*/}
+                    {/*                    <p className="episode_txt">{item.overview}</p>*/}
+                    {/*                </div>*/}
+                    {/*            )}*/}
+                    {/*        </div>*/}
+
+                    {/*}*/}
+
                 </SwiperSlide>
             ))}
         </Swiper>

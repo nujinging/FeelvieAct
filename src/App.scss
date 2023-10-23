@@ -130,7 +130,7 @@ body {color:#fff;line-height:1;background:#000}
       opacity: 1;
       color:#fff;
       transition: opacity 2s;
-      &.visible {
+      &.hidden {
         opacity: 0;
       }
     }
@@ -143,10 +143,42 @@ body {color:#fff;line-height:1;background:#000}
   .swiper-wrapper {
     transform:translateZ(0);
     .item_card {
-      transition: opacity 2s linear;
-      opacity:0;
-      &.visible {
-        opacity: 1;
+      transition: opacity 0.5s linear;
+
+      .card_state {
+        &.hidden {
+          position:absolute;
+          top:0;
+        }
+      }
+      &.hidden {
+
+        .hidden {
+          transition: opacity 0.5s linear;
+          opacity:1;
+        }
+        .show {
+          transition: opacity 0.5s linear;
+          opacity:0;
+        }
+      }
+      &.show {
+        .show {
+          transition: opacity 0.5s linear;
+          opacity:1;
+        }
+        .hidden {
+          transition: opacity 0.5s linear;
+          opacity:0;
+        }
+      }
+
+      .load {
+        opacity:1;
+        &.hidden {
+          transition: opacity 0.5s linear;
+          opacity:0;
+        }
       }
       &.item_card {
         width: 18.75rem;
