@@ -11,28 +11,27 @@ export default function Genre() {
     const navigate = useNavigate();
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState(null);
-    const [genreNumber, setGenreNumber] = useState();
+    const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
 
     // 전체 장르
     const genreChange = (itemId) => {
         setSelectedValue('');
         if (itemId === 'All') {
-            setGenreNumber(null);
+            setGenreNumber('All');
         } else {
             setGenreNumber(itemId);
         }
+        console.log(itemId)
     }
 
     useEffect(() => {
         async function Api() {
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
-
             if (genreNumber !== null) {
                 const genreUrl = await movieApi.genreList(type, genreNumber);
                 setGenreList(genreUrl.data.results);
-                console.log(type, genreNumber)
             } else {
                 // genreNumber에 값이 없는 초기화면일 시에는 유명한 작품 먼저 보여주기
                 const popular = await movieApi.popular(type);
@@ -64,12 +63,12 @@ export default function Genre() {
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
-                <SwiperSlide className="genre_item" onClick={() => genreChange('All')}>
+                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active': ''}`} onClick={() => genreChange('All')}>
                     All
                 </SwiperSlide>
                 {genreTitle?.map(item => {
                     return (
-                        <SwiperSlide className="genre_item" key={item.id} onClick={() => genreChange(item.id)}>
+                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active': ''}`} key={item.i} onClick={() => genreChange(item.id)}>
                             {item.name}
                         </SwiperSlide>
                     )
