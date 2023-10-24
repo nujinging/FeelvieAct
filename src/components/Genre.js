@@ -59,6 +59,7 @@ export default function Genre() {
     };
 
 
+
     const SortClick = async (event) => {
         setSelectedValue(event.target.value);
         if (event.target.value === 'popularityDesc') {
@@ -105,7 +106,7 @@ export default function Genre() {
             </div>
 
             {
-                !loading && showCard ? (
+                !loading && !hiddenCard && showCard ? (
                     <ul className="genre_list">
                         {genreList?.map(item => {
                             return (
@@ -132,6 +133,12 @@ export default function Genre() {
                         })}
                     </ul>
                 ) : <div>로딩</div>
+            }
+
+            {
+                loading ? (
+                    <div>load</div>
+                ) : null
             }
 
 
