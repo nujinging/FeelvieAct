@@ -1,6 +1,6 @@
+import './../App.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
-import './../App.scss';
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import mainEvent from './../images/img_main_event.png'
