@@ -32,13 +32,10 @@ export default function Genre() {
             }
 
             if (genreList && genreList.length > 0) {
-                const timer = setTimeout(() => {
-                    setShowCard(true);
+                setTimeout(() => {
                     setHiddenCard(false);
                 }, 1200);
-                return () => {
-                    clearTimeout(timer);
-                };
+
             }
         }
         Api();
@@ -48,6 +45,7 @@ export default function Genre() {
     const genreChange = (itemId) => {
         setSelectedValue('');
         setLoading(true);
+
         if (itemId === 'All') {
             setGenreNumber('All');
         } else {
@@ -106,7 +104,7 @@ export default function Genre() {
             </div>
 
             {
-                !loading && !hiddenCard && showCard ? (
+                genreNumber === 'All' ? (
                     <ul className="genre_list">
                         {genreList?.map(item => {
                             return (
@@ -132,16 +130,38 @@ export default function Genre() {
                             )
                         })}
                     </ul>
-                ) : <div>로딩</div>
+                ) : null
             }
 
             {
                 loading ? (
-                    <div>load</div>
-                ) : null
+                    <div>로딩</div>
+                ) : <ul className="genre_list">
+                    {genreList?.map(item => {
+                        return (
+                            <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
+                                {
+                                    item.poster_path === null ? (
+                                        <picture className="img_none">
+                                            <span className="blind">이미지 없음</span>
+                                        </picture>
+                                    ) : (
+                                        <picture>
+                                            <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                                 alt="Movie Poster" loading="lazy"/>
+                                        </picture>
+                                    )
+
+                                }
+
+                                <p className="tit">
+                                    {item.title || item.name}
+                                </p>
+                            </li>
+                        )
+                    })}
+                </ul>
             }
-
-
         </div>
     );
 }
