@@ -40,6 +40,8 @@ export default function Genre() {
         } Api();
     }, [type, genreNumber]);
 
+    console.log(genreList)
+
 
     const SortClick = async (event) => {
         setSelectedValue(event.target.value);
