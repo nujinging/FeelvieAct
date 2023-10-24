@@ -1,5 +1,5 @@
 import './../App.scss';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import {Swiper, SwiperSlide} from 'swiper/react';
 import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
@@ -7,23 +7,16 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 export default function Genre() {
-    const { type } = useParams();
+    const {type} = useParams();
     const navigate = useNavigate();
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState(null);
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
+    const [showCard, setShowCard] = useState(false);
+    const [hiddenCard, setHiddenCard] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-    // 전체 장르
-    const genreChange = (itemId) => {
-        setSelectedValue('');
-        if (itemId === 'All') {
-            setGenreNumber('All');
-        } else {
-            setGenreNumber(itemId);
-        }
-        console.log(itemId)
-    }
 
     useEffect(() => {
         async function Api() {
@@ -37,10 +30,33 @@ export default function Genre() {
                 const popular = await movieApi.popular(type);
                 setGenreList(popular.data.results);
             }
-        } Api();
-    }, [type, genreNumber]);
 
-    console.log(genreList)
+            if (genreList && genreList.length > 0) {
+                const timer = setTimeout(() => {
+                    setShowCard(true);
+                    setHiddenCard(false);
+                }, 1200);
+                return () => {
+                    clearTimeout(timer);
+                };
+            }
+        }
+        Api();
+    }, [type, genreNumber, genreList, loading]);
+
+    // 전체 장르
+    const genreChange = (itemId) => {
+        setSelectedValue('');
+        setLoading(true);
+        if (itemId === 'All') {
+            setGenreNumber('All');
+        } else {
+            setGenreNumber(itemId);
+        }
+        setTimeout(() => {
+            setLoading(false);
+        }, 1200);
+    };
 
 
     const SortClick = async (event) => {
@@ -65,12 +81,14 @@ export default function Genre() {
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
-                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active': ''}`} onClick={() => genreChange('All')}>
+                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                             onClick={() => genreChange('All')}>
                     All
                 </SwiperSlide>
                 {genreTitle?.map(item => {
                     return (
-                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active': ''}`} key={item.i} onClick={() => genreChange(item.id)}>
+                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={item.i}
+                                     onClick={() => genreChange(item.id)}>
                             {item.name}
                         </SwiperSlide>
                     )
@@ -86,30 +104,37 @@ export default function Genre() {
                 </select>
             </div>
 
-            <ul className="genre_list">
-                {genreList?.map(item => {
-                    return (
-                        <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
-                            {
-                                item.poster_path === null ? (
-                                    <picture className="img_none">
-                                        <span className="blind">이미지 없음</span>
-                                    </picture>
-                                ) : (
-                                    <picture>
-                                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="Movie Poster" loading="lazy"/>
-                                    </picture>
-                                )
+            {
+                !loading && showCard ? (
+                    <ul className="genre_list">
+                        {genreList?.map(item => {
+                            return (
+                                <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
+                                    {
+                                        item.poster_path === null ? (
+                                            <picture className="img_none">
+                                                <span className="blind">이미지 없음</span>
+                                            </picture>
+                                        ) : (
+                                            <picture>
+                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                                     alt="Movie Poster" loading="lazy"/>
+                                            </picture>
+                                        )
 
-                            }
+                                    }
 
-                            <p className="tit">
-                                {item.title || item.name}
-                            </p>
-                        </li>
-                    )
-                })}
-            </ul>
+                                    <p className="tit">
+                                        {item.title || item.name}
+                                    </p>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                ) : <div>로딩</div>
+            }
+
+
         </div>
     );
 }
