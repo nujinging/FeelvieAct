@@ -26,14 +26,14 @@ export default function ItemDetail() {
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const seriesId = params.id;
+
     const seasonNumber = seasonUrl?.season_number;
+
 
     const [imgModal, setImgModal] = useState(false);
 
     const [videoOpen, setVideoOpen] = useState(false);
     const [youtubeUrl, setYoutubeUrl] = useState();
-
-    const mediaTit = (videoUrl && videoUrl.length > 0) ? 'video' : (imagesUrl?.backdrops) ? 'backdrops' : 'posters';
 
 
     const [videoLink, setVideoLink] = useState();
@@ -43,7 +43,6 @@ export default function ItemDetail() {
     const mediaTab = (type) => {
         setMediaType(type);
     }
-
 
 
 
@@ -72,7 +71,6 @@ export default function ItemDetail() {
         setYoutubeUrl(youtube)
 
     };
-
 
     // 영화 상세설명
     useEffect(() => {
@@ -107,24 +105,21 @@ export default function ItemDetail() {
                 setSocialUrl(social.data);
 
                 // 이미지
-                const images = await movieApi.seasonImg(params.id);
+                const images = await movieApi.seasonImg(params.type, params.id);
                 setImagesUrl(images.data);
 
                 // 비디오
-                const videos = await movieApi.seasonVideo(params.id);
+                const videos = await movieApi.seasonVideo(params.type, params.id);
                 setVideoUrl(videos.data.results);
 
+                // 비디오가 없으면 배경 -> 포스터
                 if (videos.data.results.length !== 0) {
                     setMediaType('video')
-                    console.log('1')
                 } else if (imagesUrl?.backdrops) {
                     setMediaType('backdrops')
-                    console.log('2')
                 } else {
                     setMediaType('posters')
-                    console.log('3')
                 }
-
 
                 // tv 시리즈
                 if (params.type === 'tv') {
@@ -133,7 +128,6 @@ export default function ItemDetail() {
                     const episode = await movieApi.episode(params.id, dataUrl?.number_of_seasons, '1');
                     setEpisodeUrl(episode.data);
                 }
-
 
 
                 // 영화 상세설명
@@ -156,14 +150,14 @@ export default function ItemDetail() {
         Api();
     }, [textContainerRef.current, params.id]);
 
+
+
     /* 소셜 */
     const socialMedia = [
         {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialUrl?.facebook_id}`},
         {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialUrl?.twitter_id}`},
         {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialUrl?.instagram_id}`}
     ]
-
-
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];

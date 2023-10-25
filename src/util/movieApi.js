@@ -20,8 +20,8 @@ export const movieApi = {
     similar: (type, movie_id) => request.get(`${type}/${movie_id}/similar`),
     social : (type, movie_id) => request.get(`${type}/${movie_id}/external_ids`),
     seasons : (season_id, season_number) => request.get(`tv/${season_id}/season/${season_number}`),
-    seasonImg : (movie_id) => request.get(`movie/${movie_id}/images?&language=fr&include_image_language=fr,null,kr`),
-    seasonVideo : (movie_id) => request.get(`movie/${movie_id}/videos?&language=fr&include_image_language=fr,null,kr`),
+    seasonImg : (type, movie_id) => request.get(`${type}/${movie_id}/images?&language=fr&include_image_language=fr,null,kr`),
+    seasonVideo : (type, movie_id) => request.get(`${type}/${movie_id}/videos?&language=fr&include_image_language=fr,null,kr`),
     episode : (season_id, season_number, episode_number) => request.get(`tv/${season_id}/season/${season_number}/episode/${episode_number}`),
     episodeImg : (season_id, season_number, episode_number) => request.get(`tv/${season_id}/season/${season_number}/episode/${episode_number}/images`),
 

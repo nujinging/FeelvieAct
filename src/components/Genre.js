@@ -17,7 +17,6 @@ export default function Genre() {
     const [hiddenCard, setHiddenCard] = useState(true);
     const [loading, setLoading] = useState(true);
 
-
     useEffect(() => {
         async function Api() {
             const genre = await movieApi.genreTitle(type);
@@ -77,6 +76,10 @@ export default function Genre() {
         }
     }
 
+    const pageLink = (itemType, itemId) => {
+        navigate(`/detail/${itemType}/${itemId}`);
+    }
+
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
@@ -108,7 +111,7 @@ export default function Genre() {
                     <ul className="genre_list">
                         {genreList?.map(item => {
                             return (
-                                <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
+                                <li className="list_card" onClick={() => pageLink(type, item.id)}>
                                     {
                                         item.poster_path === null ? (
                                             <picture className="img_none">
@@ -139,7 +142,7 @@ export default function Genre() {
                 ) : <ul className="genre_list">
                     {genreList?.map(item => {
                         return (
-                            <li className="list_card" onClick={() => navigate(`/detail/${type}/${item.id}`)}>
+                            <li className="list_card" onClick={() => pageLink(type, item.id)}>
                                 {
                                     item.poster_path === null ? (
                                         <picture className="img_none">
