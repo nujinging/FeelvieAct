@@ -780,6 +780,34 @@ body {color:#fff;line-height:1;background:#000}
       margin:0 1.25rem 2.5rem 0;
       width:calc(100% - 80% - 1rem);
       vertical-align:top;
+      &.tv {
+        position:relative;
+        &:after {
+          position:absolute;
+          top:0;
+          left:0;
+          padding:0.75rem 1.25rem;
+          border-radius:0 0 4px 0 ;
+          color:#fff;
+          font-size:1.25rem;
+          background:#f59400;
+          content:'TV'
+        }
+      }
+      &.movie {
+        position:relative;
+        &:after {
+          position:absolute;
+          top:0;
+          left:0;
+          padding:0.75rem 1.25rem;
+          border-radius:0 0 4px 0 ;
+          font-size:1.25rem;
+          color:#fff;
+          background:#0091f5;
+          content:'MOVIE'
+        }
+      }
       picture {
         display:block;
         border-radius:0.5rem;

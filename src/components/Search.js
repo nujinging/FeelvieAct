@@ -94,7 +94,7 @@ function App() {
                 {
                     searchList.map(item => {
                         return (
-                            <li className="list_card" onClick={() => pageLink(item.media_type, item.id)}>
+                            <li className={`list_card ${item.media_type === 'tv' ? 'tv' : 'movie'}`} onClick={() => pageLink(item.media_type, item.id)}>
                                 <picture>
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
