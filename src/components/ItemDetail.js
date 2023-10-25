@@ -11,7 +11,6 @@ export default function ItemDetail() {
     const [dataUrl, setDataUrl] = useState();
     const [dataId, setDataId] = useState();
     const [seasonUrl, setSeasonUrl] = useState();
-    const [episodeUrl, setEpisodeUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
@@ -125,9 +124,8 @@ export default function ItemDetail() {
                 if (params.type === 'tv') {
                     const seasons = await movieApi.seasons(params.id, dataUrl?.number_of_seasons);
                     setSeasonUrl(seasons.data);
-                    const episode = await movieApi.episode(params.id, dataUrl?.number_of_seasons, '1');
-                    setEpisodeUrl(episode.data);
                 }
+
 
 
                 // 영화 상세설명
