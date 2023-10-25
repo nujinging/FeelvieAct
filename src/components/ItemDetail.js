@@ -110,18 +110,21 @@ export default function ItemDetail() {
                 const images = await movieApi.seasonImg(params.id);
                 setImagesUrl(images.data);
 
+                // 비디오
                 const videos = await movieApi.seasonVideo(params.id);
-                setVideoUrl(videos.data.results)
+                setVideoUrl(videos.data.results);
 
-
-
-                if (videoUrl?.data.results === 0) {
+                if (videos.data.results.length !== 0) {
                     setMediaType('video')
+                    console.log('1')
                 } else if (imagesUrl?.backdrops) {
                     setMediaType('backdrops')
+                    console.log('2')
                 } else {
                     setMediaType('posters')
+                    console.log('3')
                 }
+
 
                 // tv 시리즈
                 if (params.type === 'tv') {
@@ -130,6 +133,8 @@ export default function ItemDetail() {
                     const episode = await movieApi.episode(params.id, dataUrl?.number_of_seasons, '1');
                     setEpisodeUrl(episode.data);
                 }
+
+
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -157,6 +162,8 @@ export default function ItemDetail() {
         {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialUrl?.twitter_id}`},
         {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialUrl?.instagram_id}`}
     ]
+
+
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
