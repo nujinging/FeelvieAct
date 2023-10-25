@@ -113,10 +113,13 @@ export default function ItemDetail() {
                 const videos = await movieApi.seasonVideo(params.id);
                 setVideoUrl(videos.data.results)
 
-                if (videoUrl.length === 0) {
+
+                if (imagesUrl?.backdrops) {
                     setMediaType('backdrops')
-                } else if (images.data.backdrops.length === 0) {
+                } else if (imagesUrl?.posters) {
                     setMediaType('posters')
+                } else {
+                    setMediaType('video')
                 }
 
                 // tv 시리즈
@@ -145,7 +148,7 @@ export default function ItemDetail() {
         }
 
         Api();
-    }, [textContainerRef.current, params.id, videoUrl]);
+    }, [textContainerRef.current, params.id]);
 
     /* 소셜 */
     const socialMedia = [
