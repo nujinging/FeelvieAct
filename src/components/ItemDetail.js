@@ -15,8 +15,9 @@ export default function ItemDetail() {
     const [creditsUrl, setCreditsUrl] = useState();
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
-    const [imagesUrl, setImagesUrl] = useState();
-    const [videoUrl, setVideoUrl] = useState();
+    const [videoUrl, setVideoUrl] = useState([]);
+    const [imagesUrl, setImagesUrl] = useState({ backdrops: [], posters: [] });
+
 
     const [mediaType, setMediaType] = useState('video');
     const [overviewMore, setOverviewMore] = useState(false);
@@ -42,6 +43,8 @@ export default function ItemDetail() {
     const mediaTab = (type) => {
         setMediaType(type);
     }
+
+
 
 
     // 이미지 모달
@@ -103,8 +106,6 @@ export default function ItemDetail() {
                 setSimilarUrl(similar.data.results);
                 setSocialUrl(social.data);
 
-
-                console.log(params.id)
                 // 이미지
                 const images = await movieApi.seasonImg(params.id);
                 setImagesUrl(images.data);
@@ -112,7 +113,11 @@ export default function ItemDetail() {
                 const videos = await movieApi.seasonVideo(params.id);
                 setVideoUrl(videos.data.results)
 
-                console.log(videos.data.results)
+                if (videoUrl.length === 0) {
+                    setMediaType('backdrops')
+                } else if (images.data.backdrops.length === 0) {
+                    setMediaType('posters')
+                }
 
                 // tv 시리즈
                 if (params.type === 'tv') {
@@ -140,7 +145,7 @@ export default function ItemDetail() {
         }
 
         Api();
-    }, [textContainerRef.current, params.id]);
+    }, [textContainerRef.current, params.id, videoUrl]);
 
     /* 소셜 */
     const socialMedia = [
@@ -155,8 +160,6 @@ export default function ItemDetail() {
     /* 비슷한 작품 */
     const similarArray = similarUrl ? similarUrl.slice(0, 5) : [];
 
-
-console.log(videoUrl)
     return (
         <div>
             <section className="detail_container"
