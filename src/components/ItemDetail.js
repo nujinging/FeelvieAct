@@ -114,12 +114,13 @@ export default function ItemDetail() {
                 setVideoUrl(videos.data.results)
 
 
-                if (imagesUrl?.backdrops) {
-                    setMediaType('backdrops')
-                } else if (imagesUrl?.posters) {
-                    setMediaType('posters')
-                } else {
+
+                if (videoUrl?.data.results === 0) {
                     setMediaType('video')
+                } else if (imagesUrl?.backdrops) {
+                    setMediaType('backdrops')
+                } else {
+                    setMediaType('posters')
                 }
 
                 // tv 시리즈

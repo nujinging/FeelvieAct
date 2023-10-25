@@ -40,7 +40,7 @@ function App() {
             const response = await movieApi.search(value);
             setSearchList(response.data.results);
         }
-    }, 1000);
+    }, 1500);
 
     console.log(searchList.length)
 
