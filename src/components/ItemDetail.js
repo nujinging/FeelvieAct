@@ -15,7 +15,7 @@ export default function ItemDetail() {
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [videoUrl, setVideoUrl] = useState([]);
-    const [imagesUrl, setImagesUrl] = useState({ backdrops: [], posters: [] });
+    const [imagesUrl, setImagesUrl] = useState({backdrops: [], posters: []});
 
 
     const [mediaType, setMediaType] = useState('video');
@@ -42,7 +42,6 @@ export default function ItemDetail() {
     const mediaTab = (type) => {
         setMediaType(type);
     }
-
 
 
     // 이미지 모달
@@ -127,7 +126,6 @@ export default function ItemDetail() {
                 }
 
 
-
                 // 영화 상세설명
                 const handleResize = () => {
                     if (textContainer) {
@@ -147,7 +145,6 @@ export default function ItemDetail() {
 
         Api();
     }, [textContainerRef.current, params.id]);
-
 
 
     /* 소셜 */
@@ -178,26 +175,40 @@ export default function ItemDetail() {
                             )
                         })}
                     </div>
-                    <div className="comment">
-                        <p className="quites">
-                            {dataUrl?.tagline}
-                        </p>
-                        <p
-                            ref={textContainerRef}
-                            className={`intro ${isExpanded ? 'intro_more' : ''}`}
-                        >
-                            {dataUrl?.overview}
-                        </p>
+                    {
+                        dataUrl?.overview && dataUrl?.tagline && (
+                            <div className="comment">
+                                {
+                                    dataUrl?.tagline && (
+                                        <p className="quites">
+                                            {dataUrl?.tagline}
+                                        </p>
+                                    )
+                                }
 
-                        {isOverflowed && (
-                            <button
-                                className="btn_more"
-                                onClick={handleToggleButtonClick}
-                            >
-                                {isExpanded ? '접기' : '더보기'}
-                            </button>
-                        )}
-                    </div>
+                                {
+                                    dataUrl?.overview && (
+                                        <p
+                                            ref={textContainerRef}
+                                            className={`intro ${isExpanded ? 'intro_more' : ''}`}
+                                        >
+                                            {dataUrl?.overview}
+                                        </p>
+                                    )
+                                }
+
+                                {isOverflowed && (
+                                    <button
+                                        className="btn_more"
+                                        onClick={handleToggleButtonClick}
+                                    >
+                                        {isExpanded ? '접기' : '더보기'}
+                                    </button>
+                                )}
+                            </div>
+                        )
+
+                    }
                 </div>
                 <div className="detail_poster">
                     <ul className="social_links">
@@ -289,7 +300,7 @@ export default function ItemDetail() {
                         (imagesUrl[mediaType] &&
                             imagesUrl[mediaType].map((item, index) => (
                                 <SwiperSlide key={index} className="bg_card" onClick={() => imgMore(item)}>
-                                    <button type="button" className="media_link" >
+                                    <button type="button" className="media_link">
                                         <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster"
                                              loading="lazy"/>
                                     </button>
@@ -318,7 +329,9 @@ export default function ItemDetail() {
                     imgModal && (
                         <div className="img_modal">
                             <div className="inner">
-                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`} className={`img_link ${videoSize.width > videoSize.height ? 'img_width' : 'img_height'}`} target="_blank">
+                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`}
+                                   className={`img_link ${videoSize.width > videoSize.height ? 'img_width' : 'img_height'}`}
+                                   target="_blank">
                                     <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster"
                                          loading="lazy"/>
                                 </a>
