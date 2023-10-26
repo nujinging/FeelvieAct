@@ -34,6 +34,9 @@ export const movieApi = {
     genreDateAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
     ottList : (type, movie_id) => request.get(`${type}/${movie_id}/watch/providers`),
 
+
+    watchList : (type) => request.get(`discover/${type}&with_watch_providers=8&with_region=KR`),
+
     person : (id) => request.get(`person/${id}`),
     search : (keyword) => request.get(`search/multi`, {
         params : {

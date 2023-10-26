@@ -17,10 +17,17 @@ export default function Genre() {
     const [hiddenCard, setHiddenCard] = useState(true);
     const [loading, setLoading] = useState(true);
 
+    const [watchUrl, setWatchUrl] = useState();
+
     useEffect(() => {
         async function Api() {
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
+
+            // const watch = await movieApi.watchList(type);
+            // setWatchUrl(watch);
+            // console.log(watch)
+
             if (genreNumber !== null) {
                 const genreUrl = await movieApi.genreList(type, genreNumber);
                 setGenreList(genreUrl.data.results);
