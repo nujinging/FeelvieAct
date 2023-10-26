@@ -1780,6 +1780,9 @@ body {
       .meta {
         justify-content: center;
         margin-bottom: 2rem;
+        .txt {
+          font-size:1.625rem;
+        }
       }
 
       .comment {
@@ -1791,6 +1794,8 @@ body {
         }
 
         .intro {
+          font-size:1.625rem;
+          line-height:2.375rem;
           margin: 0 2rem;
         }
 
