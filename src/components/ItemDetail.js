@@ -25,6 +25,7 @@ export default function ItemDetail() {
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const seriesId = params.id;
+    const [ottUrl, setOttUrl] = useState();
 
     const seasonNumber = seasonUrl?.season_number;
 
@@ -102,6 +103,10 @@ export default function ItemDetail() {
                 setSimilarUrl(similar.data.results);
                 setSocialUrl(social.data);
 
+                const ottList = await movieApi.ottList('movie', '496243');
+                setOttUrl(ottList.data.results.KR);
+                console.log(ottUrl)
+
                 // 이미지
                 const images = await movieApi.seasonImg(params.type, params.id);
                 setImagesUrl(images.data);
@@ -118,6 +123,8 @@ export default function ItemDetail() {
                 } else {
                     setMediaType('posters')
                 }
+
+
 
                 // tv 시리즈
                 if (params.type === 'tv') {
@@ -165,7 +172,26 @@ export default function ItemDetail() {
             <section className="detail_container"
                      style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${dataUrl?.backdrop_path})`}}>
                 <div className="detail_info">
-                    <h1>{dataUrl?.title || dataUrl?.name}</h1>
+                    <h1 className="tit">
+                        {dataUrl?.title || dataUrl?.name}
+                    </h1>
+                    <div className="info">
+                        <span className="date">{dataUrl?.release_date}</span>
+                        <span className="type">{params.type === 'movie' ? 'movie' : 'tv'}</span>
+                        <ul className="ott">
+
+                                {
+                                    ottUrl?.flatrate.map((item) => (
+                                        <li>
+                                            <img src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`} alt=""/>
+                                            <p>{item.provider_name}</p>
+                                            <a href={`https://www.netflix.com/title/${item.provider_id}`}>sdadds</a>
+                                        </li>
+                                    ))
+                                }
+
+                        </ul>
+                    </div>
                     <div className="meta">
                         {dataUrl?.genres.map(item => {
                             return (
@@ -176,7 +202,7 @@ export default function ItemDetail() {
                         })}
                     </div>
                     {
-                        dataUrl?.overview && dataUrl?.tagline && (
+                        dataUrl?.overview || dataUrl?.tagline ? (
                             <div className="comment">
                                 {
                                     dataUrl?.tagline && (
@@ -206,8 +232,7 @@ export default function ItemDetail() {
                                     </button>
                                 )}
                             </div>
-                        )
-
+                        ) : null
                     }
                 </div>
                 <div className="detail_poster">

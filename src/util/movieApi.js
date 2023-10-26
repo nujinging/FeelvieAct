@@ -32,6 +32,7 @@ export const movieApi = {
     genrePopularAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),
     genreDateDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.desc`),
     genreDateAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
+    ottList : (type, movie_id) => request.get(`${type}/${movie_id}/watch/providers`),
 
     person : (id) => request.get(`person/${id}`),
     search : (keyword) => request.get(`search/multi`, {
