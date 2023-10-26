@@ -1768,23 +1768,37 @@ body {
     flex-wrap: wrap-reverse;
     padding-bottom: 8rem;
     background-size: cover;
-
     .detail_info {
       margin: 0;
       text-align: center;
-
       h1 {
+        font-size:3.75rem;
         margin-top: 0;
       }
-
       .meta {
+        flex-wrap:wrap;
         justify-content: center;
         margin-bottom: 2rem;
         .txt {
-          font-size:1.625rem;
+          font-size:1.875rem;
+        }
+        .type {
+          font-size:1.875rem;
+        }
+        .date {
+          justify-content:center;
+          width:100%;
+          font-size:1.875rem;
+          line-height:3.5rem;
+          &:before {
+            content:none
+          }
+        }
+        &:before {
+          width:2.875rem;
+          height:2.875rem;
         }
       }
-
       .comment {
         top: 72px;
         bottom: auto;
@@ -1792,18 +1806,44 @@ body {
         .quites {
           margin-top: 2rem;
         }
-
         .intro {
-          font-size:1.625rem;
+          font-size:1.875rem;
           line-height:2.375rem;
           margin: 0 2rem;
         }
-
         .btn_more {
           margin: 20px auto 0;
         }
       }
+      .ott_box {
+        .ott_tit {
+          justify-content:center;
+          font-size:1.875rem;
+          &:before {
+            width:2.875rem;
+            height:2.875rem;
+          }
+        }
+        .ott_wrap {
+          display:block;
+          .ott_list {
+            margin:22px auto;
+            &+.ott_list {
+              margin-top:20px
+            }
+            .ott_txt {
+              margin-bottom:1rem;
+              font-size:1.625rem;
+            }
+            ul {
+              justify-content:center;
+            }
+          }
+        }
+      }
     }
+
+
 
     .detail_poster {
       flex-direction: column-reverse;
@@ -1826,11 +1866,8 @@ body {
 
       picture {
         margin: 0 auto;
-        width: 15rem;
-
-        img {
-          height: 21rem;
-        }
+        width: 22rem;
+        height:auto;
       }
     }
   }
