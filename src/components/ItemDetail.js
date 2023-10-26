@@ -103,9 +103,9 @@ export default function ItemDetail() {
                 setSimilarUrl(similar.data.results);
                 setSocialUrl(social.data);
 
-                const ottList = await movieApi.ottList('movie', '496243');
+                const ottList = await movieApi.ottList(params.type, params.id);
                 setOttUrl(ottList.data.results.KR);
-                console.log(ottUrl)
+                console.log(dataUrl)
 
                 // 이미지
                 const images = await movieApi.seasonImg(params.type, params.id);
@@ -123,7 +123,6 @@ export default function ItemDetail() {
                 } else {
                     setMediaType('posters')
                 }
-
 
 
                 // tv 시리즈
@@ -175,24 +174,8 @@ export default function ItemDetail() {
                     <h1 className="tit">
                         {dataUrl?.title || dataUrl?.name}
                     </h1>
-                    <div className="info">
-                        <span className="date">{dataUrl?.release_date}</span>
-                        <span className="type">{params.type === 'movie' ? 'movie' : 'tv'}</span>
-                        <ul className="ott">
-
-                                {
-                                    ottUrl?.flatrate.map((item) => (
-                                        <li>
-                                            <img src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`} alt=""/>
-                                            <p>{item.provider_name}</p>
-                                            <a href={`https://www.netflix.com/title/${item.provider_id}`}>sdadds</a>
-                                        </li>
-                                    ))
-                                }
-
-                        </ul>
-                    </div>
                     <div className="meta">
+                        <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
                         {dataUrl?.genres.map(item => {
                             return (
                                 <span className="txt" key={item.id}>
@@ -200,7 +183,61 @@ export default function ItemDetail() {
                                 </span>
                             )
                         })}
+                        {
+                            dataUrl?.first_air_date || dataUrl?.release_date ? (
+                                <span className="date">{dataUrl?.release_date || dataUrl?.first_air_date}</span>
+                            ) : null
+                        }
                     </div>
+
+                    {
+                        ottUrl && (ottUrl.buy || ottUrl.flatrate) ? (
+                            <div className="ott_box">
+                                <h3 className="ott_tit">OTT</h3>
+                                <div className="ott_wrap">
+                                    {
+                                        ottUrl.buy &&  (
+                                            <div className="ott_list">
+                                                <h4 className="ott_txt">BUY</h4>
+                                                <ul>
+                                                    {
+                                                        ottUrl.buy && ottUrl.buy.map((item) => (
+                                                            <li>
+                                                                <img
+                                                                    src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`}
+                                                                    alt=""/>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div>
+                                        )
+                                    }
+
+                                    {
+                                        ottUrl.flatrate && (
+                                            <div className="ott_list">
+                                                <h4 className="ott_txt">Streaming</h4>
+                                                <ul>
+                                                    {
+                                                        ottUrl?.flatrate && ottUrl?.flatrate.map((item) => (
+                                                            <li>
+                                                                <img
+                                                                    src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`}
+                                                                    alt=""/>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div>
+                                        )
+                                    }
+
+                                </div>
+                            </div>
+                        ) : null
+                    }
+
                     {
                         dataUrl?.overview || dataUrl?.tagline ? (
                             <div className="comment">
