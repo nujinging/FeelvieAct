@@ -1734,11 +1734,20 @@ body {
 
 /* 미디어쿼리 */
 @media screen and (max-width: 768px) {
-  .wrap_header .header_container {
-    padding: 1.25rem 2rem
+  .wrap_header {
+    .header_container {
+      padding: 1.25rem 2rem
+    }
+    .menu {
+      li {
+        a {
+          font-size:2.25rem
+        }
+      }
+    }
   }
   .title h2 {
-    font-size: 2.125rem
+    font-size: 2.625rem
   }
   .item_container {
     padding: 2.5rem;
@@ -1763,6 +1772,29 @@ body {
       }
     }
   }
+
+  .type_list {
+    li {
+      button {
+        padding:1.625rem;
+        font-size:1.875rem;
+      }
+    }
+  }
+
+  .person_list {
+    .person_card {
+      width:13rem;
+      h3 {
+        font-size:1.5rem;
+        font-weight:normal;
+      }
+      img {
+        width:100%
+      }
+    }
+  }
+
   .detail_container {
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
@@ -1805,10 +1837,12 @@ body {
 
         .quites {
           margin-top: 2rem;
+          font-size:2.25rem;
+          line-height:2.875rem;
         }
         .intro {
           font-size:1.875rem;
-          line-height:2.375rem;
+          line-height:2.875rem;
           margin: 0 2rem;
         }
         .btn_more {
@@ -1869,12 +1903,6 @@ body {
         width: 22rem;
         height:auto;
       }
-    }
-  }
-
-  .person_list {
-    .person_card {
-      width: 75px;
     }
   }
 
