@@ -85,7 +85,7 @@ export default function Main() {
                             </li>
                         </ul>
                     </div>
-                    <List type={typeTabs.day} list={lists.day} />
+                    <List type={typeTabs.day} list={lists.day} class={"item_list"} />
 
                     <div className="title">
                         <h2>이번 주 가장 많이 찾아 본 컨텐츠</h2>

@@ -1,9 +1,11 @@
 import './../App.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
+import "swiper/css/navigation";
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import mainEvent from './../images/img_main_event.png'
+import {Navigation} from "swiper/modules";
 
 export default function List(props) {
     const [itemId, setItemId] = useState(null);
@@ -38,9 +40,11 @@ export default function List(props) {
         }
     }, [list.length]);
 
+
+
     return (
         <Swiper
-            slidesPerView={'auto'}
+            slidesPerView={'auto'} navigation={true} modules={[Navigation]}
             className={`swiper ${props.class} ${hiddenCard ? 'load' : ''}`}
         >
             {list.map(item => (
