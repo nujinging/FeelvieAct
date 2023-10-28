@@ -1,5 +1,5 @@
 import './../App.scss';
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import {debounce} from 'lodash';
@@ -9,6 +9,7 @@ function App() {
     const [searchList, setSearchList] = useState([]);
     const [itemId, setItemId] = useState();
     const navigate = useNavigate();
+    const debounceTimer = useRef(null);
 
     // 영화 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
@@ -24,23 +25,28 @@ function App() {
         }
     }
 
+
+
+
     // 검색 인풋 값 변경
     const searchChange = (event) => {
         const value = event.target.value;
-        setSearchWord(value);
+        clearTimeout(debounceTimer.current);
+        debounceTimer.current = setTimeout(() => {
+            setSearchWord(value);
+        }, 1000);
     };
 
-    // 검색 후 1초 뒤 Api 호출
     useEffect(() => {
-        debounceApiCall(searchWord);
-    }, [searchWord]);
-
-    const debounceApiCall = debounce(async (value) => {
-        if (value) {
-            const response = await movieApi.search(value);
-            setSearchList(response.data.results);
+        if (searchWord) {
+            const SearchFetch = async () => {
+                const response = await movieApi.search(searchWord);
+                setSearchList(response.data.results);
+            };
+            const delayTimer = setTimeout(SearchFetch, 100);
+            return () => clearTimeout(delayTimer);
         }
-    }, 1500);
+    }, [searchWord]);
 
     console.log(searchList.length)
 
