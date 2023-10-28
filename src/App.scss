@@ -113,7 +113,17 @@ body {
   -webkit-transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   background-color: rgba(0, 0, 0, 0);
-
+  &.fixed {
+    transform: translateZ(0);
+    background-image: linear-gradient(rgba(0,0,0,.7),transparent);
+    color: #fff;
+    transition: background-color .3s linear 0s,-webkit-backdrop-filter .3s linear 0s;
+    transition: backdrop-filter .3s linear 0s,background-color .3s linear 0s;
+    transition: backdrop-filter .3s linear 0s,background-color .3s linear 0s,-webkit-backdrop-filter .3s linear 0s;
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    background-color: rgba(0,0,0,.7);
+  }
   .header_container {
     padding: 1.25rem 3.888rem;
     display: flex;
@@ -795,6 +805,7 @@ body {
         color: #3A7CDF;
         font-size: 1.875rem;
         font-style: italic;
+        line-height:2.875rem;
       }
 
       .intro {

@@ -361,7 +361,7 @@ export default function ItemDetail() {
                     {(mediaType === 'backdrops' || mediaType === 'posters') &&
                         (imagesUrl[mediaType] &&
                             imagesUrl[mediaType].map((item, index) => (
-                                <SwiperSlide key={index} className="bg_card" onClick={() => imgMore(item)}>
+                                <SwiperSlide key={index} className={`${mediaType === 'posters' ? 'poster_card' : 'bg_card'}`} onClick={() => imgMore(item)}>
                                     <button type="button" className="media_link">
                                         <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster"
                                              loading="lazy"/>

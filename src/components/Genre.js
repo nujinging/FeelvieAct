@@ -23,14 +23,10 @@ export default function Genre() {
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
 
-            if (genreNumber !== null) {
-                const genreUrl = await movieApi.genreList(type, genreNumber);
-                setGenreList(genreUrl.data.results);
-            } else {
-                // genreNumber에 값이 없는 초기화면일 시에는 유명한 작품 먼저 보여주기
-                const popular = await movieApi.popular(type);
-                setGenreList(popular.data.results);
-            }
+            const genreUrl = await movieApi.genreList(type, genreNumber);
+            setGenreList(genreUrl.data.results);
+            const popular = await movieApi.popular(type);
+            setGenreList(popular.data.results);
 
             if (genreList && genreList.length > 0) {
                 setTimeout(() => {
@@ -39,7 +35,8 @@ export default function Genre() {
             }
         }
         Api();
-    }, [loading]);
+    }, [loading, genreNumber, type]);
+
 
     // 전체 장르
     const genreChange = (itemId) => {
@@ -54,8 +51,6 @@ export default function Genre() {
             setLoading(false);
         }, 1200);
     };
-
-
 
     const SortClick = async (event) => {
         setSelectedValue(event.target.value);
