@@ -36,7 +36,6 @@ export default function Genre() {
                 setTimeout(() => {
                     setHiddenCard(false);
                 }, 1200);
-
             }
         }
         Api();
@@ -46,7 +45,6 @@ export default function Genre() {
     const genreChange = (itemId) => {
         setSelectedValue('');
         setLoading(true);
-
         if (itemId === 'All') {
             setGenreNumber('All');
         } else {
@@ -77,6 +75,8 @@ export default function Genre() {
             setGenreList(genreUrl.data.results);
         }
     }
+
+    console.log(genreNumber)
 
     const pageLink = (itemType, itemId) => {
         navigate(`/detail/${itemType}/${itemId}`);

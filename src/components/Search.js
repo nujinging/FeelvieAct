@@ -25,9 +25,6 @@ function App() {
         }
     }
 
-
-
-
     // 검색 인풋 값 변경
     const searchChange = (event) => {
         const value = event.target.value;
