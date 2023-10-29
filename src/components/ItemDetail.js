@@ -15,6 +15,7 @@ export default function ItemDetail() {
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [videoUrl, setVideoUrl] = useState([]);
+    const [recommendUrl, setRecommendUrl] = useState();
     const [imagesUrl, setImagesUrl] = useState({backdrops: [], posters: []});
 
 
@@ -96,16 +97,17 @@ export default function ItemDetail() {
                 const credits = await movieApi.credits(params.type, params.id);
                 const similar = await movieApi.similar(params.type, params.id);
                 const social = await movieApi.social(params.type, params.id);
+                const recommend = await movieApi.recommend(params.type, params.id);
 
                 const textContainer = textContainerRef.current;
                 setDataUrl(detail.data);
                 setCreditsUrl(credits.data.cast);
                 setSimilarUrl(similar.data.results);
                 setSocialUrl(social.data);
+                setRecommendUrl(recommend.data.results);
 
                 const ottList = await movieApi.ottList(params.type, params.id);
                 setOttUrl(ottList.data.results.KR);
-                console.log(dataUrl)
 
                 // 이미지
                 const images = await movieApi.seasonImg(params.type, params.id);
@@ -164,7 +166,7 @@ export default function ItemDetail() {
     const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
 
     /* 비슷한 작품 */
-    const similarArray = similarUrl ? similarUrl.slice(0, 5) : [];
+    const recommendArray = recommendUrl ? recommendUrl.slice(0, 5) : [];
 
     return (
         <div>
@@ -372,7 +374,7 @@ export default function ItemDetail() {
 
 
                 <div className="title"><h2>비슷한 작품</h2></div>
-                <List type={params.type} list={similarArray} class={"item_list"}></List>
+                <List type={params.type} list={recommendArray} class={"item_list"}></List>
 
                 {
                     videoOpen && (

@@ -510,7 +510,7 @@ body {
       width: auto;
       padding: 0.625rem 1.25rem;
       color: #fff;
-      font-size: 1.25rem;
+      font-size: 1.375rem;
       border-radius: 2rem;
       cursor: pointer;
       background: #0372D2;
@@ -532,7 +532,7 @@ body {
       margin-bottom: 2.25rem;
       padding: 0.5rem 1.25rem 0.5rem 0;
       color: #fff;
-      font-size: 1.25rem;
+      font-size: 1.375rem;
       font-weight: bold;
       border: none;
       background: none;
@@ -682,8 +682,8 @@ body {
       .ott_list {
         margin-top: 24px;
         .ott_txt {
-          margin-bottom:8px;
-          font-size: 1rem;
+          margin-bottom:0.875rem;
+          font-size: 1.25rem;
           font-weight:normal;
         }
         ul {
@@ -798,7 +798,7 @@ body {
     }
 
     .comment {
-      margin-top: 50px;
+      margin-top: 3.125rem;
 
       .quites {
         margin-bottom: 2rem;
@@ -875,8 +875,8 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 4.5rem;
-      height: 4.5rem;
+      width: 3.5rem;
+      height: 3.5rem;
       border-radius: 50%;
       background: #fff;
 
@@ -1032,6 +1032,9 @@ body {
 
   .poster_card {
     width: 18.75rem;
+    &:after {
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+    }
   }
 
   .media_link {
@@ -1826,8 +1829,21 @@ body {
       }
     }
   }
-  .title h2 {
-    font-size: 2.625rem
+  .swiper {
+    .title {
+      margin-top:3.5rem;
+    }
+  }
+  .title {
+    margin-top:3.5rem;
+    justify-content:space-between;
+    h2 {
+      font-size: 2.625rem;
+      line-height:3.5rem;
+      span {
+        display:block;
+      }
+    }
   }
   .item_container {
     padding: 2.5rem;
@@ -1835,19 +1851,35 @@ body {
     &.genre {
       height: 100vh;
       overflow-y: auto;
+      .genre_title {
+        .genre_item {
+          font-size:1.625rem;
+        }
+      }
+      .genre_sort {
+        select {
+          font-size:1.75rem;
+        }
+      }
+      .genre_list {
+        .tit {
+          font-size:1.5rem;
+        }
+      }
     }
   }
   .swiper {
     .swiper-slide {
       &.item_card {
         width: 12.25rem;
-
         + .item_card {
           margin-left: 10px
         }
-
         img {
           height: 18.375rem
+        }
+        h3 {
+          font-size:1.5rem;
         }
       }
     }
@@ -1856,8 +1888,8 @@ body {
   .type_list {
     li {
       button {
-        padding:1.625rem;
-        font-size:1.875rem;
+        padding:1.375rem;
+        font-size:1.5rem;
       }
     }
   }
@@ -1878,7 +1910,7 @@ body {
   .detail_container {
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
-    padding-bottom: 8rem;
+    padding:9.375rem 2.5rem  8rem;
     background-size: cover;
     .detail_info {
       margin: 0;
@@ -1912,9 +1944,6 @@ body {
         }
       }
       .comment {
-        top: 72px;
-        bottom: auto;
-
         .quites {
           margin-top: 2rem;
           font-size:2.25rem;
@@ -1923,7 +1952,6 @@ body {
         .intro {
           font-size:1.875rem;
           line-height:2.875rem;
-          margin: 0 2rem;
         }
         .btn_more {
           margin: 20px auto 0;
@@ -2004,7 +2032,7 @@ body {
 
   .search_container {
     .search_input {
-      margin: 7rem 3rem;
+      margin: 7rem;
       padding: 1rem 0;
     }
 
@@ -2028,7 +2056,7 @@ body {
       display: block;
       margin: 7rem 3rem;
       text-align: center;
-
+      font-size:1.625rem;
       &:before {
         margin: 0 auto 2rem;
         width: 100px;

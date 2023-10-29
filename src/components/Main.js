@@ -75,7 +75,10 @@ export default function Main() {
 
 
                     <div className="title">
-                        <h2>오늘 가장 많이 찾아 본 컨텐츠</h2>
+                        <h2>
+                            <span>오늘 가장 많이</span>
+                            찾아 본 컨텐츠
+                        </h2>
                         <ul className="type_list">
                             <li>
                                 <button type="button" className={typeTabs.day === 'movie' ? 'active' : ''} onClick={() => typeChange('day', 'movie')}>영화</button>
@@ -88,7 +91,10 @@ export default function Main() {
                     <List type={typeTabs.day} list={lists.day} class={"item_list"} />
 
                     <div className="title">
-                        <h2>이번 주 가장 많이 찾아 본 컨텐츠</h2>
+                        <h2>
+                            <span>이번 주 가장 많이</span>
+                            찾아 본 컨텐츠
+                        </h2>
                         <ul className="type_list">
                             <li>
                                 <button type="button" className={typeTabs.week === 'movie' ? 'active' : ''} onClick={() => typeChange('week', 'movie')}>영화</button>

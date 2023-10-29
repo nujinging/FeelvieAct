@@ -18,6 +18,7 @@ export const movieApi = {
     detail: (type, movie_id) => request.get(`${type}/${movie_id}`),
     credits: (type, movie_id) => request.get(`${type}/${movie_id}/credits`),
     similar: (type, movie_id) => request.get(`${type}/${movie_id}/similar`),
+    recommend : (type, movie_id) => request.get(`${type}/${movie_id}/recommendations`),
     social : (type, movie_id) => request.get(`${type}/${movie_id}/external_ids`),
     seasons : (season_id, season_number) => request.get(`tv/${season_id}/season/${season_number}`),
     seasonImg : (type, movie_id) => request.get(`${type}/${movie_id}/images?&language=fr&include_image_language=fr,null,kr`),
