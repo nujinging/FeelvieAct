@@ -25,8 +25,7 @@ export default function Genre() {
 
             const genreUrl = await movieApi.genreList(type, genreNumber);
             setGenreList(genreUrl.data.results);
-            const popular = await movieApi.popular(type);
-            setGenreList(popular.data.results);
+
 
             if (genreList && genreList.length > 0) {
                 setTimeout(() => {
@@ -35,7 +34,7 @@ export default function Genre() {
             }
         }
         Api();
-    }, [loading, genreNumber, type]);
+    }, [loading, type]);
 
 
     // 전체 장르

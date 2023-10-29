@@ -1,17 +1,21 @@
 import './../App.scss';
 import {movieApi} from "../util/movieApi";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import List from "./List";
 
-
 export default function PersonDetail() {
     const params = useParams();
+    const navigate = useNavigate();
     const [typeTabs, setTypeTabs] = useState('movie');
     const [dataUrl, setDataUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
     const [artPopular, setArtPopular] = useState([]);
+
+    const movieLink = (itemId) => {
+        navigate(`/detail/${typeTabs}/${itemId}`);
+    }
 
     useEffect(() => {
         async function Api() {
@@ -95,7 +99,7 @@ export default function PersonDetail() {
                         <div className="title">
                             <h2>유명 작품</h2>
                         </div>
-                        <List list={artPopular} class={"item_list"}/>
+                        <List list={artPopular} type={typeTabs} class={"item_list"}/>
 
                         <div className="work">
                             <div className="work_top">
@@ -114,7 +118,7 @@ export default function PersonDetail() {
                                 {
                                     artUrl.map(item => {
                                         return (
-                                            <li key={item.id}>
+                                            <li key={item.id} onClick={() => movieLink(item.id)}>
                                                 <span className="date">
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>

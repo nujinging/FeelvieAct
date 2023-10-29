@@ -2,19 +2,21 @@ import './../App.scss';
 import {useEffect, useState, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
-import {debounce} from 'lodash';
+import mainEvent from "../images/img_main_event.png";
 
 function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
-    const [itemId, setItemId] = useState();
     const navigate = useNavigate();
     const debounceTimer = useRef(null);
 
     // 영화 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
-        setItemId(itemId);
-        navigate(`/detail/${itemType}/${itemId}`);
+        if (itemType === 'movie' || itemType === 'tv') {
+            navigate(`/detail/${itemType}/${itemId}`);
+        } else {
+            navigate(`/person/${itemId}`);
+        }
     }
     
     // event 객체가 undefined 일때 발생하는 오류 방지 - 유효성 확인
@@ -44,8 +46,6 @@ function App() {
             return () => clearTimeout(delayTimer);
         }
     }, [searchWord]);
-
-    console.log(searchList.length)
 
     return (
         <div className="search_container">
@@ -98,13 +98,21 @@ function App() {
                     searchList.map(item => {
                         return (
                             <li className={`list_card ${item.media_type === 'tv' ? 'tv' : 'movie'}`} onClick={() => pageLink(item.media_type, item.id)}>
-                                <picture>
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                        alt="Movie Poster"
-                                        loading="lazy"
-                                    />
-                                </picture>
+                                {
+                                    item.poster_path === undefined ? (
+                                            <picture>
+                                                <img src={mainEvent} alt=""/>
+                                            </picture>
+
+                                    ) : <picture>
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                            alt="Movie Poster"
+                                            loading="lazy"
+                                        />
+                                    </picture>
+                                }
+
                                 <p className="tit">
                                     {item.name ? item.name : item.title}
                                 </p>

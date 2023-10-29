@@ -331,7 +331,7 @@ export default function ItemDetail() {
                         </li>
                         <li>
                             {
-                                imagesUrl?.backdrops && (
+                                imagesUrl?.backdrops.length != 0 && (
                                     <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
                                             onClick={() => mediaTab('backdrops')}>배경 {imagesUrl.backdrops.length}
                                     </button>
@@ -340,7 +340,7 @@ export default function ItemDetail() {
                         </li>
                         <li>
                             {
-                                imagesUrl?.posters && (
+                                imagesUrl?.posters.length != 0 && (
                                     <button type="button" className={mediaType === 'posters' ? 'active' : ''}
                                             onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
                                     </button>
