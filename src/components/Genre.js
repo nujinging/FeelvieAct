@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 export default function Genre() {
     const {type} = useParams();
@@ -16,7 +16,7 @@ export default function Genre() {
     const [showCard, setShowCard] = useState(false);
     const [hiddenCard, setHiddenCard] = useState(true);
     const [loading, setLoading] = useState(true);
-
+    const location = useLocation();
 
     useEffect(() => {
         async function Api() {
@@ -34,7 +34,7 @@ export default function Genre() {
             }
         }
         Api();
-    }, [loading, type]);
+    }, [loading, type, genreNumber]);
 
 
     // 전체 장르
@@ -49,6 +49,7 @@ export default function Genre() {
         setTimeout(() => {
             setLoading(false);
         }, 1200);
+
     };
 
     const SortClick = async (event) => {
@@ -70,7 +71,12 @@ export default function Genre() {
         }
     }
 
-    console.log(genreNumber)
+    console.log(genreNumber);
+    useEffect(() => {
+        if (location.pathname.includes('/genre')) {
+            setGenreNumber('All');
+        }
+    }, [location.pathname]);
 
     const pageLink = (itemType, itemId) => {
         navigate(`/detail/${itemType}/${itemId}`);
