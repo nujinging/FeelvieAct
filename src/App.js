@@ -9,14 +9,9 @@ import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
 import SeriesDetail from "./components/SeriesDetail";
 import {useState, useEffect} from "react";
+import NotFound from "./components/NotFound";
 
 export default function App() {
-    const [scrollY, setScrollY] = useState(0);
-    useEffect(() => {
-        const scrollY = window.scrollY;
-        setScrollY(scrollY)
-    }, []);
-
 
   return (
       <div>
@@ -28,6 +23,7 @@ export default function App() {
               <Route path='/genre/:type' element={<Genre/>} ></Route>
               <Route path='/person/:id' element={<PersonDetail />} ></Route>
               <Route path='/series/:id/episode' element={<SeriesDetail />} ></Route>
+              <Route path="*" element={<NotFound />} ></Route>
           </Routes>
       </div>
   );
