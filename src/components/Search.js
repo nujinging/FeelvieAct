@@ -1,5 +1,5 @@
 import './../App.scss';
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import mainEvent from "../images/img_main_event.png";
@@ -7,6 +7,8 @@ import mainEvent from "../images/img_main_event.png";
 function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
+
+    const [searchNone, setSearchNone] = useState('');
     const navigate = useNavigate();
 
     // 영화 디테일 페이지 이동
@@ -25,10 +27,10 @@ function App() {
             event.preventDefault();
         }
     }
+    let delayTimer;
 
     // 1초 동안 추가 입력이 없을때에만 Api 요청
     useEffect(() => {
-        let delayTimer;
         if (searchWord) {
             // 초기화
             clearTimeout(delayTimer);
@@ -38,19 +40,27 @@ function App() {
                     setSearchList(response.data.results);
                 };
                 SearchFetch();
-            }, 1000);
+            }, 500);
         }
         return () => clearTimeout(delayTimer);
     }, [searchWord]);
 
     // 검색 인풋 값 변경
     const searchChange = (event) => {
+        clearTimeout(delayTimer);
         setSearchWord(event.target.value);
+        // 백스페이스 키를 눌러서 입력값을 지운 경우
+        if (event.target.value === '') {
+            setSearchNone('none');
+            // 기존에 들어있던 값 초기화
+            setSearchList([]);
+        } else {
+            setSearchNone('')
+        }
     };
 
     return (
         <div className="search_container">
-
             <form>
                 <label className="search_input" htmlFor="search_input">
                     <input id="search_input" type="text"
@@ -61,11 +71,18 @@ function App() {
                 </label>
             </form>
 
-            {searchList.length === 0 && searchWord.length > 0 && (
-                <div className="search_none">
-                    검색결과가 없습니다.
-                </div>
-            )}
+
+            {
+                searchNone === 'none' ? (
+                    <div className="search_none">
+                        검색결과가 없습니다.
+                    </div>
+                ) :  searchList.length === 0 && searchWord.length > 0 && (
+                    <div className="search_none">
+                        검색결과가 없습니다.
+                    </div>
+                )
+            }
 
 
 
@@ -96,7 +113,7 @@ function App() {
             <ul className="search_list">
 
                 {
-                    searchList.map(item => {
+                    !searchNone && searchList.map(item => {
                         return (
                             <li className={`list_card ${item.media_type === 'tv' ? 'tv' : 'movie'}`} onClick={() => pageLink(item.media_type, item.id)}>
                                 {
