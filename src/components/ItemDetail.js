@@ -47,21 +47,18 @@ export default function ItemDetail() {
 
 
     // 이미지 모달
+    // 세로가 긴지, 가로가 긴지 구분해서 클래스 적용하기 위함
     const imgMore = (item) => {
         setImgModal(!imgModal);
         const videoPath = item.file_path;
         setVideoLink(videoPath);
-
         const video_width = item.width;
         const video_height = item.height;
         setVideoSize({width: video_width, height: video_height});
     };
+
     const imgModalClose = () => {
         setImgModal(!imgModal);
-    }
-
-    const videoModalClose = () => {
-        setVideoOpen(!videoOpen)
     }
 
     // 비디오 모달
@@ -69,8 +66,11 @@ export default function ItemDetail() {
         setVideoOpen(!videoOpen);
         const youtube = item.key;
         setYoutubeUrl(youtube)
-
     };
+    const videoModalClose = () => {
+        setVideoOpen(!videoOpen)
+    }
+
 
     // 영화 상세설명
     useEffect(() => {
@@ -87,6 +87,20 @@ export default function ItemDetail() {
 
     // 시즌 에피소드 5개 보여주기
     const seasonList = seasonUrl?.episodes.slice(0, 5);
+
+
+    /* 소셜 */
+    const socialMedia = [
+        {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialUrl?.facebook_id}`},
+        {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialUrl?.twitter_id}`},
+        {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialUrl?.instagram_id}`}
+    ]
+
+    /* 등장인물 */
+    const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
+
+    /* 비슷한 작품 */
+    const recommendArray = recommendUrl ? recommendUrl.slice(0, 5) : [];
 
 
     useEffect(() => {
@@ -126,13 +140,11 @@ export default function ItemDetail() {
                     setMediaType('posters')
                 }
 
-
                 // tv 시리즈
                 if (params.type === 'tv') {
                     const seasons = await movieApi.seasons(params.id, dataUrl?.number_of_seasons);
                     setSeasonUrl(seasons.data);
                 }
-
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -155,32 +167,23 @@ export default function ItemDetail() {
     }, [textContainerRef.current, params.id]);
 
 
-    /* 소셜 */
-    const socialMedia = [
-        {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialUrl?.facebook_id}`},
-        {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialUrl?.twitter_id}`},
-        {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialUrl?.instagram_id}`}
-    ]
-
-    /* 등장인물 */
-    const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
-
-    /* 비슷한 작품 */
-    const recommendArray = recommendUrl ? recommendUrl.slice(0, 5) : [];
 
     return (
         <div>
             <section className="detail_container"
-                     style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${dataUrl?.backdrop_path})`}}>
-                <div className="detail_info">
+                     style={{
+                         backgroundImage: `url(${dataUrl?.backdrop_path ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${dataUrl?.backdrop_path}` : ''})`
+                     }}
+            >
+            <div className="detail_info">
                     <h1 className="tit">
                         {dataUrl?.title || dataUrl?.name}
                     </h1>
                     <div className="meta">
                         <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
-                        {dataUrl?.genres.map(item => {
+                        {dataUrl?.genres.map((item, index) => {
                             return (
-                                <span className="txt" key={item.id}>
+                                <span className="txt" key={index}>
                                     {item.name}
                                 </span>
                             )
@@ -203,8 +206,8 @@ export default function ItemDetail() {
                                                 <h4 className="ott_txt">BUY</h4>
                                                 <ul>
                                                     {
-                                                        ottUrl.buy && ottUrl.buy.map((item) => (
-                                                            <li>
+                                                        ottUrl.buy && ottUrl.buy.map((item, index) => (
+                                                            <li key={index}>
                                                                 <img
                                                                     src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`}
                                                                     alt=""/>
@@ -222,8 +225,8 @@ export default function ItemDetail() {
                                                 <h4 className="ott_txt">Streaming</h4>
                                                 <ul>
                                                     {
-                                                        ottUrl?.flatrate && ottUrl?.flatrate.map((item) => (
-                                                            <li>
+                                                        ottUrl?.flatrate && ottUrl?.flatrate.map((item, index) => (
+                                                            <li key={index}>
                                                                 <img
                                                                     src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`}
                                                                     alt=""/>
@@ -276,11 +279,10 @@ export default function ItemDetail() {
                 </div>
                 <div className="detail_poster">
                     <ul className="social_links">
-                        {socialMedia.map(item => {
+                        {socialMedia.map((item, index) => {
                             return item.link !== "null" ? (
-                                <li>
-                                    <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank"
-                                       key={item.id}>
+                                <li key={index}>
+                                    <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank" rel="noreferrer">
                                         <span className="blind">{item.name}</span>
                                     </a>
                                 </li>
@@ -288,7 +290,7 @@ export default function ItemDetail() {
                         })}
                     </ul>
                     <picture>
-                        <img src={`https://image.tmdb.org/t/p/w500/${dataUrl?.poster_path}`} alt="Movie Poster"
+                        <img src={dataUrl?.poster_path ? `https://image.tmdb.org/t/p/w500/${dataUrl?.poster_path}` : ``} alt="Movie Poster"
                              loading="lazy"/>
                     </picture>
                 </div>
@@ -308,7 +310,7 @@ export default function ItemDetail() {
                             </div>
                             <div className="season_box">
                                 <Link to={`/series/${params.id}/episode`} className="season_main">
-                                    <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt=""
+                                    <img src={seasonUrl.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}` : ``} alt=""
                                          loading="lazy"/>
                                 </Link>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>
@@ -331,7 +333,7 @@ export default function ItemDetail() {
                         </li>
                         <li>
                             {
-                                imagesUrl?.backdrops.length != 0 && (
+                                imagesUrl?.backdrops.length !== 0 && (
                                     <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
                                             onClick={() => mediaTab('backdrops')}>배경 {imagesUrl.backdrops.length}
                                     </button>
@@ -340,7 +342,7 @@ export default function ItemDetail() {
                         </li>
                         <li>
                             {
-                                imagesUrl?.posters.length != 0 && (
+                                imagesUrl?.posters.length !== 0 && (
                                     <button type="button" className={mediaType === 'posters' ? 'active' : ''}
                                             onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
                                     </button>
@@ -365,7 +367,7 @@ export default function ItemDetail() {
                             imagesUrl[mediaType].map((item, index) => (
                                 <SwiperSlide key={index} className={`${mediaType === 'posters' ? 'poster_card' : 'bg_card'}`} onClick={() => imgMore(item)}>
                                     <button type="button" className="media_link">
-                                        <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster"
+                                        <img src={item.file_path ? `https://image.tmdb.org/t/p/w500${item.file_path}` : ``} alt="Movie Poster"
                                              loading="lazy"/>
                                     </button>
                                 </SwiperSlide>
@@ -380,8 +382,7 @@ export default function ItemDetail() {
                     videoOpen && (
                         <div className="video_modal">
                             <div className="inner">
-                                <iframe src={`https://www.youtube.com/embed/${youtubeUrl}`} frameBorder="0"
-                                        allowFullScreen></iframe>
+                                <iframe src={`https://www.youtube.com/embed/${youtubeUrl}`} allowFullScreen></iframe>
                                 <button type="button" className="modal_close" onClick={videoModalClose}>
                                     <span className="blind">닫기</span>
                                 </button>
@@ -396,7 +397,7 @@ export default function ItemDetail() {
                                 <a href={`https://www.themoviedb.org/t/p/original${videoLink}`}
                                    className={`img_link ${videoSize.width > videoSize.height ? 'img_width' : 'img_height'}`}
                                    target="_blank">
-                                    <img src={`https://image.tmdb.org/t/p/w500${videoLink}`} alt="Movie Poster"
+                                    <img src={videoLink ? `https://image.tmdb.org/t/p/w500${videoLink}` : ``} alt="Movie Poster"
                                          loading="lazy"/>
                                 </a>
                                 <p className="img_txt">이미지를 클릭하여 원본 ({videoSize.width}X{videoSize.height})을 확인 해보세요!</p>

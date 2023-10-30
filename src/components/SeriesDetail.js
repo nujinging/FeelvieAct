@@ -42,7 +42,7 @@ export default function SeriesDetail() {
                         <div className="series_tit">
                             <button className="series_back" onClick={pageBack}>뒤로 가기</button>
                             <picture className="series_img">
-                                <img src={`https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}`} alt="" loading="lazy"/>
+                                <img src={seasonUrl.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}` : ``} alt="" loading="lazy"/>
                             </picture>
                             <p className="overview">
                                 {seasonUrl.overview}
@@ -62,9 +62,9 @@ export default function SeriesDetail() {
                             </select>
                             <ul className="episode_list">
                                 {
-                                    seasonUrl.episodes.map((item) => {
+                                    seasonUrl.episodes.map((item, index) => {
                                         return (
-                                            <li>
+                                            <li key={index}>
                                                 <picture className="episode_img">
                                                     <img src={`https://www.themoviedb.org/t/p/w454_and_h254_bestv2/${item.still_path}`} alt=""/>
                                                 </picture>

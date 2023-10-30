@@ -46,7 +46,7 @@ export default function PersonDetail() {
             setArtUrl(art_list);
         }
         Api();
-    }, [artUrl, typeTabs, params.id]);
+    }, [typeTabs, params.id]);
 
     // 배우 필모그래피 TAB
     const typeChange = (type) => {
@@ -65,15 +65,15 @@ export default function PersonDetail() {
             {dataUrl ? (
                 <section className="person_detail">
                     <picture>
-                        <img src={`https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}`} alt="Person Poster" loading="lazy"/>
+                        <img src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`} alt="Person Poster" loading="lazy"/>
                     </picture>
                     <div className="profile_info">
                         <div className="profile_name">
                             <h1>{dataUrl.name}</h1>
                             <ul className="social_links">
-                                {socialMedia.map(item => {
+                                {socialMedia.map((item, index) => {
                                     return item.link !== "null" ? (
-                                        <li key={item.name}>
+                                        <li key={index}>
                                             <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank" rel="noopener noreferrer">
                                                 <span className="blind">{item.name}</span>
                                             </a>
@@ -116,9 +116,9 @@ export default function PersonDetail() {
 
                             <ul className="work_list">
                                 {
-                                    artUrl.map(item => {
+                                    artUrl.map((item, index) => {
                                         return (
-                                            <li key={item.id} onClick={() => movieLink(item.id)}>
+                                            <li key={index} onClick={() => movieLink(item.id)}>
                                                 <span className="date">
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>

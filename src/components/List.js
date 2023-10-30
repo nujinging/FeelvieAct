@@ -65,7 +65,7 @@ export default function List(props) {
 
                     <div className={`card_show `}>
                         <img
-                            src={`https://image.tmdb.org/t/p/w500/${item.poster_path || item.profile_path || item.still_path}`}
+                            src={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w500/${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
                             alt="Movie Poster"
                             loading="lazy"
                         />

@@ -13,7 +13,6 @@ export default function Genre() {
     const [genreList, setGenreList] = useState(null);
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
-    const [showCard, setShowCard] = useState(false);
     const [hiddenCard, setHiddenCard] = useState(true);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
@@ -57,21 +56,18 @@ export default function Genre() {
         if (event.target.value === 'popularityDesc') {
             const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
             setGenreList(genreUrl.data.results);
-            console.log(genreNumber)
         } else if (event.target.value === 'popularityAsc') {
             const genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
         } else if (event.target.value === 'dateDesc') {
             const genreUrl = await movieApi.genreDateDesc(type, genreNumber);
             setGenreList(genreUrl.data.results);
-            console.log(genreUrl.data.results)
         } else {
             const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
         }
     }
 
-    console.log(genreNumber);
     useEffect(() => {
         if (location.pathname.includes('/genre')) {
             setGenreNumber('All');
@@ -89,9 +85,9 @@ export default function Genre() {
                              onClick={() => genreChange('All')}>
                     All
                 </SwiperSlide>
-                {genreTitle?.map(item => {
+                {genreTitle?.map((item, index) => {
                     return (
-                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={item.i}
+                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
                                      onClick={() => genreChange(item.id)}>
                             {item.name}
                         </SwiperSlide>
@@ -113,7 +109,7 @@ export default function Genre() {
                     <ul className="genre_list">
                         {genreList?.map(item => {
                             return (
-                                <li className="list_card" onClick={() => pageLink(type, item.id)}>
+                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={item.id}>
                                     {
                                         item.poster_path === null ? (
                                             <picture className="img_none">
@@ -142,9 +138,9 @@ export default function Genre() {
                 loading ? (
                     <div>로딩</div>
                 ) : <ul className="genre_list">
-                    {genreList?.map(item => {
+                    {genreList?.map((item, index) => {
                         return (
-                            <li className="list_card" onClick={() => pageLink(type, item.id)}>
+                            <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
                                 {
                                     item.poster_path === null ? (
                                         <picture className="img_none">
