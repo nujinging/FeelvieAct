@@ -8,7 +8,6 @@ function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
     const navigate = useNavigate();
-    const debounceTimer = useRef(null);
 
     // 영화 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
@@ -18,7 +17,7 @@ function App() {
             navigate(`/person/${itemId}`);
         }
     }
-    
+
     // event 객체가 undefined 일때 발생하는 오류 방지 - 유효성 확인
     const searchEnter = (event) => {
         if (event && event.key === 'Enter') {
@@ -27,25 +26,27 @@ function App() {
         }
     }
 
+    // 1초 동안 추가 입력이 없을때에만 Api 요청
+    useEffect(() => {
+        let delayTimer;
+        if (searchWord) {
+            // 초기화
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(() => {
+                const SearchFetch = async () => {
+                    const response = await movieApi.search(searchWord);
+                    setSearchList(response.data.results);
+                };
+                SearchFetch();
+            }, 1000);
+        }
+        return () => clearTimeout(delayTimer);
+    }, [searchWord]);
+
     // 검색 인풋 값 변경
     const searchChange = (event) => {
-        const value = event.target.value;
-        clearTimeout(debounceTimer.current);
-        debounceTimer.current = setTimeout(() => {
-            setSearchWord(value);
-        }, 1000);
+        setSearchWord(event.target.value);
     };
-
-    useEffect(() => {
-        if (searchWord) {
-            const SearchFetch = async () => {
-                const response = await movieApi.search(searchWord);
-                setSearchList(response.data.results);
-            };
-            const delayTimer = setTimeout(SearchFetch, 100);
-            return () => clearTimeout(delayTimer);
-        }
-    }, [searchWord]);
 
     return (
         <div className="search_container">
