@@ -10,11 +10,13 @@ export default function Genre() {
     const {type} = useParams();
     const navigate = useNavigate();
     const [genreTitle, setGenreTitle] = useState([]);
-    const [genreList, setGenreList] = useState(null);
+    const [genreList, setGenreList] = useState([]);
+    const [newList, setNewList] = useState(null);
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
     const [hiddenCard, setHiddenCard] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
     const location = useLocation();
 
     useEffect(() => {
@@ -33,7 +35,7 @@ export default function Genre() {
             }
         }
         Api();
-    }, [loading, type, genreNumber]);
+    }, [loading, genreNumber]);
 
 
     // 전체 장르
@@ -78,6 +80,34 @@ export default function Genre() {
         navigate(`/detail/${itemType}/${itemId}`);
     }
 
+    const ListScroll = async () => {
+        try {
+            const itemScroll = await movieApi.genreList(type, genreNumber, page);
+            const newGenreList = itemScroll.data.results;
+            setGenreList((prevData) => [...prevData, ...newGenreList]);
+            setPage(page + 1);
+            // 상태 업데이트 이후에 genreList를 로깅합니다.
+            console.log(genreList);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        ListScroll();
+    }, []);
+
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        const contentHeight = document.documentElement.scrollHeight;
+
+        if (windowHeight + scrollY >= contentHeight) {
+            ListScroll();
+        }
+    });
+
+
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
@@ -107,9 +137,9 @@ export default function Genre() {
             {
                 genreNumber === 'All' ? (
                     <ul className="genre_list">
-                        {genreList?.map(item => {
+                        {genreList?.map((item, index) => {
                             return (
-                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={item.id}>
+                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
                                     {
                                         item.poster_path === null ? (
                                             <picture className="img_none">
