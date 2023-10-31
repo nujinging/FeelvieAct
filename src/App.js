@@ -1,6 +1,6 @@
 
 import './App.scss';
-import {HashRouter, Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Main from "./components/Main";
 import ItemDetail from "./components/ItemDetail";
 import Header from "./components/Header";
@@ -13,7 +13,7 @@ import NotFound from "./components/NotFound";
 export default function App() {
 
   return (
-      <HashRouter basename="/">
+      <div>
           <Header></Header>
           <Routes>
               <Route path='/' element={<Main />} ></Route>
@@ -24,6 +24,6 @@ export default function App() {
               <Route path='/series/:id/episode' element={<SeriesDetail />} ></Route>
               <Route path="*" element={<NotFound />} ></Route>
           </Routes>
-      </HashRouter>
+      </div>
   );
 }
