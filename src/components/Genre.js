@@ -117,7 +117,7 @@ export default function Genre() {
                                             </picture>
                                         ) : (
                                             <picture>
-                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                                <img src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
                                                      alt="Movie Poster" loading="lazy"/>
                                             </picture>
                                         )
