@@ -49,5 +49,5 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
-  "homepage": "https://nujinging.github.io/FeelvieAct/"
+  "homepage": "https://nujinging.github.io/"
 }
