@@ -15,7 +15,7 @@ export default function ItemDetail() {
     const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [videoUrl, setVideoUrl] = useState([]);
-    const [recommendUrl, setRecommendUrl] = useState();
+    const [recommendUrl, setRecommendUrl] = useState([]);
     const [imagesUrl, setImagesUrl] = useState({backdrops: [], posters: []});
 
 
@@ -101,6 +101,8 @@ export default function ItemDetail() {
 
     /* 비슷한 작품 */
     const recommendArray = recommendUrl ? recommendUrl.slice(0, 5) : [];
+
+    console.log(recommendUrl.length)
 
 
     useEffect(() => {
@@ -374,9 +376,15 @@ export default function ItemDetail() {
                             )))}
                 </Swiper>
 
+                {
+                    recommendUrl?.length !== 0 && (
+                            <div>
+                                <div className="title"><h2>비슷한 작품</h2></div>
+                                <List type={params.type} list={recommendArray} class={"item_list"}></List>
+                            </div>
+                    )
+                }
 
-                <div className="title"><h2>비슷한 작품</h2></div>
-                <List type={params.type} list={recommendArray} class={"item_list"}></List>
 
                 {
                     videoOpen && (

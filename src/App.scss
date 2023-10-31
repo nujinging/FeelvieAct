@@ -511,9 +511,9 @@ body {
       padding: 0.625rem 1.25rem;
       color: #fff;
       font-size: 1.375rem;
+      border:1px solid #777;
       border-radius: 2rem;
       cursor: pointer;
-      background: #0372D2;
 
       & + .genre_item {
         margin-left: 1.25rem;
@@ -521,8 +521,9 @@ body {
 
       &:hover,
       &.active {
-        color: #0372d2;
-        background: #fff;
+        color: #fff;
+        border-color:#0372D2;
+        background: #0372D2;
       }
     }
   }
@@ -1073,7 +1074,7 @@ body {
     .season_list {
       .item_card {
         img {
-          height: 12rem;
+          height: 11rem;
         }
 
         .episode_date {
