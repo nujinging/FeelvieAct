@@ -17,7 +17,7 @@ export default function App() {
         <div>
             <Header />
             <Routes>
-                <Route path='/' element={<Main />} />
+                <Route path='/FeelvieAct' element={<Main />} />
                 <Route path='/search' element={<Search />} />
                 <Route path='/detail/:type/:id' element={<ItemDetail />} />
                 <Route path='/genre/:type' element={<Genre />} />
