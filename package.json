@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.0",
     "dotenv": "^10.0.0",
-    "gh-pages": "^6.0.0",
     "lodash": "^4.17.21",
     "node-sass": "^9.0.0",
     "react": "^18.2.0",
@@ -24,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "node-sass src/App.scss -o src",
+    "sass": "node-sass src/App.scss -o src"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +45,5 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  },
+  }
 }
