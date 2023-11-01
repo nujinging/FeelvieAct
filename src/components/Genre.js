@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import debounce from 'lodash/debounce';
 
 export default function Genre() {
     const {type} = useParams();
@@ -80,32 +81,41 @@ export default function Genre() {
         navigate(`/detail/${itemType}/${itemId}`);
     }
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const windowHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+            const contentHeight = document.documentElement.scrollHeight;
+
+            if (windowHeight + scrollY >= contentHeight) {
+                ListScroll();
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [page, genreNumber]);
+
+    console.log(page)
+
+
     const ListScroll = async () => {
         try {
-            const itemScroll = await movieApi.genreList(type, genreNumber, page);
+            const itemScroll = await movieApi.genreScroll(type, genreNumber, page);
             const newGenreList = itemScroll.data.results;
-            setGenreList((prevData) => [...prevData, ...newGenreList]);
-            setPage(page + 1);
-            // 상태 업데이트 이후에 genreList를 로깅합니다.
-            console.log(genreList);
+            setPage((prevPage) => prevPage + 1);
+            setGenreList((prevGenreList) => [...prevGenreList, ...newGenreList]);
+            console.log(genreNumber)
         } catch (error) {
             console.error(error);
         }
     };
 
-    useEffect(() => {
-        ListScroll();
-    }, []);
 
-    window.addEventListener('scroll', () => {
-        const windowHeight = window.innerHeight;
-        const scrollY = window.scrollY;
-        const contentHeight = document.documentElement.scrollHeight;
 
-        if (windowHeight + scrollY >= contentHeight) {
-            ListScroll();
-        }
-    });
 
 
     return (

@@ -1179,6 +1179,22 @@ body {
         }
       }
 
+      &.actor {
+        position: relative;
+
+        &:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 0.75rem 1.25rem;
+          border-radius: 0 0 4px 0;
+          font-size: 1.25rem;
+          color: #fff;
+          background: #3c7b3f;
+          content: 'ACTOR'
+        }
+      }
+
       picture {
         display: block;
         border-radius: 0.5rem;

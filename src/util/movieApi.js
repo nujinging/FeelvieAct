@@ -29,7 +29,7 @@ export const movieApi = {
     genreTitle : (type) => request.get(`genre/${type}/list`),
     genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
 
-    genreScroll : (type, genre_number, page) => request.get(`discover/${type}?with_genres=${genre_number}?page=${page}`),
+    genreScroll : (type, genre_number, page) => request.get(`discover/${type}?with_genres=${genre_number}&page=${page}`),
 
     genrePopularDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
     genrePopularAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),

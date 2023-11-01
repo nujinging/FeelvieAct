@@ -59,6 +59,8 @@ function App() {
         }
     };
 
+    console.log(searchList)
+
     return (
         <div className="search_container">
             <form>
@@ -115,22 +117,14 @@ function App() {
                 {
                     !searchNone && searchList.map(item => {
                         return (
-                            <li className={`list_card ${item.media_type === 'tv' ? 'tv' : 'movie'}`} onClick={() => pageLink(item.media_type, item.id)}>
-                                {
-                                    item.poster_path === undefined ? (
-                                            <picture>
-                                                <img src={mainEvent} alt=""/>
-                                            </picture>
-
-                                    ) : <picture>
-                                        <img
-                                            src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                                            alt="Movie Poster"
-                                            loading="lazy"
-                                        />
-                                    </picture>
-                                }
-
+                            <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`} onClick={() => pageLink(item.media_type, item.id)}>
+                                <picture>
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
+                                        alt="Movie Poster"
+                                        loading="lazy"
+                                    />
+                                </picture>
                                 <p className="tit">
                                     {item.name ? item.name : item.title}
                                 </p>
