@@ -5,6 +5,7 @@ import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import {Link, useParams, useNavigate} from "react-router-dom";
 import List from "./List";
+import NotFound from "./NotFound";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -161,7 +162,13 @@ export default function ItemDetail() {
                 };
 
             } catch (error) {
-                console.error('Eroror', error);
+                if (error.response && error.response.status === 404) {
+                    // AxiosError에서 404 상태 코드를 확인하여 NotFoundComponent를 렌더링
+                    <NotFound />
+                } else {
+                    // 다른 오류 처리
+                    console.log(33)
+                }
             }
         }
 

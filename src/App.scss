@@ -2202,4 +2202,18 @@ body {
       }
     }
   }
+
+
+  .not_found {
+    flex-direction:column-reverse;
+    flex-wrap: wrap-reverse;
+    width:100%;
+    &:after {
+      width:220px;
+      height:220px;
+    }
+    .txt {
+      text-align:center;
+    }
+  }
 }
