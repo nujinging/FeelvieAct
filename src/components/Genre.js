@@ -24,6 +24,7 @@ export default function Genre() {
         async function Api() {
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
+            setPage(1)
 
             const genreUrl = await movieApi.genreList(type, genreNumber);
             setGenreList(genreUrl.data.results);
@@ -81,8 +82,23 @@ export default function Genre() {
         navigate(`/detail/${itemType}/${itemId}`);
     }
 
+    const ListScroll = async () => {
+        try {
+            const nextPage = page + 1;
+            const itemScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
+            const newGenreList = itemScroll.data.results;
+            setPage(nextPage);
+            setGenreList((prevGenreList) => [...prevGenreList, ...newGenreList]);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+    console.log(page)
+
     useEffect(() => {
-        const handleScroll = () => {
+        const handleScroll = debounce(() => {
             const windowHeight = window.innerHeight;
             const scrollY = window.scrollY;
             const contentHeight = document.documentElement.scrollHeight;
@@ -90,7 +106,7 @@ export default function Genre() {
             if (windowHeight + scrollY >= contentHeight) {
                 ListScroll();
             }
-        };
+        }, 1000);
 
         window.addEventListener('scroll', handleScroll);
 
@@ -99,20 +115,6 @@ export default function Genre() {
         };
     }, [page, genreNumber]);
 
-    console.log(page)
-
-
-    const ListScroll = async () => {
-        try {
-            const itemScroll = await movieApi.genreScroll(type, genreNumber, page);
-            const newGenreList = itemScroll.data.results;
-            setPage((prevPage) => prevPage + 1);
-            setGenreList((prevGenreList) => [...prevGenreList, ...newGenreList]);
-            console.log(genreNumber)
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
 
 
