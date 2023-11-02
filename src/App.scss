@@ -1833,9 +1833,32 @@ body {
 
 
 .not_found {
+  display:flex;
+  align-items:center;
+  justify-content:center;
   margin:0 auto;
-  width:1280px;
-
+  width:1080px;
+  height:100vh;
+  .txt {
+    h1 {
+      margin-bottom:3.125rem;
+      font-size:3.125rem;
+      strong {
+        color:#0092ff;
+      }
+    }
+    p {
+      font-size:1.875rem;
+      line-height:3.125rem;
+    }
+  }
+  &:after {
+    display: block;
+    width: 340px;
+    height: 340px;
+    background: url('./images/img_data_none.png') center / 100% no-repeat;
+    content: ''
+  }
 }
 
 /* 미디어쿼리 */
