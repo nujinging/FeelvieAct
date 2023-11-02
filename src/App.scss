@@ -1837,7 +1837,7 @@ body {
   align-items:center;
   justify-content:center;
   margin:0 auto;
-  width:1080px;
+  width:75rem;
   height:100vh;
   .txt {
     h1 {
@@ -2209,6 +2209,7 @@ body {
     flex-wrap: wrap-reverse;
     width:100%;
     &:after {
+      margin-bottom:2rem;
       width:220px;
       height:220px;
     }
