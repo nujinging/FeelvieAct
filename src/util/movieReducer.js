@@ -1,7 +1,12 @@
 
 const initialState = {
     movieData: null,
-    creditsData: null
+    creditsData: null,
+    socialData : null,
+    recommendData : null,
+    ottData : null,
+    imageData : null,
+    videoData : null,
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -16,6 +21,35 @@ const movieReducer = (state = initialState, action) => {
             return {
                 ...state,
                 creditsData: action.payload,
+            };
+
+        case "SEND_SOCIAL":
+            return {
+                ...state,
+                socialData: action.payload,
+            };
+
+        case "SEND_RECOMMEND":
+            return {
+                ...state,
+                recommendData: action.payload,
+            };
+
+        case "SEND_OTT":
+            return {
+                ...state,
+                ottData: action.payload,
+            };
+
+        case "SEND_IMAGE":
+            return {
+                ...state,
+                imageData: action.payload,
+            };
+        case "SEND_VIDEO":
+            return {
+                ...state,
+                videoData: action.payload,
             };
         default:
             return state;
