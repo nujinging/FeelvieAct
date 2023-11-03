@@ -1,6 +1,7 @@
 
 const initialState = {
     movieData: null,
+    creditsData: null
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -9,6 +10,12 @@ const movieReducer = (state = initialState, action) => {
             return {
                 ...state,
                 movieData: action.payload,
+            };
+
+        case "SEND_CREDITS":
+            return {
+                ...state,
+                creditsData: action.payload,
             };
         default:
             return state;

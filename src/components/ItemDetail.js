@@ -44,9 +44,6 @@ export default function ItemDetail() {
     const [videoSize, setVideoSize] = useState({width: 0, height: 0});
 
 
-    const dispatch = useDispatch();
-    const data = useSelector((state) => state.data);
-
     // 미디어 - 배경,포스터
     const mediaTab = (type) => {
         setMediaType(type);
@@ -115,6 +112,9 @@ export default function ItemDetail() {
     useEffect(() => {
         async function Api() {
             try {
+
+
+                await dispatch(movieActions(params.type, params.id));
                 window.scrollTo(0, 0);
                 const detail = await movieApi.detail(params.type, params.id);
                 const credits = await movieApi.credits(params.type, params.id);
@@ -156,7 +156,6 @@ export default function ItemDetail() {
                     setSeasonUrl(seasons.data);
                 }
 
-                await dispatch(movieActions(params.type, params.id));
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -166,8 +165,6 @@ export default function ItemDetail() {
                 };
                 handleResize();
                 window.addEventListener('resize', handleResize);
-
-                await dispatch(movieActions());
                 return () => {
                     window.removeEventListener('resize', handleResize);
                 };
@@ -185,8 +182,14 @@ export default function ItemDetail() {
 
         Api();
         movieActions();
-    }, [textContainerRef.current, params.id, dispatch]);
+    }, [textContainerRef.current, params.id]);
 
+    const dispatch = useDispatch();
+    const detailData = useSelector(state => state.movies.movieData);
+    const creditsData = useSelector(state => state.movies.creditsData);
+
+    console.log(detailData);
+    console.log(creditsData);
 
 
     return (
@@ -199,7 +202,6 @@ export default function ItemDetail() {
             <div className="detail_info">
                     <h1 className="tit">
                         {dataUrl?.title || dataUrl?.name}
-                        {data?.title || data?.name}
                     </h1>
                     <div className="meta">
                         <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
