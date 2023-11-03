@@ -4,6 +4,9 @@ import './../App.scss';
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import {Link, useParams, useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { sendData } from '../util/action';
+
 import List from "./List";
 import NotFound from "./NotFound";
 
@@ -41,6 +44,10 @@ export default function ItemDetail() {
     const [videoLink, setVideoLink] = useState();
     const [videoSize, setVideoSize] = useState({width: 0, height: 0});
 
+
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.data);
+
     // 미디어 - 배경,포스터
     const mediaTab = (type) => {
         setMediaType(type);
@@ -71,6 +78,7 @@ export default function ItemDetail() {
     const videoModalClose = () => {
         setVideoOpen(!videoOpen)
     }
+
 
 
     // 영화 상세설명
@@ -104,6 +112,7 @@ export default function ItemDetail() {
     const recommendArray = recommendUrl ? recommendUrl.slice(0, 5) : [];
 
     console.log(recommendUrl.length)
+
 
 
     useEffect(() => {
@@ -149,6 +158,8 @@ export default function ItemDetail() {
                     setSeasonUrl(seasons.data);
                 }
 
+                dispatch(sendData(dataUrl));
+
                 // 영화 상세설명
                 const handleResize = () => {
                     if (textContainer) {
@@ -173,7 +184,7 @@ export default function ItemDetail() {
         }
 
         Api();
-    }, [textContainerRef.current, params.id]);
+    }, [textContainerRef.current, params.id, dispatch]);
 
 
 
@@ -187,6 +198,7 @@ export default function ItemDetail() {
             <div className="detail_info">
                     <h1 className="tit">
                         {dataUrl?.title || dataUrl?.name}
+                        {data?.title || data?.name}
                     </h1>
                     <div className="meta">
                         <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
@@ -309,7 +321,7 @@ export default function ItemDetail() {
                 <List type={params.type} list={creditsArray} class={"person_list"}></List>
 
                 {
-                    seasonUrl && seasonUrl.name !== undefined ?
+                    seasonUrl  !== undefined ?
                         <div className="last_season">
                             <div className="title">
                                 <h2>현재 시즌</h2>

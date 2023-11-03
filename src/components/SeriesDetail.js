@@ -2,6 +2,7 @@ import './../App.scss';
 import {useEffect, useState} from "react";
 import {movieApi} from "../util/movieApi";
 import {useNavigate, useParams} from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 export default function SeriesDetail() {
     const navigate = useNavigate();
@@ -9,6 +10,8 @@ export default function SeriesDetail() {
     const [detailUrl, setDetailUrl] = useState([]);
     const [seasonUrl, setSeasonUrl] = useState(null);
     const [selectedSeason, setSelectedSeason] = useState(1);
+
+    const data = useSelector((state) => state.data);
 
     useEffect(() => {
         async function Api() {
@@ -36,6 +39,8 @@ export default function SeriesDetail() {
 
     return (
         <div className="container">
+
+            <p>{data.backdrop_path}</p>
             {
                 seasonUrl ? (
                     <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${seasonUrl?.backdrop_path})` }}>
