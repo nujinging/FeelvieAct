@@ -139,6 +139,7 @@ export default function ItemDetail() {
                 const images = await movieApi.seasonImg(params.type, params.id);
                 setImagesUrl(images.data);
 
+
                 // 비디오
                 const videos = await movieApi.seasonVideo(params.type, params.id);
                 setVideoUrl(videos.data.results);
@@ -158,7 +159,8 @@ export default function ItemDetail() {
                     setSeasonUrl(seasons.data);
                 }
 
-                dispatch(sendData(dataUrl));
+
+
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -168,6 +170,9 @@ export default function ItemDetail() {
                 };
                 handleResize();
                 window.addEventListener('resize', handleResize);
+
+                dispatch(sendData(images.data));
+
                 return () => {
                     window.removeEventListener('resize', handleResize);
                 };
