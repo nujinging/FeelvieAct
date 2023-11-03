@@ -4,9 +4,8 @@ import './../App.scss';
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import {Link, useParams, useNavigate} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { sendData } from '../util/action';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {movieActions} from "../util/movieActions";
 import List from "./List";
 import NotFound from "./NotFound";
 
@@ -111,8 +110,6 @@ export default function ItemDetail() {
     /* 비슷한 작품 */
     const recommendArray = recommendUrl ? recommendUrl.slice(0, 5) : [];
 
-    console.log(recommendUrl.length)
-
 
 
     useEffect(() => {
@@ -159,8 +156,7 @@ export default function ItemDetail() {
                     setSeasonUrl(seasons.data);
                 }
 
-
-
+                await dispatch(movieActions(params.type, params.id));
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -171,8 +167,7 @@ export default function ItemDetail() {
                 handleResize();
                 window.addEventListener('resize', handleResize);
 
-                dispatch(sendData(images.data));
-
+                await dispatch(movieActions());
                 return () => {
                     window.removeEventListener('resize', handleResize);
                 };
@@ -189,6 +184,7 @@ export default function ItemDetail() {
         }
 
         Api();
+        movieActions();
     }, [textContainerRef.current, params.id, dispatch]);
 
 
