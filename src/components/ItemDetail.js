@@ -12,6 +12,7 @@ import {seasonActions} from "../util/seasonActions";
 import SeasonDetail from "./SeasonDetail";
 import ImgModal from "./Modal/ImgModal";
 import MediaDetail from "./MediaDetail";
+import VideoModal from "./Modal/VideoModal";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -24,35 +25,8 @@ export default function ItemDetail() {
 
     const [imgModal, setImgModal] = useState(false);
 
-    const [videoOpen, setVideoOpen] = useState(false);
     const [youtubeUrl, setYoutubeUrl] = useState();
 
-    const [videoLink, setVideoLink] = useState();
-    const [videoSize, setVideoSize] = useState({width: 0, height: 0});
-
-    const imgMore = (item) => {
-        setImgModal(!imgModal);
-        setSelectedItem(item);
-        const videoPath = item.file_path;
-        setVideoLink(videoPath);
-        const video_width = item.width;
-        const video_height = item.height;
-        setVideoSize({width: video_width, height: video_height});
-    };
-
-    const imgModalClose = () => {
-        setImgModal(!imgModal);
-    }
-
-    // 비디오 모달
-    const videoBox = (item) => {
-        setVideoOpen(!videoOpen);
-        const youtube = item.key;
-        setYoutubeUrl(youtube)
-    };
-    const videoModalClose = () => {
-        setVideoOpen(!videoOpen)
-    }
 
     // 영화 상세설명
     useEffect(() => {
@@ -262,11 +236,7 @@ export default function ItemDetail() {
 
                 {params.type === 'tv' && seriesData && <SeasonDetail />}
 
-
-
                 <MediaDetail></MediaDetail>
-
-
 
                 {
                     (recommendData && recommendData.length !== 0) && (
@@ -278,24 +248,6 @@ export default function ItemDetail() {
                 }
 
 
-                {
-                    videoOpen && (
-                        <div className="video_modal">
-                            <div className="inner">
-                                <iframe src={`https://www.youtube.com/embed/${youtubeUrl}`} allowFullScreen></iframe>
-                                <button type="button" className="modal_close" onClick={videoModalClose}>
-                                    <span className="blind">닫기</span>
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-
-                {
-                    imgModal && (
-                        <ImgModal item={selectedItem}></ImgModal>
-                    )
-                }
             </div>
         </div>
     );

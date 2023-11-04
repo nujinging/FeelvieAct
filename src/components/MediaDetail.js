@@ -6,16 +6,34 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {movieActions} from "../util/movieActions";
 import {seasonActions} from "../util/seasonActions";
+import VideoModal from "./Modal/VideoModal";
+import ImgModal from "./Modal/ImgModal";
 export default function MediaDetail() {
     const params = useParams();
     const dispatch = useDispatch();
     const imageData = useSelector(state => state.movies.imageData);
     const videoData = useSelector(state => state.movies.videoData);
     const [mediaType, setMediaType] = useState('video');
+    const [imgModal, setImgModal] = useState(false);
+    const [videoModal, setVideoModal] = useState(false);
+    const [imgDetail, setImgDetail] = useState();
+    const [videoDetail, setVideoDetail] = useState();
+    const [videoKey, setVideoKey] = useState();
 
     // 미디어 - 배경,포스터
     const mediaTab = (type) => {
         setMediaType(type);
+    }
+    // 이미지 모달
+    const imgModalOpen = (item) => {
+        setImgModal(!imgModal);
+        setImgDetail(item);
+    };
+    // 비디오 모달
+    const videoModalOpen = (item, item_key) => {
+        setVideoModal(!videoModal);
+        setVideoDetail(item);
+        setVideoKey(item_key);
     }
 
     useEffect(() => {
@@ -82,7 +100,7 @@ export default function MediaDetail() {
                       {mediaType === 'video' &&
                           (videoData &&
                               videoData.map((item, index) => (
-                                  <SwiperSlide key={index} className="video_card">
+                                  <SwiperSlide key={index} className="video_card" onClick={() => videoModalOpen(item, item.key)}>
                                       <img src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`} alt=""/>
                                   </SwiperSlide>
                               )))}
@@ -90,7 +108,7 @@ export default function MediaDetail() {
                       {(mediaType === 'backdrops' || mediaType === 'posters') &&
                           (imageData[mediaType] &&
                               imageData[mediaType].map((item, index) => (
-                                  <SwiperSlide key={index} className={`${mediaType === 'posters' ? 'poster_card' : 'bg_card'}`}>
+                                  <SwiperSlide key={index} className={`${mediaType === 'posters' ? 'poster_card' : 'bg_card'}`} onClick={() => imgModalOpen(item)}>
                                       <button type="button" className="media_link">
                                           <img src={item.file_path ? `https://image.tmdb.org/t/p/w500${item.file_path}` : ``} alt="Movie Poster"
                                                loading="lazy"/>
@@ -100,6 +118,20 @@ export default function MediaDetail() {
                   </Swiper>
               )
           }
+
+          {
+              videoModal && (
+                  <VideoModal item={videoDetail}></VideoModal>
+              )
+          }
+
+          {
+              imgModal && (
+                  <ImgModal item={imgDetail}></ImgModal>
+              )
+          }
+
+
       </div>
     );
 }
