@@ -8,12 +8,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../util/movieActions";
 import List from "./List";
 import NotFound from "./NotFound";
-import {seriesUrl} from "../util/action";
+import {seasonActions} from "../util/seasonActions";
 
 export default function ItemDetail() {
     const params = useParams();
-    const [seasonUrl, setSeasonUrl] = useState();
-
     const [mediaType, setMediaType] = useState('video');
     const [overviewMore, setOverviewMore] = useState(false);
     const textContainerRef = useRef(null);
@@ -71,8 +69,6 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
-    // 시즌 에피소드 5개 보여주기
-    const seasonList = seasonUrl?.episodes.slice(0, 5);
 
     const dispatch = useDispatch();
     const detailData = useSelector(state => state.movies.movieData);
@@ -83,7 +79,8 @@ export default function ItemDetail() {
 
     const imageData = useSelector(state => state.movies.imageData);
     const videoData = useSelector(state => state.movies.videoData);
-
+    const seriesData = useSelector(state => state.movies.seriesData);
+    console.log(seriesData)
     /* 소셜 */
     const socialMedia = [
         {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialData?.facebook_id}`},
@@ -98,11 +95,14 @@ export default function ItemDetail() {
     /* 비슷한 작품 */
     const recommendArray = recommendData ? recommendData.slice(0, 5) : [];
 
+    // 시즌 에피소드 5개 보여주기
+    const seasonList = seriesData?.episodes.slice(0, 5);
 
     useEffect(() => {
         async function Api() {
             try {
                 await dispatch(movieActions(params.type, params.id));
+                await dispatch(seasonActions(params.id, detailData?.number_of_seasons));
 
                 window.scrollTo(0, 0);
 
@@ -116,20 +116,6 @@ export default function ItemDetail() {
                 } else {
                     setMediaType('posters')
                 }
-                // let seriesData;
-                // if (params.type === 'tv') {
-                //     seriesData = movieActions(params.type, detailData?.number_of_seasons);
-                //     dispatch(seriesUrl(seriesData));
-                //     console.log(seriesData); // 시리즈 데이터 출력
-                // }
-
-
-                // tv 시리즈
-                if (params.type === 'tv') {
-                    const seasons = await movieApi.seasons(params.id, detailData?.number_of_seasons);
-                    setSeasonUrl(seasons.data);
-                }
-                console.log(seasonUrl)
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -155,7 +141,7 @@ export default function ItemDetail() {
 
         Api();
         movieActions();
-
+        seasonActions();
     }, [params.type, params.id]);
 
 
@@ -291,7 +277,7 @@ export default function ItemDetail() {
                 <List type={params.type} list={creditsArray} class={"person_list"}></List>
 
                 {
-                    seasonUrl  !== undefined ?
+                    seriesData && (
                         <div className="last_season">
                             <div className="title">
                                 <h2>현재 시즌</h2>
@@ -299,17 +285,18 @@ export default function ItemDetail() {
                                     전체 시즌 보기
                                 </Link>
                             </div>
+
+
                             <div className="season_box">
                                 <Link to={`/series/${params.id}/episode`} className="season_main">
-                                    <img src={seasonUrl.poster_path ? `https://image.tmdb.org/t/p/w342${seasonUrl.poster_path}` : ``} alt=""
+                                    <img src={seriesData?.poster_path ? `https://image.tmdb.org/t/p/w342${seriesData?.poster_path}` : ``} alt=""
                                          loading="lazy"/>
                                 </Link>
                                 <List type={params.type} list={seasonList} class={"season_list"}></List>
                             </div>
                         </div>
-                        : null
+                    )
                 }
-
                 <div className="title">
                     <h2>미디어</h2>
                     <ul className="type_list">
@@ -371,7 +358,7 @@ export default function ItemDetail() {
 
 
                 {
-                    recommendData?.length !== 0 && (
+                    (recommendData && recommendData.length !== 0) && (
                             <div>
                                 <div className="title"><h2>비슷한 작품</h2></div>
                                 <List type={params.type} list={recommendArray} class={"item_list"}></List>

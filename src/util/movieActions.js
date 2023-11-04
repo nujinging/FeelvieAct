@@ -23,10 +23,6 @@ export const movieActions = (id, number) => async (dispatch) => {
         const video = await movieApi.seasonVideo(id, number)
         dispatch(videoUrl(video));
 
-        const series = await movieApi.seasons(id, number)
-        dispatch(seriesUrl(series));
-
-
     } catch (error) {
     }
 };

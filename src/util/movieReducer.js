@@ -7,6 +7,7 @@ const initialState = {
     ottData : null,
     imageData : null,
     videoData : null,
+    seriesData: null
 };
 
 const movieReducer = (state = initialState, action) => {

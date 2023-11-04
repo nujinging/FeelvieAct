@@ -49,7 +49,7 @@ export const videoUrl = (data) => {
 export const seriesUrl = (data) => {
     return {
         type: "SEND_SERIES",
-        payload: data.data.results
+        payload: data.data
     };
 };
 
