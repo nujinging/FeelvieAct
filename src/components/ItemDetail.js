@@ -9,6 +9,8 @@ import {movieActions} from "../util/movieActions";
 import List from "./List";
 import NotFound from "./NotFound";
 import {seasonActions} from "../util/seasonActions";
+import SeasonDetail from "./SeasonDetail";
+import ImgModal from "./Modal/ImgModal";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -18,23 +20,23 @@ export default function ItemDetail() {
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const [selectedItem, setSelectedItem] = useState(null);
+
     const [imgModal, setImgModal] = useState(false);
 
     const [videoOpen, setVideoOpen] = useState(false);
     const [youtubeUrl, setYoutubeUrl] = useState();
 
-    const [videoLink, setVideoLink] = useState();
-    const [videoSize, setVideoSize] = useState({width: 0, height: 0});
-
     // 미디어 - 배경,포스터
     const mediaTab = (type) => {
         setMediaType(type);
     }
+    const [videoLink, setVideoLink] = useState();
+    const [videoSize, setVideoSize] = useState({width: 0, height: 0});
 
-    // 이미지 모달
-    // 세로가 긴지, 가로가 긴지 구분해서 클래스 적용하기 위함
     const imgMore = (item) => {
         setImgModal(!imgModal);
+        setSelectedItem(item);
         const videoPath = item.file_path;
         setVideoLink(videoPath);
         const video_width = item.width;
@@ -80,7 +82,6 @@ export default function ItemDetail() {
     const imageData = useSelector(state => state.movies.imageData);
     const videoData = useSelector(state => state.movies.videoData);
     const seriesData = useSelector(state => state.movies.seriesData);
-    console.log(seriesData)
     /* 소셜 */
     const socialMedia = [
         {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialData?.facebook_id}`},
@@ -94,9 +95,6 @@ export default function ItemDetail() {
 
     /* 비슷한 작품 */
     const recommendArray = recommendData ? recommendData.slice(0, 5) : [];
-
-    // 시즌 에피소드 5개 보여주기
-    const seasonList = seriesData?.episodes.slice(0, 5);
 
     useEffect(() => {
         async function Api() {
@@ -276,27 +274,9 @@ export default function ItemDetail() {
                 <div className="title"><h2>등장인물</h2></div>
                 <List type={params.type} list={creditsArray} class={"person_list"}></List>
 
-                {
-                    seriesData && (
-                        <div className="last_season">
-                            <div className="title">
-                                <h2>현재 시즌</h2>
-                                <Link to={`/series/${params.id}/episode`} className="season_link">
-                                    전체 시즌 보기
-                                </Link>
-                            </div>
+                {params.type === 'tv' && seriesData && <SeasonDetail />}
 
 
-                            <div className="season_box">
-                                <Link to={`/series/${params.id}/episode`} className="season_main">
-                                    <img src={seriesData?.poster_path ? `https://image.tmdb.org/t/p/w342${seriesData?.poster_path}` : ``} alt=""
-                                         loading="lazy"/>
-                                </Link>
-                                <List type={params.type} list={seasonList} class={"season_list"}></List>
-                            </div>
-                        </div>
-                    )
-                }
                 <div className="title">
                     <h2>미디어</h2>
                     <ul className="type_list">
@@ -379,22 +359,10 @@ export default function ItemDetail() {
                         </div>
                     )
                 }
+
                 {
                     imgModal && (
-                        <div className="img_modal">
-                            <div className="inner">
-                                <a href={`https://www.themoviedb.org/t/p/original${videoLink}`}
-                                   className={`img_link ${videoSize.width > videoSize.height ? 'img_width' : 'img_height'}`}
-                                   target="_blank">
-                                    <img src={videoLink ? `https://image.tmdb.org/t/p/w500${videoLink}` : ``} alt="Movie Poster"
-                                         loading="lazy"/>
-                                </a>
-                                <p className="img_txt">이미지를 클릭하여 원본 ({videoSize.width}X{videoSize.height})을 확인 해보세요!</p>
-                                <button type="button" className="modal_close" onClick={imgModalClose}>
-                                    <span className="blind">닫기</span>
-                                </button>
-                            </div>
-                        </div>
+                        <ImgModal item={selectedItem}></ImgModal>
                     )
                 }
             </div>
