@@ -51,6 +51,11 @@ const movieReducer = (state = initialState, action) => {
                 ...state,
                 videoData: action.payload,
             };
+        case "SEND_SERIES":
+            return {
+                ...state,
+                seriesData: action.payload,
+            };
         default:
             return state;
     }

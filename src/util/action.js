@@ -46,6 +46,12 @@ export const videoUrl = (data) => {
         payload: data.data.results
     };
 };
+export const seriesUrl = (data) => {
+    return {
+        type: "SEND_SERIES",
+        payload: data.data.results
+    };
+};
 
 
 

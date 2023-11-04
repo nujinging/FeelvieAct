@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../util/movieActions";
 import List from "./List";
 import NotFound from "./NotFound";
+import {seriesUrl} from "../util/action";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -81,9 +82,7 @@ export default function ItemDetail() {
     const ottData = useSelector(state => state.movies.ottData);
 
     const imageData = useSelector(state => state.movies.imageData);
-    console.log(imageData)
     const videoData = useSelector(state => state.movies.videoData);
-    console.log(videoData)
 
     /* 소셜 */
     const socialMedia = [
@@ -104,6 +103,7 @@ export default function ItemDetail() {
         async function Api() {
             try {
                 await dispatch(movieActions(params.type, params.id));
+
                 window.scrollTo(0, 0);
 
                 const textContainer = textContainerRef.current;
@@ -116,12 +116,20 @@ export default function ItemDetail() {
                 } else {
                     setMediaType('posters')
                 }
+                // let seriesData;
+                // if (params.type === 'tv') {
+                //     seriesData = movieActions(params.type, detailData?.number_of_seasons);
+                //     dispatch(seriesUrl(seriesData));
+                //     console.log(seriesData); // 시리즈 데이터 출력
+                // }
+
 
                 // tv 시리즈
                 if (params.type === 'tv') {
                     const seasons = await movieApi.seasons(params.id, detailData?.number_of_seasons);
                     setSeasonUrl(seasons.data);
                 }
+                console.log(seasonUrl)
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -140,7 +148,7 @@ export default function ItemDetail() {
                     <NotFound />
                 } else {
                     // 다른 오류 처리
-                    console.log(33)
+                    console.log('오류')
                 }
             }
         }

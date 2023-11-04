@@ -1,4 +1,4 @@
-import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl } from './action';
+import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl, seriesUrl } from './action';
 import {movieApi} from "./movieApi";
 export const movieActions = (id, number) => async (dispatch) => {
     try {
@@ -22,6 +22,9 @@ export const movieActions = (id, number) => async (dispatch) => {
 
         const video = await movieApi.seasonVideo(id, number)
         dispatch(videoUrl(video));
+
+        const series = await movieApi.seasons(id, number)
+        dispatch(seriesUrl(series));
 
 
     } catch (error) {
