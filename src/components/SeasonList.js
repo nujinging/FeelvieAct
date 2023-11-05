@@ -1,23 +1,31 @@
 import './../App.scss';
-import {useEffect} from "react";
-import {Link, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../util/movieActions";
 import {seasonActions} from "../util/seasonActions";
 import List from "./List";
 export default function SeasonList() {
     const params = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [itemId, setItemId] = useState(null);
     const seasonData = useSelector(state => state.movies.seasonData);
 
     /* 시즌 에피소드 5개 보여주기 */
     const seasonList = seasonData?.episodes.slice(0, 5);
 
+
+    const seasonLink = () => {
+        setItemId(params.id);
+        navigate(`/series/${params.id}/episode`);
+    }
+
     useEffect(() => {
         async function Api() {
             try {
                 await dispatch(movieActions(params.type, params.id));
-                await dispatch(seasonActions(params.id, params.id));
+                await dispatch(seasonActions(params.type, params.id));
 
                 window.scrollTo(0, 0);
             } catch (error) {
@@ -28,7 +36,7 @@ export default function SeasonList() {
         Api();
         movieActions();
         seasonActions();
-    }, [params.type, params.id]);
+    }, [params.type, params.id, itemId]);
 
     return (
         <div className="last_season">

@@ -2,27 +2,27 @@ import './../App.scss';
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {movieActions} from "../util/movieActions";
+import {seasonActions} from "../util/seasonActions";
 
-export default function SeasonDetail() {
+export default function SeasonDetail(props) {
+    const params = useParams();
     const navigate = useNavigate();
     const { id } = useParams();
     const [selectedSeason, setSelectedSeason] = useState(1);
 
     const dispatch = useDispatch();
     const seasonData = useSelector(state => state.movies.seasonData);
-    const detailData = useSelector(state => state.movies.movieData);
 
     useEffect(() => {
         async function Api() {
             try {
-                await dispatch(movieActions(id, selectedSeason));
+                await dispatch(seasonActions(params.id, selectedSeason));
             } catch (error) {
                 console.error('Eroror', error);
             }
         }
         Api();
-        movieActions()
+        seasonActions()
         },
         []
     );
@@ -53,17 +53,17 @@ export default function SeasonDetail() {
                             </p>
                         </div>
                         <div className="series_info">
-                            <select className="series_select" onChange={seasonNumber}>
-                                {
-                                    detailData.seasons?.map((item, key) => {
-                                        return (
-                                            <option key={key} value={item.season_number}>
-                                                {item.name}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </select>
+                            {/*<select className="series_select" onChange={seasonNumber}>*/}
+                            {/*    {*/}
+                            {/*        detailData.seasons?.map((item, key) => {*/}
+                            {/*            return (*/}
+                            {/*                <option key={key} value={item.season_number}>*/}
+                            {/*                    {item.name}*/}
+                            {/*                </option>*/}
+                            {/*            )*/}
+                            {/*        })*/}
+                            {/*    }*/}
+                            {/*</select>*/}
                             <ul className="episode_list">
                                 {
                                     seasonData.episodes.map((item, index) => {
