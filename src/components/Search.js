@@ -2,7 +2,6 @@ import './../App.scss';
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {movieApi} from "../util/movieApi";
-import mainEvent from "../images/img_main_event.png";
 
 function App() {
     const [searchWord, setSearchWord] = useState('');

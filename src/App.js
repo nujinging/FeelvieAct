@@ -1,8 +1,7 @@
 import './App.scss';
-import {Route, Routes, BrowserRouter} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Main from "./components/Main";
 import ItemDetail from "./components/ItemDetail";
-import Header from "./components/Header";
 import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
@@ -10,9 +9,7 @@ import SeasonDetail from "./components/SeasonDetail";
 import NotFound from "./components/NotFound";
 import PageLayout from "./components/PageLayout";
 
-
 export default function App() {
-
     return (
         <Routes>
             <Route element={<PageLayout />}>

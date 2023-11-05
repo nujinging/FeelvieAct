@@ -12,7 +12,6 @@ export default function SeasonDetail() {
     const [seasonUrl, setSeasonUrl] = useState(null);
     const [selectedSeason, setSelectedSeason] = useState(1);
     const dispatch = useDispatch();
-    const data = useSelector((state) => state);
 
     useEffect(() => {
         async function Api() {

@@ -4,9 +4,9 @@ import {useEffect, useState, useRef} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../util/movieActions";
+import {seasonActions} from "../util/seasonActions";
 import List from "./List";
 import NotFound from "./NotFound";
-import {seasonActions} from "../util/seasonActions";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 
@@ -37,14 +37,6 @@ export default function ItemDetail() {
     /* 비슷한 작품 */
     const recommendArray = recommendData ? recommendData.slice(0, 5) : [];
 
-    // 영화 상세설명
-    useEffect(() => {
-        const textContainer = textContainerRef.current;
-        if (textContainer) {
-            setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
-        }
-    }, []);
-
     // 영화 상세설명 더보기
     const handleToggleButtonClick = () => {
         setIsExpanded(!isExpanded);
@@ -66,6 +58,8 @@ export default function ItemDetail() {
                 };
                 handleResize();
                 window.addEventListener('resize', handleResize);
+
+
                 return () => {
                     window.removeEventListener('resize', handleResize);
                 };

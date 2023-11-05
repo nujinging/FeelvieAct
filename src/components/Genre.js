@@ -114,11 +114,6 @@ export default function Genre() {
         };
     }, [page, genreNumber]);
 
-
-
-
-
-
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>

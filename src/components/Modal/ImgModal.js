@@ -5,7 +5,8 @@ export default function ImgModal({item, onClose}) {
             <div className="inner">
                 <a href={`https://www.themoviedb.org/t/p/original${item.file_path}`}
                    className={`img_link ${item.width > item.height ? 'img_width' : 'img_height'}`}
-                   target="_blank">
+                   target="_blank"
+                   rel="noreferrer">
                     <img src={`https://image.tmdb.org/t/p/w500${item.file_path}`} alt="Movie Poster"
                          loading="lazy"/>
                 </a>

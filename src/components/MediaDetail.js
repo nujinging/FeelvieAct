@@ -36,10 +36,6 @@ export default function MediaDetail() {
         setVideoKey(item_key);
     }
 
-    const imgModalClose = () => {
-        setImgModal(false);
-    };
-
     useEffect(() => {
         async function Api() {
             try {
