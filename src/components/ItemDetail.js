@@ -34,9 +34,6 @@ export default function ItemDetail() {
     /* 등장인물 */
     const creditsArray = creditsData ? creditsData.slice(0, 5) : [];
 
-    /* 비슷한 작품 */
-    const recommendArray = recommendData ? recommendData.slice(0, 5) : [];
-
     // 영화 상세설명 더보기
     const handleToggleButtonClick = () => {
         setIsExpanded(!isExpanded);
@@ -207,9 +204,13 @@ export default function ItemDetail() {
                     </picture>
                 </div>
             </section>
+
+
             <div className="item_container">
-                <div className="title"><h2>등장인물</h2></div>
-                <List type={params.type} list={creditsArray} class={"person_list"}></List>
+                <div className="item">
+                    <div className="title"><h2>등장인물</h2></div>
+                    <List type={params.type} list={creditsArray} class={"person_list"}></List>
+                </div>
 
                 {params.type === 'tv' && seasonData && <SeasonList />}
 
@@ -217,9 +218,9 @@ export default function ItemDetail() {
 
                 {
                     (recommendData && recommendData.length !== 0) && (
-                            <div>
+                            <div className="item">
                                 <div className="title"><h2>비슷한 작품</h2></div>
-                                <List type={params.type} list={recommendArray} class={"item_list"}></List>
+                                <List type={params.type} list={recommendData} class={"item_list"}></List>
                             </div>
                     )
                 }

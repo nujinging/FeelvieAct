@@ -60,7 +60,7 @@ export default function MediaDetail() {
 
 
     return (
-      <div>
+      <div className="item">
           <div className="title">
               <h2>미디어</h2>
               <ul className="type_list">

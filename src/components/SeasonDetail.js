@@ -4,14 +4,15 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {seasonActions} from "../util/seasonActions";
 
-export default function SeasonDetail(props) {
+export default function SeasonDetail() {
     const params = useParams();
     const navigate = useNavigate();
-    const { id } = useParams();
     const [selectedSeason, setSelectedSeason] = useState(1);
 
     const dispatch = useDispatch();
     const seasonData = useSelector(state => state.movies.seasonData);
+
+    console.log(seasonData)
 
     useEffect(() => {
         async function Api() {
@@ -53,17 +54,17 @@ export default function SeasonDetail(props) {
                             </p>
                         </div>
                         <div className="series_info">
-                            {/*<select className="series_select" onChange={seasonNumber}>*/}
-                            {/*    {*/}
-                            {/*        detailData.seasons?.map((item, key) => {*/}
-                            {/*            return (*/}
-                            {/*                <option key={key} value={item.season_number}>*/}
-                            {/*                    {item.name}*/}
-                            {/*                </option>*/}
-                            {/*            )*/}
-                            {/*        })*/}
-                            {/*    }*/}
-                            {/*</select>*/}
+                            <select className="series_select" onChange={seasonNumber}>
+                                {
+                                    seasonData.seasons?.map((item, key) => {
+                                        return (
+                                            <option key={key} value={item.season_number}>
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
                             <ul className="episode_list">
                                 {
                                     seasonData.episodes.map((item, index) => {

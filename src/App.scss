@@ -337,6 +337,12 @@ body {
   }
 }
 
+.item {
+  &+.item {
+    margin-top:3.125rem;
+  }
+}
+
 /* 스와이퍼 */
 .swiper {
   overflow: visible;
@@ -429,7 +435,7 @@ body {
 
   /* 슬라이드 */
   .swiper-slide {
-    width: 18.75rem;
+    width: 13.75rem;
     /* 로딩 */
     &.list_card {
       .card_hidden {
@@ -473,7 +479,7 @@ body {
       img {
         display: block;
         width: 100%;
-        height: 28.125rem;
+        height: 20rem;
         border-radius: 0.5rem
       }
 
@@ -558,7 +564,7 @@ body {
     .list_card {
       display: inline-block;
       margin: 0 1.25rem 2.5rem 0;
-      width: calc(100% - 80% - 1rem);
+      width: calc(100% - 86% - 1rem);
 
       picture {
         display: block;
@@ -1017,7 +1023,7 @@ body {
 
   .video_card {
     display: block;
-    width: 28.75rem;
+    width: 21.25rem;
 
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath opacity='0.15' d='M8 6V18L18 12L8 6Z' fill='%23001A72'/%3E%3Cpath d='M8 6V18L18 12L8 6Z' stroke='%23001A72' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
@@ -1033,7 +1039,6 @@ body {
   }
 
   .poster_card {
-    width: 18.75rem;
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
