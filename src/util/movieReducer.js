@@ -7,7 +7,7 @@ const initialState = {
     ottData : null,
     imageData : null,
     videoData : null,
-    seriesData: null
+    seasonData: null
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -55,7 +55,7 @@ const movieReducer = (state = initialState, action) => {
         case "SEND_SERIES":
             return {
                 ...state,
-                seriesData: action.payload,
+                seasonData: action.payload,
             };
         default:
             return state;

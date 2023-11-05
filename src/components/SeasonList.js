@@ -8,10 +8,10 @@ import List from "./List";
 export default function SeasonList() {
     const params = useParams();
     const dispatch = useDispatch();
-    const seriesData = useSelector(state => state.movies.seriesData);
+    const seasonData = useSelector(state => state.movies.seasonData);
 
     /* 시즌 에피소드 5개 보여주기 */
-    const seasonList = seriesData?.episodes.slice(0, 5);
+    const seasonList = seasonData?.episodes.slice(0, 5);
 
     useEffect(() => {
         async function Api() {
@@ -42,7 +42,7 @@ export default function SeasonList() {
 
             <div className="season_box">
                 <Link to={`/series/${params.id}/episode`} className="season_main">
-                    <img src={seriesData?.poster_path ? `https://image.tmdb.org/t/p/w342${seriesData?.poster_path}` : ``} alt=""
+                    <img src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w342${seasonData?.poster_path}` : ``} alt=""
                          loading="lazy"/>
                 </Link>
                 <List type={params.type} list={seasonList} class={"season_list"}></List>

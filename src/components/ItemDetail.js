@@ -22,7 +22,7 @@ export default function ItemDetail() {
     const socialData = useSelector(state => state.movies.socialData);
     const recommendData = useSelector(state => state.movies.recommendData);
     const ottData = useSelector(state => state.movies.ottData);
-    const seriesData = useSelector(state => state.movies.seriesData);
+    const seasonData = useSelector(state => state.movies.seasonData);
 
     /* 소셜 */
     const socialMedia = [
@@ -211,7 +211,7 @@ export default function ItemDetail() {
                 <div className="title"><h2>등장인물</h2></div>
                 <List type={params.type} list={creditsArray} class={"person_list"}></List>
 
-                {params.type === 'tv' && seriesData && <SeasonList />}
+                {params.type === 'tv' && seasonData && <SeasonList />}
 
                 <MediaDetail></MediaDetail>
 

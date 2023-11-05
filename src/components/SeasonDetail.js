@@ -1,6 +1,5 @@
 import './../App.scss';
 import {useEffect, useState} from "react";
-import {movieApi} from "../util/movieApi";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../util/movieActions";
@@ -8,28 +7,28 @@ import {movieActions} from "../util/movieActions";
 export default function SeasonDetail() {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [detailUrl, setDetailUrl] = useState([]);
-    const [seasonUrl, setSeasonUrl] = useState(null);
     const [selectedSeason, setSelectedSeason] = useState(1);
+
     const dispatch = useDispatch();
+    const seasonData = useSelector(state => state.movies.seasonData);
+    const detailData = useSelector(state => state.movies.movieData);
 
     useEffect(() => {
         async function Api() {
             try {
-                const seasons = await movieApi.seasons(id, selectedSeason);
-                setSeasonUrl(seasons.data);
-                const detail = await movieApi.detail('tv', id);
-                setDetailUrl(detail.data.seasons);
-                await dispatch(movieActions());
+                await dispatch(movieActions(id, selectedSeason));
             } catch (error) {
                 console.error('Eroror', error);
             }
-        } Api();movieActions()},
-        [id, selectedSeason,dispatch]
+        }
+        Api();
+        movieActions()
+        },
+        []
     );
 
     // 시리즈 넘버 변경
-    const seriesNumber = (event) => {
+    const seasonNumber = (event) => {
         setSelectedSeason(event.target.value);
     };
 
@@ -42,21 +41,21 @@ export default function SeasonDetail() {
         <div className="container">
 
             {
-                seasonUrl ? (
-                    <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${seasonUrl?.backdrop_path})` }}>
+                seasonData ? (
+                    <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${seasonData?.backdrop_path})` }}>
                         <div className="series_tit">
                             <button className="series_back" onClick={pageBack}>뒤로 가기</button>
                             <picture className="series_img">
-                                <img src={seasonUrl.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}` : ``} alt="" loading="lazy"/>
+                                <img src={seasonData.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonData.poster_path}` : ``} alt="" loading="lazy"/>
                             </picture>
                             <p className="overview">
-                                {seasonUrl.overview}
+                                {seasonData.overview}
                             </p>
                         </div>
                         <div className="series_info">
-                            <select className="series_select" onChange={seriesNumber}>
+                            <select className="series_select" onChange={seasonNumber}>
                                 {
-                                    detailUrl?.map((item, key) => {
+                                    detailData.seasons?.map((item, key) => {
                                         return (
                                             <option key={key} value={item.season_number}>
                                                 {item.name}
@@ -67,7 +66,7 @@ export default function SeasonDetail() {
                             </select>
                             <ul className="episode_list">
                                 {
-                                    seasonUrl.episodes.map((item, index) => {
+                                    seasonData.episodes.map((item, index) => {
                                         return (
                                             <li key={index}>
                                                 <picture className="episode_img">
