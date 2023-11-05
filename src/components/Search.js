@@ -7,7 +7,6 @@ import mainEvent from "../images/img_main_event.png";
 function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
-
     const [searchNone, setSearchNone] = useState('');
     const navigate = useNavigate();
 
@@ -59,8 +58,6 @@ function App() {
         }
     };
 
-    console.log(searchList)
-
     return (
         <div className="search_container">
             <form>
@@ -110,7 +107,6 @@ function App() {
 
                 </div>
             )}
-
 
             <ul className="search_list">
 

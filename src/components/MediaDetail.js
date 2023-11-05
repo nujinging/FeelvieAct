@@ -1,13 +1,13 @@
-
 import './../App.scss';
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
 import {movieActions} from "../util/movieActions";
 import {seasonActions} from "../util/seasonActions";
 import VideoModal from "./Modal/VideoModal";
 import ImgModal from "./Modal/ImgModal";
+
 export default function MediaDetail() {
     const params = useParams();
     const dispatch = useDispatch();

@@ -1,13 +1,12 @@
-import './../App.scss';
-import mainEvent from './../images/img_main_event.png'
+import '../../App.scss';
+import mainEvent from '../../images/img_main_event.png'
 import {useEffect, useState} from "react";
-
-
 export default function EventModal() {
     const [modalOpen, setModalOpen] = useState(true);
     const openModal = () => {
         setModalOpen(false)
     }
+
     useEffect(() => {
         const dontStorage = localStorage.getItem('modalOpen');
         if (dontStorage === 'false') {

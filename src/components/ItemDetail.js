@@ -1,32 +1,41 @@
-import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import './../App.scss';
-import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../util/movieActions";
 import List from "./List";
 import NotFound from "./NotFound";
 import {seasonActions} from "../util/seasonActions";
-import SeasonDetail from "./SeasonDetail";
-import ImgModal from "./Modal/ImgModal";
+import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
-import VideoModal from "./Modal/VideoModal";
 
 export default function ItemDetail() {
     const params = useParams();
-
     const textContainerRef = useRef(null);
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const [selectedItem, setSelectedItem] = useState(null);
+    const dispatch = useDispatch();
+    const detailData = useSelector(state => state.movies.movieData);
+    const creditsData = useSelector(state => state.movies.creditsData);
+    const socialData = useSelector(state => state.movies.socialData);
+    const recommendData = useSelector(state => state.movies.recommendData);
+    const ottData = useSelector(state => state.movies.ottData);
+    const seriesData = useSelector(state => state.movies.seriesData);
 
-    const [imgModal, setImgModal] = useState(false);
+    /* 소셜 */
+    const socialMedia = [
+        {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialData?.facebook_id}`},
+        {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialData?.twitter_id}`},
+        {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialData?.instagram_id}`}
+    ]
 
-    const [youtubeUrl, setYoutubeUrl] = useState();
+    /* 등장인물 */
+    const creditsArray = creditsData ? creditsData.slice(0, 5) : [];
 
+    /* 비슷한 작품 */
+    const recommendArray = recommendData ? recommendData.slice(0, 5) : [];
 
     // 영화 상세설명
     useEffect(() => {
@@ -41,39 +50,13 @@ export default function ItemDetail() {
         setIsExpanded(!isExpanded);
     };
 
-
-    const dispatch = useDispatch();
-    const detailData = useSelector(state => state.movies.movieData);
-    const creditsData = useSelector(state => state.movies.creditsData);
-    const socialData = useSelector(state => state.movies.socialData);
-    const recommendData = useSelector(state => state.movies.recommendData);
-    const ottData = useSelector(state => state.movies.ottData);
-
-    const seriesData = useSelector(state => state.movies.seriesData);
-    /* 소셜 */
-    const socialMedia = [
-        {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialData?.facebook_id}`},
-        {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialData?.twitter_id}`},
-        {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialData?.instagram_id}`}
-    ]
-
-
-    /* 등장인물 */
-    const creditsArray = creditsData ? creditsData.slice(0, 5) : [];
-
-    /* 비슷한 작품 */
-    const recommendArray = recommendData ? recommendData.slice(0, 5) : [];
-
     useEffect(() => {
         async function Api() {
             try {
+                window.scrollTo(0, 0);
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, detailData?.number_of_seasons));
-
-                window.scrollTo(0, 0);
-
                 const textContainer = textContainerRef.current;
-
 
                 // 영화 상세설명
                 const handleResize = () => {
@@ -234,7 +217,7 @@ export default function ItemDetail() {
                 <div className="title"><h2>등장인물</h2></div>
                 <List type={params.type} list={creditsArray} class={"person_list"}></List>
 
-                {params.type === 'tv' && seriesData && <SeasonDetail />}
+                {params.type === 'tv' && seriesData && <SeasonList />}
 
                 <MediaDetail></MediaDetail>
 

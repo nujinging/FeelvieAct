@@ -9,7 +9,6 @@ import {Navigation} from "swiper/modules";
 
 export default function List(props) {
     const [itemId, setItemId] = useState(null);
-    const [swiperKey, setSwiperKey] = useState(0);
     const navigate = useNavigate();
     const list = props.list;
     const [showCard, setShowCard] = useState(false);

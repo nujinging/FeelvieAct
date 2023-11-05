@@ -12,7 +12,6 @@ export default function PersonDetail() {
     const [socialUrl, setSocialUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
     const [artPopular, setArtPopular] = useState([]);
-
     const movieLink = (itemId) => {
         navigate(`/detail/${typeTabs}/${itemId}`);
     }

@@ -1,6 +1,5 @@
 import './../../App.scss';
 export default function ImgModal({item, onClose}) {
-
     return (
         <div className="img_modal">
             <div className="inner">

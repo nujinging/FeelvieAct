@@ -2,7 +2,7 @@ import HomeSlide from "./HomeSlide";
 import List from "./List";
 import {movieApi} from "./../util/movieApi";
 import {useState, useEffect} from 'react';
-import EventModal from "./EventModal";
+import EventModal from "./Modal/EventModal";
 
 export default function Main() {
     const [lists, setLists] = useState({

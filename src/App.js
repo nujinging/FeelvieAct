@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
-import SeriesDetail from "./components/SeriesDetail";
+import SeasonDetail from "./components/SeasonDetail";
 import NotFound from "./components/NotFound";
 import PageLayout from "./components/PageLayout";
 
@@ -21,7 +21,7 @@ export default function App() {
                 <Route path='/detail/:type/:id' element={<ItemDetail />} />
                 <Route path='/genre/:type' element={<Genre />} />
                 <Route path='/person/:id' element={<PersonDetail />} />
-                <Route path='/series/:id/episode' element={<SeriesDetail />} />
+                <Route path='/series/:id/episode' element={<SeasonDetail />} />
             </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>

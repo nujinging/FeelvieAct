@@ -12,7 +12,6 @@ export default function Genre() {
     const navigate = useNavigate();
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState([]);
-    const [newList, setNewList] = useState(null);
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
     const [hiddenCard, setHiddenCard] = useState(true);

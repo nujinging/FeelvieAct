@@ -1,52 +1,99 @@
 import './../App.scss';
-import {Link, useParams} from "react-router-dom";
-import List from "./List";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {movieApi} from "../util/movieApi";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../util/movieActions";
-import {seasonActions} from "../util/seasonActions";
-export default function SeasonDetail() {
-    const params = useParams();
-    const dispatch = useDispatch();
-    const seriesData = useSelector(state => state.movies.seriesData);
 
-    /* 시즌 에피소드 5개 보여주기 */
-    const seasonList = seriesData?.episodes.slice(0, 5);
+export default function SeasonDetail() {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [detailUrl, setDetailUrl] = useState([]);
+    const [seasonUrl, setSeasonUrl] = useState(null);
+    const [selectedSeason, setSelectedSeason] = useState(1);
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state);
 
     useEffect(() => {
         async function Api() {
             try {
-                await dispatch(movieActions(params.type, params.id));
-                await dispatch(seasonActions(params.id, params.id));
-
-                window.scrollTo(0, 0);
+                const seasons = await movieApi.seasons(id, selectedSeason);
+                setSeasonUrl(seasons.data);
+                const detail = await movieApi.detail('tv', id);
+                setDetailUrl(detail.data.seasons);
+                await dispatch(movieActions());
             } catch (error) {
-
+                console.error('Eroror', error);
             }
-        }
+        } Api();movieActions()},
+        [id, selectedSeason,dispatch]
+    );
 
-        Api();
-        movieActions();
-        seasonActions();
-    }, [params.type, params.id]);
+    // 시리즈 넘버 변경
+    const seriesNumber = (event) => {
+        setSelectedSeason(event.target.value);
+    };
+
+    // 뒤로가기
+    const pageBack = () => {
+        navigate(-1)
+    };
 
     return (
-        <div className="last_season">
-            <div className="title">
-                <h2>현재 시즌</h2>
-                <Link to={`/series/${params.id}/episode`} className="season_link">
-                    전체 시즌 보기
-                </Link>
-            </div>
+        <div className="container">
 
-
-            <div className="season_box">
-                <Link to={`/series/${params.id}/episode`} className="season_main">
-                    <img src={seriesData?.poster_path ? `https://image.tmdb.org/t/p/w342${seriesData?.poster_path}` : ``} alt=""
-                         loading="lazy"/>
-                </Link>
-                <List type={params.type} list={seasonList} class={"season_list"}></List>
-            </div>
+            {
+                seasonUrl ? (
+                    <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${seasonUrl?.backdrop_path})` }}>
+                        <div className="series_tit">
+                            <button className="series_back" onClick={pageBack}>뒤로 가기</button>
+                            <picture className="series_img">
+                                <img src={seasonUrl.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonUrl.poster_path}` : ``} alt="" loading="lazy"/>
+                            </picture>
+                            <p className="overview">
+                                {seasonUrl.overview}
+                            </p>
+                        </div>
+                        <div className="series_info">
+                            <select className="series_select" onChange={seriesNumber}>
+                                {
+                                    detailUrl?.map((item, key) => {
+                                        return (
+                                            <option key={key} value={item.season_number}>
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                            <ul className="episode_list">
+                                {
+                                    seasonUrl.episodes.map((item, index) => {
+                                        return (
+                                            <li key={index}>
+                                                <picture className="episode_img">
+                                                    <img src={`https://www.themoviedb.org/t/p/w454_and_h254_bestv2/${item.still_path}`} alt=""/>
+                                                </picture>
+                                                <div className="episode_info">
+                                                    <span className="date">
+                                                        {item.air_date}
+                                                    </span>
+                                                    <h3 className="tit">
+                                                        {item.name}
+                                                    </h3>
+                                                    <p className="overview">
+                                                        {item.overview || '아직 줄거리 내용이 업로드 되지 않았어요!'}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </section>
+                ) : null
+            }
         </div>
     );
 }

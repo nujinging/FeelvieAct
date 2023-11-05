@@ -4,6 +4,7 @@ export default function NotFound() {
     if (window.location.pathname === "/*") {
         return null;
     }
+
     return (
         <div className="not_found">
             <div className="txt">
