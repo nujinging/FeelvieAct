@@ -24,6 +24,9 @@ export default function ItemDetail() {
     const ottData = useSelector(state => state.movies.ottData);
     const seasonData = useSelector(state => state.movies.seasonData);
 
+
+    console.log(creditsData)
+
     /* 소셜 */
     const socialMedia = [
         {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialData?.facebook_id}`},

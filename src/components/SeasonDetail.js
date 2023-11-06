@@ -13,13 +13,10 @@ export default function SeasonDetail() {
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
 
-    const year = detailData?.first_air_date.substring(0, 4);
-
     const [selectSeason, SetSelectSeason] = useState();
     const lastSeason = detailData?.number_of_seasons;
 
-    console.log(detailData)
-    console.log(seasonData)
+    const year = detailData?.first_air_date.substring(0, 4);
 
     useEffect(() => {
         async function Api() {
