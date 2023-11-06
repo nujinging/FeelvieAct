@@ -47,7 +47,7 @@ export default function SeasonList() {
 
 
             <div className="season_box">
-                <Link to={`/series/${params.id}/episode`} className="season_main">
+                <Link to={`/${params.type}/series/${params.id}/episode`} className="season_main">
                     <img src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w342${seasonData?.poster_path}` : ``} alt=""
                          loading="lazy"/>
                 </Link>
