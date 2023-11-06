@@ -14,11 +14,9 @@ export default function SeasonList() {
 
     /* 시즌 에피소드 5개 보여주기 */
     const seasonList = seasonData?.episodes.slice(0, 5);
-
-
     const seasonLink = () => {
         setItemId(params.id);
-        navigate(`/series/${params.id}/episode`);
+        navigate(`/series/${params.type}/${params.id}/episode`);
     }
 
     useEffect(() => {
@@ -42,7 +40,7 @@ export default function SeasonList() {
         <div className="last_season">
             <div className="title">
                 <h2>현재 시즌</h2>
-                <Link to={`/series/${params.id}/episode`} className="season_link">
+                <Link to={`/${params.type}/series/${params.id}/episode`} className="season_link">
                     전체 시즌 보기
                 </Link>
             </div>

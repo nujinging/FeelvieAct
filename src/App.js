@@ -18,7 +18,7 @@ export default function App() {
                 <Route path='/detail/:type/:id' element={<ItemDetail />} />
                 <Route path='/genre/:type' element={<Genre />} />
                 <Route path='/person/:id' element={<PersonDetail />} />
-                <Route path='/series/:id/episode' element={<SeasonDetail />} />
+                <Route path='/:type/series/:id/episode' element={<SeasonDetail />} />
             </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>
