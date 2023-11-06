@@ -46,6 +46,7 @@ function App() {
     // 검색 인풋 값 변경
     const searchChange = (event) => {
         clearTimeout(delayTimer);
+        event.preventDefault();
         setSearchWord(event.target.value);
         // 백스페이스 키를 눌러서 입력값을 지운 경우
         if (event.target.value === '') {
@@ -62,48 +63,37 @@ function App() {
             <form>
                 <label className="search_input" htmlFor="search_input">
                     <input id="search_input" type="text"
-                           placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요" className="search_txt" onKeyDown={searchEnter} onChange={searchChange}/>
+                           placeholder="작품이나 인물을 검색해보세요!" className="search_txt" onKeyDown={searchEnter} onChange={searchChange}/>
                     <button type="button" className="icon_search">
                         <span className="blind">검색</span>
                     </button>
                 </label>
             </form>
 
-
             {
                 searchNone === 'none' ? (
                     <div className="search_none">
-                        검색결과가 없습니다.
+                        검색결과가 없어요💧
                     </div>
                 ) :  searchList.length === 0 && searchWord.length > 0 && (
                     <div className="search_none">
-                        검색결과가 없습니다.
+                        검색결과가 없어요💧
                     </div>
                 )
             }
 
-
-
-            {searchList.length === 0 &&  (
+            {searchList.length === 0 && (
                 <div className="search_tip">
-                    <div className="tip_txt">
-                        FeelvieAct는 외국계 회사 TMDB 의 Api를 활용해 만들어졌어요.💻<br/>
-                        너무 방대한 데이터를 가지고 있기때문에 어떤 것을 검색하면 좋을 지 잘 모를때가 있죠.<br/>
-                        다양한 정보를 볼 수 있는 대표적인 작품들을 추천해드릴게요!
-                        <br/>
-                        <br/>
-                        💡 띄어쓰기는 정확히 해주세요 !
-                        <p className="txt">
-                            Movie : 기생충,  바비, 센과 치히로의 행방불명,  어벤져스<br/>
+                    <div className="txt">
+                        <h1>
+                            <strong>
+                                TV 프로그램
+                            </strong> 검색은 어떠세요?</h1>
+                        <p>
+                            😎 모든 시즌과 에피소드까지 볼 수 있어요 !<br/>
+                            검색할 땐 띄어쓰기를 정확히 해주세요 !
                         </p>
-                        <p className="txt">
-                            TV :  심슨 가족, 스파이 패밀리, 워킹데드, 진격의 거인<br/>
-                            <span>TV 컨텐츠를 검색하시면 모든 시즌과 에피소드를 확인할 수 있어요</span>
-                        </p>
-
                     </div>
-
-
                 </div>
             )}
 

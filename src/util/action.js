@@ -46,9 +46,9 @@ export const videoUrl = (data) => {
         payload: data.data.results
     };
 };
-export const seriesUrl = (data) => {
+export const seasonUrl = (data) => {
     return {
-        type: "SEND_SERIES",
+        type: "SEND_SEASON",
         payload: data.data
     };
 };

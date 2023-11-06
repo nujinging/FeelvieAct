@@ -52,7 +52,7 @@ const movieReducer = (state = initialState, action) => {
                 ...state,
                 videoData: action.payload,
             };
-        case "SEND_SERIES":
+        case "SEND_SEASON":
             return {
                 ...state,
                 seasonData: action.payload,

@@ -1,4 +1,4 @@
-import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl, seriesUrl } from './action';
+import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl } from './action';
 import {movieApi} from "./movieApi";
 export const movieActions = (id, number) => async (dispatch) => {
     try {

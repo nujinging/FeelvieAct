@@ -39,14 +39,14 @@ export default function SeasonList() {
         <div className="item last_season">
             <div className="title">
                 <h2>현재 시즌</h2>
-                <Link to={`/${params.type}/series/${params.id}/episode`} className="season_link">
+                <Link to={`/${params.type}/season/${params.id}/episode`} className="season_link">
                     전체 시즌 보기
                 </Link>
             </div>
 
 
             <div className="season_box">
-                <Link to={`/${params.type}/series/${params.id}/episode`} className="season_main">
+                <Link to={`/${params.type}/season/${params.id}/episode`} className="season_main">
                     <img src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w342${seasonData?.poster_path}` : ``} alt=""
                          loading="lazy"/>
                 </Link>

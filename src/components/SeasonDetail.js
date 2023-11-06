@@ -52,14 +52,14 @@ export default function SeasonDetail() {
 
     return (
         <div className="container">
-            <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path})` }}>
-                <div className="series_poster">
-                    <button className="series_back" onClick={pageBack}>메인으로 돌아가기</button>
-                    <picture className="series_img">
+            <section className="season_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path})` }}>
+                <div className="season_poster">
+                    <button className="season_back" onClick={pageBack}>메인으로 돌아가기</button>
+                    <picture className="season_img">
                         <img src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonData?.poster_path}` : ``} alt="" loading="lazy"/>
                     </picture>
-                    <p className="series_tit">
-                        <span className="series_date">
+                    <p className="season_tit">
+                        <span className="season_date">
                             {year}
                         </span>
                         {detailData?.name}
@@ -67,8 +67,8 @@ export default function SeasonDetail() {
                 </div>
 
             </section>
-            <div className="series_info">
-                <select className="series_select" onChange={seasonNumber} value={selectSeason || lastSeason}>
+            <div className="season_info">
+                <select className="season_select" onChange={seasonNumber} value={selectSeason || lastSeason}>
                     {
                         detailData?.seasons?.map((item, key) => {
                             return (

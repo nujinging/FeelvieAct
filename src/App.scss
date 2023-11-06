@@ -548,6 +548,9 @@ body {
   }
 
   .genre_list {
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.375rem;
     .tit {
       margin-top: 0.938rem;
       color: #d5d5d5;
@@ -560,8 +563,7 @@ body {
 
     .list_card {
       display: inline-block;
-      margin: 0 1.25rem 2.5rem 0;
-      width: calc(100% - 86% - 1rem);
+      width: calc(100% - 89%);
 
       picture {
         display: block;
@@ -1119,7 +1121,7 @@ body {
     .search_txt {
       width: calc(100% - 3.75rem);
       color: #eee;
-      font-size: 1.75rem;
+      font-size: 1.875rem;
       font-weight: bold;
       border: none;
       background: none;
@@ -1234,32 +1236,42 @@ body {
   }
 
   .search_none {
-    padding-top: 20rem;
+    padding-top: 6rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #757575;
+    color: #fff;
     font-size: 1.75rem;
-    font-weight: bold;
+    line-height: 2.875rem;
   }
 
   .search_tip {
-    display: flex;
-    margin: 5rem 15.625rem;
-    font-size: 1.375rem;
-    line-height: 2.25rem;
-
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:5rem auto;
+    width:75rem;
     .txt {
-      margin-top: 2rem;
       font-size: 1.75rem;
       line-height: 2.875rem;
+      h1 {
+        margin-bottom:3.125rem;
+        font-size:2.875rem;
+        strong {
+          color:#0092ff
+        }
+      }
+      p {
+        font-size:1.875rem;
+        line-height:3.125rem;
+      }
     }
 
-    &:before {
+    &:after {
       display: block;
-      margin-right: 3rem;
-      width: 220px;
-      height: 220px;
+      margin-left: 3rem;
+      width:13.75rem;
+      height:13.75rem;
       background: url('./images/img_search_tip.png') center / 100% no-repeat;
       content: ''
     }
@@ -1453,7 +1465,7 @@ body {
 }
 
 /* 시즌 디테일 */
-.series_detail {
+.season_detail {
   position: fixed;
   display: flex;
   width: 100%;
@@ -1462,22 +1474,22 @@ body {
   color: #fff;
   background-size:cover;
   background-position:center;
-  .series_poster {
+  .season_poster {
     position:relative;
     width:18.75rem;
     z-index:1;
-    .series_img {
+    .season_img {
       display: block;
       overflow: hidden;
     }
-    .series_tit {
+    .season_tit {
       display:flex;
       align-items:center;
       justify-content:center;
       margin-top:1.75rem;
       font-size:1.625rem;
       font-weight:bold;
-      .series_date {
+      .season_date {
         display:inline-flex;
         align-items:center;
         justify-content:center;
@@ -1490,7 +1502,7 @@ body {
         border-radius:4px;
       }
     }
-    .series_back {
+    .season_back {
       display:flex;
       align-items:center;
       margin-bottom:1.75rem;
@@ -1535,13 +1547,13 @@ body {
     background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
 }
-.series_info {
+.season_info {
   position: relative;
   z-index: 1;
   margin:9.375rem 5rem 5rem 26.25rem;
   overflow: hidden;
 
-  .series_select {
+  .season_select {
     margin-bottom: 2.25rem;
     padding: 0.5rem 1.25rem 0.5rem 0;
     color: #fff;
@@ -1897,7 +1909,7 @@ body {
     display: block;
     width: 340px;
     height: 340px;
-    //background: url('./images/img_data_none.png') center / 100% no-repeat;
+    background: url('./images/img_data_none.png') center / 100% no-repeat;
     content: ''
   }
 }
@@ -2140,12 +2152,12 @@ body {
     }
 
     .search_tip {
-      display: block;
-      margin: 7rem 3rem;
-      text-align: center;
-      font-size:1.625rem;
-      &:before {
-        margin: 0 auto 2rem;
+      flex-direction: column-reverse;
+      flex-wrap: wrap-reverse;
+      width: 100%;
+      text-align:center;
+      &:after {
+        margin: 0 auto 5rem;
         width: 100px;
         height: 100px;
       }
@@ -2213,18 +2225,18 @@ body {
     display:none;
   }
 
-  .series_detail {
+  .season_detail {
     position: relative;
     display: block;
     height:auto;
     padding: 9.375rem 2.5rem 2.5rem;
-    .series_poster {
+    .season_poster {
       margin:0 auto;
       width:22rem;
-      .series_back {
+      .season_back {
         font-size:2rem;
       }
-      .series_tit {
+      .season_tit {
         width: auto;
         margin-bottom: 3.5rem;
         font-size:3.25rem;
@@ -2233,7 +2245,7 @@ body {
     }
   }
 
-  .series_info {
+  .season_info {
     margin:0 2.5rem 9.375rem;
     .episode_list {
       li {
