@@ -1542,6 +1542,9 @@ body {
     font-weight: bold;
     border: none;
     background: none;
+    option {
+      color:#000
+    }
   }
 
   .episode_list {
@@ -2183,7 +2186,7 @@ body {
       margin:0 auto;
       width:22rem;
       .series_back {
-        font-size:1.875rem;
+        font-size:2rem;
       }
       .series_tit {
         width: auto;
@@ -2213,6 +2216,7 @@ body {
             font-size:1.563rem;
           }
           .tit {
+            margin:2rem 0;
             font-size:2.375rem;
           }
           .overview {

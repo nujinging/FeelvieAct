@@ -8,12 +8,15 @@ import {movieActions} from "../util/movieActions";
 export default function SeasonDetail() {
     const params = useParams();
     const navigate = useNavigate();
-    const [selectedSeason, setSelectedSeason] = useState(1);
+
     const dispatch = useDispatch();
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
 
     const year = detailData?.first_air_date.substring(0, 4);
+
+    const [selectSeason, SetSelectSeason] = useState();
+    const lastSeason = detailData?.number_of_seasons;
 
     console.log(detailData)
     console.log(seasonData)
@@ -23,7 +26,12 @@ export default function SeasonDetail() {
             try {
                 window.scrollTo(0, 0);
                 await dispatch(movieActions(params.type, params.id));
-                await dispatch(seasonActions(params.id, selectedSeason));
+                if (selectSeason === undefined) {
+                    await dispatch(seasonActions(params.id, lastSeason));
+                } else {
+                    await dispatch(seasonActions(params.id, selectSeason));
+                }
+
             } catch (error) {
                 console.error('Eroror', error);
             }
@@ -32,12 +40,12 @@ export default function SeasonDetail() {
         movieActions();
         seasonActions();
         },
-        []
+        [lastSeason, selectSeason]
     );
 
     // 시리즈 넘버 변경
     const seasonNumber = (event) => {
-        setSelectedSeason(event.target.value);
+        SetSelectSeason(event.target.value);
     };
 
     // 뒤로가기
@@ -47,7 +55,6 @@ export default function SeasonDetail() {
 
     return (
         <div className="container">
-
             <section className="series_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path})` }}>
                 <div className="series_poster">
                     <button className="series_back" onClick={pageBack}>메인으로 돌아가기</button>
@@ -64,14 +71,14 @@ export default function SeasonDetail() {
 
             </section>
             <div className="series_info">
-                <select className="series_select" onChange={seasonNumber}>
+                <select className="series_select" onChange={seasonNumber} value={selectSeason || lastSeason}>
                     {
-                        seasonData?.seasons?.map((item, key) => {
+                        detailData?.seasons?.map((item, key) => {
                             return (
                                 <option key={key} value={item.season_number}>
                                     {item.name}
                                 </option>
-                            )
+                            );
                         })
                     }
                 </select>
@@ -100,6 +107,7 @@ export default function SeasonDetail() {
                     }
                 </ul>
             </div>
+
         </div>
     );
 }

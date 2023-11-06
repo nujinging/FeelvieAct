@@ -14,10 +14,6 @@ export default function SeasonList() {
 
     /* 시즌 에피소드 5개 보여주기 */
     const seasonList = seasonData?.episodes.slice(0, 5);
-    const seasonLink = () => {
-        setItemId(params.id);
-        navigate(`/series/${params.type}/${params.id}/episode`);
-    }
 
     useEffect(() => {
         async function Api() {
