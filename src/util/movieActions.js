@@ -1,4 +1,4 @@
-import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl } from './action';
+import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl, genreUrl, genrePopularDescUrl, genrePopularAscUrl, genreDateDescUrl, genreDateAscUrl } from './action';
 import {movieApi} from "./movieApi";
 export const movieActions = (id, number) => async (dispatch) => {
     try {
@@ -22,6 +22,22 @@ export const movieActions = (id, number) => async (dispatch) => {
 
         const video = await movieApi.seasonVideo(id, number)
         dispatch(videoUrl(video));
+
+        const genre = await movieApi.genreList(id, number)
+        dispatch(genreUrl(genre));
+
+        const genrePopularDesc = await movieApi.genrePopularDesc(id, number)
+        dispatch(genrePopularDescUrl(genrePopularDesc));
+
+        const genrePopularAsc = await movieApi.genrePopularAsc(id, number)
+        dispatch(genrePopularAscUrl(genrePopularAsc));
+
+        const genreDateDesc = await movieApi.genreDateDesc(id, number)
+        dispatch(genreDateDescUrl(genreDateDesc));
+
+        const genreDateAsc = await movieApi.genreDateAsc(id, number)
+        dispatch(genreDateAscUrl(genreDateAsc));
+
 
     } catch (error) {
     }

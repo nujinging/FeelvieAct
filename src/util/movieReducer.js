@@ -7,7 +7,12 @@ const initialState = {
     ottData : null,
     imageData : null,
     videoData : null,
-    seasonData: null
+    seasonData: null,
+    genreData: null,
+    genrePopularDescData : null,
+    genrePopularAscData : null,
+    genreDateDescData : null,
+    genreDateAscData : null
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -56,6 +61,34 @@ const movieReducer = (state = initialState, action) => {
             return {
                 ...state,
                 seasonData: action.payload,
+            };
+        case "SEND_GENRE":
+            return {
+                ...state,
+                genreData: action.payload,
+            };
+        case "SEND_GENRE_POPULAR_DESC":
+            return {
+                ...state,
+                genrePopularDescData: action.payload,
+            };
+
+        case "SEND_GENRE_POPULAR_ASC":
+            return {
+                ...state,
+                genrePopularAscData: action.payload,
+            };
+
+        case "SEND_GENRE_DATE_DESC":
+            return {
+                ...state,
+                genreDateDescData: action.payload,
+            };
+
+        case "SEND_GENRE_DATE_ASC":
+            return {
+                ...state,
+                genreDateAscData: action.payload,
             };
         default:
             return state;

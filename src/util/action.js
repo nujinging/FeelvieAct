@@ -53,5 +53,41 @@ export const seasonUrl = (data) => {
     };
 };
 
+export const genreUrl = (data) => {
+    return {
+        type: "SEND_GENRE",
+        payload: data.data.results
+    };
+};
+
+export const genrePopularDescUrl = (data) => {
+    return {
+        type: "SEND_GENRE_POPULAR_DESC",
+        payload: data.data.results
+    };
+};
 
 
+
+export const genrePopularAscUrl = (data) => {
+    return {
+        type: "SEND_GENRE_POPULAR_ASC",
+        payload: data.data.results
+    };
+};
+
+
+export const genreDateDescUrl = (data) => {
+    return {
+        type: "SEND_GENRE_DATE_DESC",
+        payload: data.data.results
+    };
+};
+
+
+export const genreDateAscUrl = (data) => {
+    return {
+        type: "SEND_GENRE_DATE_ASC",
+        payload: data.data.results
+    };
+};

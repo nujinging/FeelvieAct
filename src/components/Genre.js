@@ -6,121 +6,95 @@ import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import debounce from 'lodash/debounce';
+import {useDispatch, useSelector} from "react-redux";
+import {movieActions} from "../util/movieActions";
 
 export default function Genre() {
     const {type} = useParams();
     const navigate = useNavigate();
+
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState([]);
-    const [genreNumber, setGenreNumber] = useState('All');
+    const [genreNumber, setGenreNumber] = useState('16');
     const [selectedValue, setSelectedValue] = useState('');
-    const [hiddenCard, setHiddenCard] = useState(true);
-    const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const location = useLocation();
+
+    const dispatch = useDispatch();
+    const genreData = useSelector(state => state.movies.genreData);
+    const genrePopularDescData = useSelector(state => state.movies.genrePopularDescData);
+    const genrePopularAscData = useSelector(state => state.movies.genrePopularAscData);
+    const genreDateDescData = useSelector(state => state.movies.genreDateDescData);
+    const genreDateAscData = useSelector(state => state.movies.genreDateAscData);
 
     useEffect(() => {
         async function Api() {
+            await dispatch(movieActions(type, genreNumber));
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
-            setPage(1)
 
-            const genreUrl = await movieApi.genreList(type, genreNumber);
-            setGenreList(genreUrl.data.results);
-
-
-            if (genreList && genreList.length > 0) {
-                setTimeout(() => {
-                    setHiddenCard(false);
-                }, 1200);
-            }
         }
         Api();
-    }, [loading, genreNumber]);
+        movieActions();
+    }, [genreNumber]);
 
 
-    // 전체 장르
     const genreChange = (itemId) => {
-        setSelectedValue('');
-        setLoading(true);
-        if (itemId === 'All') {
-            setGenreNumber('All');
-        } else {
-            setGenreNumber(itemId);
-        }
-        setTimeout(() => {
-            setLoading(false);
-        }, 1200);
-
+        setGenreNumber(itemId);
     };
 
     const SortClick = async (event) => {
         setSelectedValue(event.target.value);
         if (event.target.value === 'popularityDesc') {
-            const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
+            setGenreList(genrePopularDescData);
         } else if (event.target.value === 'popularityAsc') {
-            const genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
+            setGenreList(genrePopularAscData);
         } else if (event.target.value === 'dateDesc') {
-            const genreUrl = await movieApi.genreDateDesc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
+            setGenreList(genreDateDescData);
         } else {
-            const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
+            setGenreList(genreDateAscData);
         }
     }
-
-    useEffect(() => {
-        if (location.pathname.includes('/genre')) {
-            setGenreNumber('All');
-        }
-    }, [location.pathname]);
-
     const pageLink = (itemType, itemId) => {
         navigate(`/detail/${itemType}/${itemId}`);
     }
+    //
+    // const ListScroll = async () => {
+    //     try {
+    //         const nextPage = page + 1;
+    //         const itemScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
+    //         const newGenreList = itemScroll.data.results;
+    //         setPage(nextPage);
+    //         setGenreList((prevGenreList) => [...prevGenreList, ...newGenreList]);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+    //
+    // useEffect(() => {
+    //     const handleScroll = debounce(() => {
+    //         const windowHeight = window.innerHeight;
+    //         const scrollY = window.scrollY;
+    //         const contentHeight = document.documentElement.scrollHeight;
+    //
+    //         if (windowHeight + scrollY >= contentHeight) {
+    //             ListScroll();
+    //         }
+    //     }, 1000);
+    //
+    //     window.addEventListener('scroll', handleScroll);
+    //
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, [page, genreNumber]);
 
-    const ListScroll = async () => {
-        try {
-            const nextPage = page + 1;
-            const itemScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
-            const newGenreList = itemScroll.data.results;
-            setPage(nextPage);
-            setGenreList((prevGenreList) => [...prevGenreList, ...newGenreList]);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-
-    console.log(page)
-
-    useEffect(() => {
-        const handleScroll = debounce(() => {
-            const windowHeight = window.innerHeight;
-            const scrollY = window.scrollY;
-            const contentHeight = document.documentElement.scrollHeight;
-
-            if (windowHeight + scrollY >= contentHeight) {
-                ListScroll();
-            }
-        }, 1000);
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [page, genreNumber]);
 
     return (
         <div className="item_container genre">
             <Swiper className="genre_title" slidesPerView={"auto"}>
-                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
-                             onClick={() => genreChange('All')}>
-                    All
-                </SwiperSlide>
+                {/*<SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}*/}
+                {/*             onClick={() => genreChange('All')}>*/}
+                {/*    All*/}
+                {/*</SwiperSlide>*/}
                 {genreTitle?.map((item, index) => {
                     return (
                         <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
@@ -139,66 +113,61 @@ export default function Genre() {
                     <option value="dateAsc">상열일 오름차순</option>
                 </select>
             </div>
+            <ul className="genre_list">
+                {genreData?.map((item, index) => {
+                    return (
+                        <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
+                            {
+                                item.poster_path === null ? (
+                                    <picture className="img_none">
+                                        <span className="blind">이미지 없음</span>
+                                    </picture>
+                                ) : (
+                                    <picture>
+                                        <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                             alt="Movie Poster" loading="lazy"/>
+                                    </picture>
+                                )
 
-            {
-                genreNumber === 'All' ? (
-                    <ul className="genre_list">
-                        {genreList?.map((item, index) => {
-                            return (
-                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
-                                    {
-                                        item.poster_path === null ? (
-                                            <picture className="img_none">
-                                                <span className="blind">이미지 없음</span>
-                                            </picture>
-                                        ) : (
-                                            <picture>
-                                                <img src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
-                                                     alt="Movie Poster" loading="lazy"/>
-                                            </picture>
-                                        )
+                            }
 
-                                    }
+                            <p className="tit">
+                                {item.title || item.name}
+                            </p>
+                        </li>
+                    )
+                })}
+            </ul>
 
-                                    <p className="tit">
-                                        {item.title || item.name}
-                                    </p>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                ) : null
-            }
-
-            {
-                loading ? (
-                    <div>로딩</div>
-                ) : <ul className="genre_list">
-                    {genreList?.map((item, index) => {
-                        return (
-                            <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
-                                {
-                                    item.poster_path === null ? (
-                                        <picture className="img_none">
-                                            <span className="blind">이미지 없음</span>
-                                        </picture>
-                                    ) : (
-                                        <picture>
-                                            <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                                 alt="Movie Poster" loading="lazy"/>
-                                        </picture>
-                                    )
-
-                                }
-
-                                <p className="tit">
-                                    {item.title || item.name}
-                                </p>
-                            </li>
-                        )
-                    })}
-                </ul>
-            }
+            {/*{*/}
+            {/*    genreNumber === 'All' ? (*/}
+            {/*        <ul className="genre_list">*/}
+            {/*            {genreData?.map((item, index) => {*/}
+            {/*                return (*/}
+            {/*                    <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>*/}
+            {/*                        {*/}
+            {/*                            item.poster_path === null ? (*/}
+            {/*                                <picture className="img_none">*/}
+            {/*                                    <span className="blind">이미지 없음</span>*/}
+            {/*                                </picture>*/}
+            {/*                            ) : (*/}
+            {/*                                <picture>*/}
+            {/*                                    <img src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}*/}
+            {/*                                         alt="Movie Poster" loading="lazy"/>*/}
+            {/*                                </picture>*/}
+            {/*                            )*/}
+            
+            {/*                        }*/}
+            
+            {/*                        <p className="tit">*/}
+            {/*                            {item.title || item.name}*/}
+            {/*                        </p>*/}
+            {/*                    </li>*/}
+            {/*                )*/}
+            {/*            })}*/}
+            {/*        </ul>*/}
+            {/*    ) : null*/}
+            {/*}*/}
         </div>
     );
 }

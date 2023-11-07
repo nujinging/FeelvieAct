@@ -22,7 +22,11 @@ export const movieApi = {
     seasons : (season_id, season_number) => request.get(`tv/${season_id}/season/${season_number}`),
     seasonImg : (type, movie_id) => request.get(`${type}/${movie_id}/images?&language=fr&include_image_language=fr,null,kr`),
     seasonVideo : (type, movie_id) => request.get(`${type}/${movie_id}/videos?&language=fr&include_image_language=fr,null,kr`),
+
+
+
     genreTitle : (type) => request.get(`genre/${type}/list`),
+
     genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
 
     genreScroll : (type, genre_number, page) => request.get(`discover/${type}?with_genres=${genre_number}&page=${page}`),
@@ -31,6 +35,7 @@ export const movieApi = {
     genrePopularAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),
     genreDateDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.desc`),
     genreDateAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
+
     ottList : (type, movie_id) => request.get(`${type}/${movie_id}/watch/providers`),
 
 
