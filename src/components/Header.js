@@ -1,10 +1,17 @@
 import './../App.scss';
-import {Link} from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 export default function Header() {
+    const location = useLocation();
     const logo = "https://www.tving.com/img/tving-new-logo-pc.svg";
     const [headerFixed, setHeaderFixed] = useState(false);
+
+    const pageRefresh = (path) => {
+        if (location.pathname === path) {
+            window.location.reload();
+        }
+    };
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -26,20 +33,21 @@ export default function Header() {
         <header className={`wrap_header ${headerFixed ? "fixed" : ""}`}>
             <div className="header_container">
                 <div className="navigation">
-                    <Link to="/">
+                    <Link to="/" onClick={() => pageRefresh('/')}>
                         <img src={logo} alt="logo" />
                     </Link>
                     <ul className="menu">
                         <li>
-                            <Link to="/genre/movie">영화</Link>
+                            <Link to="/genre/movie" className={location.pathname === '/genre/movie' ? 'active': ''} onClick={() => pageRefresh('/genre/movie')}>영화</Link>
                         </li>
                         <li>
-                            <Link to="/genre/tv">TV프로그램</Link>
+                            <Link to="/genre/tv" className={location.pathname === '/genre/tv' ? 'active': ''} onClick={() => pageRefresh('/genre/tv')}>TV프로그램</Link>
                         </li>
                     </ul>
                 </div>
-                <Link to="/search" className="search"><span className="blind">검색</span></Link>
-            </div >
-        </header >
+                <Link to="/search" className={`search ${location.pathname === '/search' ? 'active' : ''}`} onClick={() => pageRefresh('/search')}><span className="blind">검색</span></Link>
+
+            </div>
+        </header>
     );
 }

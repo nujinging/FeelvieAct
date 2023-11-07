@@ -117,9 +117,7 @@ body {
     transform: translateZ(0);
     background-image: linear-gradient(rgba(0,0,0,.7),transparent);
     color: #fff;
-    transition: background-color .3s linear 0s,-webkit-backdrop-filter .3s linear 0s;
-    transition: backdrop-filter .3s linear 0s,background-color .3s linear 0s;
-    transition: backdrop-filter .3s linear 0s,background-color .3s linear 0s,-webkit-backdrop-filter .3s linear 0s;
+    transition: background-color .3s linear 0s;
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
     background-color: rgba(0,0,0,.7);
@@ -147,10 +145,18 @@ body {
 
     li {
       a {
-        color: #fff;
+        position:relative;;
+        color: #a5a5a5;
         font-size: 1.625rem;
-        font-weight: bold;
-        line-height: 1.25rem
+        line-height: 1.25rem;
+        &.active {
+          color:#fff;
+          font-weight:bold;
+        }
+        &:hover {
+          color:#fff;
+          font-weight:bold;
+        }
       }
 
       + li {
