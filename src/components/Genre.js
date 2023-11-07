@@ -8,6 +8,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import debounce from 'lodash/debounce';
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../util/movieActions";
+import LoadingProgress from "./LoadingProgress";
 
 export default function Genre() {
     const {type} = useParams();
@@ -17,6 +18,7 @@ export default function Genre() {
     const [genreList, setGenreList] = useState([]);
     const [genreNumber, setGenreNumber] = useState('16');
     const [selectedValue, setSelectedValue] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const dispatch = useDispatch();
     const genreData = useSelector(state => state.movies.genreData);
@@ -25,21 +27,41 @@ export default function Genre() {
     const genreDateDescData = useSelector(state => state.movies.genreDateDescData);
     const genreDateAscData = useSelector(state => state.movies.genreDateAscData);
 
+
+    const [progressState, setProgressState] = useState(true);
+
+    const calculateProgress = () => {
+        return loading ? 0 : 100;
+    };
+
+    const genreChange = async (itemId) => {
+        setLoading(true);
+        setGenreNumber(itemId);
+        setProgressState(true);
+        console.log(loading)
+    };
+
     useEffect(() => {
         async function Api() {
-            await dispatch(movieActions(type, genreNumber));
+            dispatch(movieActions(type, genreNumber));
+            console.log(loading)
+
+            if (genreData !== undefined) {
+                setLoading(false);
+                setTimeout(()=> {
+                    setProgressState(false);
+                }, 500)
+            }
+
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
-
         }
+        setLoading(false);
         Api();
         movieActions();
     }, [genreNumber]);
 
 
-    const genreChange = (itemId) => {
-        setGenreNumber(itemId);
-    };
 
     const SortClick = async (event) => {
         setSelectedValue(event.target.value);
@@ -56,40 +78,18 @@ export default function Genre() {
     const pageLink = (itemType, itemId) => {
         navigate(`/detail/${itemType}/${itemId}`);
     }
-    //
-    // const ListScroll = async () => {
-    //     try {
-    //         const nextPage = page + 1;
-    //         const itemScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
-    //         const newGenreList = itemScroll.data.results;
-    //         setPage(nextPage);
-    //         setGenreList((prevGenreList) => [...prevGenreList, ...newGenreList]);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-    //
-    // useEffect(() => {
-    //     const handleScroll = debounce(() => {
-    //         const windowHeight = window.innerHeight;
-    //         const scrollY = window.scrollY;
-    //         const contentHeight = document.documentElement.scrollHeight;
-    //
-    //         if (windowHeight + scrollY >= contentHeight) {
-    //             ListScroll();
-    //         }
-    //     }, 1000);
-    //
-    //     window.addEventListener('scroll', handleScroll);
-    //
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, [page, genreNumber]);
 
 
     return (
         <div className="item_container genre">
+
+            {
+                progressState && (
+                    <LoadingProgress progress={calculateProgress()}></LoadingProgress>
+                )
+            }
+
+
             <Swiper className="genre_title" slidesPerView={"auto"}>
                 {/*<SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}*/}
                 {/*             onClick={() => genreChange('All')}>*/}
@@ -138,36 +138,6 @@ export default function Genre() {
                     )
                 })}
             </ul>
-
-            {/*{*/}
-            {/*    genreNumber === 'All' ? (*/}
-            {/*        <ul className="genre_list">*/}
-            {/*            {genreData?.map((item, index) => {*/}
-            {/*                return (*/}
-            {/*                    <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>*/}
-            {/*                        {*/}
-            {/*                            item.poster_path === null ? (*/}
-            {/*                                <picture className="img_none">*/}
-            {/*                                    <span className="blind">이미지 없음</span>*/}
-            {/*                                </picture>*/}
-            {/*                            ) : (*/}
-            {/*                                <picture>*/}
-            {/*                                    <img src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}*/}
-            {/*                                         alt="Movie Poster" loading="lazy"/>*/}
-            {/*                                </picture>*/}
-            {/*                            )*/}
-            
-            {/*                        }*/}
-            
-            {/*                        <p className="tit">*/}
-            {/*                            {item.title || item.name}*/}
-            {/*                        </p>*/}
-            {/*                    </li>*/}
-            {/*                )*/}
-            {/*            })}*/}
-            {/*        </ul>*/}
-            {/*    ) : null*/}
-            {/*}*/}
         </div>
     );
 }
