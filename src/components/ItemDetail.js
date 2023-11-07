@@ -1,14 +1,16 @@
 import "swiper/css";
 import './../App.scss';
+import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {movieActions} from "../util/movieActions";
-import {seasonActions} from "../util/seasonActions";
+import {movieActions} from "../actions/movieActions";
+import {seasonActions} from "../actions/seasonActions";
 import List from "./List";
 import NotFound from "./NotFound";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
+
 
 export default function ItemDetail() {
     const params = useParams();
@@ -23,6 +25,13 @@ export default function ItemDetail() {
     const recommendData = useSelector(state => state.movies.recommendData);
     const ottData = useSelector(state => state.movies.ottData);
     const seasonData = useSelector(state => state.movies.seasonData);
+
+    const [creditsUrl, setCreditsUrl] = useState();
+    const [similarUrl, setSimilarUrl] = useState();
+    const [socialUrl, setSocialUrl] = useState();
+    const [recommendUrl, setRecommendUrl] = useState([]);
+
+    console.log(creditsUrl, similarUrl, socialUrl, recommendUrl)
 
     /* 소셜 */
     const socialMedia = [
@@ -45,6 +54,17 @@ export default function ItemDetail() {
                 window.scrollTo(0, 0);
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, detailData?.number_of_seasons));
+
+                const credits = await movieApi.credits(params.type, params.id);
+                const similar = await movieApi.similar(params.type, params.id);
+                const social = await movieApi.social(params.type, params.id);
+                const recommend = await movieApi.recommend(params.type, params.id);
+                setCreditsUrl(credits.data.cast);
+                setSimilarUrl(similar.data.results);
+                setSocialUrl(social.data);
+                setRecommendUrl(recommend.data.results);
+
+
                 const textContainer = textContainerRef.current;
 
                 // 영화 상세설명

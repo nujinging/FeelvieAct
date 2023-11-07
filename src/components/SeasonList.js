@@ -2,8 +2,8 @@ import './../App.scss';
 import {useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../util/movieActions";
-import {seasonActions} from "../util/seasonActions";
+import {movieActions} from "../actions/movieActions";
+import {seasonActions} from "../actions/seasonActions";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper/modules";
 

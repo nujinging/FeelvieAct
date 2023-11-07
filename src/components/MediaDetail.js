@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../util/movieActions";
-import {seasonActions} from "../util/seasonActions";
+import {movieActions} from "../actions/movieActions";
+import {seasonActions} from "../actions/seasonActions";
 import VideoModal from "./Modal/VideoModal";
 import ImgModal from "./Modal/ImgModal";
 

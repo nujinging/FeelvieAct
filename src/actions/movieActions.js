@@ -1,5 +1,5 @@
-import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl, genreUrl, genrePopularDescUrl, genrePopularAscUrl, genreDateDescUrl, genreDateAscUrl } from './action';
-import {movieApi} from "./movieApi";
+import { detailUrl, creditsUrl, socialUrl, recommendUrl, ottUrl, imageUrl, videoUrl, genreUrl, genrePopularDescUrl, genrePopularAscUrl, genreDateDescUrl, genreDateAscUrl } from '../util/action';
+import {movieApi} from "../util/movieApi";
 export const movieActions = (id, number) => async (dispatch) => {
     try {
         const detail = await movieApi.detail(id, number)

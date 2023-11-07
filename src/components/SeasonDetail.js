@@ -2,8 +2,8 @@ import './../App.scss';
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {seasonActions} from "../util/seasonActions";
-import {movieActions} from "../util/movieActions";
+import {seasonActions} from "../actions/seasonActions";
+import {movieActions} from "../actions/movieActions";
 
 export default function SeasonDetail() {
     const params = useParams();

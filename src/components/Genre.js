@@ -7,7 +7,7 @@ import {useEffect, useLayoutEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import debounce from 'lodash/debounce';
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../util/movieActions";
+import {movieActions} from "../actions/movieActions";
 import LoadingProgress from "./LoadingProgress";
 
 export default function Genre() {
