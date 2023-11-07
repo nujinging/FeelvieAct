@@ -3,7 +3,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import debounce from 'lodash/debounce';
 import {useDispatch, useSelector} from "react-redux";
@@ -38,7 +38,6 @@ export default function Genre() {
         setLoading(true);
         setGenreNumber(itemId);
         setProgressState(true);
-        console.log(loading)
     };
 
     useEffect(() => {
@@ -60,6 +59,10 @@ export default function Genre() {
         Api();
         movieActions();
     }, [genreNumber]);
+
+    useLayoutEffect(() => {
+        alert('2')
+    }, []);
 
 
 
@@ -113,31 +116,37 @@ export default function Genre() {
                     <option value="dateAsc">상열일 오름차순</option>
                 </select>
             </div>
-            <ul className="genre_list">
-                {genreData?.map((item, index) => {
-                    return (
-                        <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
-                            {
-                                item.poster_path === null ? (
-                                    <picture className="img_none">
-                                        <span className="blind">이미지 없음</span>
-                                    </picture>
-                                ) : (
-                                    <picture>
-                                        <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                             alt="Movie Poster" loading="lazy"/>
-                                    </picture>
-                                )
 
-                            }
+            {
+                !progressState && (
+                    <ul className="genre_list">
+                        {genreData?.map((item, index) => {
+                            return (
+                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
+                                    {
+                                        item.poster_path === null ? (
+                                            <picture className="img_none">
+                                                <span className="blind">이미지 없음</span>
+                                            </picture>
+                                        ) : (
+                                            <picture>
+                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                                     alt="Movie Poster" loading="lazy"/>
+                                            </picture>
+                                        )
 
-                            <p className="tit">
-                                {item.title || item.name}
-                            </p>
-                        </li>
-                    )
-                })}
-            </ul>
+                                    }
+
+                                    <p className="tit">
+                                        {item.title || item.name}
+                                    </p>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                )
+            }
+
         </div>
     );
 }
