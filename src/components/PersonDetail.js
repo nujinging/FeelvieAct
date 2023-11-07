@@ -12,9 +12,23 @@ export default function PersonDetail() {
     const [socialUrl, setSocialUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
     const [artPopular, setArtPopular] = useState([]);
+
+    /* 디테일 컴포넌트 이동 */
     const movieLink = (itemId) => {
         navigate(`/detail/${typeTabs}/${itemId}`);
     }
+
+    // 배우 필모그래피 TAB
+    const typeChange = (type) => {
+        setTypeTabs(type)
+    };
+
+    // 배우 SNS
+    const socialMedia = [
+        { name : '페이스북', url : 'http://www.facebook.com', class : "facebook", link : `${socialUrl?.facebook_id}`},
+        { name : '트위터', url : 'http://www.twitter.com', class : "twitter", link : `${socialUrl?.twitter_id}`},
+        { name : '인스타그램', url : 'http://www.instagram.com', class : "instagram", link : `${socialUrl?.instagram_id}`}
+    ]
 
     useEffect(() => {
         async function Api() {
@@ -46,18 +60,6 @@ export default function PersonDetail() {
         }
         Api();
     }, [typeTabs, params.id]);
-
-    // 배우 필모그래피 TAB
-    const typeChange = (type) => {
-        setTypeTabs(type)
-    };
-
-    // 배우 SNS
-    const socialMedia = [
-        { name : '페이스북', url : 'http://www.facebook.com', class : "facebook", link : `${socialUrl?.facebook_id}`},
-        { name : '트위터', url : 'http://www.twitter.com', class : "twitter", link : `${socialUrl?.twitter_id}`},
-        { name : '인스타그램', url : 'http://www.instagram.com', class : "instagram", link : `${socialUrl?.instagram_id}`}
-    ]
 
     return (
         <div className="container">

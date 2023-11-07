@@ -121,7 +121,7 @@ export default function ItemDetail() {
                                                         ottData.buy && ottData.buy.map((item, index) => (
                                                             <li key={index}>
                                                                 <img
-                                                                    src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`}
+                                                                    src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
                                                                     alt=""/>
                                                             </li>
                                                         ))
@@ -140,7 +140,7 @@ export default function ItemDetail() {
                                                         ottData?.flatrate && ottData?.flatrate.map((item, index) => (
                                                             <li key={index}>
                                                                 <img
-                                                                    src={`https://www.themoviedb.org/t/p/original/${item.logo_path}`}
+                                                                    src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
                                                                     alt=""/>
                                                             </li>
                                                         ))

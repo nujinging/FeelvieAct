@@ -1,24 +1,23 @@
 import './../App.scss';
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../util/movieActions";
 import {seasonActions} from "../util/seasonActions";
-import List from "./List";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper/modules";
-import mainEvent from "../images/img_main_event.png";
+
 export default function SeasonList() {
     const params = useParams();
     const dispatch = useDispatch();
-    const [itemId, setItemId] = useState(null);
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
 
+    /* 마지막 시즌 먼저 보여주기 */
+    const lastSeason = detailData?.number_of_seasons;
+
     /* 시즌 에피소드 5개 보여주기 */
     const seasonList = seasonData?.episodes.slice(0, 5);
-
-    const lastSeason = detailData?.number_of_seasons;
 
     useEffect(() => {
         async function Api() {
@@ -33,7 +32,7 @@ export default function SeasonList() {
         Api();
         movieActions();
         seasonActions();
-    }, [params.type, params.id, itemId]);
+    }, [params.type, params.id]);
 
     return (
         <div className="item last_season">

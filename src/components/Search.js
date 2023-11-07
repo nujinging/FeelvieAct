@@ -25,6 +25,7 @@ function App() {
             event.preventDefault();
         }
     }
+
     let delayTimer;
 
     // 1초 동안 추가 입력이 없을때에만 Api 요청
@@ -118,7 +119,6 @@ function App() {
                     })
                 }
             </ul>
-
         </div>
     );
 }

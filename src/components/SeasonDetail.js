@@ -8,15 +8,25 @@ import {movieActions} from "../util/movieActions";
 export default function SeasonDetail() {
     const params = useParams();
     const navigate = useNavigate();
+    const [selectSeason, SetSelectSeason] = useState();
+    const lastSeason = detailData?.number_of_seasons;
 
     const dispatch = useDispatch();
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
 
-    const [selectSeason, SetSelectSeason] = useState();
-    const lastSeason = detailData?.number_of_seasons;
-
+    /* 연도만 보여주기 */
     const year = detailData?.first_air_date.substring(0, 4);
+
+    // 시리즈 넘버 변경
+    const seasonNumber = (event) => {
+        SetSelectSeason(event.target.value);
+    };
+
+    // 뒤로가기
+    const pageBack = () => {
+        navigate(-1)
+    };
 
     useEffect(() => {
         async function Api() {
@@ -39,17 +49,7 @@ export default function SeasonDetail() {
         },
         [lastSeason, selectSeason]
     );
-
-    // 시리즈 넘버 변경
-    const seasonNumber = (event) => {
-        SetSelectSeason(event.target.value);
-    };
-
-    // 뒤로가기
-    const pageBack = () => {
-        navigate(-1)
-    };
-
+    
     return (
         <div className="container">
             <section className="season_detail" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path})` }}>
