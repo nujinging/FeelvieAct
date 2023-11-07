@@ -58,11 +58,8 @@ export default function Genre() {
         setLoading(false);
         Api();
         movieActions();
-    }, [genreNumber]);
+    }, [genreNumber, genreData]);
 
-    useLayoutEffect(() => {
-        alert('2')
-    }, []);
 
 
 
