@@ -105,11 +105,18 @@ function App() {
                         return (
                             <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`} onClick={() => pageLink(item.media_type, item.id)}>
                                 <picture>
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
-                                        alt="Movie Poster"
-                                        loading="lazy"
-                                    />
+                                    {
+                                        item.poster_path === null || item.profile_path === null ? (
+                                            <div className="card_none">none</div>
+                                        ) : (
+                                            <img
+                                                src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                alt="Movie Poster"
+                                                loading="lazy"
+                                            />
+                                        )
+                                    }
+
                                 </picture>
                                 <p className="tit">
                                     {item.name ? item.name : item.title}

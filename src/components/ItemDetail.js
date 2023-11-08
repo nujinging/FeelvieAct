@@ -63,8 +63,6 @@ export default function ItemDetail() {
         }
 
         Api();
-        movieActions();
-        seasonActions();
     }, [params.type, params.id]);
 
 

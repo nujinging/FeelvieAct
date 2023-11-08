@@ -39,6 +39,7 @@ export default function List(props) {
         }
     }, [list.length]);
 
+    console.log(list)
 
 
     return (
@@ -63,11 +64,18 @@ export default function List(props) {
                     </div>
 
                     <div className={`card_show `}>
-                        <img
-                            src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
-                            alt="Movie Poster"
-                            loading="lazy"
-                        />
+                        {
+                            item.poster_path === null || item.profile_path === null ? (
+                                <div className="card_none">none</div>
+                            ) : (
+                                <img
+                                    src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
+                                    alt={item.poster_path}
+                                    loading="lazy"
+                                />
+                            )
+                        }
+
                         <h3>{item.title || item.name}</h3>
                         {item.air_date && (
                             <div>

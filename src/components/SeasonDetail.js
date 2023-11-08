@@ -9,11 +9,12 @@ export default function SeasonDetail() {
     const params = useParams();
     const navigate = useNavigate();
     const [selectSeason, SetSelectSeason] = useState();
-    const lastSeason = detailData?.number_of_seasons;
-
     const dispatch = useDispatch();
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
+
+    /* 마지막 시즌부터 보여주기 */
+    const lastSeason = detailData?.number_of_seasons;
 
     /* 연도만 보여주기 */
     const year = detailData?.first_air_date.substring(0, 4);
@@ -27,6 +28,8 @@ export default function SeasonDetail() {
     const pageBack = () => {
         navigate(-1)
     };
+
+    console.log(seasonData)
 
     useEffect(() => {
         async function Api() {
@@ -103,6 +106,11 @@ export default function SeasonDetail() {
                         })
                     }
                 </ul>
+                {
+                    seasonData?.episodes.length === 0 && (
+                        <p className="episodes_none">이 시즌에는 아직 에피소드가 추가되지 않았어요😢</p>
+                    )
+                }
             </div>
 
         </div>

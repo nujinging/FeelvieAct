@@ -1,10 +1,10 @@
 import './../App.scss';
 import { Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
+import logoImage from './../images/logo.png'
 
 export default function Header() {
     const location = useLocation();
-    const logo = "https://www.tving.com/img/tving-new-logo-pc.svg";
     const [headerFixed, setHeaderFixed] = useState(false);
     const number = 'All';
 
@@ -35,7 +35,7 @@ export default function Header() {
             <div className="header_container">
                 <div className="navigation">
                     <Link to="/" onClick={() => pageRefresh('/')}>
-                        <img src={logo} alt="logo" />
+                        <img src={logoImage} alt="logo" />
                     </Link>
                     <ul className="menu">
                         <li>

@@ -30,9 +30,9 @@ export default function SeasonList() {
             }
         }
         Api();
-        movieActions();
-        seasonActions();
     }, [params.type, params.id]);
+
+    console.log(seasonList)
 
     return (
         <div className="item last_season">
@@ -50,27 +50,33 @@ export default function SeasonList() {
                          loading="lazy"/>
                 </Link>
 
-                <Swiper slidesPerView={'auto'} navigation={true} modules={[Navigation]} className={`swiper season_list`}>
-                    {seasonList.map(item => (
-                        <SwiperSlide className={`list_card item_card`} key={item.id}>
-                            <div className={`card_show `}>
-                                <img
-                                    src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
-                                    alt="Movie Poster"
-                                    loading="lazy"
-                                />
-                                <h3>{item.title || item.name}</h3>
-                                {item.air_date && (
-                                    <div>
-                                        <span className="episode_date">{item.air_date}</span>
-                                        <p className="episode_txt">{item.overview}</p>
-                                    </div>
-                                )}
-                            </div>
 
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                {
+                    seasonData.length === 0 && (
+                        <Swiper slidesPerView={'auto'} navigation={true} modules={[Navigation]} className={`swiper season_list`}>
+                            {seasonList.map(item => (
+                                <SwiperSlide className={`list_card item_card`} key={item.id}>
+                                    <div className={`card_show `}>
+                                        <img
+                                            src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
+                                            alt="Movie Poster"
+                                            loading="lazy"
+                                        />
+                                        <h3>{item.title || item.name}</h3>
+                                        {item.air_date && (
+                                            <div>
+                                                <span className="episode_date">{item.air_date}</span>
+                                                <p className="episode_txt">{item.overview}</p>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    )
+                }
+
             </div>
         </div>
     );

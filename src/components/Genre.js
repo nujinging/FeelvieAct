@@ -14,6 +14,7 @@ export default function Genre() {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
     const [loading, setLoading] = useState(true);
     const [progressState, setProgressState] = useState(true);
     const [genreTitle, setGenreTitle] = useState([]);
@@ -34,6 +35,8 @@ export default function Genre() {
         setProgressState(true);
         navigate(`/genre/${type}/${itemId}`);
     };
+
+
     useEffect(() => {
         async function Api() {
             dispatch(movieActions(type, genreNumber));
@@ -90,20 +93,49 @@ export default function Genre() {
                 )
             }
 
-            <Swiper className="genre_title" slidesPerView={"auto"}>
-                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
-                             onClick={() => genreChange('All')}>
-                    All
-                </SwiperSlide>
-                {genreTitle?.map((item, index) => {
-                    return (
-                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
-                                     onClick={() => genreChange(item.id)}>
-                            {item.name}
-                        </SwiperSlide>
-                    )
-                })}
-            </Swiper>
+            {
+                type === 'tv'  && (
+                    <Swiper className="genre_title" slidesPerView={"auto"}>
+                        <div className="swiper-wrapper">
+                            <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                                         onClick={() => genreChange('All')}
+                            >
+                                All
+                            </SwiperSlide>
+                            {genreTitle?.map((item, index) => {
+                                return (
+                                    <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
+                                                 onClick={() => genreChange(item.id)}>
+                                        {item.name}
+                                    </SwiperSlide>
+                                )
+                            })}
+                        </div>
+                    </Swiper>
+                )
+            }
+
+            {
+                type === 'movie' && (
+                    <Swiper className="genre_title" slidesPerView={"auto"}>
+                        <div className="swiper-wrapper">
+                            <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                                         onClick={() => genreChange('All')}
+                            >
+                                All
+                            </SwiperSlide>
+                            {genreTitle?.map((item, index) => {
+                                return (
+                                    <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
+                                                 onClick={() => genreChange(item.id)}>
+                                        {item.name}
+                                    </SwiperSlide>
+                                )
+                            })}
+                        </div>
+                    </Swiper>
+                )
+            }
 
             <div className="genre_sort">
                 <select onChange={SortClick} value={selectedValue}>
@@ -113,6 +145,8 @@ export default function Genre() {
                     <option value="dateAsc">상열일 오름차순</option>
                 </select>
             </div>
+
+
 
             <ul className="genre_list">
                 {genreList?.map((item, index) => {

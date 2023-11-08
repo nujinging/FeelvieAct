@@ -135,7 +135,7 @@ body {
     align-items: center;
 
     img {
-      width: 6rem
+      width:9.375rem
     }
   }
 
@@ -313,6 +313,12 @@ body {
   }
 }
 
+.card_none {
+  height:12rem;
+  border-radius:4px;
+  background:#f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
+}
+
 /* 제목,필모 탭 */
 .type_list {
   display: flex;
@@ -436,6 +442,11 @@ body {
     transform: translateZ(0);
   }
 
+  .card_none {
+    height:12rem;
+    border-radius:4px;
+    background:#f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
+  }
 
   /* 슬라이드 */
   .swiper-slide {
@@ -451,6 +462,7 @@ body {
       .card_show {
         transition: opacity 0.5s linear;
       }
+
 
       &.hidden {
         .card_show {
@@ -510,6 +522,8 @@ body {
     margin-top: 3.125rem
   }
 }
+
+
 
 /* 장르 */
 .genre {
@@ -944,7 +958,7 @@ body {
   transition: opacity .5s linear;
 
   .person_card {
-    width: auto;
+    width:9rem;
     cursor: pointer;
 
     & + .person_card {
@@ -1166,9 +1180,12 @@ body {
     .list_card {
       display: inline-block;
       margin: 0 1.25rem 2.5rem 0;
-      width: calc(100% - 80% - 1rem);
+      width: calc(100% - 86% - 1rem);
       vertical-align: top;
-
+      .card_none {
+        height:21rem;
+        max-height:100%;
+      }
       &.tv {
         position: relative;
 
@@ -1221,7 +1238,7 @@ body {
         display: block;
         border-radius: 0.5rem;
         width: 100%;
-        max-height: 31.25rem;
+        max-height: 22.25rem;
         overflow: hidden;
 
         img {
@@ -1612,6 +1629,10 @@ body {
         }
       }
     }
+  }
+
+  .episodes_none {
+    font-size:1.5rem
   }
 }
 
