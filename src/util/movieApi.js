@@ -17,30 +17,22 @@ export const movieApi = {
 
     detail: (type, movie_id) => request.get(`${type}/${movie_id}`),
     credits: (type, movie_id) => request.get(`${type}/${movie_id}/credits`),
-    similar: (type, movie_id) => request.get(`${type}/${movie_id}/similar`),
     recommend : (type, movie_id) => request.get(`${type}/${movie_id}/recommendations`),
     social : (type, movie_id) => request.get(`${type}/${movie_id}/external_ids`),
+    ottList : (type, movie_id) => request.get(`${type}/${movie_id}/watch/providers`),
     seasons : (season_id, season_number) => request.get(`tv/${season_id}/season/${season_number}`),
     seasonImg : (type, movie_id) => request.get(`${type}/${movie_id}/images?&language=fr&include_image_language=fr,null,kr`),
     seasonVideo : (type, movie_id) => request.get(`${type}/${movie_id}/videos?&language=fr&include_image_language=fr,null,kr`),
 
-
-
     genreTitle : (type) => request.get(`genre/${type}/list`),
-
-    genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}`),
-
+    genreList : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
     genreScroll : (type, genre_number, page) => request.get(`discover/${type}?with_genres=${genre_number}&page=${page}`),
-
     genrePopularDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
     genrePopularAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),
     genreDateDesc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.desc`),
     genreDateAsc : (type, genre_number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
 
-    ottList : (type, movie_id) => request.get(`${type}/${movie_id}/watch/providers`),
 
-
-    watchList : (type) => request.get(`discover/${type}&with_watch_providers=8&with_region=KR`),
 
     person : (id) => request.get(`person/${id}`),
     search : (keyword) => request.get(`search/multi`, {

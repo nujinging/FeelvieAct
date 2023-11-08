@@ -3,32 +3,26 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
-import {useEffect, useLayoutEffect, useState} from "react";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import debounce from 'lodash/debounce';
-import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import LoadingProgress from "./LoadingProgress";
 
 export default function Genre() {
-    const {type} = useParams();
+    const {type, number} = useParams();
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const [progressState, setProgressState] = useState(true);
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState([]);
-    const [genreNumber, setGenreNumber] = useState('16');
+    const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
-    const [loading, setLoading] = useState(true);
 
-    const dispatch = useDispatch();
-    const genreData = useSelector(state => state.movies.genreData);
-    const genrePopularDescData = useSelector(state => state.movies.genrePopularDescData);
-    const genrePopularAscData = useSelector(state => state.movies.genrePopularAscData);
-    const genreDateDescData = useSelector(state => state.movies.genreDateDescData);
-    const genreDateAscData = useSelector(state => state.movies.genreDateAscData);
-
-
-    const [progressState, setProgressState] = useState(true);
+    console.log(number)
+    console.log(type, genreNumber)
 
     const calculateProgress = () => {
         return loading ? 0 : 100;
@@ -38,43 +32,50 @@ export default function Genre() {
         setLoading(true);
         setGenreNumber(itemId);
         setProgressState(true);
+        navigate(`/genre/${type}/${itemId}`);
     };
-
     useEffect(() => {
         async function Api() {
             dispatch(movieActions(type, genreNumber));
-            console.log(loading)
-
-            if (genreData !== undefined) {
-                setLoading(false);
-                setTimeout(()=> {
-                    setProgressState(false);
-                }, 500)
-            }
-
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
+
+            if (number === 'All') {
+                const popular = await movieApi.popular(type);
+                setGenreList(popular.data.results);
+                setGenreNumber(number);
+            } else {
+                const genreUrl = await movieApi.genreList(type, genreNumber);
+                setGenreList(genreUrl.data.results);
+            }
+
+            if (genreList !== undefined) {
+                setLoading(false);
+                setProgressState(false);
+            }
         }
         setLoading(false);
         Api();
-        movieActions();
-    }, [genreNumber, genreData]);
-
-
+    }, [type, genreNumber]);
 
 
     const SortClick = async (event) => {
         setSelectedValue(event.target.value);
         if (event.target.value === 'popularityDesc') {
-            setGenreList(genrePopularDescData);
+            const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
         } else if (event.target.value === 'popularityAsc') {
-            setGenreList(genrePopularAscData);
+            const genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
         } else if (event.target.value === 'dateDesc') {
-            setGenreList(genreDateDescData);
+            const genreUrl = await movieApi.genreDateDesc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
         } else {
-            setGenreList(genreDateAscData);
+            const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
+            setGenreList(genreUrl.data.results);
         }
     }
+
     const pageLink = (itemType, itemId) => {
         navigate(`/detail/${itemType}/${itemId}`);
     }
@@ -89,12 +90,11 @@ export default function Genre() {
                 )
             }
 
-
             <Swiper className="genre_title" slidesPerView={"auto"}>
-                {/*<SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}*/}
-                {/*             onClick={() => genreChange('All')}>*/}
-                {/*    All*/}
-                {/*</SwiperSlide>*/}
+                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                             onClick={() => genreChange('All')}>
+                    All
+                </SwiperSlide>
                 {genreTitle?.map((item, index) => {
                     return (
                         <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
@@ -114,36 +114,30 @@ export default function Genre() {
                 </select>
             </div>
 
-            {
-                !progressState && (
-                    <ul className="genre_list">
-                        {genreData?.map((item, index) => {
-                            return (
-                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
-                                    {
-                                        item.poster_path === null ? (
-                                            <picture className="img_none">
-                                                <span className="blind">이미지 없음</span>
-                                            </picture>
-                                        ) : (
-                                            <picture>
-                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                                     alt="Movie Poster" loading="lazy"/>
-                                            </picture>
-                                        )
+            <ul className="genre_list">
+                {genreList?.map((item, index) => {
+                    return (
+                        <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
+                            {
+                                item.poster_path === null ? (
+                                    <picture className="img_none">
+                                        <span className="blind">이미지 없음</span>
+                                    </picture>
+                                ) : (
+                                    <picture>
+                                        <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                             alt="Movie Poster" loading="lazy"/>
+                                    </picture>
+                                )
+                            }
 
-                                    }
-
-                                    <p className="tit">
-                                        {item.title || item.name}
-                                    </p>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                )
-            }
-
+                            <p className="tit">
+                                {item.title || item.name}
+                            </p>
+                        </li>
+                    )
+                })}
+            </ul>
         </div>
     );
 }

@@ -11,27 +11,17 @@ import NotFound from "./NotFound";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 
-
 export default function ItemDetail() {
     const params = useParams();
-    const textContainerRef = useRef(null);
-    const [isOverflowed, setIsOverflowed] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
-
     const dispatch = useDispatch();
     const detailData = useSelector(state => state.movies.movieData);
-    const creditsData = useSelector(state => state.movies.creditsData);
     const socialData = useSelector(state => state.movies.socialData);
-    const recommendData = useSelector(state => state.movies.recommendData);
-    const ottData = useSelector(state => state.movies.ottData);
     const seasonData = useSelector(state => state.movies.seasonData);
 
+    const [ottUrl, setOttUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
-    const [similarUrl, setSimilarUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [recommendUrl, setRecommendUrl] = useState([]);
-
-    console.log(creditsUrl, similarUrl, socialUrl, recommendUrl)
 
     /* 소셜 */
     const socialMedia = [
@@ -41,12 +31,7 @@ export default function ItemDetail() {
     ]
 
     /* 등장인물 */
-    const creditsArray = creditsData ? creditsData.slice(0, 5) : [];
-
-    // 영화 상세설명 더보기
-    const handleToggleButtonClick = () => {
-        setIsExpanded(!isExpanded);
-    };
+    const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
 
     useEffect(() => {
         async function Api() {
@@ -55,30 +40,16 @@ export default function ItemDetail() {
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, detailData?.number_of_seasons));
 
+                const ottList = await movieApi.ottList(params.type, params.id);
                 const credits = await movieApi.credits(params.type, params.id);
-                const similar = await movieApi.similar(params.type, params.id);
                 const social = await movieApi.social(params.type, params.id);
                 const recommend = await movieApi.recommend(params.type, params.id);
                 setCreditsUrl(credits.data.cast);
-                setSimilarUrl(similar.data.results);
                 setSocialUrl(social.data);
                 setRecommendUrl(recommend.data.results);
-
-
-                const textContainer = textContainerRef.current;
-
-                // 영화 상세설명
-                const handleResize = () => {
-                    if (textContainer) {
-                        setIsOverflowed(textContainer.scrollHeight > textContainer.clientHeight);
-                    }
-                };
-                handleResize();
-                window.addEventListener('resize', handleResize);
-
+                setOttUrl(ottList.data.results.KR);
 
                 return () => {
-                    window.removeEventListener('resize', handleResize);
                 };
             } catch (error) {
                 if (error.response && error.response.status === 404) {
@@ -110,7 +81,7 @@ export default function ItemDetail() {
                     </h1>
                     <div className="meta">
                         <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
-                        {detailData?.genres.map((item, index) => {
+                        {detailData?.genres  && detailData?.genres.map((item, index) => {
                             return (
                                 <span className="txt" key={index}>
                                     {item.name}
@@ -125,17 +96,17 @@ export default function ItemDetail() {
                     </div>
 
                     {
-                        ottData && (ottData.buy || ottData.flatrate) ? (
+                        ottUrl && (ottUrl.buy || ottUrl.flatrate) ? (
                             <div className="ott_box">
                                 <h3 className="ott_tit">OTT</h3>
                                 <div className="ott_wrap">
                                     {
-                                        ottData.buy &&  (
+                                        ottUrl.buy &&  (
                                             <div className="ott_list">
                                                 <h4 className="ott_txt">BUY</h4>
                                                 <ul>
                                                     {
-                                                        ottData.buy && ottData.buy.map((item, index) => (
+                                                        ottUrl.buy && ottUrl.buy.map((item, index) => (
                                                             <li key={index}>
                                                                 <img
                                                                     src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
@@ -149,12 +120,12 @@ export default function ItemDetail() {
                                     }
 
                                     {
-                                        ottData.flatrate && (
+                                        ottUrl.flatrate && (
                                             <div className="ott_list">
                                                 <h4 className="ott_txt">Streaming</h4>
                                                 <ul>
                                                     {
-                                                        ottData?.flatrate && ottData?.flatrate.map((item, index) => (
+                                                        ottUrl?.flatrate && ottUrl?.flatrate.map((item, index) => (
                                                             <li key={index}>
                                                                 <img
                                                                     src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
@@ -182,26 +153,13 @@ export default function ItemDetail() {
                                         </p>
                                     )
                                 }
+                                <p className={`intro`}>
+                                    {detailData?.overview}
+                                </p>
 
-                                {
-                                    detailData?.overview && (
-                                        <p
-                                            ref={textContainerRef}
-                                            className={`intro ${isExpanded ? 'intro_more' : ''}`}
-                                        >
-                                            {detailData?.overview}
-                                        </p>
-                                    )
-                                }
-
-                                {isOverflowed && (
-                                    <button
-                                        className="btn_more"
-                                        onClick={handleToggleButtonClick}
-                                    >
-                                        {isExpanded ? '접기' : '더보기'}
-                                    </button>
-                                )}
+                                <button className="btn_more">
+                                    접기
+                                </button>
                             </div>
                         ) : null
                     }
@@ -237,10 +195,10 @@ export default function ItemDetail() {
                 <MediaDetail></MediaDetail>
 
                 {
-                    (recommendData && recommendData.length !== 0) && (
+                    (recommendUrl && recommendUrl.length !== 0) && (
                             <div className="item">
                                 <div className="title"><h2>비슷한 작품</h2></div>
-                                <List type={params.type} list={recommendData} class={"item_list"}></List>
+                                <List type={params.type} list={recommendUrl} class={"item_list"}></List>
                             </div>
                     )
                 }

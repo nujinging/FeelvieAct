@@ -1,8 +1,13 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, lazy, Suspense} from 'react';
 import {movieApi} from "./../util/movieApi";
 import List from "./List";
 import HomeSlide from "./HomeSlide";
 import EventModal from "./Modal/EventModal";
+
+
+const LazyHomeSlide = lazy(() => import("./HomeSlide"));
+const LazyList = lazy(() => import("./List"));
+const LazyEventModal = lazy(() => import("./Modal/EventModal"));
 
 export default function Main() {
     const [lists, setLists] = useState({
@@ -48,71 +53,74 @@ export default function Main() {
 
     return (
         <div>
-            <EventModal></EventModal>
-            <div className="container">
-                <HomeSlide type="movie" lists={lists.main}></HomeSlide>
-                <div className="item_container">
+            <Suspense fallback={<div>Loading...</div>}>
+                <LazyEventModal></LazyEventModal>
+                <div className="container">
+                    <LazyHomeSlide type="movie" lists={lists.main}></LazyHomeSlide>
+                    <div className="item_container">
 
-                    <div className="item">
-                        <div className="title">
-                            <h2>지금 상영중이에요!</h2>
+                        <div className="item">
+                            <div className="title">
+                                <h2>지금 상영중이에요!</h2>
+                            </div>
+                            <LazyList type="movie" list={lists.playing} class={"item_list"} />
                         </div>
-                        <List type="movie" list={lists.playing} class={"item_list"} />
-                    </div>
 
-                    <div className="item">
-                        <div className="title">
-                            <h2>가장 인기있는 컨텐츠</h2>
-                            <ul className="type_list">
-                                <li>
-                                    <button type="button" className={typeTabs.popular === 'movie' ? 'active' : ''} onClick={() => typeChange('popular', 'movie')}>영화</button>
-                                </li>
-                                <li>
-                                    <button type="button" className={typeTabs.popular === 'tv' ? 'active' : ''} onClick={() => typeChange('popular', 'tv')}>TV</button>
-                                </li>
-                            </ul>
+                        <div className="item">
+                            <div className="title">
+                                <h2>가장 인기있는 컨텐츠</h2>
+                                <ul className="type_list">
+                                    <li>
+                                        <button type="button" className={typeTabs.popular === 'movie' ? 'active' : ''} onClick={() => typeChange('popular', 'movie')}>영화</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" className={typeTabs.popular === 'tv' ? 'active' : ''} onClick={() => typeChange('popular', 'tv')}>TV</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <LazyList type={typeTabs.popular} list={lists.popular} class={"item_list"} />
                         </div>
-                        <List type={typeTabs.popular} list={lists.popular} class={"item_list"} />
-                    </div>
 
-                    <div className="item">
-                        <div className="title">
-                            <h2>
-                                <span>오늘 가장 많이</span>
-                                찾아 본 컨텐츠
-                            </h2>
-                            <ul className="type_list">
-                                <li>
-                                    <button type="button" className={typeTabs.day === 'movie' ? 'active' : ''} onClick={() => typeChange('day', 'movie')}>영화</button>
-                                </li>
-                                <li>
-                                    <button type="button" className={typeTabs.day === 'tv' ? 'active' : ''} onClick={() => typeChange('day', 'tv')}>TV</button>
-                                </li>
-                            </ul>
+                        <div className="item">
+                            <div className="title">
+                                <h2>
+                                    <span>오늘 가장 많이</span>
+                                    찾아 본 컨텐츠
+                                </h2>
+                                <ul className="type_list">
+                                    <li>
+                                        <button type="button" className={typeTabs.day === 'movie' ? 'active' : ''} onClick={() => typeChange('day', 'movie')}>영화</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" className={typeTabs.day === 'tv' ? 'active' : ''} onClick={() => typeChange('day', 'tv')}>TV</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <LazyList type={typeTabs.day} list={lists.day} class={"item_list"} />
                         </div>
-                        <List type={typeTabs.day} list={lists.day} class={"item_list"} />
-                    </div>
 
-                    <div className="item">
-                        <div className="title">
-                            <h2>
-                                <span>이번 주 가장 많이</span>
-                                찾아 본 컨텐츠
-                            </h2>
-                            <ul className="type_list">
-                                <li>
-                                    <button type="button" className={typeTabs.week === 'movie' ? 'active' : ''} onClick={() => typeChange('week', 'movie')}>영화</button>
-                                </li>
-                                <li>
-                                    <button type="button" className={typeTabs.week === 'tv' ? 'active' : ''} onClick={() => typeChange('week', 'tv')}>TV</button>
-                                </li>
-                            </ul>
+                        <div className="item">
+                            <div className="title">
+                                <h2>
+                                    <span>이번 주 가장 많이</span>
+                                    찾아 본 컨텐츠
+                                </h2>
+                                <ul className="type_list">
+                                    <li>
+                                        <button type="button" className={typeTabs.week === 'movie' ? 'active' : ''} onClick={() => typeChange('week', 'movie')}>영화</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" className={typeTabs.week === 'tv' ? 'active' : ''} onClick={() => typeChange('week', 'tv')}>TV</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <LazyList type={typeTabs.week} list={lists.week} class={"item_list"} />
                         </div>
-                        <List type={typeTabs.week} list={lists.week} class={"item_list"} />
-                    </div>
 
+                    </div>
                 </div>
-            </div>
+            </Suspense>
+
         </div>
     )
 }

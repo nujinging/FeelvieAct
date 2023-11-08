@@ -6,6 +6,7 @@ export default function Header() {
     const location = useLocation();
     const logo = "https://www.tving.com/img/tving-new-logo-pc.svg";
     const [headerFixed, setHeaderFixed] = useState(false);
+    const number = 'All';
 
     const pageRefresh = (path) => {
         if (location.pathname === path) {
@@ -38,10 +39,10 @@ export default function Header() {
                     </Link>
                     <ul className="menu">
                         <li>
-                            <Link to="/genre/movie" className={location.pathname === '/genre/movie' ? 'active': ''} onClick={() => pageRefresh('/genre/movie')}>영화</Link>
+                            <Link to={`/genre/movie/${number}`} className={location.pathname.includes('/genre/movie/') ? 'active': ''} onClick={() => pageRefresh('/genre/movie')}>영화</Link>
                         </li>
                         <li>
-                            <Link to="/genre/tv" className={location.pathname === '/genre/tv' ? 'active': ''} onClick={() => pageRefresh('/genre/tv')}>TV프로그램</Link>
+                            <Link to={`/genre/tv/${number}`} className={location.pathname.includes('/genre/tv/') ? 'active': ''} onClick={() => pageRefresh('/genre/tv')}>TV프로그램</Link>
                         </li>
                     </ul>
                 </div>
