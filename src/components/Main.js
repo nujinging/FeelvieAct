@@ -1,10 +1,5 @@
 import {useState, useEffect, lazy, Suspense} from 'react';
 import {movieApi} from "./../util/movieApi";
-import List from "./List";
-import HomeSlide from "./HomeSlide";
-import EventModal from "./Modal/EventModal";
-
-
 const LazyHomeSlide = lazy(() => import("./HomeSlide"));
 const LazyList = lazy(() => import("./List"));
 const LazyEventModal = lazy(() => import("./Modal/EventModal"));
@@ -29,6 +24,7 @@ export default function Main() {
             ...prevTypeTabs,
             [section]: type
         }));
+
     };
 
     useEffect(() => {

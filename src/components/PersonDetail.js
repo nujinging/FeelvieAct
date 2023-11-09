@@ -97,6 +97,14 @@ export default function PersonDetail() {
                             </dl>
                         </div>
 
+                        <ul className="filmo_tab">
+                            <li>
+                                <button type="button" className={typeTabs === 'movie' ? 'active' : ''} onClick={() => typeChange('movie')}>영화</button>
+                            </li>
+                            <li>
+                                <button type="button" className={typeTabs === 'tv' ? 'active' : ''} onClick={() => typeChange( 'tv')}>TV</button>
+                            </li>
+                        </ul>
                         <div className="title">
                             <h2>유명 작품</h2>
                         </div>
@@ -105,14 +113,6 @@ export default function PersonDetail() {
                         <div className="work">
                             <div className="work_top">
                                 <h3>필모그래피</h3>
-                                <ul className="type_list">
-                                    <li>
-                                        <button type="button" className={typeTabs === 'movie' ? 'active' : ''} onClick={() => typeChange('movie')}>영화</button>
-                                    </li>
-                                    <li>
-                                        <button type="button" className={typeTabs === 'tv' ? 'active' : ''} onClick={() => typeChange( 'tv')}>TV</button>
-                                    </li>
-                                </ul>
                             </div>
 
                             <ul className="work_list">
