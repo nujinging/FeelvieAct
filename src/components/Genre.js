@@ -22,9 +22,6 @@ export default function Genre() {
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
 
-    console.log(number)
-    console.log(type, genreNumber)
-
     const calculateProgress = () => {
         return loading ? 0 : 100;
     };

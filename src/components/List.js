@@ -39,9 +39,6 @@ export default function List(props) {
         }
     }, [list.length]);
 
-    console.log(list)
-
-
     return (
         <Swiper
             slidesPerView={'auto'} navigation={true} modules={[Navigation]}

@@ -29,8 +29,6 @@ export default function SeasonDetail() {
         navigate(-1)
     };
 
-    console.log(seasonData)
-
     useEffect(() => {
         async function Api() {
             try {

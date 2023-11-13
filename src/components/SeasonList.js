@@ -1,5 +1,5 @@
 import './../App.scss';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
@@ -12,6 +12,7 @@ export default function SeasonList() {
     const dispatch = useDispatch();
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
+    const [loading, setLoading] = useState(true)
 
     /* 마지막 시즌 먼저 보여주기 */
     const lastSeason = detailData?.number_of_seasons;
@@ -25,14 +26,13 @@ export default function SeasonList() {
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, lastSeason));
                 window.scrollTo(0, 0);
+                setLoading(false);
             } catch (error) {
-
+                setLoading(false);
             }
         }
         Api();
     }, [params.type, params.id]);
-
-    console.log(seasonList)
 
     return (
         <div className="item last_season">
@@ -50,33 +50,31 @@ export default function SeasonList() {
                          loading="lazy"/>
                 </Link>
 
+                {loading ? (
+                    <p>로딩</p>
+                ) : (
+                    <Swiper slidesPerView={'auto'} navigation={true} modules={[Navigation]} className={`swiper season_list`}>
+                        {seasonList.map(item => (
+                            <SwiperSlide className={`list_card item_card`} key={item.id}>
+                                <div className={`card_show `}>
+                                    <img
+                                        src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
+                                        alt="Movie Poster"
+                                        loading="lazy"
+                                    />
+                                    <h3>{item.title || item.name}</h3>
+                                    {item.air_date && (
+                                        <div>
+                                            <span className="episode_date">{item.air_date}</span>
+                                            <p className="episode_txt">{item.overview}</p>
+                                        </div>
+                                    )}
+                                </div>
 
-                {
-                    seasonData.length === 0 && (
-                        <Swiper slidesPerView={'auto'} navigation={true} modules={[Navigation]} className={`swiper season_list`}>
-                            {seasonList.map(item => (
-                                <SwiperSlide className={`list_card item_card`} key={item.id}>
-                                    <div className={`card_show `}>
-                                        <img
-                                            src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
-                                            alt="Movie Poster"
-                                            loading="lazy"
-                                        />
-                                        <h3>{item.title || item.name}</h3>
-                                        {item.air_date && (
-                                            <div>
-                                                <span className="episode_date">{item.air_date}</span>
-                                                <p className="episode_txt">{item.overview}</p>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    )
-                }
-
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                )}
             </div>
         </div>
     );
