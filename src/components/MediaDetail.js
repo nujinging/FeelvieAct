@@ -61,8 +61,6 @@ export default function MediaDetail() {
                 } else {
                     setMediaType('posters')
                 }
-                console.log(loading);
-                console.log(mediaType);
             } catch (error) {
                 setLoading(false)
             }

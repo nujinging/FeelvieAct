@@ -22,6 +22,11 @@ export default function ItemDetail() {
     const [creditsUrl, setCreditsUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
     const [recommendUrl, setRecommendUrl] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const [ottLoading, setOttLoading] = useState(true);
+    const [seasonLoading, setSeasonLoading] = useState(true);
+    const [socialLoading, setSocialLoading] = useState(true);
 
     /* 소셜 */
     const socialMedia = [
@@ -48,7 +53,7 @@ export default function ItemDetail() {
                 setSocialUrl(social.data);
                 setRecommendUrl(recommend.data.results);
                 setOttUrl(ottList.data.results.KR);
-
+                setLoading(false);
                 return () => {
                 };
             } catch (error) {
@@ -59,11 +64,12 @@ export default function ItemDetail() {
                     // 다른 오류 처리
                     console.log('오류')
                 }
+                setLoading(false);
             }
         }
 
         Api();
-    }, [params.type, params.id]);
+    }, [params.type, params.id, detailData?.number_of_seasons]);
 
 
     return (
@@ -73,7 +79,7 @@ export default function ItemDetail() {
                          backgroundImage: `url(${detailData?.backdrop_path ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path}` : ''})`
                      }}
             >
-            <div className="detail_info">
+                <div className="detail_info">
                     <h1 className="tit">
                         {detailData?.title || detailData?.name}
                     </h1>
@@ -190,14 +196,18 @@ export default function ItemDetail() {
 
                 {params.type === 'tv' && seasonData && <SeasonList />}
 
-                <MediaDetail></MediaDetail>
+                {
+                    loading ? (
+                        <p>로딩</p>
+                    ) : <MediaDetail></MediaDetail>
+                }
 
                 {
                     (recommendUrl && recommendUrl.length !== 0) && (
-                            <div className="item">
-                                <div className="title"><h2>비슷한 작품</h2></div>
-                                <List type={params.type} list={recommendUrl} class={"item_list"}></List>
-                            </div>
+                        <div className="item">
+                            <div className="title"><h2>비슷한 작품</h2></div>
+                            <List type={params.type} list={recommendUrl} class={"item_list"}></List>
+                        </div>
                     )
                 }
 

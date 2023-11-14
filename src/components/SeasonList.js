@@ -25,8 +25,8 @@ export default function SeasonList() {
             try {
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, lastSeason));
-                window.scrollTo(0, 0);
                 setLoading(false);
+                console.log(params.id, lastSeason)
             } catch (error) {
                 setLoading(false);
             }
@@ -42,8 +42,6 @@ export default function SeasonList() {
                     전체 시즌 보기
                 </Link>
             </div>
-
-
             <div className="season_box">
                 <Link to={`/${params.type}/season/${params.id}/episode`} className="season_main">
                     <img src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w342${seasonData?.poster_path}` : ``} alt=""
