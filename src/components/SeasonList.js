@@ -32,7 +32,7 @@ export default function SeasonList() {
             }
         }
         Api();
-    }, [params.type, params.id]);
+    }, [params.type, params.id, lastSeason]);
 
     return (
         <div className="item last_season">

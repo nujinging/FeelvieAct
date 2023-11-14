@@ -54,9 +54,8 @@ export default function Genre() {
                 setProgressState(false);
             }
         }
-        setLoading(false);
         Api();
-    }, [type, genreNumber]);
+    }, [type, genreNumber, loading]);
 
 
     const SortClick = async (event) => {
@@ -74,6 +73,7 @@ export default function Genre() {
             const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
         }
+        setLoading(false);
     }
 
     const pageLink = (itemType, itemId) => {
@@ -145,30 +145,36 @@ export default function Genre() {
 
 
 
-            <ul className="genre_list">
-                {genreList?.map((item, index) => {
-                    return (
-                        <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
-                            {
-                                item.poster_path === null ? (
-                                    <picture className="img_none">
-                                        <span className="blind">이미지 없음</span>
-                                    </picture>
-                                ) : (
-                                    <picture>
-                                        <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                             alt="Movie Poster" loading="lazy"/>
-                                    </picture>
-                                )
-                            }
+            {
+                loading ? (
+                    <p>로딩</p>
+                ) : (
+                    <ul className="genre_list">
+                        {genreList?.map((item, index) => {
+                            return (
+                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
+                                    {
+                                        item.poster_path === null ? (
+                                            <picture className="img_none">
+                                                <span className="blind">이미지 없음</span>
+                                            </picture>
+                                        ) : (
+                                            <picture>
+                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                                     alt="Movie Poster" loading="lazy"/>
+                                            </picture>
+                                        )
+                                    }
 
-                            <p className="tit">
-                                {item.title || item.name}
-                            </p>
-                        </li>
-                    )
-                })}
-            </ul>
+                                    <p className="tit">
+                                        {item.title || item.name}
+                                    </p>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                )
+            }
         </div>
     );
 }

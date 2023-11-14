@@ -100,11 +100,15 @@ export default function MediaDetail() {
                               )
                           }
 
-                          <li>
-                              <button type="button" className={mediaType === 'posters' ? 'active' : ''}
-                                      onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
-                              </button>
-                          </li>
+                          {
+                              imagesUrl.posters.length > 0 && (
+                                  <li>
+                                      <button type="button" className={mediaType === 'posters' ? 'active' : ''}
+                                              onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
+                                      </button>
+                                  </li>
+                              )
+                          }
                       </ul>
                   )
               }
