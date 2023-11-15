@@ -16,6 +16,8 @@ export default function Genre() {
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
+    const [genreLoading, setGenreLoading] = useState(true);
+    const [titleLoading, setTitleLoading] = useState(true);
     const [progressState, setProgressState] = useState(true);
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState([]);
@@ -23,11 +25,11 @@ export default function Genre() {
     const [selectedValue, setSelectedValue] = useState('');
 
     const calculateProgress = () => {
-        return loading ? 0 : 100;
+        return !loading ? 0 : 100;
     };
 
     const genreChange = async (itemId) => {
-        setLoading(true);
+        setGenreLoading(true);
         setGenreNumber(itemId);
         setProgressState(true);
         navigate(`/genre/${type}/${itemId}`);
@@ -36,6 +38,9 @@ export default function Genre() {
 
     useEffect(() => {
         async function Api() {
+            setLoading(true);
+            setGenreLoading(true);
+            setTitleLoading(true);
             dispatch(movieActions(type, genreNumber));
             const genre = await movieApi.genreTitle(type);
             setGenreTitle(genre.data.genres);
@@ -52,13 +57,17 @@ export default function Genre() {
             if (genreList !== undefined) {
                 setLoading(false);
                 setProgressState(false);
+                setGenreLoading(false);
+                setTitleLoading(true);
             }
         }
+
         Api();
-    }, [type, genreNumber, loading]);
+    }, [type, genreNumber, setLoading]);
 
 
     const SortClick = async (event) => {
+        setGenreLoading(true);
         setSelectedValue(event.target.value);
         if (event.target.value === 'popularityDesc') {
             const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
@@ -73,7 +82,7 @@ export default function Genre() {
             const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
             setGenreList(genreUrl.data.results);
         }
-        setLoading(false);
+        setGenreLoading(false);
     }
 
     const pageLink = (itemType, itemId) => {
@@ -91,63 +100,43 @@ export default function Genre() {
             }
 
             {
-                type === 'tv'  && (
-                    <Swiper className="genre_title" slidesPerView={"auto"}>
-                        <div className="swiper-wrapper">
-                            <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
-                                         onClick={() => genreChange('All')}
-                            >
-                                All
-                            </SwiperSlide>
-                            {genreTitle?.map((item, index) => {
-                                return (
-                                    <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
-                                                 onClick={() => genreChange(item.id)}>
-                                        {item.name}
-                                    </SwiperSlide>
-                                )
-                            })}
+                titleLoading && (
+                    <div>
+                        <Swiper className="genre_title" slidesPerView={"auto"}>
+                            <div className="swiper-wrapper">
+                                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                                             onClick={() => genreChange('All')}
+                                >
+                                    All
+                                </SwiperSlide>
+                                {genreTitle?.map((item, index) => {
+                                    return (
+                                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`}
+                                                     key={index}
+                                                     onClick={() => genreChange(item.id)}>
+                                            {item.name}
+                                        </SwiperSlide>
+                                    )
+                                })}
+                            </div>
+                        </Swiper>
+                        <div className="genre_sort">
+                            <select onChange={SortClick} value={selectedValue}>
+                                <option value="popularityDesc">인기도 내림차순</option>
+                                <option value="popularityAsc">인기도 오름차순</option>
+                                <option value="dateDesc">상영일 내림차순</option>
+                                <option value="dateAsc">상열일 오름차순</option>
+                            </select>
                         </div>
-                    </Swiper>
+                    </div>
                 )
             }
 
             {
-                type === 'movie' && (
-                    <Swiper className="genre_title" slidesPerView={"auto"}>
-                        <div className="swiper-wrapper">
-                            <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
-                                         onClick={() => genreChange('All')}
-                            >
-                                All
-                            </SwiperSlide>
-                            {genreTitle?.map((item, index) => {
-                                return (
-                                    <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`} key={index}
-                                                 onClick={() => genreChange(item.id)}>
-                                        {item.name}
-                                    </SwiperSlide>
-                                )
-                            })}
-                        </div>
-                    </Swiper>
-                )
-            }
-
-            <div className="genre_sort">
-                <select onChange={SortClick} value={selectedValue}>
-                    <option value="popularityDesc">인기도 내림차순</option>
-                    <option value="popularityAsc">인기도 오름차순</option>
-                    <option value="dateDesc">상영일 내림차순</option>
-                    <option value="dateAsc">상열일 오름차순</option>
-                </select>
-            </div>
-
-
-
-            {
-                loading ? (
-                    <p>로딩</p>
+                genreLoading ? (
+                    <div className="loading">
+                        <span className="loader"></span>
+                    </div>
                 ) : (
                     <ul className="genre_list">
                         {genreList?.map((item, index) => {

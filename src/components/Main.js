@@ -49,7 +49,9 @@ export default function Main() {
 
     return (
         <div>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={ <div className="loading">
+                <span className="loader"></span>
+            </div>}>
                 <LazyEventModal></LazyEventModal>
                 <div className="container">
                     <LazyHomeSlide type="movie" lists={lists.main}></LazyHomeSlide>

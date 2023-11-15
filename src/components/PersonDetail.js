@@ -12,6 +12,7 @@ export default function PersonDetail() {
     const [socialUrl, setSocialUrl] = useState();
     const [artUrl, setArtUrl] = useState([]);
     const [artPopular, setArtPopular] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     /* 디테일 컴포넌트 이동 */
     const movieLink = (itemId) => {
@@ -57,6 +58,7 @@ export default function PersonDetail() {
                 return 0;
             });
             setArtUrl(art_list);
+            setLoading(false);
         }
         Api();
     }, [typeTabs, params.id]);
@@ -105,10 +107,21 @@ export default function PersonDetail() {
                                 <button type="button" className={typeTabs === 'tv' ? 'active' : ''} onClick={() => typeChange( 'tv')}>TV</button>
                             </li>
                         </ul>
-                        <div className="title">
-                            <h2>유명 작품</h2>
-                        </div>
-                        <List list={artPopular} type={typeTabs} class={"item_list"}/>
+
+
+                        {
+                            loading ? (
+                                <div className="loading">
+                                    <span className="loader"></span>
+                                </div>
+                            ) : <div>
+                                <div className="title">
+                                    <h2>유명 작품</h2>
+                                </div>
+                                <List list={artPopular} type={typeTabs} class={"item_list"}/>
+                            </div>
+                        }
+
 
                         <div className="work">
                             <div className="work_top">

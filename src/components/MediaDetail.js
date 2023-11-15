@@ -75,7 +75,9 @@ export default function MediaDetail() {
               <h2>미디어</h2>
               {
                   loading ? (
-                      <p>로딩</p>
+                      <div className="loading">
+                          <span className="loader"></span>
+                      </div>
                   ) : (
                       <ul className="type_list">
                           {
@@ -114,7 +116,9 @@ export default function MediaDetail() {
 
           <Swiper slidesPerView={'auto'} className="media_slide">
               {loading ? (
-                  <p>로딩</p>
+                  <div className="loading">
+                      <span className="loader"></span>
+                  </div>
               ) : mediaType === 'video' ?(
                       videoUrl?.map((item, index) => (
                       <SwiperSlide key={index} className="video_card" onClick={() => videoModalOpen(item, item.key)}>

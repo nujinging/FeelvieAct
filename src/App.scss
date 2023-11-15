@@ -202,7 +202,7 @@ body {
   position: relative;
   height: 48.75rem;
   margin-bottom: 2.25rem;
-
+  animation: showItem 0.5s ease-in;
   .banner {
     background-size: cover;
     background-position: center;
@@ -520,6 +520,7 @@ body {
     }
 
     &.item_card {
+      animation: showItem 0.5s ease-in;
       &.item_card {
         + .item_card {
           margin-left: 1.875rem
@@ -657,6 +658,50 @@ body {
   }
 }
 
+.loading {
+  display:flex;
+  align-items: center;
+  justify-content:center;
+  width:100%;
+  height:20vh;
+  .loader {
+    color: #FFF;
+    font-size: 7px;
+    position: relative;
+    text-indent: -9999em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+    &:before {
+      left: -3.5em;
+      animation-delay: -0.32s;
+      content: '';
+      position: absolute;
+      top: 0;
+    }
+    &:after {
+      left: 3.5em;
+      content: '';
+      position: absolute;
+      top: 0;
+    }
+  }
+}
+.loader, .loader:before, .loader:after {
+  display:inline-block;
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  animation-fill-mode: both;
+  animation: loadingAnimation 1.8s infinite ease-in-out;
+}
+
+
+@keyframes loadingAnimation {
+  0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
+  40% { box-shadow: 0 2.5em 0 0 }
+}
+
+
 /* 디테일 페이지 */
 .detail_container {
   position: relative;
@@ -674,7 +719,7 @@ body {
     margin: 3.125rem 3.125rem 0 0;
     width: 100%;
     z-index: 1;
-
+    animation: showItem 0.5s ease-in;
     &:before {
       display: inline-block;
       margin-bottom: 12px;
@@ -919,7 +964,7 @@ body {
     width: 25rem;
     z-index: 1;
     flex-shrink: 0;
-
+    animation: showItem 0.5s ease-in;
     picture {
       margin-left: 1.875rem;
       border-radius: 0.5rem;
@@ -995,7 +1040,7 @@ body {
   .person_card {
     width:9rem;
     cursor: pointer;
-
+    animation: showItem 0.5s ease-in;
     & + .person_card {
       margin-left: 1.25rem;
     }
@@ -1028,6 +1073,7 @@ body {
 /* 디테일 미디어 */
 .media_slide {
   margin:3.125rem 0;
+  animation: showItem 0.5s ease-in;
   .swiper-slide {
     &:before {
       position: absolute;
@@ -1201,7 +1247,6 @@ body {
 
   .search_list {
     margin: 3.888rem;
-
     .tit {
       margin-top: 0.938rem;
       color: #d5d5d5;
@@ -1316,6 +1361,7 @@ body {
       h1 {
         margin-bottom:3.125rem;
         font-size:2.875rem;
+        line-height:4rem;
         strong {
           color:#0092ff
         }
@@ -1380,6 +1426,7 @@ body {
       h1 {
         font-size: 2.813rem;
         font-weight: bold;
+
       }
 
       .social_links {

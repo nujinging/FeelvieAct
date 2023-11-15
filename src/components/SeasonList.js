@@ -26,7 +26,6 @@ export default function SeasonList() {
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, lastSeason));
                 setLoading(false);
-                console.log(params.id, lastSeason)
             } catch (error) {
                 setLoading(false);
             }
@@ -49,7 +48,9 @@ export default function SeasonList() {
                 </Link>
 
                 {loading ? (
-                    <p>로딩</p>
+                    <div className="loading">
+                        <span className="loader"></span>
+                    </div>
                 ) : (
                     <Swiper slidesPerView={'auto'} navigation={true} modules={[Navigation]} className={`swiper season_list`}>
                         {seasonList.map(item => (

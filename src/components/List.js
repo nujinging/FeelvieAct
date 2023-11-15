@@ -13,6 +13,7 @@ export default function List(props) {
     const list = props.list;
     const [showCard, setShowCard] = useState(false);
     const [hiddenCard, setHiddenCard] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // 영화 디테일 페이지 이동
     const movieLink = (itemId) => {
@@ -33,6 +34,7 @@ export default function List(props) {
                 setHiddenCard(false);
             }, 1000);
 
+            setLoading(false)
             return () => {
                 clearTimeout(timer);
             };
@@ -40,44 +42,55 @@ export default function List(props) {
     }, [list.length]);
 
     return (
-        <Swiper
-            slidesPerView={'auto'} navigation={true} modules={[Navigation]}
-            className={`swiper ${props.class} ${hiddenCard ? 'load' : ''}`}
-        >
-            {list.map(item => (
-                <SwiperSlide
-                    className={`list_card ${list.some(item => item.profile_path) ? 'person_card' : 'item_card'} ${hiddenCard ? 'hidden' : ''} ${showCard ? 'show' : ''}`}
-                    key={item.id}
-                    onClick={() => {
-                        if (list.some(item => item.poster_path)) {
-                            movieLink(item.id);
-                        } else {
-                            personLink(item.id);
-                        }
-                    }}
-                >
-                    {
-                        item.poster_path === null || item.profile_path === null ? (
-                            <div className="card_none">none</div>
-                        ) : (
-                            <img
-                                src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
-                                alt={item.poster_path}
-                                loading="lazy"
-                            />
-                        )
-                    }
+        <div>
+            {
+                loading ? (
+                    <div className="loading">
+                        <span className="loader"></span>
+                    </div>
+                ) : (
+                    <Swiper
+                        slidesPerView={'auto'} navigation={true} modules={[Navigation]}
+                        className={`swiper ${props.class} ${hiddenCard ? 'load' : ''}`}
+                    >
+                        {list.map(item => (
+                            <SwiperSlide
+                                className={`list_card ${list.some(item => item.profile_path) ? 'person_card' : 'item_card'} ${hiddenCard ? 'hidden' : ''} ${showCard ? 'show' : ''}`}
+                                key={item.id}
+                                onClick={() => {
+                                    if (list.some(item => item.poster_path)) {
+                                        movieLink(item.id);
+                                    } else {
+                                        personLink(item.id);
+                                    }
+                                }}
+                            >
+                                {
+                                    item.poster_path === null || item.profile_path === null ? (
+                                        <div className="card_none">none</div>
+                                    ) : (
+                                        <img
+                                            src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
+                                            alt={item.poster_path}
+                                            loading="lazy"
+                                        />
+                                    )
+                                }
 
-                    <h3>{item.title || item.name}</h3>
-                    {item.air_date && (
-                        <div>
-                            <span className="episode_date">{item.air_date}</span>
-                            <p className="episode_txt">{item.overview}</p>
-                        </div>
-                    )}
+                                <h3>{item.title || item.name}</h3>
+                                {item.air_date && (
+                                    <div>
+                                        <span className="episode_date">{item.air_date}</span>
+                                        <p className="episode_txt">{item.overview}</p>
+                                    </div>
+                                )}
 
-                </SwiperSlide>
-            ))}
-        </Swiper>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                )
+            }
+        </div>
+
     );
 }

@@ -1,7 +1,7 @@
 import './../../App.scss';
 export default function ImgModal({item, onClose}) {
     return (
-        <div className="img_modal">
+        <div className="img_modal" onClick={() => onClose()}>
             <div className="inner">
                 <a href={`https://www.themoviedb.org/t/p/original${item.file_path}`}
                    className={`img_link ${item.width > item.height ? 'img_width' : 'img_height'}`}

@@ -1,6 +1,6 @@
 import './../App.scss';
 import {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
     const [searchList, setSearchList] = useState([]);
     const [searchNone, setSearchNone] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     // 영화 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
@@ -40,9 +41,10 @@ function App() {
                 };
                 SearchFetch();
             }, 500);
+            setLoading(false);
         }
         return () => clearTimeout(delayTimer);
-    }, [searchWord]);
+    }, [searchWord, setLoading]);
 
     // 검색 인풋 값 변경
     const searchChange = (event) => {
@@ -57,6 +59,7 @@ function App() {
         } else {
             setSearchNone('')
         }
+        setLoading(false);
     };
 
     return (
@@ -64,7 +67,8 @@ function App() {
             <form>
                 <label className="search_input" htmlFor="search_input">
                     <input id="search_input" type="text"
-                           placeholder="작품이나 인물을 검색해보세요!" className="search_txt" onKeyDown={searchEnter} onChange={searchChange}/>
+                           placeholder="작품이나 인물을 검색해보세요!" className="search_txt" onKeyDown={searchEnter}
+                           onChange={searchChange}/>
                     <button type="button" className="icon_search">
                         <span className="blind">검색</span>
                     </button>
@@ -76,7 +80,7 @@ function App() {
                     <div className="search_none">
                         검색결과가 없어요💧
                     </div>
-                ) :  searchList.length === 0 && searchWord.length > 0 && (
+                ) : searchList.length === 0 && searchWord.length > 0 && (
                     <div className="search_none">
                         검색결과가 없어요💧
                     </div>
@@ -87,11 +91,12 @@ function App() {
                 <div className="search_tip">
                     <div className="txt">
                         <h1>
+                            모든 시즌과 에피소드까지 볼 수 있는<br/>
                             <strong>
                                 TV 프로그램
                             </strong> 검색은 어떠세요?</h1>
                         <p>
-                            😎 모든 시즌과 에피소드까지 볼 수 있어요 !<br/>
+                            예를 들면 진격의 거인이나 스파이 패밀리요 😎<br/>
                             검색할 땐 띄어쓰기를 정확히 해주세요 !
                         </p>
                     </div>
@@ -103,7 +108,8 @@ function App() {
                 {
                     !searchNone && searchList.map(item => {
                         return (
-                            <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`} onClick={() => pageLink(item.media_type, item.id)}>
+                            <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`}
+                                onClick={() => pageLink(item.media_type, item.id)}>
                                 <picture>
                                     {
                                         item.poster_path === null || item.profile_path === null ? (
