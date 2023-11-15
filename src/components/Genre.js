@@ -101,7 +101,7 @@ export default function Genre() {
 
             {
                 titleLoading && (
-                    <div>
+                    <>
                         <Swiper className="genre_title" slidesPerView={"auto"}>
                             <div className="swiper-wrapper">
                                 <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
@@ -128,7 +128,7 @@ export default function Genre() {
                                 <option value="dateAsc">상열일 오름차순</option>
                             </select>
                         </div>
-                    </div>
+                    </>
                 )
             }
 

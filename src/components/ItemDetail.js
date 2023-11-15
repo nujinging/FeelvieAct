@@ -76,7 +76,7 @@ export default function ItemDetail() {
 
 
     return (
-        <div>
+        <>
 
             {
                 loading ? (
@@ -235,6 +235,6 @@ export default function ItemDetail() {
                 </div>
             }
 
-        </div>
+        </>
     );
 }

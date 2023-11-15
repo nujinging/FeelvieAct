@@ -42,7 +42,7 @@ export default function List(props) {
     }, [list.length]);
 
     return (
-        <div>
+        <>
             {
                 loading ? (
                     <div className="loading">
@@ -79,10 +79,10 @@ export default function List(props) {
 
                                 <h3>{item.title || item.name}</h3>
                                 {item.air_date && (
-                                    <div>
+                                    <>
                                         <span className="episode_date">{item.air_date}</span>
                                         <p className="episode_txt">{item.overview}</p>
-                                    </div>
+                                    </>
                                 )}
 
                             </SwiperSlide>
@@ -90,7 +90,7 @@ export default function List(props) {
                     </Swiper>
                 )
             }
-        </div>
+        </>
 
     );
 }

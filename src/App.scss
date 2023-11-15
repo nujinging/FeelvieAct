@@ -658,6 +658,7 @@ body {
   }
 }
 
+/* 로딩 */
 .loading {
   display:flex;
   align-items: center;
@@ -696,10 +697,6 @@ body {
 }
 
 
-@keyframes loadingAnimation {
-  0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
-  40% { box-shadow: 0 2.5em 0 0 }
-}
 
 
 /* 디테일 페이지 */
@@ -2426,4 +2423,9 @@ body {
 @keyframes showItem {
   0% {opacity:0}
   100% {opacity:1}
+}
+
+@keyframes loadingAnimation {
+  0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
+  40% { box-shadow: 0 2.5em 0 0 }
 }

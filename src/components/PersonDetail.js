@@ -114,12 +114,12 @@ export default function PersonDetail() {
                                 <div className="loading">
                                     <span className="loader"></span>
                                 </div>
-                            ) : <div>
+                            ) : <>
                                 <div className="title">
                                     <h2>유명 작품</h2>
                                 </div>
                                 <List list={artPopular} type={typeTabs} class={"item_list"}/>
-                            </div>
+                            </>
                         }
 
 
