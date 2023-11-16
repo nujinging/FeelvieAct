@@ -4,6 +4,7 @@ const initialState = {
     socialData : null,
     seasonData: null,
     ottData: null,
+    loading: true,
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -27,6 +28,12 @@ const movieReducer = (state = initialState, action) => {
             return {
                 ...state,
                 seasonData: action.payload,
+            };
+
+        case "SET_LOADING":
+            return {
+                ...state,
+                loading: action.payload,
             };
         default:
             return state;

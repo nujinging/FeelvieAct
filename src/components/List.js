@@ -6,14 +6,17 @@ import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import mainEvent from './../images/img_main_event.png'
 import {Navigation} from "swiper/modules";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "./../util/action";
+
 
 export default function List(props) {
+    const dispatch = useDispatch();
     const [itemId, setItemId] = useState(null);
     const navigate = useNavigate();
     const list = props.list;
-    const [showCard, setShowCard] = useState(false);
-    const [hiddenCard, setHiddenCard] = useState(true);
-    const [loading, setLoading] = useState(true);
+
+    const loading = useSelector(state => state.movies.loading);
 
     // 영화 디테일 페이지 이동
     const movieLink = (itemId) => {
@@ -29,17 +32,9 @@ export default function List(props) {
     useEffect(() => {
         // 데이터가 들어오면 로딩 false로 변경
         if (list.length > 0) {
-            const timer = setTimeout(() => {
-                setShowCard(true);
-                setHiddenCard(false);
-            }, 1000);
-
-            setLoading(false)
-            return () => {
-                clearTimeout(timer);
-            };
+            dispatch(setLoading(false));
         }
-    }, [list.length]);
+    }, [list.length, ]);
 
     return (
         <>
@@ -51,11 +46,11 @@ export default function List(props) {
                 ) : (
                     <Swiper
                         slidesPerView={'auto'} navigation={true} modules={[Navigation]}
-                        className={`swiper ${props.class} ${hiddenCard ? 'load' : ''}`}
+                        className={`swiper`}
                     >
                         {list.map(item => (
                             <SwiperSlide
-                                className={`list_card ${list.some(item => item.profile_path) ? 'person_card' : 'item_card'} ${hiddenCard ? 'hidden' : ''} ${showCard ? 'show' : ''}`}
+                                className={`list_card ${list.some(item => item.profile_path) ? 'person_card' : 'item_card'}`}
                                 key={item.id}
                                 onClick={() => {
                                     if (list.some(item => item.poster_path)) {
