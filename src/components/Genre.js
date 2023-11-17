@@ -12,7 +12,6 @@ import LoadingProgress from "./LoadingProgress";
 export default function Genre() {
     const {type, number} = useParams();
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);

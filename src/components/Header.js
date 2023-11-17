@@ -9,8 +9,9 @@ export default function Header() {
     const number = 'All';
 
     const pageRefresh = (path) => {
-        if (location.pathname === path) {
+        if (location.pathname.includes(path)) {
             window.location.reload();
+            window.location.href = `${path}/All`;
         }
     };
 

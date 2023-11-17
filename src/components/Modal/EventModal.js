@@ -1,6 +1,7 @@
 import '../../App.scss';
-import mainEvent from '../../images/img_main_event.png'
 import {useEffect, useState} from "react";
+import mainEvent from '../../images/img_main_event.png'
+
 export default function EventModal() {
     const [modalOpen, setModalOpen] = useState(true);
     const openModal = () => {

@@ -5,13 +5,13 @@ import {useParams} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
-import {seasonActions} from "../actions/seasonActions";
 import VideoModal from "./Modal/VideoModal";
 import ImgModal from "./Modal/ImgModal";
 
 export default function MediaDetail() {
     const params = useParams();
     const dispatch = useDispatch();
+
     const [mediaType, setMediaType] = useState('video');
     const [imgModal, setImgModal] = useState(false);
     const [videoModal, setVideoModal] = useState(false);
@@ -41,6 +41,7 @@ export default function MediaDetail() {
     useEffect(() => {
         async function Api() {
             try {
+                setLoading(true);
                 await dispatch(movieActions(params.type, params.id));
 
                 // 이미지
@@ -51,8 +52,6 @@ export default function MediaDetail() {
                 const videos = await movieApi.seasonVideo(params.type, params.id);
                 setVideoUrl(videos.data.results);
 
-                setLoading(false);
-
                 // 비디오가 없으면 배경 -> 포스터
                 if (videoUrl.length > 0) {
                     setMediaType('video')
@@ -61,57 +60,51 @@ export default function MediaDetail() {
                 } else {
                     setMediaType('posters')
                 }
+
+                setLoading(false);
             } catch (error) {
                 setLoading(false)
             }
         }
         Api();
-    }, [loading, params.id, videoUrl.length, imagesUrl.backdrops.length, imagesUrl.posters.length]);
+    }, [params.id, videoUrl.length, imagesUrl.backdrops.length, imagesUrl.posters.length]);
 
 
     return (
       <div className="item">
           <div className="title">
               <h2>미디어</h2>
-              {
-                  loading ? (
-                      <div className="loading">
-                          <span className="loader"></span>
-                      </div>
-                  ) : (
-                      <ul className="type_list">
-                          {
-                              videoUrl.length > 0 && (
-                                  <li>
-                                      <button type="button" className={mediaType === 'video' ? 'active' : ''}
-                                              onClick={() => mediaTab('video')}>동영상 {videoUrl.length}
-                                      </button>
-                                  </li>
-                              )
-                          }
+              <ul className="type_list">
+                  {
+                      videoUrl.length > 0 && (
+                          <li>
+                              <button type="button" className={mediaType === 'video' ? 'active' : ''}
+                                      onClick={() => mediaTab('video')}>동영상 {videoUrl.length}
+                              </button>
+                          </li>
+                      )
+                  }
 
-                          {
-                              imagesUrl.backdrops.length > 0 && (
-                                  <li>
-                                      <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
-                                              onClick={() => mediaTab('backdrops')}>배경 {imagesUrl.backdrops.length}
-                                      </button>
-                                  </li>
-                              )
-                          }
+                  {
+                      imagesUrl.backdrops.length > 0 && (
+                          <li>
+                              <button type="button" className={mediaType === 'backdrops' ? 'active' : ''}
+                                      onClick={() => mediaTab('backdrops')}>배경 {imagesUrl.backdrops.length}
+                              </button>
+                          </li>
+                      )
+                  }
 
-                          {
-                              imagesUrl.posters.length > 0 && (
-                                  <li>
-                                      <button type="button" className={mediaType === 'posters' ? 'active' : ''}
-                                              onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
-                                      </button>
-                                  </li>
-                              )
-                          }
-                      </ul>
-                  )
-              }
+                  {
+                      imagesUrl.posters.length > 0 && (
+                          <li>
+                              <button type="button" className={mediaType === 'posters' ? 'active' : ''}
+                                      onClick={() => mediaTab('posters')}>포스터 {imagesUrl.posters.length}
+                              </button>
+                          </li>
+                      )
+                  }
+              </ul>
           </div>
 
           <Swiper slidesPerView={'auto'} className="media_slide">
