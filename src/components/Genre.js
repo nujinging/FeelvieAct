@@ -37,7 +37,6 @@ export default function Genre() {
     };
     useEffect(() => {
         async function Api() {
-            setLoading(true);
             setGenreLoading(true);
             setTitleLoading(true);
             dispatch(movieActions(type, genreNumber));
@@ -54,14 +53,13 @@ export default function Genre() {
             }
 
             if (genreList !== undefined) {
-                setLoading(false);
                 setProgressState(false);
                 setGenreLoading(false);
                 setTitleLoading(true);
             }
         }
         Api();
-    }, [type, genreNumber, setLoading]);
+    }, [type, genreNumber]);
 
 
     const SortClick = async (event) => {
