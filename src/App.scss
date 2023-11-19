@@ -614,7 +614,7 @@ body {
   .genre_list {
     display:flex;
     flex-wrap:wrap;
-    gap:1.375rem;
+    gap:2rem;
     animation: showItem 0.5s ease-in;
     .tit {
       margin-top: 0.938rem;
@@ -628,7 +628,7 @@ body {
 
     .list_card {
       display: inline-block;
-      width: calc(100% - 89%);
+      width: calc(100% - 80% - 2rem);
 
       picture {
         display: block;
