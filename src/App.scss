@@ -1615,23 +1615,25 @@ body {
       overflow: hidden;
     }
     .season_tit {
-      display:flex;
-      align-items:center;
-      justify-content:center;
       margin-top:1.75rem;
       font-size:1.625rem;
       font-weight:bold;
+      text-align:center;
       .season_date {
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        margin-right:1rem;
+        margin-bottom:1rem;
         padding:0 0.75rem;
         font-size:1.375rem;
         font-weight:normal;
         line-height:2.5rem;
         border:1px solid #fff;
         border-radius:4px;
+      }
+      p {
+        text-align:left;
+        line-height:2rem;
       }
     }
     .season_back {

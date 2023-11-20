@@ -59,12 +59,14 @@ export default function SeasonDetail() {
                     <picture className="season_img">
                         <img src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonData?.poster_path}` : ``} alt="" loading="lazy"/>
                     </picture>
-                    <p className="season_tit">
+                    <div className="season_tit">
                         <span className="season_date">
                             {year}
                         </span>
-                        {detailData?.name}
-                    </p>
+                        <p>
+                            {detailData?.name}
+                        </p>
+                    </div>
                 </div>
 
             </section>
@@ -85,9 +87,19 @@ export default function SeasonDetail() {
                         seasonData?.episodes.map((item, index) => {
                             return (
                                 <li key={index}>
-                                    <picture className="episode_img">
-                                        <img src={`https://www.themoviedb.org/t/p/w454_and_h254_bestv2/${item.still_path}`} alt=""/>
-                                    </picture>
+                                    {
+                                        item.still_path === null ? (
+                                            <picture className="img_none">
+                                                <span className="blind">이미지 없음</span>
+                                            </picture>
+                                        ) : (
+                                            <picture className="episode_img">
+                                                <img src={`https://www.themoviedb.org/t/p/w454_and_h254_bestv2/${item.still_path}`} alt=""/>
+                                            </picture>
+                                        )
+                                    }
+
+
                                     <div className="episode_info">
                                                     <span className="date">
                                                         {item.air_date}

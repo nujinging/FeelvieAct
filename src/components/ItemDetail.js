@@ -10,6 +10,7 @@ import List from "./List";
 import NotFound from "./NotFound";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
+import Loading from "./Loading";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -20,10 +21,11 @@ export default function ItemDetail() {
 
     const [ottUrl, setOttUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
-    const [creditsLoading, setCreditsLoading] = useState();
+    const [creditsLoading, setCreditsLoading] = useState(true);
 
     const [socialUrl, setSocialUrl] = useState();
     const [recommendUrl, setRecommendUrl] = useState([]);
+    const [recommendLoading, setRecommendLoading] = useState(true);
     const [loading, setLoading] = useState(true);
     const [seasonLoading, setSeasonLoading] = useState(true);
 
@@ -41,7 +43,9 @@ export default function ItemDetail() {
         async function Api() {
             try {
                 setLoading(true);
+                setCreditsLoading(true);
                 window.scrollTo(0, 0);
+
                 await dispatch(movieActions(params.type, params.id));
                 setLoading(false);
                 await dispatch(seasonActions(params.id, 1));
@@ -51,9 +55,8 @@ export default function ItemDetail() {
                 const credits = await movieApi.credits(params.type, params.id);
                 const social = await movieApi.social(params.type, params.id);
                 const recommend = await movieApi.recommend(params.type, params.id);
+                setRecommendLoading(false)
                 setCreditsUrl(credits.data.cast);
-                setCreditsLoading(false);
-
                 setSocialUrl(social.data);
                 setRecommendUrl(recommend.data.results);
                 setOttUrl(ottList.data.results.KR);
@@ -67,7 +70,10 @@ export default function ItemDetail() {
                 } else {
                     <NotFound/>
                 }
+
+            } finally {
                 setLoading(false);
+                setCreditsLoading(false);
             }
         }
 
@@ -85,155 +91,164 @@ export default function ItemDetail() {
                             <span className="loader"></span>
                         </div>
                     </section>
-
                 ) : (
-                    <section className="detail_container"
-                             style={{
-                                 backgroundImage: `url(${detailData?.backdrop_path ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path}` : ''})`
-                             }}
-                    >
-                        <div className="detail_info">
+                    <>
+                        <section className="detail_container"
+                                 style={{
+                                     backgroundImage: `url(${detailData?.backdrop_path ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path}` : ''})`
+                                 }}
+                        >
+                            <div className="detail_info">
 
-                            <h1 className="tit">
-                                {detailData?.title || detailData?.name}
-                            </h1>
-                            <div className="meta">
-                                <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
-                                {detailData?.genres && detailData?.genres.map((item, index) => {
-                                    return (
-                                        <span className="txt" key={index}>
+                                <h1 className="tit">
+                                    {detailData?.title || detailData?.name}
+                                </h1>
+                                <div className="meta">
+                                    <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
+                                    {detailData?.genres && detailData?.genres.map((item, index) => {
+                                        return (
+                                            <span className="txt" key={index}>
                                     {item.name}
                                 </span>
-                                    )
-                                })}
+                                        )
+                                    })}
+                                    {
+                                        detailData?.first_air_date || detailData?.release_date ? (
+                                            <span
+                                                className="date">{detailData?.release_date || detailData?.first_air_date}</span>
+                                        ) : null
+                                    }
+                                </div>
+
                                 {
-                                    detailData?.first_air_date || detailData?.release_date ? (
-                                        <span
-                                            className="date">{detailData?.release_date || detailData?.first_air_date}</span>
+                                    ottUrl && (ottUrl.buy || ottUrl.flatrate) ? (
+                                        <div className="ott_box">
+                                            <h3 className="ott_tit">OTT</h3>
+                                            <div className="ott_wrap">
+                                                {
+                                                    ottUrl.buy && (
+                                                        <div className="ott_list">
+                                                            <h4 className="ott_txt">BUY</h4>
+                                                            <ul>
+                                                                {
+                                                                    ottUrl.buy && ottUrl.buy.map((item, index) => (
+                                                                        <li key={index}>
+                                                                            <img
+                                                                                src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
+                                                                                alt=""/>
+                                                                        </li>
+                                                                    ))
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    )
+                                                }
+
+                                                {
+                                                    ottUrl.flatrate && (
+                                                        <div className="ott_list">
+                                                            <h4 className="ott_txt">Streaming</h4>
+                                                            <ul>
+                                                                {
+                                                                    ottUrl?.flatrate && ottUrl?.flatrate.map((item, index) => (
+                                                                        <li key={index}>
+                                                                            <img
+                                                                                src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
+                                                                                alt=""/>
+                                                                        </li>
+                                                                    ))
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    )
+                                                }
+
+                                            </div>
+                                        </div>
+                                    ) : null
+                                }
+
+                                {
+                                    detailData?.overview || detailData?.tagline ? (
+                                        <div className="comment">
+                                            {
+                                                detailData?.tagline && (
+                                                    <p className="quites">
+                                                        {detailData?.tagline}
+                                                    </p>
+                                                )
+                                            }
+                                            <p className={`intro`}>
+                                                {detailData?.overview}
+                                            </p>
+
+                                            <button className="btn_more">
+                                                접기
+                                            </button>
+                                        </div>
                                     ) : null
                                 }
                             </div>
-
+                            <div className="detail_poster">
+                                <ul className="social_links">
+                                    {socialMedia.map((item, index) => {
+                                        return item.link !== "null" ? (
+                                            <li key={index}>
+                                                <a href={`${item.url}/${item.link}`} className={`${item.class}`}
+                                                   target="_blank" rel="noreferrer">
+                                                    <span className="blind">{item.name}</span>
+                                                </a>
+                                            </li>
+                                        ) : null;
+                                    })}
+                                </ul>
+                                <picture>
+                                    <img
+                                        src={detailData?.poster_path ? `https://image.tmdb.org/t/p/w500/${detailData?.poster_path}` : ``}
+                                        alt="Movie Poster"
+                                        loading="lazy"/>
+                                </picture>
+                            </div>
+                        </section>
+                        <div className="item_container">
                             {
-                                ottUrl && (ottUrl.buy || ottUrl.flatrate) ? (
-                                    <div className="ott_box">
-                                        <h3 className="ott_tit">OTT</h3>
-                                        <div className="ott_wrap">
-                                            {
-                                                ottUrl.buy && (
-                                                    <div className="ott_list">
-                                                        <h4 className="ott_txt">BUY</h4>
-                                                        <ul>
-                                                            {
-                                                                ottUrl.buy && ottUrl.buy.map((item, index) => (
-                                                                    <li key={index}>
-                                                                        <img
-                                                                            src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
-                                                                            alt=""/>
-                                                                    </li>
-                                                                ))
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                )
-                                            }
-
-                                            {
-                                                ottUrl.flatrate && (
-                                                    <div className="ott_list">
-                                                        <h4 className="ott_txt">Streaming</h4>
-                                                        <ul>
-                                                            {
-                                                                ottUrl?.flatrate && ottUrl?.flatrate.map((item, index) => (
-                                                                    <li key={index}>
-                                                                        <img
-                                                                            src={`https://www.themoviedb.org/t/p/original${item.logo_path}`}
-                                                                            alt=""/>
-                                                                    </li>
-                                                                ))
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                )
-                                            }
-
-                                        </div>
-                                    </div>
-                                ) : null
-                            }
-
-                            {
-                                detailData?.overview || detailData?.tagline ? (
-                                    <div className="comment">
+                                creditsLoading ? (
+                                        <Loading/>
+                                    ) :
+                                    <>
                                         {
-                                            detailData?.tagline && (
-                                                <p className="quites">
-                                                    {detailData?.tagline}
-                                                </p>
+                                            creditsArray.length !== 0 && (
+                                                <div className="item">
+                                                    <div className="title"><h2>등장인물</h2></div>
+                                                    <List type={params.type} list={creditsArray}
+                                                          class={"person_list"}></List>
+                                                </div>
                                             )
                                         }
-                                        <p className={`intro`}>
-                                            {detailData?.overview}
-                                        </p>
+                                    </>
 
-                                        <button className="btn_more">
-                                            접기
-                                        </button>
+                            }
+
+                            {/* 시즌 */}
+                            {params.type === 'tv' && seasonData && <SeasonList/>}
+
+                            {/* 미디어 */}
+                            <MediaDetail></MediaDetail>
+
+                            {/* 비슷한 작품 */}
+                            {
+                                (recommendUrl && recommendUrl.length !== 0) && (
+                                    <div className="item">
+                                        <div className="title"><h2>비슷한 작품</h2></div>
+                                        <List type={params.type} list={recommendUrl} class={"item_list"}></List>
                                     </div>
-                                ) : null
+                                )
                             }
                         </div>
-                        <div className="detail_poster">
-                            <ul className="social_links">
-                                {socialMedia.map((item, index) => {
-                                    return item.link !== "null" ? (
-                                        <li key={index}>
-                                            <a href={`${item.url}/${item.link}`} className={`${item.class}`}
-                                               target="_blank" rel="noreferrer">
-                                                <span className="blind">{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ) : null;
-                                })}
-                            </ul>
-                            <picture>
-                                <img
-                                    src={detailData?.poster_path ? `https://image.tmdb.org/t/p/w500/${detailData?.poster_path}` : ``}
-                                    alt="Movie Poster"
-                                    loading="lazy"/>
-                            </picture>
-                        </div>
-                    </section>
+                    </>
                 )
             }
 
-
-            {
-                loading ? (
-                    <div className="loading">
-                        <span className="loader"></span>
-                    </div>
-                ) : <div className="item_container">
-                    <div className="item">
-                        <div className="title"><h2>등장인물</h2></div>
-                        <List type={params.type} list={creditsArray} class={"person_list"}></List>
-                    </div>
-
-
-                    {params.type === 'tv' && seasonData && <SeasonList/>}
-
-                    <MediaDetail></MediaDetail>
-
-                    {
-                        (recommendUrl && recommendUrl.length !== 0) && (
-                            <div className="item">
-                                <div className="title"><h2>비슷한 작품</h2></div>
-                                <List type={params.type} list={recommendUrl} class={"item_list"}></List>
-                            </div>
-                        )
-                    }
-                </div>
-            }
 
         </>
     );
