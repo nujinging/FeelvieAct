@@ -8,13 +8,15 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import LoadingProgress from "./LoadingProgress";
+import Loading from "./Loading";
+import { debounce } from 'lodash';
 
 export default function Genre() {
     const {type, number} = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [genreLoading, setGenreLoading] = useState(true);
     const [titleLoading, setTitleLoading] = useState(true);
     const [progressState, setProgressState] = useState(true);
@@ -22,7 +24,7 @@ export default function Genre() {
     const [genreList, setGenreList] = useState([]);
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
-
+    const [page, setPage] = useState(1);
     const calculateProgress = () => {
         return !loading ? 0 : 100;
     };
@@ -33,11 +35,8 @@ export default function Genre() {
         setProgressState(true);
         navigate(`/genre/${type}/${itemId}`);
     };
-
-
     useEffect(() => {
         async function Api() {
-            setLoading(true);
             setGenreLoading(true);
             setTitleLoading(true);
             dispatch(movieActions(type, genreNumber));
@@ -54,15 +53,13 @@ export default function Genre() {
             }
 
             if (genreList !== undefined) {
-                setLoading(false);
                 setProgressState(false);
                 setGenreLoading(false);
                 setTitleLoading(true);
             }
         }
-
         Api();
-    }, [type, genreNumber, setLoading]);
+    }, [type, genreNumber]);
 
 
     const SortClick = async (event) => {
@@ -88,6 +85,47 @@ export default function Genre() {
         navigate(`/detail/${itemType}/${itemId}`);
     }
 
+    useEffect(() => {
+        const genreScroll = debounce(() => {
+            const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+            const visibleHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const isAtBottom = scrollY + visibleHeight >= documentHeight;
+            const nextPage = page + 1;
+
+            if (isAtBottom) {
+                setLoading(true)
+                setPage(nextPage);
+
+                (async () => {
+                    try {
+                        if (number === 'All') {
+                            const popularScroll = await movieApi.popularScroll(type, nextPage);
+                            setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
+                        } else {
+                            const genreUrlScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
+                            setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
+                        }
+                    } finally {
+                        setLoading(false);
+                    }
+                })();
+            }
+        }, 1000);
+
+        window.addEventListener('scroll', genreScroll);
+
+        const genreResize = debounce(() => {
+            genreScroll();
+        }, 200);
+
+        window.addEventListener('resize', genreResize);
+
+        return () => {
+            window.removeEventListener('scroll', genreScroll);
+            window.removeEventListener('resize', genreScroll);
+        };
+    }, [page, genreList]);
 
     return (
         <div className="item_container genre">
@@ -163,6 +201,7 @@ export default function Genre() {
                     </ul>
                 )
             }
+            {loading && <Loading />}
         </div>
     );
 }
