@@ -102,6 +102,33 @@ body {
 }
 
 
+.progress {
+  position:fixed;
+  top:0;
+  left:0;
+  height:4px;
+  background:#007bff;
+  transition:width 0.2s;
+  z-index:5000;
+}
+
+.genre_btm {
+  text-align:center;
+}
+
+.more_card {
+  width:calc(100% - 86% - 2rem);
+}
+.list_more {
+  padding:1rem 0;
+  width:100%;
+  height:100%;
+  color:#fff;
+  font-size:1.625rem;
+  border:none;
+  background:none;
+}
+
 /* 헤더 */
 .wrap_header {
   position: fixed;
@@ -628,7 +655,7 @@ body {
 
     .list_card {
       display: inline-block;
-      width: calc(100% - 80% - 2rem);
+      width: calc(100% - 86% - 2rem);
 
       picture {
         display: block;
@@ -648,6 +675,7 @@ body {
 
         &.img_none {
           width: 100%;
+          min-height:13rem;
           max-height: 31.25rem;
           background: #F2F2F2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23CCCCCC' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23CCCCCC'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23CCCCCC'/%3E%3C/svg%3E") center no-repeat;
         }
@@ -659,9 +687,6 @@ body {
         cursor: pointer;
       }
 
-      &:nth-child(5n) {
-        margin-right: 0;
-      }
     }
   }
 }
@@ -1336,10 +1361,6 @@ body {
         transform: translate3d(0, -0.75rem, 0);
         transition: transform .3s ease-in-out;
         cursor: pointer;
-      }
-
-      &:nth-child(5n) {
-        margin-right: 0;
       }
     }
   }
@@ -2230,16 +2251,10 @@ body {
 
   .genre {
     .genre_list {
+      gap:1rem;
       .list_card {
-        width: calc(100% - 69% - 0.25rem);
+        width: calc(100% - 76% - 1rem);
 
-        &:nth-child(5n) {
-          margin-right: 1.25rem;
-        }
-
-        &:nth-child(3n) {
-          margin-right: 0;
-        }
       }
     }
   }
@@ -2256,13 +2271,6 @@ body {
       .list_card {
         width: calc(100% - 70% - 0.25rem);
 
-        &:nth-child(5n) {
-          margin-right: 1.25rem;
-        }
-
-        :nth-child(3n) {
-          margin-right: 0;
-        }
       }
     }
 

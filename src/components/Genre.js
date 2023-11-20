@@ -5,8 +5,6 @@ import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {movieActions} from "../actions/movieActions";
 import LoadingProgress from "./LoadingProgress";
 import Loading from "./Loading";
 import { debounce } from 'lodash';
@@ -14,118 +12,115 @@ import { debounce } from 'lodash';
 export default function Genre() {
     const {type, number} = useParams();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false);
-    const [genreLoading, setGenreLoading] = useState(true);
-    const [titleLoading, setTitleLoading] = useState(true);
+    const [listLoading, setListLoading] = useState(true);
     const [progressState, setProgressState] = useState(true);
+
     const [genreTitle, setGenreTitle] = useState([]);
     const [genreList, setGenreList] = useState([]);
     const [genreNumber, setGenreNumber] = useState('All');
     const [selectedValue, setSelectedValue] = useState('');
     const [page, setPage] = useState(1);
+
+    // 상단 프로그래스바
     const calculateProgress = () => {
-        return !loading ? 0 : 100;
+        return !listLoading ? 0 : 100;
     };
 
+    // 장르 선택
     const genreChange = async (itemId) => {
-        setGenreLoading(true);
-        setGenreNumber(itemId);
+        setListLoading(true);
         setProgressState(true);
+        setGenreNumber(itemId);
         navigate(`/genre/${type}/${itemId}`);
     };
-    useEffect(() => {
-        async function Api() {
-            setGenreLoading(true);
-            setTitleLoading(true);
-            dispatch(movieActions(type, genreNumber));
-            const genre = await movieApi.genreTitle(type);
-            setGenreTitle(genre.data.genres);
 
-            if (number === 'All') {
-                const popular = await movieApi.popular(type);
-                setGenreList(popular.data.results);
-                setGenreNumber(number);
-            } else {
-                const genreUrl = await movieApi.genreList(type, genreNumber);
-                setGenreList(genreUrl.data.results);
-            }
-
-            if (genreList !== undefined) {
-                setProgressState(false);
-                setGenreLoading(false);
-                setTitleLoading(true);
-            }
-        }
-        Api();
-    }, [type, genreNumber]);
-
-
-    const SortClick = async (event) => {
-        setGenreLoading(true);
-        setSelectedValue(event.target.value);
-        if (event.target.value === 'popularityDesc') {
-            const genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
-        } else if (event.target.value === 'popularityAsc') {
-            const genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
-        } else if (event.target.value === 'dateDesc') {
-            const genreUrl = await movieApi.genreDateDesc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
-        } else {
-            const genreUrl = await movieApi.genreDateAsc(type, genreNumber);
-            setGenreList(genreUrl.data.results);
-        }
-        setGenreLoading(false);
-    }
-
+    // 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
         navigate(`/detail/${itemType}/${itemId}`);
     }
 
-    useEffect(() => {
-        const genreScroll = debounce(() => {
-            const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-            const visibleHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const isAtBottom = scrollY + visibleHeight >= documentHeight;
-            const nextPage = page + 1;
-
-            if (isAtBottom) {
-                setLoading(true)
-                setPage(nextPage);
-
-                (async () => {
-                    try {
-                        if (number === 'All') {
-                            const popularScroll = await movieApi.popularScroll(type, nextPage);
-                            setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
-                        } else {
-                            const genreUrlScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
-                            setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
-                        }
-                    } finally {
-                        setLoading(false);
-                    }
-                })();
+    // 정렬 선택
+    const SortClick = async (event) => {
+        try {
+            setSelectedValue(event.target.value);
+            setProgressState(true);
+            setListLoading(true);
+            let genreUrl;
+            switch (event.target.value) {
+                case 'popularityDesc' :
+                    genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
+                    break;
+                case 'popularityAsc' :
+                    genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
+                    break;
+                case 'dateDesc' :
+                    genreUrl = await movieApi.genreDateDesc(type, genreNumber);
+                    break;
+                case  'dateAsc' :
+                    genreUrl = await movieApi.genreDateAsc(type, genreNumber);
+                    break;
             }
-        }, 1000);
+            setGenreList(genreUrl.data.results);
+            setProgressState(false);
+            setListLoading(false);
+        } catch(error) {
+            console.log(error)
+        }
+    }
 
-        window.addEventListener('scroll', genreScroll);
+    // 장르 변경 시 리스트 변경
+    useEffect(() => {
+        async function fetchApi() {
+            setProgressState(true);
+            setListLoading(true);
 
-        const genreResize = debounce(() => {
-            genreScroll();
-        }, 200);
+           try {
+               const genre = await movieApi.genreTitle(type);
+               setGenreTitle(genre.data.genres);
 
-        window.addEventListener('resize', genreResize);
+               if (number === 'All') {
+                   const popular = await movieApi.popular(type);
+                   setGenreList(popular.data.results);
+                   setGenreNumber(number);
+               } else {
+                   const genreUrl = await movieApi.genreList(type, genreNumber);
+                   setGenreList(genreUrl.data.results);
+               }
+               setProgressState(false);
+               setListLoading(false);
+           } catch(error) {
+               console.log(error)
+           }
+        }
+        fetchApi();
+    }, [type, genreNumber]);
 
-        return () => {
-            window.removeEventListener('scroll', genreScroll);
-            window.removeEventListener('resize', genreScroll);
+    const ListMore = debounce(() => {
+        const nextPage = page + 1;
+        const ScrollData = async () => {
+            try {
+                if (number === 'All') {
+                    const popularScroll = await movieApi.popularScroll(type, nextPage);
+                    setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
+                } else {
+                    const genreUrlScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
+                    setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
+                }
+            } finally {
+                setLoading(false);
+            }
+
         };
-    }, [page, genreList]);
+        setPage(nextPage);
+        ScrollData();
+    }, 1000);
+
+    const listMoreBtn = () => {
+        setLoading(true);
+        ListMore();
+    }
 
     return (
         <div className="item_container genre">
@@ -136,72 +131,75 @@ export default function Genre() {
                 )
             }
 
-            {
-                titleLoading && (
-                    <>
-                        <Swiper className="genre_title" slidesPerView={"auto"}>
-                            <div className="swiper-wrapper">
-                                <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
-                                             onClick={() => genreChange('All')}
-                                >
-                                    All
-                                </SwiperSlide>
-                                {genreTitle?.map((item, index) => {
-                                    return (
-                                        <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`}
-                                                     key={index}
-                                                     onClick={() => genreChange(item.id)}>
-                                            {item.name}
-                                        </SwiperSlide>
-                                    )
-                                })}
-                            </div>
-                        </Swiper>
-                        <div className="genre_sort">
-                            <select onChange={SortClick} value={selectedValue}>
-                                <option value="popularityDesc">인기도 내림차순</option>
-                                <option value="popularityAsc">인기도 오름차순</option>
-                                <option value="dateDesc">상영일 내림차순</option>
-                                <option value="dateAsc">상열일 오름차순</option>
-                            </select>
-                        </div>
-                    </>
-                )
-            }
+            <Swiper className="genre_title" slidesPerView={"auto"}>
+                <div className="swiper-wrapper">
+                    <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                                 onClick={() => genreChange('All')}
+                    >
+                        All
+                    </SwiperSlide>
+                    {genreTitle?.map((item, index) => {
+                        return (
+                            <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`}
+                                         key={index}
+                                         onClick={() => genreChange(item.id)}>
+                                {item.name}
+                            </SwiperSlide>
+                        )
+                    })}
+                </div>
+            </Swiper>
+            <div className="genre_sort">
+                <select onChange={SortClick} value={selectedValue}>
+                    <option value="popularityDesc">인기도 내림차순</option>
+                    <option value="popularityAsc">인기도 오름차순</option>
+                    <option value="dateDesc">상영일 내림차순</option>
+                    <option value="dateAsc">상열일 오름차순</option>
+                </select>
+            </div>
 
             {
-                genreLoading ? (
-                    <div className="loading">
-                        <span className="loader"></span>
-                    </div>
+                listLoading ? (
+                    <Loading />
                 ) : (
                     <ul className="genre_list">
                         {genreList?.map((item, index) => {
                             return (
-                                <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
-                                    {
-                                        item.poster_path === null ? (
-                                            <picture className="img_none">
-                                                <span className="blind">이미지 없음</span>
-                                            </picture>
-                                        ) : (
-                                            <picture>
-                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                                     alt="Movie Poster" loading="lazy"/>
-                                            </picture>
-                                        )
-                                    }
-
-                                    <p className="tit">
-                                        {item.title || item.name}
-                                    </p>
-                                </li>
+                                <>
+                                    <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
+                                        {
+                                            item.poster_path === null ? (
+                                                <picture className="img_none">
+                                                    <span className="blind">이미지 없음</span>
+                                                </picture>
+                                            ) : (
+                                                <picture>
+                                                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                                         alt="Movie Poster" loading="lazy"/>
+                                                </picture>
+                                            )
+                                        }
+                                        <p className="tit">
+                                            {item.title || item.name}
+                                        </p>
+                                    </li>
+                                </>
                             )
                         })}
+                        <li className="more_card">
+                            {
+                                loading ? (
+                                    <Loading />
+                                ) : (
+                                    <button type="button" className="list_more" onClick={ listMoreBtn}>더보기</button>
+                                )
+                            }
+                        </li>
                     </ul>
                 )
             }
-            {loading && <Loading />}
+
+
         </div>
     );
 }
