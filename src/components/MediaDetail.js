@@ -1,28 +1,27 @@
 import './../App.scss';
+import {Swiper, SwiperSlide} from "swiper/react";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {movieActions} from "../actions/movieActions";
+import Loading from "./Loading";
 import VideoModal from "./Modal/VideoModal";
 import ImgModal from "./Modal/ImgModal";
-import Loading from "./Loading";
 
 export default function MediaDetail() {
     const params = useParams();
     const dispatch = useDispatch();
 
     const [mediaType, setMediaType] = useState('video');
-    const [imgModal, setImgModal] = useState(false);
-    const [videoModal, setVideoModal] = useState(false);
     const [imgDetail, setImgDetail] = useState();
     const [videoDetail, setVideoDetail] = useState();
-    const [videoKey, setVideoKey] = useState();
     const [videoUrl, setVideoUrl] = useState([]);
     const [imagesUrl, setImagesUrl] = useState({backdrops: [], posters: []});
+
     const [loading, setLoading] = useState(true);
-    const [tabLoading, setTabLoading] = useState(true);
+    const [imgModal, setImgModal] = useState(false);
+    const [videoModal, setVideoModal] = useState(false);
 
     // 미디어 - 배경,포스터
     const mediaTab = (type) => {
@@ -37,7 +36,6 @@ export default function MediaDetail() {
     const videoModalOpen = (item, item_key) => {
         setVideoModal(!videoModal);
         setVideoDetail(item);
-        setVideoKey(item_key);
     }
 
     useEffect(() => {

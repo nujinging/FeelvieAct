@@ -35,7 +35,6 @@ export default function SeasonList() {
                 setLoading(false);
             }
         }
-
         fetchApi();
     }, [params.type, params.id, lastSeason]);
 

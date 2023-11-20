@@ -33,7 +33,7 @@ export default function SeasonDetail() {
     };
 
     useEffect(() => {
-            async function Api() {
+            async function fetchApi() {
                 try {
                     window.scrollTo(0, 0);
                     setLoading(true);
@@ -49,8 +49,7 @@ export default function SeasonDetail() {
                     setLoading(false);
                 }
             }
-
-            Api();
+            fetchApi();
             movieActions();
             seasonActions();
         },

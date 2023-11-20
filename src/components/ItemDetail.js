@@ -40,7 +40,7 @@ export default function ItemDetail() {
     const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
 
     useEffect(() => {
-        async function Api() {
+        async function fatchApi() {
             try {
                 setLoading(true);
                 setCreditsLoading(true);
@@ -77,7 +77,7 @@ export default function ItemDetail() {
             }
         }
 
-        Api();
+        fatchApi();
     }, [params.type, params.id, detailData?.number_of_seasons, setLoading]);
 
 

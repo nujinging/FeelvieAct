@@ -47,6 +47,7 @@ export default function Genre() {
             setSelectedValue(event.target.value);
             setProgressState(true);
             setListLoading(true);
+
             let genreUrl;
             switch (event.target.value) {
                 case 'popularityDesc' :
@@ -62,11 +63,13 @@ export default function Genre() {
                     genreUrl = await movieApi.genreDateAsc(type, genreNumber);
                     break;
             }
+
             setGenreList(genreUrl.data.results);
-            setProgressState(false);
-            setListLoading(false);
         } catch(error) {
             console.log(error)
+        } finally {
+            setProgressState(false);
+            setListLoading(false);
         }
     }
 

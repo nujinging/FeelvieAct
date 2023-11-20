@@ -36,7 +36,7 @@ export default function Main() {
     };
 
     useEffect(() => {
-        async function Api() {
+        async function fatchApi() {
             try {
                 const play = await movieApi.nowPlaying('movie');
                 setPlaying(play.data.results);
@@ -61,7 +61,7 @@ export default function Main() {
             }
         }
 
-        Api();
+        fatchApi();
     }, [popularType, dayType, weekType]);
 
     return (
