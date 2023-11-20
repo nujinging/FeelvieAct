@@ -3,6 +3,9 @@ import {movieApi} from "../util/movieApi";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import List from "./List";
+import {useDispatch, useSelector} from "react-redux";
+import {movieActions} from "../actions/movieActions";
+import Loading from "./Loading";
 
 export default function PersonDetail() {
     const params = useParams();
@@ -13,6 +16,9 @@ export default function PersonDetail() {
     const [artUrl, setArtUrl] = useState([]);
     const [artPopular, setArtPopular] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [filmoLoading, setFilmoLoading] = useState(true);
+    const dispatch = useDispatch();
+    const detailData = useSelector(state => state.movies.movieData);
 
     /* 디테일 컴포넌트 이동 */
     const movieLink = (itemId) => {
@@ -26,133 +32,161 @@ export default function PersonDetail() {
 
     // 배우 SNS
     const socialMedia = [
-        { name : '페이스북', url : 'http://www.facebook.com', class : "facebook", link : `${socialUrl?.facebook_id}`},
-        { name : '트위터', url : 'http://www.twitter.com', class : "twitter", link : `${socialUrl?.twitter_id}`},
-        { name : '인스타그램', url : 'http://www.instagram.com', class : "instagram", link : `${socialUrl?.instagram_id}`}
+        {name: '페이스북', url: 'http://www.facebook.com', class: "facebook", link: `${socialUrl?.facebook_id}`},
+        {name: '트위터', url: 'http://www.twitter.com', class: "twitter", link: `${socialUrl?.twitter_id}`},
+        {name: '인스타그램', url: 'http://www.instagram.com', class: "instagram", link: `${socialUrl?.instagram_id}`}
     ]
 
     useEffect(() => {
-        async function Api() {
-            // 배우 정보
-            const detail = await movieApi.person(params.id);
-            setDataUrl(detail.data);
+        async function fetchApi() {
+            try {
+                setFilmoLoading(true);
+                await dispatch(movieActions(params.type, params.id));
 
-            // 배우 SNS
-            const social = await movieApi.social('person', params.id);
-            setSocialUrl(social.data)
+                // 배우 정보
+                const detail = await movieApi.person(params.id);
+                setDataUrl(detail.data);
 
-            // 배우 필모그래피
-            const art = await movieApi.personArt(params.id, typeTabs);
+                // 배우 SNS
+                const social = await movieApi.social('person', params.id);
+                setSocialUrl(social.data)
 
+                // 배우 필모그래피
+                const art = await movieApi.personArt(params.id, typeTabs);
+
+                // 배우 필모그래피 정렬
+                const art_list = art.data.cast.sort((a, b) => {
+                    const dateA = a.release_date || a.first_air_date;
+                    const dateB = b.release_date || b.first_air_date;
+                    if (dateA && dateB) {
+                        return new Date(dateB) - new Date(dateA);
+                    }
+                    return 0;
+                });
+                setArtUrl(art_list);
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setFilmoLoading(false);
+                setLoading(false);
+            }
+        }
+
+        fetchApi();
+    }, [typeTabs, params.id]);
+
+    useEffect(() => {
+        try {
             // 배우 인기 필모그래피
             const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
             setArtPopular(popular)
+            console.log()
 
-            // 배우 필모그래피 정렬
-            const art_list = art.data.cast.sort((a, b) => {
-                const dateA = a.release_date || a.first_air_date;
-                const dateB = b.release_date || b.first_air_date;
-                if (dateA && dateB) {
-                    return new Date(dateB) - new Date(dateA);
-                }
-                return 0;
-            });
-            setArtUrl(art_list);
-            setLoading(false);
+        } catch(error) {
+            console.log(error)
         }
-        Api();
-    }, [typeTabs, params.id]);
+    }, [typeTabs, params.id, artUrl]);
 
     return (
         <div className="container">
-            {dataUrl ? (
-                <section className="person_detail">
-                    <picture>
-                        <img src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`} alt="Person Poster" loading="lazy"/>
-                    </picture>
-                    <div className="profile_info">
-                        <div className="profile_name">
-                            <h1>{dataUrl.name}</h1>
-                            <ul className="social_links">
-                                {socialMedia.map((item, index) => {
-                                    return item.link !== "null" ? (
-                                        <li key={index}>
-                                            <a href={`${item.url}/${item.link}`} className={`${item.class}`} target="_blank" rel="noopener noreferrer">
-                                                <span className="blind">{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ) : null;
-                                })}
-                            </ul>
-                        </div>
-
-                        <div className="profile_desc">
-                            <dl>
-                                <dt>생년월일</dt>
-                                <dd>{dataUrl.birthday}</dd>
-                            </dl>
-                            <dl>
-                                <dt>성별</dt>
-                                <dd>
-                                    {dataUrl.gender === '1' ? '여자' : '남자'}
-                                </dd>
-                            </dl>
-                        </div>
-
-                        <ul className="filmo_tab">
-                            <li>
-                                <button type="button" className={typeTabs === 'movie' ? 'active' : ''} onClick={() => typeChange('movie')}>영화</button>
-                            </li>
-                            <li>
-                                <button type="button" className={typeTabs === 'tv' ? 'active' : ''} onClick={() => typeChange( 'tv')}>TV</button>
-                            </li>
-                        </ul>
-
-
-                        {
-                            loading ? (
-                                <div className="loading">
-                                    <span className="loader"></span>
-                                </div>
-                            ) : <>
-                                <div className="title">
-                                    <h2>유명 작품</h2>
-                                </div>
-                                <List list={artPopular} type={typeTabs} class={"item_list"}/>
-                            </>
-                        }
-
-
-                        <div className="work">
-                            <div className="work_top">
-                                <h3>필모그래피</h3>
+            {
+                loading ? (
+                    <Loading/>
+                ) : (
+                    <>
+                        <section className="person_detail"
+                                 style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${artPopular[0]?.backdrop_path})`}}>
+                            <picture>
+                                <img
+                                    src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`}
+                                    alt="Person Poster" loading="lazy"/>
+                            </picture>
+                        </section>
+                        <div className="profile_info">
+                            <div className="profile_name">
+                                <h1>{dataUrl.name}</h1>
+                                <ul className="social_links">
+                                    {socialMedia.map((item, index) => {
+                                        return item.link !== "null" ? (
+                                            <li key={index}>
+                                                <a href={`${item.url}/${item.link}`} className={`${item.class}`}
+                                                   target="_blank" rel="noopener noreferrer">
+                                                    <span className="blind">{item.name}</span>
+                                                </a>
+                                            </li>
+                                        ) : null;
+                                    })}
+                                </ul>
                             </div>
 
-                            <ul className="work_list">
-                                {
-                                    artUrl.map((item, index) => {
-                                        return (
-                                            <li key={index} onClick={() => movieLink(item.id)}>
+                            <div className="profile_desc">
+                                <dl>
+                                    <dt>생년월일</dt>
+                                    <dd>{dataUrl.birthday}</dd>
+                                </dl>
+                                <dl>
+                                    <dt>성별</dt>
+                                    <dd>
+                                        {dataUrl.gender === '1' ? '여자' : '남자'}
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <ul className="filmo_tab">
+                                <li>
+                                    <button type="button" className={typeTabs === 'movie' ? 'active' : ''}
+                                            onClick={() => typeChange('movie')}>영화
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" className={typeTabs === 'tv' ? 'active' : ''}
+                                            onClick={() => typeChange('tv')}>TV
+                                    </button>
+                                </li>
+                            </ul>
+
+                            {
+                                filmoLoading ? (
+                                    <Loading/>
+                                ) : (
+                                    <>
+                                        <div className="title">
+                                            <h2>유명 작품</h2>
+                                        </div>
+                                        <List list={artPopular} type={typeTabs} class={"item_list"}/>
+                                        <div className="work">
+                                            <div className="work_top">
+                                                <h3>필모그래피</h3>
+                                            </div>
+
+                                            <ul className="work_list">
+                                                {
+                                                    artUrl.map((item, index) => {
+                                                        return (
+                                                            <li key={index} onClick={() => movieLink(item.id)}>
                                                 <span className="date">
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>
-                                                <p className="tit">
-                                                    {item.title || item.original_name}
-                                                </p>
-                                                <span className="char">
+                                                                <p className="tit">
+                                                                    {item.title || item.original_name}
+                                                                </p>
+                                                                <span className="char">
                                                     {item.character} 역
                                                 </span>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
+                                                            </li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    </>
+                                )
+                            }
+
                         </div>
-                    </div>
-                </section>
-            ) : (
-                <p>오류</p>
-            )}
+                    </>
+                )
+            }
         </div>
     );
 }
