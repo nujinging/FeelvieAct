@@ -19,13 +19,15 @@ export default function MediaDetail() {
     const [videoUrl, setVideoUrl] = useState([]);
     const [imagesUrl, setImagesUrl] = useState({backdrops: [], posters: []});
 
-    const [loading, setLoading] = useState(true);
     const [imgModal, setImgModal] = useState(false);
     const [videoModal, setVideoModal] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [mediaLoading, setMediaLoading] = useState(false);
 
     // 미디어 - 배경,포스터
     const mediaTab = (type) => {
         setMediaType(type);
+        setMediaLoading(true);
     }
     // 이미지 모달
     const imgModalOpen = (item) => {
@@ -43,7 +45,6 @@ export default function MediaDetail() {
             try {
                 setLoading(true);
                 await dispatch(movieActions(params.type, params.id));
-
                 // 이미지
                 const images = await movieApi.seasonImg(params.type, params.id);
                 setImagesUrl(images.data);
@@ -55,11 +56,11 @@ export default function MediaDetail() {
                 console.log(error)
             } finally {
                 setLoading(false);
+                setMediaLoading(false);
             }
         }
         fetchApi();
-    }, [params.id, videoUrl.length, imagesUrl.backdrops.length, imagesUrl.posters.length]);
-
+    }, [params.id]);
 
     useEffect(() => {
         try {
@@ -83,7 +84,7 @@ export default function MediaDetail() {
                 loading ? (
                     <Loading/>
                 ) : (
-                    <div className="item">
+                    <div className="item_box">
                         <div className="title">
                             <h2>미디어</h2>
                             <ul className="type_list">
@@ -120,30 +121,40 @@ export default function MediaDetail() {
                         </div>
 
                         {/* 리스트 */}
-                        <Swiper slidesPerView={'auto'} className="media_slide">
-                            {
-                                mediaType === 'video' ? (
-                                    videoUrl?.map((item, index) => (
-                                        <SwiperSlide key={index} className="video_card"
-                                                     onClick={() => videoModalOpen(item, item.key)}>
-                                            <img src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`} alt=""/>
-                                        </SwiperSlide>
-                                    ))
-                                ) : (
-                                    imagesUrl[mediaType]?.map((item, index) => (
-                                        <SwiperSlide key={index}
-                                                     className={`${mediaType === 'posters' ? 'poster_card' : 'bg_card'}`}
-                                                     onClick={() => imgModalOpen(item)}>
-                                            <button type="button" className="media_link">
-                                                <img
-                                                    src={item.file_path ? `https://image.tmdb.org/t/p/w500${item.file_path}` : ''}
-                                                    alt="Movie Poster" loading="lazy"/>
-                                            </button>
-                                        </SwiperSlide>
-                                    ))
-                                )
-                            }
-                        </Swiper>
+                        {
+                            mediaLoading ? (
+                                <Loading/>
+                            ) : (
+                                <>
+                                    <Swiper slidesPerView={'auto'} className="media_slide">
+                                        {
+                                            mediaType === 'video' ? (
+                                                videoUrl?.map((item, index) => (
+                                                    <SwiperSlide key={index} className="video_card"
+                                                                 onClick={() => videoModalOpen(item, item.key)}>
+                                                        <img src={`https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`}
+                                                             alt=""/>
+                                                    </SwiperSlide>
+                                                ))
+                                            ) : (
+                                                imagesUrl[mediaType]?.map((item, index) => (
+                                                    <SwiperSlide key={index}
+                                                                 className={`${mediaType === 'posters' ? 'poster_card' : 'bg_card'}`}
+                                                                 onClick={() => imgModalOpen(item)}>
+                                                        <button type="button" className="media_link">
+                                                            <img
+                                                                src={item.file_path ? `https://image.tmdb.org/t/p/w500${item.file_path}` : ''}
+                                                                alt="Movie Poster" loading="lazy"/>
+                                                        </button>
+                                                    </SwiperSlide>
+                                                ))
+                                            )
+                                        }
+                                    </Swiper>
+                                </>
+                            )
+                        }
+
 
                         {/* 비디오 모달 */}
                         {

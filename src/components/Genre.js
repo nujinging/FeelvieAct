@@ -7,7 +7,8 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import LoadingProgress from "./LoadingProgress";
 import Loading from "./Loading";
-import { debounce } from 'lodash';
+import {debounce} from 'lodash';
+import imgNone from './../images/img_card_none.png'
 
 export default function Genre() {
     const {type, number} = useParams();
@@ -65,7 +66,7 @@ export default function Genre() {
             }
 
             setGenreList(genreUrl.data.results);
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         } finally {
             setProgressState(false);
@@ -79,24 +80,25 @@ export default function Genre() {
             setProgressState(true);
             setListLoading(true);
 
-           try {
-               const genre = await movieApi.genreTitle(type);
-               setGenreTitle(genre.data.genres);
+            try {
+                const genre = await movieApi.genreTitle(type);
+                setGenreTitle(genre.data.genres);
 
-               if (number === 'All') {
-                   const popular = await movieApi.popular(type);
-                   setGenreList(popular.data.results);
-                   setGenreNumber(number);
-               } else {
-                   const genreUrl = await movieApi.genreList(type, genreNumber);
-                   setGenreList(genreUrl.data.results);
-               }
-               setProgressState(false);
-               setListLoading(false);
-           } catch(error) {
-               console.log(error)
-           }
+                if (number === 'All') {
+                    const popular = await movieApi.popular(type);
+                    setGenreList(popular.data.results);
+                    setGenreNumber(number);
+                } else {
+                    const genreUrl = await movieApi.genreList(type, genreNumber);
+                    setGenreList(genreUrl.data.results);
+                }
+                setProgressState(false);
+                setListLoading(false);
+            } catch (error) {
+                console.log(error)
+            }
         }
+
         fetchApi();
     }, [type, genreNumber]);
 
@@ -163,22 +165,22 @@ export default function Genre() {
 
             {
                 listLoading ? (
-                    <Loading />
+                    <Loading/>
                 ) : (
                     <ul className="genre_list">
                         {genreList?.map((item, index) => {
                             return (
                                 <>
-                                    <li className="list_card" onClick={() => pageLink(type, item.id)} key={index}>
+                                    <li className="genre_card" onClick={() => pageLink(type, item.id)} key={index}>
                                         {
                                             item.poster_path === null ? (
                                                 <picture className="img_none">
-                                                    <span className="blind">이미지 없음</span>
+                                                    <img src={imgNone} alt="img_none" loading="lazy"/>
                                                 </picture>
                                             ) : (
                                                 <picture>
-                                                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                                         alt="Movie Poster" loading="lazy"/>
+                                                    <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
+                                                         alt={item.title || item.name} loading="lazy"/>
                                                 </picture>
                                             )
                                         }
@@ -192,9 +194,9 @@ export default function Genre() {
                         <li className="more_card">
                             {
                                 loading ? (
-                                    <Loading />
+                                    <Loading/>
                                 ) : (
-                                    <button type="button" className="list_more" onClick={ listMoreBtn}>더보기</button>
+                                    <button type="button" className="list_more" onClick={listMoreBtn}>더보기</button>
                                 )
                             }
                         </li>

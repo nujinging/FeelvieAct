@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../actions/movieActions";
 import {seasonActions} from "../actions/seasonActions";
 import List from "./List";
-import NotFound from "./NotFound";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 import Loading from "./Loading";
@@ -21,13 +20,16 @@ export default function ItemDetail() {
 
     const [ottUrl, setOttUrl] = useState();
     const [creditsUrl, setCreditsUrl] = useState();
+    const [recommendUrl, setRecommendUrl] = useState([]);
+
+    const [loading, setLoading] = useState(true);
     const [creditsLoading, setCreditsLoading] = useState(true);
 
-    const [socialUrl, setSocialUrl] = useState();
-    const [recommendUrl, setRecommendUrl] = useState([]);
-    const [recommendLoading, setRecommendLoading] = useState(true);
-    const [loading, setLoading] = useState(true);
-    const [seasonLoading, setSeasonLoading] = useState(true);
+    const overviewText = useRef(null);
+    const [overflowMore, setOverviewMore] = useState(false);
+    const [overviewExpanded, setOverviewExpanded] = useState(false);
+
+    const [ottState, setOttState] = useState(false);
 
     /* 소셜 */
     const socialMedia = [
@@ -39,6 +41,24 @@ export default function ItemDetail() {
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
 
+    // 영화 상세설명
+    useEffect(() => {
+        const textContainer = overviewText.current;
+        if (textContainer) {
+            setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight);
+        }
+    }, []);
+
+    // 영화 상세설명 더보기
+    const overviewMoreClick = () => {
+        setOverviewExpanded(!overviewExpanded);
+    };
+
+    // OTT 더보기
+    const ottMoreClick = () => {
+        setOttState(!ottState);
+    }
+
     useEffect(() => {
         async function fatchApi() {
             try {
@@ -46,31 +66,37 @@ export default function ItemDetail() {
                 setCreditsLoading(true);
                 window.scrollTo(0, 0);
 
+                // 작품 정보
                 await dispatch(movieActions(params.type, params.id));
-                setLoading(false);
-                await dispatch(seasonActions(params.id, 1));
-                setSeasonLoading(false);
-
                 const ottList = await movieApi.ottList(params.type, params.id);
                 const credits = await movieApi.credits(params.type, params.id);
-                const social = await movieApi.social(params.type, params.id);
                 const recommend = await movieApi.recommend(params.type, params.id);
-                setRecommendLoading(false)
                 setCreditsUrl(credits.data.cast);
-                setSocialUrl(social.data);
                 setRecommendUrl(recommend.data.results);
                 setOttUrl(ottList.data.results.KR);
 
-                return () => {
-                };
-            } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    // AxiosError에서 404 상태 코드를 확인하여 NotFoundComponent를 렌더링
-                    <NotFound/>
-                } else {
-                    <NotFound/>
+                // TV 일때만 시리즈
+                if (params.type === 'tv') {
+                    await dispatch(seasonActions(params.id, 1));
                 }
 
+                // 영화 상세설명
+                const handleResize = () => {
+                    const textContainer = overviewText.current;
+                    if (textContainer) {
+                        setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight + 10);
+                        console.log(textContainer.scrollHeight)
+                        console.log(textContainer.clientHeight)
+                    }
+                };
+                handleResize();
+                window.addEventListener('resize', handleResize);
+                return () => {
+                    window.removeEventListener('resize', handleResize);
+                };
+
+            } catch (error) {
+                console.log(error)
             } finally {
                 setLoading(false);
                 setCreditsLoading(false);
@@ -87,9 +113,7 @@ export default function ItemDetail() {
             {
                 loading ? (
                     <section className="detail_container">
-                        <div className="loading">
-                            <span className="loader"></span>
-                        </div>
+                        <Loading />
                     </section>
                 ) : (
                     <>
@@ -105,13 +129,6 @@ export default function ItemDetail() {
                                 </h1>
                                 <div className="meta">
                                     <span className="type">{params.type === 'movie' ? 'MOVIE' : 'TV'}</span>
-                                    {detailData?.genres && detailData?.genres.map((item, index) => {
-                                        return (
-                                            <span className="txt" key={index}>
-                                    {item.name}
-                                </span>
-                                        )
-                                    })}
                                     {
                                         detailData?.first_air_date || detailData?.release_date ? (
                                             <span
@@ -120,10 +137,20 @@ export default function ItemDetail() {
                                     }
                                 </div>
 
+                                <div className="meta">
+                                    {detailData?.genres && detailData?.genres.map((item, index) => {
+                                        return (
+                                            <span className="txt" key={index}>
+                                    {item.name}
+                                </span>
+                                        )
+                                    })}
+                                </div>
+
                                 {
                                     ottUrl && (ottUrl.buy || ottUrl.flatrate) ? (
-                                        <div className="ott_box">
-                                            <h3 className="ott_tit">OTT</h3>
+                                        <div className={`ott_box ${ottState ? 'more' : ''}`}>
+                                            <h3 className="ott_tit">OTT <button type="button" className="ott_more_btn" onClick={ottMoreClick}>더보기</button></h3>
                                             <div className="ott_wrap">
                                                 {
                                                     ottUrl.buy && (
@@ -171,20 +198,27 @@ export default function ItemDetail() {
                                 {
                                     detailData?.overview || detailData?.tagline ? (
                                         <div className="comment">
+
                                             {
-                                                detailData?.tagline && (
-                                                    <p className="quites">
-                                                        {detailData?.tagline}
+                                                detailData?.overview && (
+                                                    <p
+                                                        ref={overviewText}
+                                                        className={`intro ${overviewExpanded ? 'intro_more' : ''}`}
+                                                    >
+                                                        {detailData?.overview}
                                                     </p>
                                                 )
                                             }
-                                            <p className={`intro`}>
-                                                {detailData?.overview}
-                                            </p>
 
-                                            <button className="btn_more">
-                                                접기
-                                            </button>
+                                            {overflowMore && (
+                                                <button
+                                                    className="btn_more"
+                                                    onClick={overviewMoreClick}
+                                                >
+                                                    {overviewExpanded ? '접기' : '더보기'}
+                                                </button>
+                                            )}
+
                                         </div>
                                     ) : null
                                 }
@@ -210,7 +244,7 @@ export default function ItemDetail() {
                                 </picture>
                             </div>
                         </section>
-                        <div className="item_container">
+                        <div className="item_container detail">
                             {
                                 creditsLoading ? (
                                         <Loading/>
@@ -218,7 +252,7 @@ export default function ItemDetail() {
                                     <>
                                         {
                                             creditsArray.length !== 0 && (
-                                                <div className="item">
+                                                <div className="item_box">
                                                     <div className="title"><h2>등장인물</h2></div>
                                                     <List type={params.type} list={creditsArray}
                                                           class={"person_list"}></List>
@@ -238,7 +272,7 @@ export default function ItemDetail() {
                             {/* 비슷한 작품 */}
                             {
                                 (recommendUrl && recommendUrl.length !== 0) && (
-                                    <div className="item">
+                                    <div className="item_box">
                                         <div className="title"><h2>비슷한 작품</h2></div>
                                         <List type={params.type} list={recommendUrl} class={"item_list"}></List>
                                     </div>

@@ -23,6 +23,9 @@ export default function Main() {
     const popularChange = (type) => {
         setPopularLoading(true);
         setPopularType(type);
+        if (type  === popularType) {
+            return
+        }
     };
 
     const dayChange = (type) => {
@@ -75,16 +78,16 @@ export default function Main() {
 
                 <div className="item_container">
 
-                    <div className="item">
+                    <div className="item_box">
                         <div className="title">
-                            <h2>지금 상영중이에요!</h2>
+                            <h2>&#x1F3AC; 지금 상영중이에요!</h2>
                         </div>
                         <LazyList type="movie" list={playing} class={"item_list"}/>
                     </div>
 
-                    <div className="item">
+                    <div className="item_box">
                         <div className="title">
-                            <h2>가장 인기있는 컨텐츠</h2>
+                            <h2>&#x1F44D;가장 인기있는 컨텐츠</h2>
                             <ul className="type_list">
                                 <li>
                                     <button type="button"
@@ -113,9 +116,10 @@ export default function Main() {
 
                     </div>
 
-                    <div className="item">
+                    <div className="item_box">
                         <div className="title">
                             <h2>
+                                &#x1F4C5;
                                 <span>오늘 가장 많이</span>
                                 찾아 본 컨텐츠
                             </h2>
@@ -144,9 +148,10 @@ export default function Main() {
 
                     </div>
 
-                    <div className="item">
+                    <div className="item_box">
                         <div className="title">
                             <h2>
+                                &#x1F4C5;
                                 <span>이번 주 가장 많이</span>
                                 찾아 본 컨텐츠
                             </h2>

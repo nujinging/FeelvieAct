@@ -43,8 +43,12 @@ ol, ul {
 }
 
 button {
+  margin:0;
+  padding:0;
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
+  border:none;
+  background:none;
 }
 
 a {
@@ -116,14 +120,16 @@ body {
 .genre_btm {
   text-align:center;
 }
-
 .more_card {
   width:calc(100% - 86% - 2rem);
+  .loading {
+    height:calc(100% - 40px);
+  }
 }
 .list_more {
   padding:1rem 0;
   width:100%;
-  height:100%;
+  height:calc(100% - 40px);
   color:#fff;
   font-size:1.625rem;
   border:none;
@@ -132,7 +138,7 @@ body {
 
 /* 헤더 */
 .wrap_header {
-  position: fixed;
+  position:fixed;
   top: 0;
   width: 100%;
   z-index: 500;
@@ -221,14 +227,25 @@ body {
 }
 
 .item_container {
-  padding: 3.888rem;
-  overflow: hidden
+  padding:8.75rem 0 8.75rem 4rem;
+  overflow: hidden;
+  .item_box {
+    &+.item_box {
+      margin-top:5rem;
+    }
+  }
+}
+
+.card_none {
+  height:12rem;
+  border-radius:4px;
+  background:#f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
 }
 
 /* 홈배너 */
 .home_banner {
   position: relative;
-  height: 48.75rem;
+  height: 41.75rem;
   margin-bottom: 2.25rem;
   animation: showItem 0.5s ease-in;
   .banner {
@@ -420,15 +437,13 @@ body {
   }
 }
 
-.item {
-  &+.item {
-    margin-top:3.125rem;
-  }
-}
 
-/* 스와이퍼 */
-.swiper {
+/* List 컴포넌트 공통 */
+.item_slide {
   overflow: visible;
+  .swiper-wrapper {
+    transform: translateZ(0);
+  }
   &:hover {
     .swiper-button-prev {
       display:block;
@@ -496,154 +511,95 @@ body {
       pointer-events:auto;
     }
   }
-  &.load {
-    .swiper-wrapper {
-      transform: translate3d(0, 0, 0) !important;
-      .item_card {
-        &:hover {
-          transform: translate3d(0, 0, 0);
-          cursor: initial;
-        }
-      }
-    }
-  }
-
-  .swiper-wrapper {
-    transform: translateZ(0);
-  }
-
-  .card_none {
-    height:12rem;
-    border-radius:4px;
-    background:#f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
-  }
-
-  /* 슬라이드 */
-  .swiper-slide {
+  .list_card {
     width: 13.75rem;
-    /* 로딩 */
-    &.list_card {
-      .card_hidden {
-        position: absolute;
-        top: 0;
-        transition: opacity 0.5s linear;
-      }
-
-      .card_show {
-        transition: opacity 0.5s linear;
-      }
-
-
-      &.hidden {
-        .card_show {
-          opacity: 0;
-        }
-
-        .card_hidden {
-          opacity: 1;
-        }
-      }
-
-      &.show {
-        .card_show {
-          opacity: 1;
-        }
-
-        .card_hidden {
-          opacity: 0;
-        }
-      }
+    animation: showItem 0.5s ease-in;
+    + .list_card {
+      margin-left: 1.875rem
     }
-
-    &.item_card {
-      animation: showItem 0.5s ease-in;
-      &.item_card {
-        + .item_card {
-          margin-left: 1.875rem
-        }
-      }
-
+    img {
+      display: block;
+      width: 100%;
+      height: 20.5rem;
+      border-radius: 0.5rem
+    }
+    h3 {
+      margin-top: 0.938rem;
+      color: #fff;
+      font-size: 1.375rem;
+      font-weight: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+    &:hover {
+      transform: translate3d(0, -0.75rem, 0);
+      transition: transform .3s ease-in-out;
+      cursor: pointer
+    }
+    &.person_card {
+      width:11.25rem;
       img {
-        display: block;
-        width: 100%;
-        height: 20rem;
-        border-radius: 0.5rem
-      }
-
-      h3 {
-        margin-top: 0.938rem;
-        color: #fff;
-        font-size: 1.375rem;
-        font-weight: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap
-      }
-
-      &:hover {
-        transform: translate3d(0, -0.75rem, 0);
-        transition: transform .3s ease-in-out;
-        cursor: pointer
+        height:16.813rem;
       }
     }
   }
 
-  /* 타이틀 붙었을 때 */
-  + .title {
-    margin-top: 3.125rem
-  }
 }
 
 
-
 /* 장르 */
-.genre {
-  .genre_title {
-    margin: 5rem 0 3rem;
+.genre_title {
+  margin: 0 0 3rem;
 
-    .genre_item {
-      width: auto;
-      padding: 0.625rem 1.25rem;
+  .genre_item {
+    width: auto;
+    padding: 0.625rem 1.25rem;
+    color: #fff;
+    font-size: 1.375rem;
+    border:1px solid #777;
+    border-radius: 2rem;
+    cursor: pointer;
+
+    & + .genre_item {
+      margin-left: 1.25rem;
+    }
+
+    &:hover,
+    &.active {
       color: #fff;
-      font-size: 1.375rem;
-      border:1px solid #777;
-      border-radius: 2rem;
-      cursor: pointer;
-
-      & + .genre_item {
-        margin-left: 1.25rem;
-      }
-
-      &:hover,
-      &.active {
-        color: #fff;
-        border-color:#0372D2;
-        background: #0372D2;
-      }
+      border-color:#0372D2;
+      background: #0372D2;
     }
   }
+}
 
-  .genre_sort {
-    select {
-      margin-bottom: 2.25rem;
-      padding: 0.5rem 1.25rem 0.5rem 0;
-      color: #fff;
-      font-size: 1.375rem;
-      font-weight: bold;
-      border: none;
-      background: none;
+.genre_sort {
+  margin-bottom: 2.25rem;
+  select {
+    padding: 0.5rem 1.25rem 0.5rem 0;
+    color: #fff;
+    font-size: 1.375rem;
+    font-weight: bold;
+    border: none;
+    background: none;
 
-      option {
-        color: #000;
-      }
+    option {
+      color: #000;
     }
   }
+}
 
-  .genre_list {
-    display:flex;
-    flex-wrap:wrap;
-    gap:2rem;
-    animation: showItem 0.5s ease-in;
+.genre_list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  animation: showItem 0.5s ease-in;
+
+
+  .genre_card {
+    display: inline-block;
+    width: calc(100% - 86% - 2rem);
     .tit {
       margin-top: 0.938rem;
       color: #d5d5d5;
@@ -653,42 +609,32 @@ body {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
-    .list_card {
-      display: inline-block;
-      width: calc(100% - 86% - 2rem);
-
-      picture {
-        display: block;
-        border-radius: 0.5rem;
+    picture {
+      display: block;
+      width: 100%;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      img {
         width: 100%;
+        height: 100%;
+        &.poster {
+          animation: slidein 0.5s;
+        }
+      }
+      &.img_none {
+        width: 100%;
+        min-height:13rem;
         max-height: 31.25rem;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-          height: 100%;
-
-          &.poster {
-            animation: slidein 0.5s;
-          }
-        }
-
-        &.img_none {
-          width: 100%;
-          min-height:13rem;
-          max-height: 31.25rem;
-          background: #F2F2F2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23CCCCCC' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23CCCCCC'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23CCCCCC'/%3E%3C/svg%3E") center no-repeat;
-        }
+        background: #F2F2F2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23CCCCCC' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23CCCCCC'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23CCCCCC'/%3E%3C/svg%3E") center no-repeat;
       }
-
-      &:hover {
-        transform: translate3d(0, -0.75rem, 0);
-        transition: transform .3s ease-in-out;
-        cursor: pointer;
-      }
-
     }
+
+    &:hover {
+      transform: translate3d(0, -0.75rem, 0);
+      transition: transform .3s ease-in-out;
+      cursor: pointer;
+    }
+
   }
 }
 
@@ -743,7 +689,6 @@ body {
   overflow: hidden;
   background-position: top;
   background-attachment: fixed;
-
   .detail_info {
     position: relative;
     margin: 3.125rem 3.125rem 0 0;
@@ -756,7 +701,6 @@ body {
       color: #fff;
       font-size: 12px;
     }
-
     &.movie {
       &:before {
         background: #0091f5;
@@ -805,7 +749,20 @@ body {
         display: flex;
         align-items: center;
         font-size: 1.375rem;
-
+        .ott_more_btn {
+          margin-left:1rem;
+          display:none;
+          align-items:center;
+          color:#fff;
+          &:after {
+            display: block;
+            margin-left: 8px;
+            width: 14px;
+            height: 14px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='8' viewBox='0 0 11 8' fill='none'%3E%3Cpath d='M9.42857 2L5.71429 6L2 2' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+            content: ''
+          }
+        }
         &:before {
           display: inline-block;
           margin-right: 1.25rem;
@@ -852,7 +809,6 @@ body {
       display: flex;
       align-items: center;
       margin-top: 2rem;
-
       &:before {
         display: block;
         margin-right: 1.25rem;
@@ -868,15 +824,6 @@ body {
         display: flex;
         align-items: center;
         font-size: 1.375rem;
-
-        &:after {
-          display: block;
-          margin: 0 1rem;
-          width: 1px;
-          height: 12px;
-          background: #fff;
-          content: '';
-        }
       }
 
       .date {
@@ -953,10 +900,10 @@ body {
         text-overflow: ellipsis;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-
+        height:6.25rem;
         &.intro_more {
           display: block;
-
+          height:initial;
           & + .btn_more {
             &:after {
               transform: rotate(-180deg);
@@ -1066,7 +1013,6 @@ body {
 /* 디테일 등장인물 */
 .person_list {
   transition: opacity .5s linear;
-
   .person_card {
     width:9rem;
     cursor: pointer;
@@ -1292,10 +1238,6 @@ body {
       margin: 0 1.25rem 2.5rem 0;
       width: calc(100% - 86% - 1rem);
       vertical-align: top;
-      .card_none {
-        height:21rem;
-        max-height:100%;
-      }
       &.tv {
         position: relative;
 
@@ -1419,7 +1361,7 @@ body {
   padding: 9.375rem 4.375rem 4.375rem;
   color: #fff;
   overflow: hidden;
-
+  animation: showItem 0.5s ease-in;
   picture {
     position: fixed;
     display: block;
@@ -1463,7 +1405,7 @@ body {
 
 .work {
   padding-top: 4.375rem;
-
+  animation: showItem 0.5s ease-in;
   .work_top {
     display: flex;
     align-items: center;
@@ -2098,7 +2040,6 @@ body {
     }
   }
   .title {
-    margin-top:3.5rem;
     justify-content:space-between;
     h2 {
       font-size: 2.625rem;
@@ -2109,41 +2050,25 @@ body {
     }
   }
   .item_container {
-    padding: 2.5rem;
-
-    &.genre {
-      height: 100vh;
-      overflow-y: auto;
-      .genre_title {
-        .genre_item {
-          font-size:1.625rem;
-        }
-      }
-      .genre_sort {
-        select {
-          font-size:1.75rem;
-        }
-      }
-      .genre_list {
-        .tit {
-          font-size:1.5rem;
-        }
-      }
+    padding:8.75rem 0 8.75rem 2.5rem;
+    &.detail {
+      padding-top:0;
+      padding-right:2.5rem;
     }
   }
-  .swiper {
-    .swiper-slide {
-      &.item_card {
-        width: 12.25rem;
-        + .item_card {
-          margin-left: 10px
-        }
-        img {
-          height: 18.375rem
-        }
-        h3 {
-          font-size:1.5rem;
-        }
+
+
+  .item_slide {
+    .list_card {
+      width: 12.25rem;
+      + .item_card {
+        margin-left: 10px
+      }
+      img {
+        height: 18.375rem
+      }
+      h3 {
+        font-size:1.5rem;
       }
     }
   }
@@ -2179,8 +2104,9 @@ body {
       margin: 0;
       text-align: center;
       h1 {
-        font-size:3.75rem;
         margin-top: 0;
+        font-size:3.75rem;
+        line-height:4.5rem;
       }
       .meta {
         flex-wrap:wrap;
@@ -2194,12 +2120,7 @@ body {
         }
         .date {
           justify-content:center;
-          width:100%;
           font-size:1.875rem;
-          line-height:3.5rem;
-          &:before {
-            content:none
-          }
         }
         &:before {
           width:2.875rem;
@@ -2221,16 +2142,32 @@ body {
         }
       }
       .ott_box {
+        &.more {
+          .ott_more_btn {
+            &:after {
+              transform:rotate(-180deg);
+            }
+          }
+          .ott_wrap {
+            display:block;
+          }
+        }
         .ott_tit {
           justify-content:center;
           font-size:1.875rem;
+          .ott_more_btn {
+            display:flex;
+          }
           &:before {
             width:2.875rem;
             height:2.875rem;
           }
         }
         .ott_wrap {
-          display:block;
+          display:none;
+          &.more {
+            display:block;
+          }
           .ott_list {
             margin:22px auto;
             &+.ott_list {
@@ -2277,16 +2214,35 @@ body {
     }
   }
 
+
   .genre {
     .genre_list {
-      gap:1rem;
-      .list_card {
-        width: calc(100% - 76% - 1rem);
-
+      .genre_card {
+        width: calc(100% - 76% - 2rem);
       }
     }
   }
 
+  .more_card {
+    width: calc(100% - 76% - 2rem);
+  }
+
+  .loading {
+    .loader {
+      width:1.5rem;
+      height:1.5rem;
+      &:before {
+        left:-2.5rem;
+        width:1.5rem;
+        height:1.5rem;
+      }
+      &:after {
+        left:2.5rem;
+        width:1.5rem;
+        height:1.5rem;
+      }
+    }
+  }
   .search_container {
     .search_input {
       margin: 7rem;
@@ -2331,7 +2287,7 @@ body {
   }
   .profile_info {
     margin:0 2.5rem 9.375rem;
-
+    animation: showItem 0.5s ease-in;
     .profile_name {
       display: block;
       margin: 0.938rem 0;

@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import {Navigation} from "swiper/modules";
+import imgNone from "../images/img_card_none.png";
 
 export default function List(props) {
     const [itemId, setItemId] = useState(null);
@@ -26,7 +27,7 @@ export default function List(props) {
     return (
         <Swiper
             slidesPerView={'auto'} navigation={true} modules={[Navigation]}
-            className={`swiper`}
+            className={`swiper item_slide`}
         >
             {list.map(item => (
                 <SwiperSlide
@@ -42,11 +43,13 @@ export default function List(props) {
                 >
                     {
                         item.poster_path === null || item.profile_path === null ? (
-                            <div className="card_none">none</div>
+                            <picture className="img_none">
+                                <img src={imgNone} alt="img_none" loading="lazy"/>
+                            </picture>
                         ) : (
                             <img
                                 src={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : (item.profile_path ? `https://image.tmdb.org/t/p/w154${item.profile_path}` : (item.still_path ? `https://image.tmdb.org/t/p/w500/${item.still_path}` : ''))}
-                                alt={item.poster_path}
+                                alt={item.title || item.name}
                                 loading="lazy"
                             />
                         )
