@@ -95,7 +95,11 @@ export default function PersonDetail() {
                 ) : (
                     <>
                         <section className="person_detail"
-                                 style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${artPopular[0]?.backdrop_path})`}}>
+                                 style={{
+                                     backgroundImage: artPopular[0]?.backdrop_path
+                                         ? `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${artPopular[0]?.backdrop_path})`
+                                         : null
+                                 }}>
                             <picture>
                                 <img
                                     src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`}
@@ -105,18 +109,22 @@ export default function PersonDetail() {
                         <div className="profile_info">
                             <div className="profile_name">
                                 <h1>{dataUrl.name}</h1>
-                                <ul className="social_links">
-                                    {socialMedia.map((item, index) => {
-                                        return item.link !== "null" ? (
-                                            <li key={index}>
-                                                <a href={`${item.url}/${item.link}`} className={`${item.class}`}
-                                                   target="_blank" rel="noopener noreferrer">
-                                                    <span className="blind">{item.name}</span>
-                                                </a>
-                                            </li>
-                                        ) : null;
-                                    })}
-                                </ul>
+                                {
+                                    socialUrl && (
+                                        <ul className="social_links">
+                                            {socialMedia.map((item, index) => {
+                                                return item.link !== "null" ? (
+                                                    <li key={index}>
+                                                        <a href={`${item.url}/${item.link}`} className={`${item.class}`}
+                                                           target="_blank" rel="noopener noreferrer">
+                                                            <span className="blind">{item.name}</span>
+                                                        </a>
+                                                    </li>
+                                                ) : null;
+                                            })}
+                                        </ul>
+                                    )
+                                }
                             </div>
 
                             <div className="profile_desc">

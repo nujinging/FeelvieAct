@@ -407,7 +407,7 @@ body {
 .filmo_tab {
   display: flex;
   align-items: center;
-  margin-bottom:2rem;
+  margin-bottom:4rem;
   border-bottom:1px solid #a5a5a5;
   li {
     position:relative;
@@ -1102,21 +1102,20 @@ body {
   .video_card {
     display: block;
     width: 21.25rem;
-
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath opacity='0.15' d='M8 6V18L18 12L8 6Z' fill='%23001A72'/%3E%3Cpath d='M8 6V18L18 12L8 6Z' stroke='%23001A72' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
   }
 
   .bg_card {
-    width: 28.75rem;
-
+    width: 21.25rem;
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
   }
 
   .poster_card {
+    width:13.75rem;
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
@@ -1184,6 +1183,12 @@ body {
   }
 }
 
+/* 디테일 추천작품 */
+.recommend_none {
+  font-size:1.5rem;
+  line-height:2.125rem;
+}
+
 /* 검색 */
 .search_container {
   margin-top: 12.5rem;
@@ -1222,7 +1227,10 @@ body {
   }
 
   .search_list {
-    margin: 3.888rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    animation: showItem 0.5s ease-in;
     .tit {
       margin-top: 0.938rem;
       color: #d5d5d5;
@@ -1234,10 +1242,8 @@ body {
     }
 
     .list_card {
-      display: inline-block;
-      margin: 0 1.25rem 2.5rem 0;
-      width: calc(100% - 86% - 1rem);
-      vertical-align: top;
+      width:calc(100% - 86% - 2rem);
+      animation: showItem 0.3s ease-in;
       &.tv {
         position: relative;
 
@@ -1337,6 +1343,9 @@ body {
       p {
         font-size:1.875rem;
         line-height:3.125rem;
+        span {
+          text-decoration:underline;
+        }
       }
     }
 
@@ -1367,7 +1376,7 @@ body {
     display: block;
     width: 18.75rem;
     overflow: hidden;
-
+    z-index:1;
     img {
       width: 100%;
       border-radius: 0.5rem;
@@ -1412,7 +1421,7 @@ body {
     margin-bottom: 1.875rem;
 
     h3 {
-      font-size: 2rem;
+      font-size: 1.875rem;
       font-weight: bold;
     }
 
@@ -1714,88 +1723,13 @@ body {
   }
 }
 
-.media_container {
-  margin: 5rem 0;
-
-  .media_top {
-    display: flex;
-    color: #fff;
-    margin-bottom: 2rem;
-
-    .tit {
-      font-size: 2rem;
-    }
-  }
-
-  .media_tab {
-    display: flex;
-    align-items: center;
-    margin-left: 1.042vw;
-
-    li + li {
-      margin-left: 0.625rem;
-    }
-
-    li {
-      button {
-        padding: 0.375rem 0.938rem;
-        color: #fff;
-        font-size: 1rem;
-        line-height: 1.25rem;
-        border: 1px solid #fff;
-        border-radius: 3.125rem;
-        background: #000;
-
-        &.active {
-          color: #000;
-          border-color: #000;
-          background: #fff;
-        }
-      }
-    }
-  }
-
-  .media_list {
-    .swiper-slide {
-      width: 11.563rem;
-      cursor: pointer;
-
-      + .swiper-slide {
-        margin-left: 1.25rem;
-      }
-
-      img {
-        width: 100%;
-      }
-    }
-
-    &.bg {
-      .swiper-slide {
-        width: 11.563rem;
-      }
-    }
-
-    &.video {
-      .swiper-slide {
-        width: 15.625rem;
-
-        iframe {
-          width: 100%;
-        }
-
-        a {
-          display: block;
-          margin-top: 0.938rem;
-          width: 100%;
-          font-size: 1.125rem;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-      }
-    }
+.media_slide {
+  .poster_card {
+    width:12.25rem;
   }
 }
+
+
 
 
 /* ETC */
@@ -2214,6 +2148,10 @@ body {
     }
   }
 
+  .recommend_none {
+    font-size:1.875rem;
+    line-height:2.875rem;
+  }
 
   .genre {
     .genre_list {
@@ -2253,7 +2191,7 @@ body {
       margin: 3.888rem 3rem;
 
       .list_card {
-        width: calc(100% - 70% - 0.25rem);
+        width:calc(100% - 76% - 2rem);
 
       }
     }
@@ -2295,6 +2233,9 @@ body {
     }
 
     .profile_name {
+      h1 {
+        font-size:3.25rem;
+      }
       .social_links {
         margin: 2rem 0;
         justify-content: center;
@@ -2303,6 +2244,11 @@ body {
 
     .profile_desc {
       text-align: center;
+      dl {
+        dt,dd {
+          font-size:1.875rem;
+        }
+      }
     }
   }
 
@@ -2381,6 +2327,15 @@ body {
             line-height:2.875rem;
           }
         }
+      }
+    }
+  }
+
+  .filmo_tab {
+    li {
+      button {
+        font-size:2.625rem;
+        line-height:3.5rem;
       }
     }
   }

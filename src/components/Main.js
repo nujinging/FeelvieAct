@@ -24,7 +24,7 @@ export default function Main() {
         setPopularLoading(true);
         setPopularType(type);
         if (type  === popularType) {
-            return
+            setPopularLoading(false);
         }
     };
 
@@ -119,8 +119,7 @@ export default function Main() {
                     <div className="item_box">
                         <div className="title">
                             <h2>
-                                &#x1F4C5;
-                                <span>오늘 가장 많이</span>
+                                <span>&#x1F4C5; 오늘 가장 많이</span>
                                 찾아 본 컨텐츠
                             </h2>
                             <ul className="type_list">
@@ -151,8 +150,7 @@ export default function Main() {
                     <div className="item_box">
                         <div className="title">
                             <h2>
-                                &#x1F4C5;
-                                <span>이번 주 가장 많이</span>
+                                <span>&#x1F4C5; 이번 주 가장 많이</span>
                                 찾아 본 컨텐츠
                             </h2>
                             <ul className="type_list">

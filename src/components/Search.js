@@ -2,13 +2,16 @@ import './../App.scss';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
+import Loading from "./Loading";
+import imgNone from "../images/img_card_none.png";
 
 function App() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
-    const [searchNone, setSearchNone] = useState('');
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [intro, setIntro] = useState(true);
+    const [searchNone, setSearchNone] = useState(false);
 
     // 영화 디테일 페이지 이동
     const pageLink = (itemType, itemId) => {
@@ -19,7 +22,7 @@ function App() {
         }
     }
 
-    // event 객체가 undefined 일때 발생하는 오류 방지 - 유효성 확인
+    // 엔터 방지
     const searchEnter = (event) => {
         if (event && event.key === 'Enter') {
             searchChange(event);
@@ -27,24 +30,31 @@ function App() {
         }
     }
 
+    // 0.7초 동안 추가 입력이 없을때에만 Api 요청
     let delayTimer;
-
-    // 1초 동안 추가 입력이 없을때에만 Api 요청
     useEffect(() => {
-        if (searchWord) {
-            // 초기화
-            clearTimeout(delayTimer);
-            delayTimer = setTimeout(() => {
-                const SearchFetch = async () => {
-                    const response = await movieApi.search(searchWord);
-                    setSearchList(response.data.results);
-                };
-                SearchFetch();
-            }, 500);
-            setLoading(false);
+        try {
+            if (searchWord) {
+                setLoading(true);
+                setIntro(false);
+                setSearchNone(false);
+                // 초기화
+                clearTimeout(delayTimer);
+                delayTimer = setTimeout(() => {
+                    const SearchFetch = async () => {
+                        const searchValue = await movieApi.search(searchWord);
+                        setSearchList(searchValue.data.results);
+                        setLoading(false);
+                        setSearchNone(searchValue.data.results.length === 0);
+                    };
+                    SearchFetch();
+                }, 700);
+            }
+        } catch(error) {
+            console.log(error)
         }
         return () => clearTimeout(delayTimer);
-    }, [searchWord, setLoading]);
+    }, [searchWord, searchList.length]);
 
     // 검색 인풋 값 변경
     const searchChange = (event) => {
@@ -53,13 +63,16 @@ function App() {
         setSearchWord(event.target.value);
         // 백스페이스 키를 눌러서 입력값을 지운 경우
         if (event.target.value === '') {
-            setSearchNone('none');
+            setSearchNone(false);
             // 기존에 들어있던 값 초기화
             setSearchList([]);
+            // 로딩 없애고 인트로 다시 등장
+            setLoading(false);
+            setIntro(true);
         } else {
-            setSearchNone('')
+            setSearchNone(false);
+            setLoading(true);
         }
-        setLoading(false);
     };
 
     return (
@@ -75,19 +88,16 @@ function App() {
                 </label>
             </form>
 
+
             {
-                searchNone === 'none' ? (
-                    <div className="search_none">
-                        검색결과가 없어요💧
-                    </div>
-                ) : searchList.length === 0 && searchWord.length > 0 && (
+                searchNone && (
                     <div className="search_none">
                         검색결과가 없어요💧
                     </div>
                 )
             }
 
-            {searchList.length === 0 && (
+            {intro && (
                 <div className="search_tip">
                     <div className="txt">
                         <h1>
@@ -96,42 +106,49 @@ function App() {
                                 TV 프로그램
                             </strong> 검색은 어떠세요?</h1>
                         <p>
-                            예를 들면 진격의 거인이나 스파이 패밀리요 😎<br/>
+                            예를 들면 <span>진격의 거인</span>이나 <span>스파이 패밀리</span>요 😎<br/>
                             검색할 땐 띄어쓰기를 정확히 해주세요 !
                         </p>
                     </div>
                 </div>
             )}
 
-            <ul className="search_list">
+            {
+                loading ? (
+                    <Loading/>
+                ) : (
+                    <ul className="search_list">
+                        {
+                            searchList.map(item => {
+                                return (
+                                    <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`}
+                                        onClick={() => pageLink(item.media_type, item.id)}>
+                                        <picture>
+                                            {
+                                                item.poster_path === null || item.profile_path === null ? (
+                                                    <picture className="img_none">
+                                                        <img src={imgNone} alt="img_none" loading="lazy"/>
+                                                    </picture>
+                                                ) : (
+                                                    <img
+                                                        src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                        alt={item.title || item.name}
+                                                        loading="lazy"
+                                                    />
+                                                )
+                                            }
 
-                {
-                    !searchNone && searchList.map(item => {
-                        return (
-                            <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`}
-                                onClick={() => pageLink(item.media_type, item.id)}>
-                                <picture>
-                                    {
-                                        item.poster_path === null || item.profile_path === null ? (
-                                            <div className="card_none">none</div>
-                                        ) : (
-                                            <img
-                                                src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
-                                                alt="Movie Poster"
-                                                loading="lazy"
-                                            />
-                                        )
-                                    }
-
-                                </picture>
-                                <p className="tit">
-                                    {item.name ? item.name : item.title}
-                                </p>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+                                        </picture>
+                                        <p className="tit">
+                                            {item.title || item.name}
+                                        </p>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                )
+            }
         </div>
     );
 }

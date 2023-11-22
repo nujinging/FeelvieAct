@@ -269,15 +269,21 @@ export default function ItemDetail() {
                             {/* 미디어 */}
                             <MediaDetail></MediaDetail>
 
-                            {/* 비슷한 작품 */}
-                            {
-                                (recommendUrl && recommendUrl.length !== 0) && (
-                                    <div className="item_box">
-                                        <div className="title"><h2>비슷한 작품</h2></div>
-                                        <List type={params.type} list={recommendUrl} class={"item_list"}></List>
-                                    </div>
-                                )
-                            }
+                            {/* 추천 작품 */}
+                            <div className="item_box">
+                                <div className="title"><h2>추천 작품</h2></div>
+                                {
+                                    recommendUrl.length !== 0 ? (
+                                        <List type={params.type} list={recommendUrl} class={"item_list"}></List>        
+                                    ) : (
+                                        <p className="recommend_none">
+                                            &#x1F622; {detailData?.title || detailData?.name}의 충분한 평가가 이뤄지지않아 아직 추천드릴 작품이 없어요<br/>
+                                        </p>
+                                    )
+                                }
+                                
+                            </div>
+                            
                         </div>
                     </>
                 )

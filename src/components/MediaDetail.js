@@ -13,7 +13,6 @@ export default function MediaDetail() {
     const params = useParams();
     const dispatch = useDispatch();
 
-    const [mediaType, setMediaType] = useState('video');
     const [imgDetail, setImgDetail] = useState();
     const [videoDetail, setVideoDetail] = useState();
     const [videoUrl, setVideoUrl] = useState([]);
@@ -22,13 +21,44 @@ export default function MediaDetail() {
     const [imgModal, setImgModal] = useState(false);
     const [videoModal, setVideoModal] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [mediaLoading, setMediaLoading] = useState(false);
+    const [mediaState, setMediaState] = useState(false);
 
-    // 미디어 - 배경,포스터
+
+    const [mediaType, setMediaType] = useState('video');
+    // 미디어 - 배경, 포스터
     const mediaTab = (type) => {
         setMediaType(type);
-        setMediaLoading(true);
+        setMediaState(true);
+        if (type  === mediaType) {
+            setMediaState(false);
+        }
     }
+
+    useEffect(() => {
+        try {
+            if (videoUrl.length > 0) {
+                setMediaType('video');
+            } else if (videoUrl.length === 0 && imagesUrl.backdrops && imagesUrl.posters) {
+                setMediaType('backdrops');
+            } else {
+                setMediaType('posters');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [videoUrl, imagesUrl]);
+
+    useEffect(() => {
+        // 데이터가 제대로 들어오긴 하나, 용량으로 조금 버벅거려 0.2초 딜레이 줌
+        setTimeout(()=> {
+            if (videoUrl || imagesUrl) {
+                setMediaState(false);
+            }
+        }, 200)
+
+    }, [mediaType]);
+
+
     // 이미지 모달
     const imgModalOpen = (item) => {
         setImgModal(!imgModal);
@@ -52,31 +82,18 @@ export default function MediaDetail() {
                 // 비디오
                 const videos = await movieApi.seasonVideo(params.type, params.id);
                 setVideoUrl(videos.data.results);
+
             } catch (error) {
                 console.log(error)
             } finally {
                 setLoading(false);
-                setMediaLoading(false);
             }
         }
         fetchApi();
     }, [params.id]);
 
-    useEffect(() => {
-        try {
-            // 비디오가 없으면 배경 -> 포스터
-            if (videoUrl.length > 0) {
-                setMediaType('video')
-            } else if (videoUrl.length === 0 && imagesUrl.backdrops && imagesUrl.posters) {
-                setMediaType('backdrops')
-            } else {
-                setMediaType('posters')
-            }
-        } catch (error) {
-            console.log(error)
-        } finally {
-        }
-    }, [videoUrl, imagesUrl]);
+
+
 
     return (
         <>
@@ -122,7 +139,7 @@ export default function MediaDetail() {
 
                         {/* 리스트 */}
                         {
-                            mediaLoading ? (
+                            mediaState ? (
                                 <Loading/>
                             ) : (
                                 <>
