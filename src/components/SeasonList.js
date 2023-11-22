@@ -19,7 +19,9 @@ export default function SeasonList() {
     const lastSeason = detailData?.number_of_seasons;
 
     /* 시즌 에피소드 5개 보여주기 */
-    const seasonList = seasonData?.episodes.slice(0, 5);
+    const seasonList = seasonData?.episodes[seasonData.episodes.length - 1];
+
+    console.log(lastSeason)
 
     useEffect(() => {
         async function fetchApi() {
@@ -53,43 +55,24 @@ export default function SeasonList() {
                         </div>
                         <div className="season_box">
                             {seasonData?.poster_path !== null && (
-                                <Link to={`/${params.type}/season/${params.id}/episode`} className="season_main">
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w342${seasonData.poster_path}`}
-                                        alt={seasonData.poster_path}
-                                        loading="lazy"
-                                    />
-                                </Link>
+                                <div className="season_img">
+                                    <Link to={`/${params.type}/season/${params.id}/episode`} className="season_main">
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w342${seasonData.poster_path}`}
+                                            alt={seasonData.poster_path}
+                                            loading="lazy"
+                                        />
+                                    </Link>
+                                    <span className="episode_date">마지막 방영<br/>{seasonList.name} {seasonList.air_date}</span>
+                                </div>
                             )}
 
+                            <div className="season_txt">
 
-                            <Swiper slidesPerView={'auto'} navigation={true} modules={[Navigation]}
-                                    className={`swiper season_list`}>
-                                {seasonList.map(item => (
-                                    <SwiperSlide className={`list_card item_card`} key={item.id}>
-                                        {
-                                            item?.still_path === null ? (
-                                                <picture className="img_none">
-                                                    <span className="blind">이미지 없음</span>
-                                                </picture>
-                                            ) : (
-                                                <img
-                                                    src={item?.still_path ? `https://image.tmdb.org/t/p/w342${item?.still_path}` : (item?.still_path ? `https://image.tmdb.org/t/p/w154${item?.still_path}` : (item?.still_path ? `https://image.tmdb.org/t/p/w500/${item?.still_path}` : ''))}
-                                                    alt={item?.still_path}
-                                                    loading="lazy"
-                                                />
-                                            )
-                                        }
-                                        <h3>{item.title || item.name}</h3>
-                                        {item.air_date && (
-                                            <div>
-                                                <span className="episode_date">{item.air_date}</span>
-                                                <p className="episode_txt">{item.overview}</p>
-                                            </div>
-                                        )}
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+                                <h3>{seasonData.name}</h3>
+                                <p className="episode_txt">{seasonData.overview}</p>
+                            </div>
+
                         </div>
                     </div>
                 )

@@ -234,6 +234,9 @@ body {
       margin-top:5rem;
     }
   }
+  &.detail {
+    padding:8.75rem 4rem;
+  }
 }
 
 .card_none {
@@ -1128,14 +1131,14 @@ body {
   }
 }
 
+
 /* 디테일 현재시즌 */
 .last_season {
   margin: 3.125rem 0;
 
   .title {
-    justify-content: space-between;
-
     .season_link {
+      margin-left:8rem;
       color: #fff;
       font-size: 1.5rem;
       line-height: 2.125rem;
@@ -1156,17 +1159,21 @@ body {
 
     .season_list {
       width:100%;
-
-      .item_card {
-        width:25rem;
+      .season_card {
+        width:21.25rem;
         &:hover {
           transform: translate3d(0, 0, 0);
           cursor: initial;
         }
+        &+.season_card {
+          margin-left:1.875rem;
+        }
         img {
-          height: 13.75rem;
+          width:100%;
+          border-radius:0.5rem;
         }
         h3 {
+          margin-top:1.875rem;
           font-size:1.5rem;
         }
         .episode_date {
@@ -1229,6 +1236,7 @@ body {
   .search_list {
     display: flex;
     flex-wrap: wrap;
+    margin: 3.888rem;
     gap: 2rem;
     animation: showItem 0.5s ease-in;
     .tit {
@@ -1327,7 +1335,7 @@ body {
     display:flex;
     align-items:center;
     justify-content:center;
-    margin:5rem auto;
+    margin:10rem auto 0;
     width:75rem;
     .txt {
       font-size: 1.75rem;
@@ -1463,7 +1471,7 @@ body {
       cursor: pointer;
 
       &:hover {
-        .tit {
+        .tit, .date, .char {
           color: #4876ef;
         }
       }
@@ -1658,6 +1666,20 @@ body {
     background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
 }
+.season_txt {
+  h3 {
+    margin:0.5rem 0 2rem;
+    font-size:1.5rem;
+  }
+  span {
+    display:block;
+  }
+  p {
+    font-size:1.25rem;
+    line-height:2.125rem;
+  }
+}
+
 .season_info {
   position: relative;
   z-index: 1;
@@ -2183,7 +2205,7 @@ body {
   }
   .search_container {
     .search_input {
-      margin: 7rem;
+      margin: 4rem;
       padding: 1rem 0;
     }
 
@@ -2287,7 +2309,7 @@ body {
     padding: 9.375rem 2.5rem 2.5rem;
     .season_poster {
       margin:0 auto;
-      width:22rem;
+      width:100%;
       .season_back {
         font-size:2rem;
       }
@@ -2296,7 +2318,29 @@ body {
         margin-bottom: 3.5rem;
         font-size:3.25rem;
         text-align: center;
+        p {
+          text-align:center;
+          line-height:initial;
+        }
       }
+    }
+    .season_img {
+      margin:0 auto;
+      width:22rem;
+    }
+  }
+  .season_txt {
+    margin:2rem 0 0;
+    h3 {
+      margin-top:1rem;
+      font-size:2.2rem;
+    }
+    span {
+      font-size:1.875rem;
+    }
+    p {
+      font-size:1.875rem;
+      line-height:2.875rem;
     }
   }
 
