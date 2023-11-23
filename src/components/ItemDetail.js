@@ -28,7 +28,6 @@ export default function ItemDetail() {
     const overviewText = useRef(null);
     const [overflowMore, setOverviewMore] = useState(false);
     const [overviewExpanded, setOverviewExpanded] = useState(false);
-
     const [ottState, setOttState] = useState(false);
 
     /* 소셜 */
@@ -40,14 +39,6 @@ export default function ItemDetail() {
 
     /* 등장인물 */
     const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
-
-    // 영화 상세설명
-    useEffect(() => {
-        const textContainer = overviewText.current;
-        if (textContainer) {
-            setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight);
-        }
-    }, []);
 
     // 영화 상세설명 더보기
     const overviewMoreClick = () => {
@@ -85,8 +76,6 @@ export default function ItemDetail() {
                     const textContainer = overviewText.current;
                     if (textContainer) {
                         setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight + 10);
-                        console.log(textContainer.scrollHeight)
-                        console.log(textContainer.clientHeight)
                     }
                 };
                 handleResize();
@@ -281,7 +270,6 @@ export default function ItemDetail() {
                                         </p>
                                     )
                                 }
-                                
                             </div>
                             
                         </div>

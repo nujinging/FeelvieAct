@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import LoadingProgress from "./LoadingProgress";
 import Loading from "./Loading";
 import {debounce} from 'lodash';
@@ -36,11 +36,6 @@ export default function Genre() {
         setGenreNumber(itemId);
         navigate(`/genre/${type}/${itemId}`);
     };
-
-    // 디테일 페이지 이동
-    const pageLink = (itemType, itemId) => {
-        navigate(`/detail/${itemType}/${itemId}`);
-    }
 
     // 정렬 선택
     const SortClick = async (event) => {
@@ -104,7 +99,7 @@ export default function Genre() {
 
     const ListMore = debounce(() => {
         const nextPage = page + 1;
-        const ScrollData = async () => {
+        const PageData = async () => {
             try {
                 if (number === 'All') {
                     const popularScroll = await movieApi.popularScroll(type, nextPage);
@@ -119,9 +114,10 @@ export default function Genre() {
 
         };
         setPage(nextPage);
-        ScrollData();
+        PageData();
     }, 1000);
 
+    /* 리스트 더보기 */
     const listMoreBtn = () => {
         setLoading(true);
         ListMore();
@@ -171,22 +167,25 @@ export default function Genre() {
                         {genreList?.map((item, index) => {
                             return (
                                 <>
-                                    <li className="genre_card" onClick={() => pageLink(type, item.id)} key={index}>
-                                        {
-                                            item.poster_path === null ? (
-                                                <picture className="img_none">
-                                                    <img src={imgNone} alt="img_none" loading="lazy"/>
-                                                </picture>
-                                            ) : (
-                                                <picture>
-                                                    <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
-                                                         alt={item.title || item.name} loading="lazy"/>
-                                                </picture>
-                                            )
-                                        }
-                                        <p className="tit">
-                                            {item.title || item.name}
-                                        </p>
+                                    <li className="genre_card" key={index}>
+                                        <Link to={`/detail/${type}/${item.id}`} className="link">
+                                            {
+                                                item.poster_path ? (
+                                                    <picture>
+                                                        <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
+                                                             alt={item.title || item.name} loading="lazy"/>
+                                                    </picture>
+
+                                                ) : (
+                                                    <picture className="img_none">
+                                                        <img src={imgNone} alt="img_none" loading="lazy"/>
+                                                    </picture>
+                                                )
+                                            }
+                                            <p className="tit">
+                                                {item.title || item.name}
+                                            </p>
+                                        </Link>
                                     </li>
                                 </>
                             )
@@ -203,8 +202,6 @@ export default function Genre() {
                     </ul>
                 )
             }
-
-
         </div>
     );
 }

@@ -1,26 +1,17 @@
 import './../App.scss';
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import Loading from "./Loading";
 import imgNone from "../images/img_card_none.png";
 
-function App() {
+export default function Search() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [intro, setIntro] = useState(true);
     const [searchNone, setSearchNone] = useState(false);
-
-    // 영화 디테일 페이지 이동
-    const pageLink = (itemType, itemId) => {
-        if (itemType === 'movie' || itemType === 'tv') {
-            navigate(`/detail/${itemType}/${itemId}`);
-        } else {
-            navigate(`/person/${itemId}`);
-        }
-    }
 
     // 엔터 방지
     const searchEnter = (event) => {
@@ -30,7 +21,7 @@ function App() {
         }
     }
 
-    // 0.7초 동안 추가 입력이 없을때에만 Api 요청
+    // 0.5초 동안 추가 입력이 없을때에만 Api 요청
     let delayTimer;
     useEffect(() => {
         try {
@@ -48,7 +39,7 @@ function App() {
                         setSearchNone(searchValue.data.results.length === 0);
                     };
                     SearchFetch();
-                }, 700);
+                }, 500);
             }
         } catch(error) {
             console.log(error)
@@ -88,6 +79,43 @@ function App() {
                 </label>
             </form>
 
+            {
+                loading ? (
+                    <Loading/>
+                ) : (
+                    <ul className="search_list">
+                        {
+                            searchList.map(item => {
+                                return (
+                                    <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`}>
+                                        <Link to={`${item.media_type === 'movie' || item.media_type === 'tv' ? `/detail/${item.media_type}/${item.id}` : `/person/${item.id}`}`} className="link">
+                                            <picture>
+                                                {
+                                                    item.poster_path === null || item.profile_path === null ? (
+                                                        <picture className="img_none">
+                                                            <img src={imgNone} alt="img_none" loading="lazy"/>
+                                                        </picture>
+                                                    ) : (
+                                                        <img
+                                                            src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                            alt={item.title || item.name}
+                                                            loading="lazy"
+                                                        />
+                                                    )
+                                                }
+
+                                            </picture>
+                                            <p className="tit">
+                                                {item.title || item.name}
+                                            </p>
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                )
+            }
 
             {
                 searchNone && (
@@ -113,44 +141,6 @@ function App() {
                 </div>
             )}
 
-            {
-                loading ? (
-                    <Loading/>
-                ) : (
-                    <ul className="search_list">
-                        {
-                            searchList.map(item => {
-                                return (
-                                    <li className={`list_card ${item.media_type === 'tv' ? 'tv' : (item.profile_path ? 'actor' : 'movie')}`}
-                                        onClick={() => pageLink(item.media_type, item.id)}>
-                                        <picture>
-                                            {
-                                                item.poster_path === null || item.profile_path === null ? (
-                                                    <picture className="img_none">
-                                                        <img src={imgNone} alt="img_none" loading="lazy"/>
-                                                    </picture>
-                                                ) : (
-                                                    <img
-                                                        src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
-                                                        alt={item.title || item.name}
-                                                        loading="lazy"
-                                                    />
-                                                )
-                                            }
-
-                                        </picture>
-                                        <p className="tit">
-                                            {item.title || item.name}
-                                        </p>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                )
-            }
         </div>
     );
 }
-
-export default App;

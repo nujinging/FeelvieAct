@@ -1,6 +1,6 @@
 import './../App.scss';
 import {movieApi} from "../util/movieApi";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import List from "./List";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,12 +18,6 @@ export default function PersonDetail() {
     const [loading, setLoading] = useState(true);
     const [filmoLoading, setFilmoLoading] = useState(true);
     const dispatch = useDispatch();
-    const detailData = useSelector(state => state.movies.movieData);
-
-    /* 디테일 컴포넌트 이동 */
-    const movieLink = (itemId) => {
-        navigate(`/detail/${typeTabs}/${itemId}`);
-    }
 
     // 배우 필모그래피 TAB
     const typeChange = (type) => {
@@ -75,17 +69,17 @@ export default function PersonDetail() {
         fetchApi();
     }, [typeTabs, params.id]);
 
+    /* fecthApi 비동기 작업이 완료되고 난 뒤에 - ariUrl이 업데이트 되고 난 뒤 popular 작업*/
     useEffect(() => {
         try {
             // 배우 인기 필모그래피
             const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
             setArtPopular(popular)
-            console.log()
 
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
-    }, [typeTabs, params.id, artUrl]);
+    }, [artUrl]);
 
     return (
         <div className="container">
@@ -168,19 +162,25 @@ export default function PersonDetail() {
                                             </div>
 
                                             <ul className="work_list">
+
                                                 {
                                                     artUrl.map((item, index) => {
                                                         return (
-                                                            <li key={index} onClick={() => movieLink(item.id)}>
-                                                <span className="date">
+                                                            <li key={index}>
+                                                                <Link to={`/detail/${typeTabs}/${item.id}`} className="link">
+                                                                    <div className="tit">
+                                                                     <span>
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>
-                                                                <p className="tit">
-                                                                    {item.title || item.original_name}
-                                                                </p>
-                                                                <span className="char">
+                                                                        <p>
+                                                                            {item.title || item.original_name}
+                                                                        </p>
+                                                                    </div>
+                                                                    <span className="char">
                                                     {item.character} 역
                                                 </span>
+                                                                </Link>
+
                                                             </li>
                                                         )
                                                     })

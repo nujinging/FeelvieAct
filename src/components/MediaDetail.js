@@ -22,9 +22,8 @@ export default function MediaDetail() {
     const [videoModal, setVideoModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const [mediaState, setMediaState] = useState(false);
-
-
     const [mediaType, setMediaType] = useState('video');
+
     // 미디어 - 배경, 포스터
     const mediaTab = (type) => {
         setMediaType(type);
@@ -58,7 +57,6 @@ export default function MediaDetail() {
 
     }, [mediaType]);
 
-
     // 이미지 모달
     const imgModalOpen = (item) => {
         setImgModal(!imgModal);
@@ -91,9 +89,6 @@ export default function MediaDetail() {
         }
         fetchApi();
     }, [params.id]);
-
-
-
 
     return (
         <>
@@ -172,7 +167,6 @@ export default function MediaDetail() {
                             )
                         }
 
-
                         {/* 비디오 모달 */}
                         {
                             videoModal && (
@@ -186,8 +180,6 @@ export default function MediaDetail() {
                                 <ImgModal item={imgDetail} onClose={imgModalOpen}></ImgModal>
                             )
                         }
-
-
                     </div>
                 )
             }

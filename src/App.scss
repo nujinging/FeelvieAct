@@ -43,12 +43,12 @@ ol, ul {
 }
 
 button {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
-  border:none;
-  background:none;
+  border: none;
+  background: none;
 }
 
 a {
@@ -108,37 +108,40 @@ body {
 
 
 .progress {
-  position:fixed;
-  top:0;
-  left:0;
-  height:4px;
-  background:#007bff;
-  transition:width 0.2s;
-  z-index:5000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #007bff;
+  transition: width 0.2s;
+  z-index: 5000;
 }
 
 .genre_btm {
-  text-align:center;
+  text-align: center;
 }
+
 .more_card {
-  width:calc(100% - 86% - 2rem);
+  width: calc(100% - 86% - 2rem);
+
   .loading {
-    height:calc(100% - 40px);
+    height: calc(100% - 40px);
   }
 }
+
 .list_more {
-  padding:1rem 0;
-  width:100%;
-  height:calc(100% - 40px);
-  color:#fff;
-  font-size:1.625rem;
-  border:none;
-  background:none;
+  padding: 1rem 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  color: #fff;
+  font-size: 1.625rem;
+  border: none;
+  background: none;
 }
 
 /* 헤더 */
 .wrap_header {
-  position:fixed;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 500;
@@ -148,15 +151,17 @@ body {
   -webkit-transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   background-color: rgba(0, 0, 0, 0);
+
   &.fixed {
     transform: translateZ(0);
-    background-image: linear-gradient(rgba(0,0,0,.7),transparent);
+    background-image: linear-gradient(rgba(0, 0, 0, .7), transparent);
     color: #fff;
     transition: background-color .3s linear 0s;
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0, 0, 0, .7);
   }
+
   .header_container {
     padding: 1.25rem 3.888rem;
     display: flex;
@@ -169,7 +174,7 @@ body {
     align-items: center;
 
     img {
-      width:9.375rem
+      width: 9.375rem
     }
   }
 
@@ -180,17 +185,19 @@ body {
 
     li {
       a {
-        position:relative;;
+        position: relative;;
         color: #a5a5a5;
         font-size: 1.625rem;
         line-height: 1.25rem;
+
         &.active {
-          color:#fff;
-          font-weight:bold;
+          color: #fff;
+          font-weight: bold;
         }
+
         &:hover {
-          color:#fff;
-          font-weight:bold;
+          color: #fff;
+          font-weight: bold;
         }
       }
 
@@ -227,22 +234,24 @@ body {
 }
 
 .item_container {
-  padding:8.75rem 0 8.75rem 4rem;
+  padding: 8.75rem 0 8.75rem 4rem;
   overflow: hidden;
+
   .item_box {
-    &+.item_box {
-      margin-top:5rem;
+    & + .item_box {
+      margin-top: 5rem;
     }
   }
+
   &.detail {
-    padding:8.75rem 4rem;
+    padding: 8.75rem 4rem;
   }
 }
 
 .card_none {
-  height:12rem;
-  border-radius:4px;
-  background:#f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
+  height: 12rem;
+  border-radius: 4px;
+  background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
 }
 
 /* 홈배너 */
@@ -251,10 +260,19 @@ body {
   height: 41.75rem;
   margin-bottom: 2.25rem;
   animation: showItem 0.5s ease-in;
+
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: flex
+    }
+  }
+
   .banner {
     background-size: cover;
     background-position: center;
     cursor: pointer;
+
     &:before {
       content: "";
       display: block;
@@ -264,6 +282,7 @@ body {
       padding-bottom: 15.833rem;
       background-image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
     }
+
     &:after {
       content: "";
       display: block;
@@ -310,12 +329,14 @@ body {
 
   .swiper-button-prev,
   .swiper-button-next {
+    display: none;
     width: 6.25rem;
     height: 9.375rem;
     transform: translateY(-50%);
     z-index: 10;
     color: #fff
   }
+
 
   .swiper-button-next.swiper-button-disabled,
   .swiper-button-prev.swiper-button-disabled {
@@ -370,9 +391,9 @@ body {
 }
 
 .card_none {
-  height:12rem;
-  border-radius:4px;
-  background:#f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
+  height: 12rem;
+  border-radius: 4px;
+  background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23C8D3DE' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23C8D3DE'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23C8D3DE'/%3E%3C/svg%3E") center no-repeat;
 }
 
 /* 제목,필모 탭 */
@@ -410,30 +431,35 @@ body {
 .filmo_tab {
   display: flex;
   align-items: center;
-  margin-bottom:4rem;
-  border-bottom:1px solid #a5a5a5;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid #a5a5a5;
+
   li {
-    position:relative;
+    position: relative;
+
     & + li {
       margin-left: 3.125rem
     }
+
     button {
       display: flex;
       align-items: center;
-      padding:0.75rem 1.25rem;
+      padding: 0.75rem 1.25rem;
       color: #a5a5a5;
       font-size: 2.125rem;
-      background:none;
+      background: none;
+
       &.active {
         color: #fff;
+
         &:after {
-          position:absolute;
-          left:0;
-          bottom:0;
-          width:100%;
-          height:2px;
-          background:#fff;
-          content:''
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 2px;
+          background: #fff;
+          content: ''
         }
       }
     }
@@ -444,88 +470,103 @@ body {
 /* List 컴포넌트 공통 */
 .item_slide {
   overflow: visible;
+
   .swiper-wrapper {
     transform: translateZ(0);
   }
+
   &:hover {
     .swiper-button-prev {
-      display:block;
+      display: block;
     }
+
     .swiper-button-next {
-      display:block;
+      display: block;
     }
   }
+
   .swiper-button-prev {
-    display:none;
-    top:20px;
-    left:0;
-    width:50px;
-    height:100%;
-    z-index:100;
+    display: none;
+    top: 20px;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 100;
+
     &:before {
-      position:absolute;
-      top:0;
-      left:0;
-      width:60px;
-      height:100%;
-      background:linear-gradient(to right, black, rgba(0, 0, 0, 0));
-      content:''
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 100%;
+      background: linear-gradient(to right, black, rgba(0, 0, 0, 0));
+      content: ''
     }
+
     &:after {
-      position:absolute;
-      top:calc(50% - 3rem);
-      display:block;
-      width:50px;
-      height:50px;
-      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M15 4L7 12L15 20' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-      content:''
+      position: absolute;
+      top: calc(50% - 3rem);
+      display: block;
+      width: 50px;
+      height: 50px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M15 4L7 12L15 20' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+      content: ''
     }
+
     &.swiper-button-disabled {
-      pointer-events:auto;
+      pointer-events: auto;
     }
   }
+
   .swiper-button-next {
-    display:none;
-    top:20px;
-    right:0;
-    width:50px;
-    height:100%;
-    z-index:100;
+    display: none;
+    top: 20px;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 100;
+
     &:before {
-      position:absolute;
-      top:0;
-      right:0;
-      width:60px;
-      height:100%;
-      background:linear-gradient(to left, black, rgba(0, 0, 0, 0));
-      content:''
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 100%;
+      background: linear-gradient(to left, black, rgba(0, 0, 0, 0));
+      content: ''
     }
+
     &:after {
-      position:absolute;
-      top:calc(50% - 3rem);
-      right:0;
-      display:block;
-      width:50px;
-      height:50px;
-      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M9 20L17 12L9 4' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-      content:''
+      position: absolute;
+      top: calc(50% - 3rem);
+      right: 0;
+      display: block;
+      width: 50px;
+      height: 50px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M9 20L17 12L9 4' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+      content: ''
     }
+
     &.swiper-button-disabled {
-      pointer-events:auto;
+      pointer-events: auto;
     }
   }
+
   .list_card {
     width: 13.75rem;
     animation: showItem 0.5s ease-in;
+
     + .list_card {
       margin-left: 1.875rem
     }
+
     img {
       display: block;
       width: 100%;
       height: 20.5rem;
       border-radius: 0.5rem
     }
+
     h3 {
       margin-top: 0.938rem;
       color: #fff;
@@ -535,15 +576,18 @@ body {
       text-overflow: ellipsis;
       white-space: nowrap
     }
+
     &:hover {
       transform: translate3d(0, -0.75rem, 0);
       transition: transform .3s ease-in-out;
       cursor: pointer
     }
+
     &.person_card {
-      width:11.25rem;
+      width: 11.25rem;
+
       img {
-        height:16.813rem;
+        height: 16.813rem;
       }
     }
   }
@@ -560,7 +604,7 @@ body {
     padding: 0.625rem 1.25rem;
     color: #fff;
     font-size: 1.375rem;
-    border:1px solid #777;
+    border: 1px solid #777;
     border-radius: 2rem;
     cursor: pointer;
 
@@ -571,7 +615,7 @@ body {
     &:hover,
     &.active {
       color: #fff;
-      border-color:#0372D2;
+      border-color: #0372D2;
       background: #0372D2;
     }
   }
@@ -579,6 +623,7 @@ body {
 
 .genre_sort {
   margin-bottom: 2.25rem;
+
   select {
     padding: 0.5rem 1.25rem 0.5rem 0;
     color: #fff;
@@ -594,15 +639,16 @@ body {
 }
 
 .genre_list {
-  display:flex;
-  flex-wrap:wrap;
-  gap:2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
   animation: showItem 0.5s ease-in;
 
 
   .genre_card {
     display: inline-block;
     width: calc(100% - 86% - 2rem);
+
     .tit {
       margin-top: 0.938rem;
       color: #d5d5d5;
@@ -612,21 +658,25 @@ body {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     picture {
       display: block;
       width: 100%;
       border-radius: 0.5rem;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
+
         &.poster {
           animation: slidein 0.5s;
         }
       }
+
       &.img_none {
         width: 100%;
-        min-height:13rem;
+        min-height: 13rem;
         max-height: 31.25rem;
         background: #F2F2F2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='46' viewBox='0 0 60 46' fill='none'%3E%3Crect x='1.5' y='1.5' width='57' height='43' rx='6.5' fill='%23F2F2F2' stroke='%23CCCCCC' stroke-width='3'/%3E%3Cpath d='M53 39H7L13.102 31L17.3265 34.5L28.5918 21L33.2857 26L42.2041 14L53 31V39Z' fill='%23CCCCCC'/%3E%3Ccircle cx='14' cy='14' r='5' fill='%23CCCCCC'/%3E%3C/svg%3E") center no-repeat;
       }
@@ -643,11 +693,12 @@ body {
 
 /* 로딩 */
 .loading {
-  display:flex;
+  display: flex;
   align-items: center;
-  justify-content:center;
-  width:100%;
-  height:28vh;
+  justify-content: center;
+  width: 100%;
+  height: 28vh;
+
   .loader {
     color: #FFF;
     font-size: 7px;
@@ -655,6 +706,7 @@ body {
     text-indent: -9999em;
     transform: translateZ(0);
     animation-delay: -0.16s;
+
     &:before {
       left: -3.5em;
       animation-delay: -0.32s;
@@ -662,6 +714,7 @@ body {
       position: absolute;
       top: 0;
     }
+
     &:after {
       left: 3.5em;
       content: '';
@@ -670,16 +723,15 @@ body {
     }
   }
 }
+
 .loader, .loader:before, .loader:after {
-  display:inline-block;
+  display: inline-block;
   border-radius: 50%;
   width: 2.5em;
   height: 2.5em;
   animation-fill-mode: both;
   animation: loadingAnimation 1.8s infinite ease-in-out;
 }
-
-
 
 
 /* 디테일 페이지 */
@@ -692,18 +744,21 @@ body {
   overflow: hidden;
   background-position: top;
   background-attachment: fixed;
+
   .detail_info {
     position: relative;
     margin: 3.125rem 3.125rem 0 0;
     width: 100%;
     z-index: 1;
     animation: showItem 0.5s ease-in;
+
     &:before {
       display: inline-block;
       margin-bottom: 12px;
       color: #fff;
       font-size: 12px;
     }
+
     &.movie {
       &:before {
         background: #0091f5;
@@ -745,18 +800,22 @@ body {
 
     .ott_box {
       margin-top: 2rem;
+
       .ott_wrap {
-        display:flex;
+        display: flex;
       }
+
       .ott_tit {
         display: flex;
         align-items: center;
         font-size: 1.375rem;
+
         .ott_more_btn {
-          margin-left:1rem;
-          display:none;
-          align-items:center;
-          color:#fff;
+          margin-left: 1rem;
+          display: none;
+          align-items: center;
+          color: #fff;
+
           &:after {
             display: block;
             margin-left: 8px;
@@ -766,6 +825,7 @@ body {
             content: ''
           }
         }
+
         &:before {
           display: inline-block;
           margin-right: 1.25rem;
@@ -778,11 +838,13 @@ body {
 
       .ott_list {
         margin-top: 24px;
+
         .ott_txt {
-          margin-bottom:0.875rem;
+          margin-bottom: 0.875rem;
           font-size: 1.25rem;
-          font-weight:normal;
+          font-weight: normal;
         }
+
         ul {
           display: flex;
 
@@ -801,8 +863,9 @@ body {
           }
 
         }
-        &+.ott_list {
-          margin-left:24px
+
+        & + .ott_list {
+          margin-left: 24px
         }
       }
 
@@ -812,6 +875,7 @@ body {
       display: flex;
       align-items: center;
       margin-top: 2rem;
+
       &:before {
         display: block;
         margin-right: 1.25rem;
@@ -892,7 +956,7 @@ body {
         color: #3A7CDF;
         font-size: 1.875rem;
         font-style: italic;
-        line-height:2.875rem;
+        line-height: 2.875rem;
       }
 
       .intro {
@@ -903,10 +967,12 @@ body {
         text-overflow: ellipsis;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        height:6.25rem;
+        height: 6.25rem;
+
         &.intro_more {
           display: block;
-          height:initial;
+          height: initial;
+
           & + .btn_more {
             &:after {
               transform: rotate(-180deg);
@@ -945,6 +1011,7 @@ body {
     z-index: 1;
     flex-shrink: 0;
     animation: showItem 0.5s ease-in;
+
     picture {
       margin-left: 1.875rem;
       border-radius: 0.5rem;
@@ -1016,10 +1083,12 @@ body {
 /* 디테일 등장인물 */
 .person_list {
   transition: opacity .5s linear;
+
   .person_card {
-    width:9rem;
+    width: 9rem;
     cursor: pointer;
     animation: showItem 0.5s ease-in;
+
     & + .person_card {
       margin-left: 1.25rem;
     }
@@ -1044,15 +1113,16 @@ body {
       margin-top: 0.625rem;
       color: #fff;
       font-size: 1rem;
-      font-weight:normal;
+      font-weight: normal;
     }
   }
 }
 
 /* 디테일 미디어 */
 .media_slide {
-  margin:3.125rem 0;
+  margin: 3.125rem 0;
   animation: showItem 0.5s ease-in;
+
   .swiper-slide {
     &:before {
       position: absolute;
@@ -1105,6 +1175,7 @@ body {
   .video_card {
     display: block;
     width: 21.25rem;
+
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath opacity='0.15' d='M8 6V18L18 12L8 6Z' fill='%23001A72'/%3E%3Cpath d='M8 6V18L18 12L8 6Z' stroke='%23001A72' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
@@ -1112,13 +1183,15 @@ body {
 
   .bg_card {
     width: 21.25rem;
+
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
   }
 
   .poster_card {
-    width:13.75rem;
+    width: 13.75rem;
+
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
     }
@@ -1138,7 +1211,7 @@ body {
 
   .title {
     .season_link {
-      margin-left:8rem;
+      margin-left: 8rem;
       color: #fff;
       font-size: 1.5rem;
       line-height: 2.125rem;
@@ -1148,7 +1221,9 @@ body {
   .season_box {
     display: flex;
     animation: showItem 0.5s ease-in;
+
     .season_main {
+      display: block;
       margin-right: 3.125rem;
 
       img {
@@ -1158,42 +1233,75 @@ body {
     }
 
     .season_list {
-      width:100%;
+      width: 100%;
+
       .season_card {
-        width:21.25rem;
+        width: 21.25rem;
+
         &:hover {
           transform: translate3d(0, 0, 0);
           cursor: initial;
         }
-        &+.season_card {
-          margin-left:1.875rem;
+
+        & + .season_card {
+          margin-left: 1.875rem;
         }
+
         img {
-          width:100%;
-          border-radius:0.5rem;
+          width: 100%;
+          border-radius: 0.5rem;
         }
+
         h3 {
-          margin-top:1.875rem;
-          font-size:1.5rem;
+          margin-top: 1.875rem;
+          font-size: 1.5rem;
         }
+
         .episode_date {
           display: block;
           margin: 1rem 0 0.5rem;
         }
 
         .episode_txt {
-          font-size:1.25rem;
-          line-height:1.75rem;
+          font-size: 1.25rem;
+          line-height: 1.75rem;
         }
+
       }
     }
   }
 }
 
+.season_more {
+  & + .season_more_btn {
+    &:after {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+.season_more_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  width: 100%;
+  color: #fff;
+
+  &:after {
+    display: block;
+    margin-left: 8px;
+    width: 14px;
+    height: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='8' viewBox='0 0 11 8' fill='none'%3E%3Cpath d='M9.42857 2L5.71429 6L2 2' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+    content: '';
+  }
+}
+
 /* 디테일 추천작품 */
 .recommend_none {
-  font-size:1.5rem;
-  line-height:2.125rem;
+  font-size: 1.5rem;
+  line-height: 2.125rem;
 }
 
 /* 검색 */
@@ -1239,6 +1347,7 @@ body {
     margin: 3.888rem;
     gap: 2rem;
     animation: showItem 0.5s ease-in;
+
     .tit {
       margin-top: 0.938rem;
       color: #d5d5d5;
@@ -1250,8 +1359,9 @@ body {
     }
 
     .list_card {
-      width:calc(100% - 86% - 2rem);
+      width: calc(100% - 86% - 2rem);
       animation: showItem 0.3s ease-in;
+
       &.tv {
         position: relative;
 
@@ -1332,27 +1442,32 @@ body {
   }
 
   .search_tip {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:10rem auto 0;
-    width:75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10rem auto 0;
+    width: 75rem;
+
     .txt {
       font-size: 1.75rem;
       line-height: 2.875rem;
+
       h1 {
-        margin-bottom:3.125rem;
-        font-size:2.875rem;
-        line-height:4rem;
+        margin-bottom: 3.125rem;
+        font-size: 2.875rem;
+        line-height: 4rem;
+
         strong {
-          color:#0092ff
+          color: #0092ff
         }
       }
+
       p {
-        font-size:1.875rem;
-        line-height:3.125rem;
+        font-size: 1.875rem;
+        line-height: 3.125rem;
+
         span {
-          text-decoration:underline;
+          text-decoration: underline;
         }
       }
     }
@@ -1360,8 +1475,8 @@ body {
     &:after {
       display: block;
       margin-left: 3rem;
-      width:13.75rem;
-      height:13.75rem;
+      width: 13.75rem;
+      height: 13.75rem;
       background: url('./images/img_search_tip.png') center / 100% no-repeat;
       content: ''
     }
@@ -1371,20 +1486,22 @@ body {
 
 /* 인물 디테일 */
 .person_detail {
-  position:fixed;
+  position: fixed;
   display: flex;
   width: 100%;
-  height:60vh;
+  height: 60vh;
   padding: 9.375rem 4.375rem 4.375rem;
   color: #fff;
   overflow: hidden;
   animation: showItem 0.5s ease-in;
+
   picture {
     position: fixed;
     display: block;
     width: 18.75rem;
     overflow: hidden;
-    z-index:1;
+    z-index: 1;
+
     img {
       width: 100%;
       border-radius: 0.5rem;
@@ -1396,10 +1513,6 @@ body {
       background: #ddd;
     }
   }
-
-
-
-
 
 
   &::before {
@@ -1423,6 +1536,7 @@ body {
 .work {
   padding-top: 4.375rem;
   animation: showItem 0.5s ease-in;
+
   .work_top {
     display: flex;
     align-items: center;
@@ -1466,47 +1580,54 @@ body {
 
   .work_list {
     li {
-      display: flex;
-      font-size: 1.5rem;
-      cursor: pointer;
+      & + li {
+        margin-top: 1.125rem;
+      }
 
       &:hover {
-        .tit, .date, .char {
+        .link {
           color: #4876ef;
         }
       }
 
-      &+li {
-        margin-top: 1.125rem;
-      }
+      .link {
+        display: flex;
+        color: #fff;
+        font-size: 1.5rem;
 
-      .date {
-        padding: 2px 6px;
-        margin-right: 15px;
-      }
+        .tit {
+          display: flex;
+          max-width: calc(100% - 30%);
 
-      .char {
-        max-width: 30%;
-        margin-left: auto;
-        text-align: right;
-        line-height:2.5rem;
-      }
+          span {
+            padding: 2px 6px;
+            margin-right: 15px;
+          }
 
-      p {
-        max-width: 50%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+          p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+        .char {
+          max-width: calc(100% - 70%);
+          margin-left: auto;
+          text-align: right;
+          line-height: 2.5rem;
+        }
       }
     }
   }
 }
+
 .profile_info {
-  position:relative;
-  margin:9.375rem 5rem 5rem 26.25rem;
+  position: relative;
+  margin: 9.375rem 5rem 5rem 26.25rem;
 
   overflow: hidden;
-  z-index:1;
+  z-index: 1;
 
   .item_container {
     padding: 0;
@@ -1586,69 +1707,79 @@ body {
   position: fixed;
   display: flex;
   width: 100%;
-  height:60vh;
+  height: 60vh;
   padding: 9.375rem 4.375rem 4.375rem;
   color: #fff;
-  background-size:cover;
-  background-position:center;
+  background-size: cover;
+  background-position: center;
+
   .season_poster {
-    position:relative;
-    width:18.75rem;
-    z-index:1;
+    position: relative;
+    width: 18.75rem;
+    z-index: 1;
+
     .season_img {
       display: block;
       overflow: hidden;
     }
+
     .season_tit {
-      margin-top:1.75rem;
-      font-size:1.625rem;
-      font-weight:bold;
-      text-align:center;
+      margin-top: 1.75rem;
+      font-size: 1.625rem;
+      font-weight: bold;
+      text-align: center;
+
       .season_date {
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        margin-bottom:1rem;
-        padding:0 0.75rem;
-        font-size:1.375rem;
-        font-weight:normal;
-        line-height:2.5rem;
-        border:1px solid #fff;
-        border-radius:4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding: 0 0.75rem;
+        font-size: 1.375rem;
+        font-weight: normal;
+        line-height: 2.5rem;
+        border: 1px solid #fff;
+        border-radius: 4px;
       }
+
       p {
-        text-align:left;
-        line-height:2rem;
+        text-align: left;
+        line-height: 2rem;
       }
     }
+
     .season_back {
-      display:flex;
-      align-items:center;
-      margin-bottom:1.75rem;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.75rem;
       padding: 0.5rem;
       color: #fff;
-      font-size:1.625rem;
-      font-weight:bold;
+      font-size: 1.625rem;
+      font-weight: bold;
       border: none;
       background: none;
+
       &:before {
-        display:block;
-        margin-right:0.5rem;
-        width:24px;
-        height:24px;
-        background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M10 13.3327L4.66667 7.99935L10 2.66602' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-        content:''
+        display: block;
+        margin-right: 0.5rem;
+        width: 24px;
+        height: 24px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M10 13.3327L4.66667 7.99935L10 2.66602' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+        content: ''
       }
     }
+
     .tit {
       margin: 1rem 0;
       font-size: 1.75rem;
     }
+
     img {
       width: 100%;
       border-radius: 0.5rem;
     }
   }
+
   &::before {
     content: "";
     position: absolute;
@@ -1666,24 +1797,37 @@ body {
     background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
 }
+
 .season_txt {
   h3 {
-    margin:0.5rem 0 2rem;
-    font-size:1.5rem;
+    margin: 0.5rem 0 2rem;
+    font-size: 1.5rem;
   }
+
   span {
-    display:block;
+    display: block;
   }
+
   p {
-    font-size:1.25rem;
-    line-height:2.125rem;
+    display: -webkit-box;
+    font-size: 1.25rem;
+    line-height: 2.125rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    &.season_more {
+      display: block;
+      height: initial;
+    }
   }
 }
 
 .season_info {
   position: relative;
   z-index: 1;
-  margin:9.375rem 5rem 5rem 26.25rem;
+  margin: 9.375rem 5rem 5rem 26.25rem;
   overflow: hidden;
 
   .season_select {
@@ -1694,8 +1838,9 @@ body {
     font-weight: bold;
     border: none;
     background: none;
+
     option {
-      color:#000
+      color: #000
     }
   }
 
@@ -1722,36 +1867,34 @@ body {
 
       .episode_info {
         .date {
-          font-size:1.25rem;
-          font-weight:300;
+          font-size: 1.25rem;
+          font-weight: 300;
         }
 
         .tit {
           margin: 0.5rem 0 1rem;
-          font-size:1.625rem;
+          font-size: 1.625rem;
           font-weight: bold;
         }
 
         .overview {
-          font-size:1.375rem;
-          line-height:2rem;
+          font-size: 1.375rem;
+          line-height: 2rem;
         }
       }
     }
   }
 
   .episodes_none {
-    font-size:1.5rem
+    font-size: 1.5rem
   }
 }
 
 .media_slide {
   .poster_card {
-    width:12.25rem;
+    width: 12.25rem;
   }
 }
-
-
 
 
 /* ETC */
@@ -1948,25 +2091,29 @@ body {
 
 
 .not_found {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto;
-  width:75rem;
-  height:100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 75rem;
+  height: 100vh;
+
   .txt {
     h1 {
-      margin-bottom:3.125rem;
-      font-size:3.125rem;
+      margin-bottom: 3.125rem;
+      font-size: 3.125rem;
+
       strong {
-        color:#0092ff;
+        color: #0092ff;
       }
     }
+
     p {
-      font-size:1.875rem;
-      line-height:3.125rem;
+      font-size: 1.875rem;
+      line-height: 3.125rem;
     }
   }
+
   &:after {
     display: block;
     width: 340px;
@@ -1982,34 +2129,38 @@ body {
     .header_container {
       padding: 1.25rem 2rem
     }
+
     .menu {
       li {
         a {
-          font-size:2.25rem
+          font-size: 2.25rem
         }
       }
     }
   }
   .swiper {
     .title {
-      margin-top:3.5rem;
+      margin-top: 3.5rem;
     }
   }
   .title {
-    justify-content:space-between;
+    justify-content: space-between;
+
     h2 {
       font-size: 2.625rem;
-      line-height:3.5rem;
+      line-height: 3.5rem;
+
       span {
-        display:block;
+        display: block;
       }
     }
   }
   .item_container {
-    padding:8.75rem 0 8.75rem 2.5rem;
+    padding: 8.75rem 0 8.75rem 2.5rem;
+
     &.detail {
-      padding-top:0;
-      padding-right:2.5rem;
+      padding-top: 0;
+      padding-right: 2.5rem;
     }
   }
 
@@ -2017,14 +2168,17 @@ body {
   .item_slide {
     .list_card {
       width: 12.25rem;
+
       + .item_card {
         margin-left: 10px
       }
+
       img {
         height: 18.375rem
       }
+
       h3 {
-        font-size:1.5rem;
+        font-size: 1.5rem;
       }
     }
   }
@@ -2032,21 +2186,23 @@ body {
   .type_list {
     li {
       button {
-        padding:1.375rem;
-        font-size:1.5rem;
+        padding: 1.375rem;
+        font-size: 1.5rem;
       }
     }
   }
 
   .person_list {
     .person_card {
-      width:13rem;
+      width: 13rem;
+
       h3 {
-        font-size:1.5rem;
-        font-weight:normal;
+        font-size: 1.5rem;
+        font-weight: normal;
       }
+
       img {
-        width:100%
+        width: 100%
       }
     }
   }
@@ -2054,93 +2210,113 @@ body {
   .detail_container {
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
-    padding:9.375rem 2.5rem  8rem;
+    padding: 9.375rem 2.5rem 8rem;
     background-size: cover;
+
     .detail_info {
       margin: 0;
       text-align: center;
+
       h1 {
         margin-top: 0;
-        font-size:3.75rem;
-        line-height:4.5rem;
+        font-size: 3.75rem;
+        line-height: 4.5rem;
       }
+
       .meta {
-        flex-wrap:wrap;
+        flex-wrap: wrap;
         justify-content: center;
         margin-bottom: 2rem;
+
         .txt {
-          font-size:1.875rem;
+          font-size: 1.875rem;
         }
+
         .type {
-          font-size:1.875rem;
+          font-size: 1.875rem;
         }
+
         .date {
-          justify-content:center;
-          font-size:1.875rem;
+          justify-content: center;
+          font-size: 1.875rem;
         }
+
         &:before {
-          width:2.875rem;
-          height:2.875rem;
+          width: 2.875rem;
+          height: 2.875rem;
         }
       }
+
       .comment {
         .quites {
           margin-top: 2rem;
-          font-size:2.25rem;
-          line-height:2.875rem;
+          font-size: 2.25rem;
+          line-height: 2.875rem;
         }
+
         .intro {
-          font-size:1.875rem;
-          line-height:2.875rem;
+          font-size: 1.875rem;
+          line-height: 2.875rem;
         }
+
         .btn_more {
           margin: 20px auto 0;
         }
       }
+
       .ott_box {
         &.more {
           .ott_more_btn {
             &:after {
-              transform:rotate(-180deg);
+              transform: rotate(-180deg);
             }
           }
+
           .ott_wrap {
-            display:block;
+            display: block;
           }
         }
+
         .ott_tit {
-          justify-content:center;
-          font-size:1.875rem;
+          justify-content: center;
+          font-size: 1.875rem;
+
           .ott_more_btn {
-            display:flex;
+            display: flex;
           }
+
           &:before {
-            width:2.875rem;
-            height:2.875rem;
+            width: 2.875rem;
+            height: 2.875rem;
           }
         }
+
         .ott_wrap {
-          display:none;
+          display: none;
+
           &.more {
-            display:block;
+            display: block;
           }
+
           .ott_list {
-            margin:22px auto;
-            &+.ott_list {
-              margin-top:20px
+            margin: 22px auto;
+
+            & + .ott_list {
+              margin-top: 20px
             }
+
             .ott_txt {
-              margin-bottom:1rem;
-              font-size:1.625rem;
+              margin-bottom: 1rem;
+              font-size: 1.625rem;
             }
+
             ul {
-              justify-content:center;
+              justify-content: center;
             }
           }
         }
       }
     }
-
 
 
     .detail_poster {
@@ -2165,14 +2341,14 @@ body {
       picture {
         margin: 0 auto;
         width: 22rem;
-        height:auto;
+        height: auto;
       }
     }
   }
 
   .recommend_none {
-    font-size:1.875rem;
-    line-height:2.875rem;
+    font-size: 1.875rem;
+    line-height: 2.875rem;
   }
 
   .genre {
@@ -2189,17 +2365,19 @@ body {
 
   .loading {
     .loader {
-      width:1.5rem;
-      height:1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+
       &:before {
-        left:-2.5rem;
-        width:1.5rem;
-        height:1.5rem;
+        left: -2.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
       }
+
       &:after {
-        left:2.5rem;
-        width:1.5rem;
-        height:1.5rem;
+        left: 2.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
       }
     }
   }
@@ -2213,7 +2391,7 @@ body {
       margin: 3.888rem 3rem;
 
       .list_card {
-        width:calc(100% - 76% - 2rem);
+        width: calc(100% - 76% - 2rem);
 
       }
     }
@@ -2222,7 +2400,8 @@ body {
       flex-direction: column-reverse;
       flex-wrap: wrap-reverse;
       width: 100%;
-      text-align:center;
+      text-align: center;
+
       &:after {
         margin: 0 auto 5rem;
         width: 100px;
@@ -2232,22 +2411,24 @@ body {
   }
 
   .person_detail {
-    position:relative;
+    position: relative;
     display: block;
     padding: 9.375rem 2.5rem 2.5rem;
-    height:auto;
+    height: auto;
+
     picture {
       position: relative;
       width: 15rem;
       margin: 0 auto;
-      z-index:1;
+      z-index: 1;
     }
 
 
   }
   .profile_info {
-    margin:0 2.5rem 9.375rem;
+    margin: 0 2.5rem 9.375rem;
     animation: showItem 0.5s ease-in;
+
     .profile_name {
       display: block;
       margin: 0.938rem 0;
@@ -2256,8 +2437,9 @@ body {
 
     .profile_name {
       h1 {
-        font-size:3.25rem;
+        font-size: 3.25rem;
       }
+
       .social_links {
         margin: 2rem 0;
         justify-content: center;
@@ -2266,9 +2448,10 @@ body {
 
     .profile_desc {
       text-align: center;
+
       dl {
-        dt,dd {
-          font-size:1.875rem;
+        dt, dd {
+          font-size: 1.875rem;
         }
       }
     }
@@ -2277,98 +2460,134 @@ body {
   .last_season {
     .title {
       .season_link {
-        font-size:1.875rem;
+        font-size: 1.875rem;
       }
     }
+
     .season_box {
+      display: block;
+
       .season_list {
         .item_card {
           h3 {
-            margin-top:1.25rem;
-            font-size:1.875rem;
+            margin-top: 1.25rem;
+            font-size: 1.875rem;
           }
+
           .episode_date {
-            font-size:1.325rem;
+            font-size: 1.325rem;
           }
+
           .episode_txt {
-            font-size:1.5rem;
-            line-height:2rem;
+            font-size: 1.5rem;
+            line-height: 2rem;
           }
+        }
+      }
+
+
+      .episode_date {
+        display:none;
+      }
+
+
+      .season_main {
+        margin: 0 auto 2rem;
+        width: 16rem;
+        height: auto;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 0;
         }
       }
     }
   }
-  .season_main {
-    display:none;
-  }
+
 
   .season_detail {
     position: relative;
     display: block;
-    height:auto;
+    height: auto;
     padding: 9.375rem 2.5rem 2.5rem;
+
     .season_poster {
-      margin:0 auto;
-      width:100%;
+      margin: 0 auto;
+      width: 100%;
+
       .season_back {
-        font-size:2rem;
+        font-size: 2rem;
       }
+
       .season_tit {
         width: auto;
         margin-bottom: 3.5rem;
-        font-size:3.25rem;
+        font-size: 3.25rem;
         text-align: center;
+
         p {
-          text-align:center;
-          line-height:initial;
+          text-align: center;
+          line-height: initial;
         }
       }
     }
+
     .season_img {
-      margin:0 auto;
-      width:22rem;
+      margin: 0 auto;
+      width: 22rem;
     }
   }
   .season_txt {
-    margin:2rem 0 0;
+    margin: 2rem 0 0;
+
     h3 {
-      margin-top:1rem;
-      font-size:2.2rem;
+      margin-top: 1rem;
+      font-size: 2.2rem;
     }
+
     span {
-      font-size:1.875rem;
+      font-size: 1.875rem;
     }
+
     p {
-      font-size:1.875rem;
-      line-height:2.875rem;
+      font-size: 1.875rem;
+      line-height: 2.875rem;
     }
   }
 
   .season_info {
-    margin:0 2.5rem 9.375rem;
+    margin: 0 2.5rem 9.375rem;
+
     .episode_list {
       li {
-        display:block;
-        &+li {
-        margin-top:5rem;
-      }
-        .episode_img {
-          display:block;
-          margin:0 0 2rem;
-          width:auto;
-          height:21rem;
+        display: block;
+
+        & + li {
+          margin-top: 5rem;
         }
+
+        .episode_img {
+          display: block;
+          margin: 0 0 2rem;
+          width: auto;
+          height: 21rem;
+        }
+
         .episode_info {
           .date {
-            font-size:1.563rem;
+            font-size: 1.563rem;
           }
+
           .tit {
-            margin:2rem 0;
-            font-size:2.375rem;
+            margin: 2rem 0;
+            font-size: 2.375rem;
           }
+
           .overview {
-            font-size:1.875rem;
-            line-height:2.875rem;
+            font-size: 1.875rem;
+            line-height: 2.875rem;
           }
         }
       }
@@ -2378,8 +2597,8 @@ body {
   .filmo_tab {
     li {
       button {
-        font-size:2.625rem;
-        line-height:3.5rem;
+        font-size: 2.625rem;
+        line-height: 3.5rem;
       }
     }
   }
@@ -2407,26 +2626,36 @@ body {
 
 
   .not_found {
-    flex-direction:column-reverse;
+    flex-direction: column-reverse;
     flex-wrap: wrap-reverse;
-    width:100%;
+    width: 100%;
+
     &:after {
-      margin-bottom:2rem;
-      width:220px;
-      height:220px;
+      margin-bottom: 2rem;
+      width: 220px;
+      height: 220px;
     }
+
     .txt {
-      text-align:center;
+      text-align: center;
     }
   }
 }
 
 @keyframes showItem {
-  0% {opacity:0}
-  100% {opacity:1}
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
 }
 
 @keyframes loadingAnimation {
-  0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
-  40% { box-shadow: 0 2.5em 0 0 }
+  0%, 80%, 100% {
+    box-shadow: 0 2.5em 0 -1.3em
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0
+  }
 }
