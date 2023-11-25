@@ -92,7 +92,6 @@ export default function ItemDetail() {
                 setCreditsLoading(false);
             }
         }
-
         fatchApi();
     }, [params.type, params.id, detailData?.number_of_seasons, setLoading]);
 

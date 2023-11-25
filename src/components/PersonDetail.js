@@ -87,22 +87,22 @@ export default function PersonDetail() {
                 loading ? (
                     <Loading/>
                 ) : (
-                    <>
-                        <section className="person_detail"
-                                 style={{
-                                     backgroundImage: artPopular[0]?.backdrop_path
-                                         ? `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${artPopular[0]?.backdrop_path})`
-                                         : null
-                                 }}>
+                    <section className="person_detail">
+                        <div className="person_img" style={{
+                            backgroundImage: artPopular[0]?.backdrop_path
+                                ? `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${artPopular[0]?.backdrop_path})`
+                                : null
+                        }}>
                             <picture>
                                 <img
                                     src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`}
                                     alt="Person Poster" loading="lazy"/>
                             </picture>
-                        </section>
-                        <div className="profile_info">
-                            <div className="profile_name">
-                                <h1>{dataUrl.name}</h1>
+                        </div>
+                        <div className="person_info">
+                            <div className="person_name">
+                                <h1 className="name">{dataUrl.name}</h1>
+
                                 {
                                     socialUrl && (
                                         <ul className="social_links">
@@ -121,7 +121,7 @@ export default function PersonDetail() {
                                 }
                             </div>
 
-                            <div className="profile_desc">
+                            <div className="person_desc">
                                 <dl>
                                     <dt>생년월일</dt>
                                     <dd>{dataUrl.birthday}</dd>
@@ -167,7 +167,8 @@ export default function PersonDetail() {
                                                     artUrl.map((item, index) => {
                                                         return (
                                                             <li key={index}>
-                                                                <Link to={`/detail/${typeTabs}/${item.id}`} className="link">
+                                                                <Link to={`/detail/${typeTabs}/${item.id}`}
+                                                                      className="link">
                                                                     <div className="tit">
                                                                      <span>
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
@@ -176,9 +177,14 @@ export default function PersonDetail() {
                                                                             {item.title || item.original_name}
                                                                         </p>
                                                                     </div>
-                                                                    <span className="char">
+                                                                    {
+                                                                        item.character && (
+                                                                            <span className="char">
                                                     {item.character} 역
                                                 </span>
+                                                                        )
+                                                                    }
+
                                                                 </Link>
 
                                                             </li>
@@ -192,7 +198,7 @@ export default function PersonDetail() {
                             }
 
                         </div>
-                    </>
+                    </section>
                 )
             }
         </div>

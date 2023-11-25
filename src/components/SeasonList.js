@@ -63,33 +63,40 @@ export default function SeasonList() {
                 loading ? (
                     <Loading/>
                 ) : (
-                    <div className="item last_season">
+                    <div className="item_box last_season">
                         <div className="title">
                             <h2>현재 시즌</h2>
-                            <Link to={`/${params.type}/season/${params.id}/episode`} className="season_link">
-                                전체 시즌 보기
-                            </Link>
+
                         </div>
                         <div className="season_box">
                             {seasonData?.poster_path && (
-                                <div className="season_img">
-                                    <Link to={`/${params.type}/season/${params.id}/episode`} className="season_main">
-                                        <img
-                                            src={`https://image.tmdb.org/t/p/w342${seasonData.poster_path}`}
-                                            alt={seasonData.poster_path}
-                                            loading="lazy"
-                                        />
-                                    </Link>
-
-                                    <span
-                                        className="episode_date">마지막 방영<br/>{seasonList.name} {seasonList.air_date}</span>
-                                </div>
+                                <Link to={`/${params.type}/season/${params.id}/episode`} className="season_poster">
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/w342${seasonData.poster_path}`}
+                                        alt={seasonData.poster_path}
+                                        loading="lazy"
+                                    />
+                                </Link>
                             )}
 
-                            <div className="season_txt">
-                                <h3>{seasonData.name}</h3>
-                                <p className={`episode_txt ${seasonState ? 'season_more' : ''}`}
-                                   ref={overviewText}>{seasonData.overview}</p>
+                            <div className="season_info">
+                                <div className="season_tit">
+                                    <h3>{seasonData.name}</h3>
+                                    <Link to={`/${params.type}/season/${params.id}/episode`} className="season_link">
+                                        전체 시즌 보기
+                                    </Link>
+                                </div>
+
+                                {
+                                    seasonData?.overview ? (
+                                            <p className={`episode_txt${seasonState ? 'season_more' : ''}`}
+                                               ref={overviewText}>{seasonData.overview}</p>
+
+                                    ) : (
+                                        <p>&#x1F622; 아직 시즌 줄거리가 등록되지않았어요</p>
+                                    )
+                                }
+
                                 {
                                     overviewMore && (
                                         <button type="button" className="season_more_btn"

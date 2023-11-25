@@ -77,7 +77,7 @@ export default function SeasonDetail() {
                 </div>
 
             </section>
-            <div className="season_info">
+            <div className="episode_info">
                 <select className="season_select" onChange={seasonNumber} value={selectSeason || lastSeason}>
                     {
                         detailData?.seasons?.map((item, key) => {
