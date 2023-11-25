@@ -2,7 +2,7 @@ import "swiper/css";
 import './../App.scss';
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../actions/movieActions";
 import {seasonActions} from "../actions/seasonActions";
@@ -10,6 +10,7 @@ import List from "./List";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 import Loading from "./Loading";
+import imgNone from "../images/img_card_none.png";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -243,13 +244,35 @@ export default function ItemDetail() {
                                             creditsArray.length !== 0 && (
                                                 <div className="item_box">
                                                     <div className="title"><h2>등장인물</h2></div>
-                                                    <List type={params.type} list={creditsArray}
-                                                          class={"person_list"}></List>
+                                                    <div className="m_person_slide">
+                                                        <div className="item_slide">
+                                                            {creditsArray.map(item => (
+                                                                <div className="list_card person_card">
+                                                                    <Link to={`${item.character ? `/person/${item.id}` : `/detail/${params.type}/${item.id}`}`}>
+                                                                        {
+                                                                            item.poster_path || item.profile_path ? (
+                                                                                <img
+                                                                                    src={`https://image.tmdb.org/t/p/w342${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                                                    alt={item.title || item.name}
+                                                                                    loading="lazy"
+                                                                                />
+
+                                                                            ) : (
+                                                                                <picture className="img_none">
+                                                                                    <img src={imgNone} alt="img_none" loading="lazy"/>
+                                                                                </picture>
+                                                                            )
+                                                                        }
+                                                                        <h3>{item.title || item.name}</h3>
+                                                                    </Link>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             )
                                         }
                                     </>
-
                             }
 
                             {/* 시즌 */}

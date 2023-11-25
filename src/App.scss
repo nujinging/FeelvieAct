@@ -256,53 +256,49 @@ body {
 
 /* 홈배너 */
 .home_banner {
-  position: relative;
-  height: 41.75rem;
-  margin-bottom: 2.25rem;
+  position:relative;
+  display:block;
+  height:43.75rem;
   animation: showItem 0.5s ease-in;
-
+  background-position: 50%;
+  background-size: cover;
   &:hover {
     .swiper-button-prev,
     .swiper-button-next {
       display: flex
     }
   }
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding-bottom: 15.833rem;
+    background-image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  }
 
-  .banner {
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      padding-bottom: 15.833rem;
-      background-image: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-    }
-
-    &:after {
-      content: "";
-      display: block;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding-bottom: 15.833rem;
-      background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-    }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 15.833rem;
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
 
   .banner_txt {
     position: absolute;
     left: 3.125rem;
     bottom: 6.25rem;
+    color:#fff;
     text-align: left;
     z-index: 10;
 
     .tit {
-      font-size: 2.5rem
+
+      font-size: 2.5rem;
     }
 
     p {
@@ -469,6 +465,7 @@ body {
 
 /* List 컴포넌트 공통 */
 .item_slide {
+  display:flex;
   overflow: visible;
 
   .swiper-wrapper {
@@ -572,6 +569,7 @@ body {
       color: #fff;
       font-size: 1.375rem;
       font-weight: normal;
+      line-height:1.75rem;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap
@@ -594,6 +592,12 @@ body {
 
 }
 
+.m_person_slide {
+  overflow-x:auto;
+  .person_card {
+    flex-shrink:0;
+  }
+}
 
 /* 장르 */
 .genre_title {

@@ -1,6 +1,6 @@
 import './../App.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay,Pagination, Navigation } from 'swiper/modules';
+import {Autoplay, Pagination, Navigation } from 'swiper/modules';
 import "swiper/css";
 import "swiper/css/navigation";
 import {Link, useNavigate} from "react-router-dom";
@@ -28,16 +28,18 @@ export default function HomeSlide(props) {
     return (
         <Swiper centeredSlides={true}
                 pagination={pagination}
-                navigation={true}
                 autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-        }} modules={[ Autoplay, Pagination, Navigation]} className="home_banner">
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
+                navigation={true} modules={[Autoplay, Pagination, Navigation]} className="home_banner">
             {slideList.map(item => (
-                <SwiperSlide className="banner" key={item.id} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${item.backdrop_path})` }} onClick={() => pageLink(item.id)}>
-                    <Link to={`/detail/${props.type}/${itemId}`} className="banner_txt">
-                        <h2 className="tit">{item.title}</h2>
-                        <p>{item.overview}</p>
+                <SwiperSlide key={item.id} onClick={() => pageLink(item.id)}>
+                    <Link to={`/detail/${props.type}/${itemId}`} className="home_banner" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${item.backdrop_path})` }}>
+                        <div className="banner_txt">
+                            <h2 className="tit">{item.title}</h2>
+                            <p>{item.overview}</p>
+                        </div>
                     </Link>
                 </SwiperSlide>
             ))}
