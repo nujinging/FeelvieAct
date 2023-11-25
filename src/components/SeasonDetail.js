@@ -4,7 +4,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {seasonActions} from "../actions/seasonActions";
 import {movieActions} from "../actions/movieActions";
-import {fill} from "lodash";
 import Loading from "./Loading";
 
 export default function SeasonDetail() {
@@ -64,7 +63,7 @@ export default function SeasonDetail() {
                     <button className="season_back" onClick={pageBack}>메인으로 돌아가기</button>
                     <picture className="season_img">
                         <img
-                            src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w500/${seasonData?.poster_path}` : ``}
+                            src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w342${seasonData?.poster_path}` : ``}
                             alt="" loading="lazy"/>
                     </picture>
                     <div className="season_tit">
@@ -108,7 +107,7 @@ export default function SeasonDetail() {
                                                     ) : (
                                                         <picture className="episode_img">
                                                             <img
-                                                                src={`https://www.themoviedb.org/t/p/w454_and_h254_bestv2/${item.still_path}`}
+                                                                src={`https://www.themoviedb.org/t/p/w342${item.still_path}`}
                                                                 alt=""/>
                                                         </picture>
                                                     )

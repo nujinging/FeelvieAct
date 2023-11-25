@@ -155,7 +155,7 @@ export default function MediaDetail() {
                                                                  onClick={() => imgModalOpen(item)}>
                                                         <button type="button" className="media_link">
                                                             <img
-                                                                src={item.file_path ? `https://image.tmdb.org/t/p/w500${item.file_path}` : ''}
+                                                                src={item.file_path ? `https://image.tmdb.org/t/p/w342${item.file_path}` : ''}
                                                                 alt="Movie Poster" loading="lazy"/>
                                                         </button>
                                                     </SwiperSlide>

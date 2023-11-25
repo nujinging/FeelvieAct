@@ -19,13 +19,18 @@ export default function List(props) {
                 >
                     <Link to={`${item.character ? `/person/${item.id}` : `/detail/${props.type}/${item.id}`}`}>
                         {
-                            item.poster_path || item.profile_path ? (
+                            item.poster_path ? (
                                 <img
-                                    src={`https://image.tmdb.org/t/p/w342${item.poster_path ? item.poster_path : item.profile_path}`}
+                                    src={`https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path}`}
                                     alt={item.title || item.name}
                                     loading="lazy"
                                 />
-
+                            ) : item.profile_path ? (
+                                <img
+                                    src={`https://image.tmdb.org/t/p/w154${item.profile_path}`}
+                                    alt={item.title || item.name}
+                                    loading="lazy"
+                                />
                             ) : (
                                 <picture className="img_none">
                                     <img src={imgNone} alt="img_none" loading="lazy"/>

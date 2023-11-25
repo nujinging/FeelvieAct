@@ -97,7 +97,7 @@ export default function Search() {
                                                         </picture>
                                                     ) : (
                                                         <img
-                                                            src={`https://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                            src={`https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path ? item.poster_path : item.profile_path}`}
                                                             alt={item.title || item.name}
                                                             loading="lazy"
                                                         />

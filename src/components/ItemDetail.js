@@ -228,7 +228,7 @@ export default function ItemDetail() {
                                 </ul>
                                 <picture>
                                     <img
-                                        src={detailData?.poster_path ? `https://image.tmdb.org/t/p/w500/${detailData?.poster_path}` : ``}
+                                        src={detailData?.poster_path ? `https://image.tmdb.org/t/p/w300${detailData?.poster_path}` : ``}
                                         alt="Movie Poster"
                                         loading="lazy"/>
                                 </picture>
@@ -252,7 +252,7 @@ export default function ItemDetail() {
                                                                         {
                                                                             item.poster_path || item.profile_path ? (
                                                                                 <img
-                                                                                    src={`https://image.tmdb.org/t/p/w342${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                                                    src={`https://image.tmdb.org/t/p/w154${item.poster_path ? item.poster_path : item.profile_path}`}
                                                                                     alt={item.title || item.name}
                                                                                     loading="lazy"
                                                                                 />

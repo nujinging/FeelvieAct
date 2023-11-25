@@ -58,6 +58,8 @@ export default function Genre() {
                 case  'dateAsc' :
                     genreUrl = await movieApi.genreDateAsc(type, genreNumber);
                     break;
+                default:
+                    break;
             }
 
             setGenreList(genreUrl.data.results);
@@ -172,7 +174,7 @@ export default function Genre() {
                                             {
                                                 item.poster_path ? (
                                                     <picture>
-                                                        <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
+                                                        <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path}`}
                                                              alt={item.title || item.name} loading="lazy"/>
                                                     </picture>
 
