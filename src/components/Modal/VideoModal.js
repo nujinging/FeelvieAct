@@ -1,4 +1,4 @@
-import './../../App.scss';
+import '../../scss/modal.scss';
 export default function VideoModal({item, onClose}) {
     return (
         <div className="video_modal">

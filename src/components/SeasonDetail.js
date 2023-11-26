@@ -1,4 +1,4 @@
-import './../App.scss';
+import './../scss/seasonDetail.scss'
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
@@ -114,7 +114,7 @@ export default function SeasonDetail() {
                                                 }
 
 
-                                                <div className="episode_info">
+                                                <div className="episode_txt">
                                                     <span className="date">
                                                         {item.air_date}
                                                     </span>

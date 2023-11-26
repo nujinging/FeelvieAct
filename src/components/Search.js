@@ -1,4 +1,4 @@
-import './../App.scss';
+import './../scss/search.scss'
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {movieApi} from "../util/movieApi";

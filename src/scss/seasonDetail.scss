@@ -1,0 +1,276 @@
+.season_detail {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 60vh;
+  padding: 9.375rem 4.375rem 4.375rem;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+
+  .season_poster {
+    position: relative;
+    width: 18.75rem;
+    z-index: 1;
+
+    .season_tit {
+      margin-top: 1.75rem;
+      font-size: 1.625rem;
+      font-weight: bold;
+      text-align: center;
+
+      .season_date {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding: 0 0.75rem;
+        font-size: 1.375rem;
+        font-weight: normal;
+        line-height: 2.5rem;
+        border: 1px solid #fff;
+        border-radius: 4px;
+      }
+
+      p {
+        text-align: left;
+        line-height: 2rem;
+      }
+    }
+
+    .season_back {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.75rem;
+      padding: 0.5rem;
+      color: #fff;
+      font-size: 1.625rem;
+      font-weight: bold;
+      border: none;
+      background: none;
+
+      &:before {
+        display: block;
+        margin-right: 0.5rem;
+        width: 24px;
+        height: 24px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M10 13.3327L4.66667 7.99935L10 2.66602' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+        content: ''
+      }
+    }
+
+    .tit {
+      margin: 1rem 0;
+      font-size: 1.75rem;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 0.5rem;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -10rem;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -1rem;
+    right: -1rem;
+    height: 25rem;
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  }
+}
+
+.season_info {
+  width:100%;
+  .season_tit {
+    display:flex;
+    align-items:center;
+    margin-bottom:2rem;
+    font-size: 1.5rem;
+    .season_link {
+      margin-left:20px;
+      color:#fff;
+      font-size:1rem;
+    }
+  }
+  span {
+    display: block;
+  }
+  p {
+    display: -webkit-box;
+    font-size: 1.25rem;
+    line-height: 2.125rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    &.season_more {
+      display: block;
+      height: initial;
+    }
+  }
+}
+
+.episode_info {
+  position: relative;
+  z-index: 1;
+  margin: 9.375rem 5rem 5rem 26.25rem;
+  overflow: hidden;
+
+  .season_select {
+    margin-bottom: 2.25rem;
+    padding: 0.5rem 1.25rem 0.5rem 0;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    background: none;
+
+    option {
+      color: #000
+    }
+  }
+
+  .episode_list {
+    li {
+      display: flex;
+
+      & + li {
+        margin-top: 3rem;
+      }
+
+      .episode_img {
+        flex-shrink: 0;
+        margin-right: 1.625rem;
+        width: 20rem;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .episode_txt {
+        .date {
+          font-size: 1.25rem;
+          font-weight: 300;
+        }
+
+        .tit {
+          margin: 0.5rem 0 1rem;
+          font-size: 1.625rem;
+          font-weight: bold;
+        }
+
+        .overview {
+          font-size: 1.375rem;
+          line-height: 2rem;
+        }
+      }
+    }
+  }
+
+  .episodes_none {
+    font-size: 1.5rem
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .season_detail {
+    position: relative;
+    display: block;
+    height: auto;
+    padding: 9.375rem 2.5rem 2.5rem;
+
+    .season_poster {
+      margin: 0 auto;
+      width: 100%;
+
+      .season_back {
+        font-size: 2rem;
+      }
+
+      .season_tit {
+        width: auto;
+        margin-bottom: 3.5rem;
+        font-size: 3.25rem;
+        text-align: center;
+
+        p {
+          text-align: center;
+          line-height: initial;
+        }
+      }
+    }
+
+    .season_img {
+      margin: 0 auto;
+      width: 22rem;
+    }
+  }
+  .season_info {
+
+    h3 {
+      font-size: 2.2rem;
+    }
+
+    span {
+      font-size: 1.875rem;
+    }
+
+    p {
+      font-size: 1.875rem;
+      line-height: 2.875rem;
+    }
+  }
+
+  .episode_info {
+    margin: 0 2.5rem 9.375rem;
+
+    .episode_list {
+      li {
+        display: block;
+
+        & + li {
+          margin-top: 5rem;
+        }
+
+        .episode_img {
+          display: block;
+          margin: 0 0 2rem;
+          width: auto;
+          height: 21rem;
+        }
+
+        .episode_txt {
+          .date {
+            font-size: 1.563rem;
+          }
+
+          .tit {
+            margin: 2rem 0;
+            font-size: 2.375rem;
+          }
+
+          .overview {
+            font-size: 1.875rem;
+            line-height: 2.875rem;
+          }
+        }
+      }
+    }
+  }
+}

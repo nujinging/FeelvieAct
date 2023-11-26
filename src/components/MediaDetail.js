@@ -1,4 +1,4 @@
-import './../App.scss';
+import './../scss/mediaSlide.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";

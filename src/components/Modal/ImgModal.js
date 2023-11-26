@@ -1,4 +1,4 @@
-import './../../App.scss';
+import '../../scss/modal.scss';
 export default function ImgModal({item, onClose}) {
     return (
         <div className="img_modal" onClick={() => onClose()}>

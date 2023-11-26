@@ -1,4 +1,4 @@
-import './App.scss';
+import './scss/common.scss';
 import {Route, Routes} from 'react-router-dom';
 import Main from "./components/Main";
 import ItemDetail from "./components/ItemDetail";

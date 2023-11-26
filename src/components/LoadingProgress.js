@@ -1,4 +1,3 @@
-import './../App.scss';
 export default function LoadingProgress(props) {
     return (
         <div className="progress"

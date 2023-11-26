@@ -1,4 +1,4 @@
-import '../../App.scss';
+import '../../scss/modal.scss';
 import {useEffect, useState} from "react";
 import mainEvent from '../../images/img_main_event.png'
 

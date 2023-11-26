@@ -1,4 +1,5 @@
-import './../App.scss';
+import './../scss/common.scss';
+import './../scss/reset.scss';
 import {Outlet} from "react-router-dom";
 import Header from "./Header";
 export default function PageLayout() {

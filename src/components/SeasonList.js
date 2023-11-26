@@ -1,4 +1,4 @@
-import './../App.scss';
+import '../scss/seasonList.scss'
 import {useEffect, useRef, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,9 +15,6 @@ export default function SeasonList() {
 
     /* 마지막 시즌 먼저 보여주기 */
     const lastSeason = detailData?.number_of_seasons;
-
-    /* 시즌 에피소드 마지막 리스트 보여주기 */
-    const seasonList = seasonData?.episodes[seasonData.episodes.length - 1];
 
     const overviewText = useRef(null);
     const [overviewMore, setOverviewMore] = useState(false);

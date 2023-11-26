@@ -1,4 +1,4 @@
-import './../App.scss';
+import './../scss/homeSlide.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {Autoplay, Pagination, Navigation } from 'swiper/modules';
 import "swiper/css";

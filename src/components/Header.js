@@ -1,4 +1,4 @@
-import './../App.scss';
+import './../scss/header.scss';
 import { Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import logoImage from './../images/logo.png'

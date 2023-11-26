@@ -1,5 +1,5 @@
 import "swiper/css";
-import './../App.scss';
+import './../scss/itemDetail.scss';
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState, useRef} from "react";
 import {Link, useParams} from "react-router-dom";
