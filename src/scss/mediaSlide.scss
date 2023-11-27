@@ -1,5 +1,6 @@
 .media_slide {
-  margin: 3.125rem 0;
+  margin: 3.125rem 0 0;
+  padding-left:3.75rem;
   animation: showItem 0.5s ease-in;
 
   .swiper-slide {
@@ -69,7 +70,7 @@
   }
 
   .poster_card {
-    width: 13.75rem;
+    width: 12.25rem;
 
     &:after {
       background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 7V17M7 12H17' stroke='%23001A72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
@@ -83,8 +84,9 @@
   }
 }
 
-.media_slide {
-  .poster_card {
-    width: 12.25rem;
+
+@media screen and (max-width: 768px) {
+  .media_slide {
+    padding-left:2.5rem;
   }
 }

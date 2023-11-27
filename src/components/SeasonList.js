@@ -60,7 +60,7 @@ export default function SeasonList() {
                 loading ? (
                     <Loading/>
                 ) : (
-                    <div className="item_box last_season">
+                    <div className="item_box">
                         <div className="title">
                             <h2>현재 시즌</h2>
 
@@ -86,7 +86,7 @@ export default function SeasonList() {
 
                                 {
                                     seasonData?.overview ? (
-                                            <p className={`episode_txt${seasonState ? 'season_more' : ''}`}
+                                            <p className={`season_overview ${seasonState ? 'season_more' : ''}`}
                                                ref={overviewText}>{seasonData.overview}</p>
 
                                     ) : (

@@ -1,7 +1,7 @@
 .item_slide {
   display:flex;
   overflow: visible;
-
+  padding-left:3.75rem;
   .swiper-wrapper {
     transform: translateZ(0);
   }
@@ -127,6 +127,7 @@
 
 @media screen and (max-width: 768px) {
   .item_slide {
+    padding-left:2.5rem;
     .list_card {
       width: 12.25rem;
 

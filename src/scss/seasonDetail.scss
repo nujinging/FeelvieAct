@@ -33,7 +33,7 @@
       }
 
       p {
-        text-align: left;
+        text-align: center;
         line-height: 2rem;
       }
     }
@@ -88,37 +88,7 @@
   }
 }
 
-.season_info {
-  width:100%;
-  .season_tit {
-    display:flex;
-    align-items:center;
-    margin-bottom:2rem;
-    font-size: 1.5rem;
-    .season_link {
-      margin-left:20px;
-      color:#fff;
-      font-size:1rem;
-    }
-  }
-  span {
-    display: block;
-  }
-  p {
-    display: -webkit-box;
-    font-size: 1.25rem;
-    line-height: 2.125rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
 
-    &.season_more {
-      display: block;
-      height: initial;
-    }
-  }
-}
 
 .episode_info {
   position: relative;
@@ -204,38 +174,22 @@
       }
 
       .season_tit {
-        width: auto;
         margin-bottom: 3.5rem;
         font-size: 3.25rem;
-        text-align: center;
 
         p {
-          text-align: center;
           line-height: initial;
         }
       }
     }
 
     .season_img {
+      display:block;
       margin: 0 auto;
       width: 22rem;
     }
   }
-  .season_info {
 
-    h3 {
-      font-size: 2.2rem;
-    }
-
-    span {
-      font-size: 1.875rem;
-    }
-
-    p {
-      font-size: 1.875rem;
-      line-height: 2.875rem;
-    }
-  }
 
   .episode_info {
     margin: 0 2.5rem 9.375rem;

@@ -1,15 +1,4 @@
 
-
-.progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  background: #007bff;
-  transition: width 0.2s;
-  z-index: 5000;
-}
-
 /* 레이아웃 */
 .container {
   position: sticky;
@@ -21,17 +10,13 @@
 
 /* 레이아웃 */
 .item_container {
-  padding: 8.75rem 0 8.75rem 4rem;
+  padding:8.75rem 0;
   overflow: hidden;
 
   .item_box {
     & + .item_box {
       margin-top: 5rem;
     }
-  }
-
-  &.detail {
-    padding: 8.75rem 4rem;
   }
 }
 
@@ -46,6 +31,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 1.875rem;
+  padding: 0 3.75rem;
 
   h2 {
     color: #fff;
@@ -135,6 +121,16 @@
   animation: loadingAnimation 1.8s infinite ease-in-out;
 }
 
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #007bff;
+  transition: width 0.2s;
+  z-index: 5000;
+}
+
 .not_found {
   display: flex;
   align-items: center;
@@ -172,6 +168,7 @@
 @media screen and (max-width: 768px) {
   .title {
     justify-content: space-between;
+    padding:0 2.5rem;
 
     h2 {
       font-size: 2.625rem;
@@ -184,12 +181,7 @@
   }
 
   .item_container {
-    padding: 8.75rem 0 8.75rem 2.5rem;
-
-    &.detail {
-      padding-top: 0;
-      padding-right: 2.5rem;
-    }
+    padding: 8.75rem 0;
   }
 
   .type_list {
