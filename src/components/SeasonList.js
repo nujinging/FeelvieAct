@@ -13,9 +13,10 @@ export default function SeasonList() {
     const seasonData = useSelector(state => state.movies.seasonData);
     const [loading, setLoading] = useState(true)
 
-    /* 마지막 시즌 먼저 보여주기 */
+    // 마지막 시즌 보여주기
     const lastSeason = detailData?.number_of_seasons;
 
+    // 시즌 줄거리 더보기
     const overviewText = useRef(null);
     const [overviewMore, setOverviewMore] = useState(false);
     const [seasonState, setSeasonState] = useState(false);
@@ -26,38 +27,30 @@ export default function SeasonList() {
     }
 
     useEffect(() => {
+        try {
+            // 작품
+            dispatch(movieActions(params.type, params.id));
+            // 시즌
+            dispatch(seasonActions(params.id, lastSeason));
 
-
-        async function fetchApi() {
-            try {
-                await dispatch(movieActions(params.type, params.id));
-                await dispatch(seasonActions(params.id, lastSeason));
-
-
-            } catch (error) {
-                console.log(error)
-            } finally {
-                setLoading(false);
+            // 시즌 줄거리 더보기
+            const textContainer = overviewText.current;
+            if (textContainer) {
+                const seasonOverview = () => {
+                    setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight);
+                };
+                seasonOverview();
+                window.addEventListener('resize', seasonOverview);
+                return () => {
+                    window.removeEventListener('resize', seasonOverview);
+                };
             }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false);
         }
-        fetchApi();
-
-    }, [params.type, params.id, lastSeason]);
-
-
-    const textContainer = overviewText.current;
-
-    useEffect(() => {
-        const seasonOverview = () => {
-            setOverviewMore(textContainer?.scrollHeight > textContainer?.clientHeight);
-        };
-        seasonOverview();
-
-        window.addEventListener('resize', seasonOverview);
-        return () => {
-            window.removeEventListener('resize', seasonOverview);
-        };
-    }, []);
+    }, [params.type, params.id, lastSeason, overviewText.current]);
 
 
     return (

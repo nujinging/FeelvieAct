@@ -71,20 +71,6 @@ export default function ItemDetail() {
                 if (params.type === 'tv') {
                     await dispatch(seasonActions(params.id, 1));
                 }
-
-                // 영화 상세설명
-                const handleResize = () => {
-                    const textContainer = overviewText.current;
-                    if (textContainer) {
-                        setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight + 10);
-                    }
-                };
-                handleResize();
-                window.addEventListener('resize', handleResize);
-                return () => {
-                    window.removeEventListener('resize', handleResize);
-                };
-
             } catch (error) {
                 console.log(error)
             } finally {
@@ -94,6 +80,26 @@ export default function ItemDetail() {
         }
         fatchApi();
     }, [params.type, params.id, detailData?.number_of_seasons, setLoading]);
+
+    useEffect(() => {
+        try {
+            // 영화 상세설명
+            const textContainer = overviewText.current;
+            if (textContainer) {
+                const handleResize = () => {
+                    setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight);
+                    console.log(textContainer.scrollHeight > textContainer.clientHeight)
+                };
+                handleResize();
+                window.addEventListener('resize', handleResize);
+                return () => {
+                    window.removeEventListener('resize', handleResize);
+                };
+            }
+        } catch(error) {
+            console.log(error)
+        }
+    }, [overviewText.current]);
 
 
     return (
@@ -245,8 +251,8 @@ export default function ItemDetail() {
                                                     <div className="title"><h2>등장인물</h2></div>
                                                     <div className="m_person_slide">
                                                         <div className="item_slide">
-                                                            {creditsArray.map(item => (
-                                                                <div className="list_card person_card">
+                                                            {creditsArray.map((item, index) => (
+                                                                <div className="list_card person_card" key={index}>
                                                                     <Link to={`${item.character ? `/person/${item.id}` : `/detail/${params.type}/${item.id}`}`}>
                                                                         {
                                                                             item.poster_path || item.profile_path ? (
