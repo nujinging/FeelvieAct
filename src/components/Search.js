@@ -22,35 +22,31 @@ export default function Search() {
     }
 
     // 0.5초 동안 추가 입력이 없을때에만 Api 요청
-    let delayTimer;
     useEffect(() => {
-        try {
-            if (searchWord) {
+        let delayTimer;
+        const searchFetch = async () => {
+            try {
                 setLoading(true);
                 setIntro(false);
                 setSearchNone(false);
-                // 초기화
-                clearTimeout(delayTimer);
-                delayTimer = setTimeout(() => {
-                    const SearchFetch = async () => {
-                        const searchValue = await movieApi.search(searchWord);
-                        setSearchList(searchValue.data.results);
-                        setLoading(false);
-                        setSearchNone(searchValue.data.results.length === 0);
-                    };
-                    SearchFetch();
-                }, 500);
+
+                const searchValue = await movieApi.search(searchWord);
+                setSearchList(searchValue.data.results);
+                setLoading(false);
+                setSearchNone(searchValue.data.results.length === 0);
+            } catch (error) {
+                console.error(error);
             }
-        } catch(error) {
-            console.log(error)
+        };
+        if (searchWord) {
+            delayTimer = setTimeout(searchFetch, 500);
         }
         return () => clearTimeout(delayTimer);
-    }, [searchWord, searchList.length]);
+    }, [searchWord]);
+
 
     // 검색 인풋 값 변경
     const searchChange = (event) => {
-        clearTimeout(delayTimer);
-        event.preventDefault();
         setSearchWord(event.target.value);
         // 백스페이스 키를 눌러서 입력값을 지운 경우
         if (event.target.value === '') {
