@@ -3,7 +3,10 @@ import {useEffect, useState} from "react";
 import mainEvent from '../../images/img_main_event.png'
 
 export default function EventModal() {
-    const [modalOpen, setModalOpen] = useState(true);
+    const [modalOpen, setModalOpen] = useState(() => {
+        const dontStorage = localStorage.getItem('modalOpen');
+        return dontStorage !== 'false';
+    });
     const openModal = () => {
         setModalOpen(false)
     }
@@ -13,8 +16,10 @@ export default function EventModal() {
         if (dontStorage === 'false') {
             setModalOpen(false);
         }
-    }, []);
+    }, [modalOpen]);
 
+
+    console.log(modalOpen)
     // 하루동안 보지 않기
     const onedayShow = () => {
         localStorage.setItem('modalOpen', 'false');

@@ -58,7 +58,6 @@ export default function Main() {
                 const week = await movieApi.today(weekType, 'week');
                 setWeek(week.data.results);
                 setWeekLoading(false);
-
             } catch (error) {
                 console.log(error)
             }
@@ -71,7 +70,9 @@ export default function Main() {
         <Suspense fallback={
             <Loading></Loading>
         }>
-            <LazyEventModal></LazyEventModal>
+
+            <LazyEventModal  />
+
             <div className="container">
 
                 <LazyHomeSlide type="movie" list={main}></LazyHomeSlide>
