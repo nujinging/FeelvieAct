@@ -27,22 +27,13 @@ export default function SeasonList() {
 
     useEffect(() => {
 
+
         async function fetchApi() {
             try {
-                const seasonOverview = () => {
-                    const textContainer = overviewText.current;
-                    if (textContainer) {
-                        setOverviewMore(textContainer?.scrollHeight > textContainer?.clientHeight);
-                    };
-                };
                 await dispatch(movieActions(params.type, params.id));
                 await dispatch(seasonActions(params.id, lastSeason));
-                setLoading(false);
-                seasonOverview();
-                window.addEventListener('resize', seasonOverview);
-                return () => {
-                    window.removeEventListener('resize', seasonOverview);
-                };
+
+
             } catch (error) {
                 console.log(error)
             } finally {
@@ -52,6 +43,21 @@ export default function SeasonList() {
         fetchApi();
 
     }, [params.type, params.id, lastSeason]);
+
+
+    const textContainer = overviewText.current;
+
+    useEffect(() => {
+        const seasonOverview = () => {
+            setOverviewMore(textContainer?.scrollHeight > textContainer?.clientHeight);
+        };
+        seasonOverview();
+
+        window.addEventListener('resize', seasonOverview);
+        return () => {
+            window.removeEventListener('resize', seasonOverview);
+        };
+    }, []);
 
 
     return (
