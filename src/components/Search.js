@@ -1,6 +1,6 @@
 import './../scss/search.scss'
 import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import Loading from "./Loading";
 import imgNone from "../images/img_card_none.png";
@@ -8,7 +8,6 @@ import imgNone from "../images/img_card_none.png";
 export default function Search() {
     const [searchWord, setSearchWord] = useState('');
     const [searchList, setSearchList] = useState([]);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [intro, setIntro] = useState(true);
     const [searchNone, setSearchNone] = useState(false);
@@ -59,6 +58,7 @@ export default function Search() {
         } else {
             setSearchNone(false);
             setLoading(true);
+            setIntro(false);
         }
     };
 
@@ -130,7 +130,8 @@ export default function Search() {
                                 TV 프로그램
                             </strong> 검색은 어떠세요?</h1>
                         <p>
-                            예를 들면 <span>진격의 거인</span>이나 <span>스파이 패밀리</span>요 😎<br/>
+                            예를 들면 <span>스파이 패밀리</span> 요 😎<br/>
+                            물론 영화 <span>기생충</span>도 좋은 작품이죠 !<br/>
                             검색할 땐 띄어쓰기를 정확히 해주세요 !
                         </p>
                     </div>

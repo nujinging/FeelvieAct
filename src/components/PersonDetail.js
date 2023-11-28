@@ -1,15 +1,15 @@
 import './../scss/personDetail.scss'
 import {movieApi} from "../util/movieApi";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import List from "./List";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./Loading";
+import {AxiosError} from "axios";
 
 export default function PersonDetail() {
     const params = useParams();
-    const navigate = useNavigate();
     const [typeTabs, setTypeTabs] = useState('movie');
     const [dataUrl, setDataUrl] = useState();
     const [socialUrl, setSocialUrl] = useState();
@@ -17,6 +17,7 @@ export default function PersonDetail() {
     const [artPopular, setArtPopular] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filmoLoading, setFilmoLoading] = useState(true);
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
     // 배우 필모그래피 TAB
@@ -59,7 +60,8 @@ export default function PersonDetail() {
                 });
                 setArtUrl(art_list);
             } catch (error) {
-                console.log(error)
+                console.log(error);
+                setError(error);
             } finally {
                 setFilmoLoading(false);
                 setLoading(false);
@@ -75,7 +77,6 @@ export default function PersonDetail() {
             // 배우 인기 필모그래피
             const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
             setArtPopular(popular)
-
         } catch (error) {
             console.log(error)
         }
@@ -86,6 +87,8 @@ export default function PersonDetail() {
             {
                 loading ? (
                     <Loading/>
+                ) : error ? (
+                    <AxiosError></AxiosError>
                 ) : (
                     <section className="person_detail">
                         <div className="person_img" style={{

@@ -11,6 +11,8 @@ import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 import Loading from "./Loading";
 import imgNone from "../images/img_card_none.png";
+import NotFound from "./NotFound";
+import AxiosError from "./AxiosError";
 
 export default function ItemDetail() {
     const params = useParams();
@@ -25,6 +27,7 @@ export default function ItemDetail() {
 
     const [loading, setLoading] = useState(true);
     const [creditsLoading, setCreditsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const overviewText = useRef(null);
     const [overflowMore, setOverviewMore] = useState(false);
@@ -72,7 +75,8 @@ export default function ItemDetail() {
                     await dispatch(seasonActions(params.id, 1));
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
+                setError(error);
             } finally {
                 setLoading(false);
                 setCreditsLoading(false);
@@ -110,7 +114,9 @@ export default function ItemDetail() {
                     <section className="detail_container">
                         <Loading />
                     </section>
-                ) : (
+                ) : error ? (
+                    <AxiosError></AxiosError>
+                ) :(
                     <>
                         <section className="detail_container"
                                  style={{

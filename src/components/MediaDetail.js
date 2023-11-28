@@ -80,9 +80,8 @@ export default function MediaDetail() {
                 // 비디오
                 const videos = await movieApi.seasonVideo(params.type, params.id);
                 setVideoUrl(videos.data.results);
-
             } catch (error) {
-                console.log(error)
+                console.log(error);
             } finally {
                 setLoading(false);
             }

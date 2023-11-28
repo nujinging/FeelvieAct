@@ -164,6 +164,39 @@
   }
 }
 
+.axios_error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 75rem;
+  height: 100vh;
+
+  .txt {
+    h1 {
+      margin-bottom: 3.125rem;
+      font-size: 3.125rem;
+
+      strong {
+        color: #0092ff;
+      }
+    }
+
+    p {
+      font-size: 1.875rem;
+      line-height: 3.125rem;
+    }
+  }
+
+  &:after {
+    display: block;
+    width: 340px;
+    height: 340px;
+    background: url('./../images/img_axios_error.png') center / 100% no-repeat;
+    content: ''
+  }
+}
+
 /* 미디어쿼리 */
 @media screen and (max-width: 768px) {
   .title {
@@ -213,6 +246,22 @@
   }
 
   .not_found {
+    flex-direction: column-reverse;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+
+    &:after {
+      margin-bottom: 2rem;
+      width: 220px;
+      height: 220px;
+    }
+
+    .txt {
+      text-align: center;
+    }
+  }
+
+  .axios_error {
     flex-direction: column-reverse;
     flex-wrap: wrap-reverse;
     width: 100%;
