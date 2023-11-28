@@ -1,0 +1,215 @@
+.credits_detail {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 60vh;
+  padding: 9.375rem 4.375rem 4.375rem;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  .credits_poster {
+    position: relative;
+    width: 18.75rem;
+    z-index: 1;
+    .credits_tit {
+      margin-top: 1.75rem;
+      font-size: 1.625rem;
+      font-weight: bold;
+      text-align: center;
+      p {
+        line-height: initial;
+      }
+    }
+    .credits_back {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.75rem;
+      padding: 0.5rem;
+      color: #fff;
+      font-size: 1.625rem;
+      font-weight: bold;
+      border: none;
+      background: none;
+
+      &:before {
+        display: block;
+        margin-right: 0.5rem;
+        width: 24px;
+        height: 24px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M10 13.3327L4.66667 7.99935L10 2.66602' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+        content: ''
+      }
+    }
+    .credits_img {
+      img {
+        display:block;
+        width: 100%;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -10rem;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -1rem;
+    right: -1rem;
+    height: 25rem;
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  }
+}
+.credits_box {
+  position: relative;
+  z-index: 1;
+  margin: 9.375rem 5rem 5rem 28.25rem;
+  display:flex;
+  overflow: hidden;
+  .list_close {
+    display:none;
+  }
+  .box {
+    width:100%;
+    .credits_tit {
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:2.5rem;
+      color: #fff;
+      font-size: 1.875rem;
+      font-weight: bold;
+      line-height: 2.5rem;
+      .list_close {
+        margin-left:auto;
+        color:#fff;
+        font-size: 1.875rem;
+        font-weight: bold;
+        line-height: 2.5rem;
+      }
+
+    }
+    .list_open {
+      margin-left:auto;
+      color:#fff;
+      font-size: 1.875rem;
+      font-weight: bold;
+      line-height: 2.5rem;
+    }
+    ul {
+
+      .credits_item {
+        width:30rem;
+        .credits_link {
+          picture {
+            margin-right:2rem;
+          }
+          display:flex;
+          img {
+            display:block;
+
+            width:6.25rem;
+            height:9.375rem;
+            border-radius:0.5rem;
+          }
+          .info {
+            color: #fff;
+            font-size: 1.375rem;
+            line-height: 2.5rem;
+            .name {
+              margin-top: 0.938rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            .character {
+              font-weight:normal;
+            }
+            .job {
+              font-weight:normal;
+            }
+          }
+        }
+        &+.credits_item {
+          margin-top:3rem;
+        }
+      }
+    }
+    &+.box {
+      margin-left:5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .credits_detail {
+    position: relative;
+    display: block;
+    height: auto;
+    padding: 9.375rem 2.5rem 2.5rem;
+
+    .credits_poster {
+      margin: 0 auto;
+      width: 100%;
+
+      .credits_back {
+        font-size: 2rem;
+      }
+
+      .credits_tit {
+        margin-bottom: 3.5rem;
+        font-size: 3.25rem;
+
+        p {
+          line-height: initial;
+        }
+      }
+    }
+
+    .credits_img {
+      display:block;
+      margin: 0 auto;
+      width: 22rem;
+    }
+  }
+
+  .credits_box {
+    display:block;
+    margin:0 2.5rem 9.375rem;
+    .box {
+      width:100%;
+      .credits_tit {
+        font-size:2.5rem;
+        .list_close {
+          display:block;
+        }
+      }
+      ul {
+        .credits_item {
+          width:100%;
+          .credits_link {
+            .info {
+              .name {
+                font-size: 1.875rem;
+                line-height: 2.875rem;
+              }
+              .character {
+                font-size: 1.875rem;
+                line-height: 2.875rem;
+              }
+            }
+          }
+        }
+      }
+      &+.box {
+        margin-top:5rem;
+        margin-left:0;
+      }
+    }
+  }
+}

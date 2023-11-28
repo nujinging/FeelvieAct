@@ -11,7 +11,6 @@ import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 import Loading from "./Loading";
 import imgNone from "../images/img_card_none.png";
-import NotFound from "./NotFound";
 import AxiosError from "./AxiosError";
 
 export default function ItemDetail() {
@@ -70,6 +69,12 @@ export default function ItemDetail() {
                 setRecommendUrl(recommend.data.results);
                 setOttUrl(ottList.data.results.KR);
 
+
+                console.log(detailData);
+                console.log(seasonData);
+                console.log(credits);
+
+
                 // TV 일때만 시리즈
                 if (params.type === 'tv') {
                     await dispatch(seasonActions(params.id, 1));
@@ -82,6 +87,7 @@ export default function ItemDetail() {
                 setCreditsLoading(false);
             }
         }
+
         fatchApi();
     }, [params.type, params.id, detailData?.number_of_seasons, setLoading]);
 
@@ -92,7 +98,6 @@ export default function ItemDetail() {
             if (textContainer) {
                 const handleResize = () => {
                     setOverviewMore(textContainer.scrollHeight > textContainer.clientHeight);
-                    console.log(textContainer.scrollHeight > textContainer.clientHeight)
                 };
                 handleResize();
                 window.addEventListener('resize', handleResize);
@@ -100,8 +105,9 @@ export default function ItemDetail() {
                     window.removeEventListener('resize', handleResize);
                 };
             }
-        } catch(error) {
-            console.log(error)
+        } catch (error) {
+            console.log(error);
+            setError(error);
         }
     }, [overviewText.current]);
 
@@ -112,11 +118,11 @@ export default function ItemDetail() {
             {
                 loading ? (
                     <section className="detail_container">
-                        <Loading />
+                        <Loading/>
                     </section>
                 ) : error ? (
                     <AxiosError></AxiosError>
-                ) :(
+                ) : (
                     <>
                         <section className="detail_container"
                                  style={{
@@ -151,7 +157,8 @@ export default function ItemDetail() {
                                 {
                                     ottUrl && (ottUrl.buy || ottUrl.flatrate) ? (
                                         <div className={`ott_box ${ottState ? 'more' : ''}`}>
-                                            <h3 className="ott_tit">OTT <button type="button" className="ott_more_btn" onClick={ottMoreClick}>더보기</button></h3>
+                                            <h3 className="ott_tit">OTT <button type="button" className="ott_more_btn"
+                                                                                onClick={ottMoreClick}>더보기</button></h3>
                                             <div className="ott_wrap">
                                                 {
                                                     ottUrl.buy && (
@@ -258,26 +265,37 @@ export default function ItemDetail() {
                                                     <div className="m_person_slide">
                                                         <div className="item_slide">
                                                             {creditsArray.map((item, index) => (
-                                                                <div className="list_card person_card" key={index}>
-                                                                    <Link to={`${item.character ? `/person/${item.id}` : `/detail/${params.type}/${item.id}`}`}>
-                                                                        {
-                                                                            item.poster_path || item.profile_path ? (
-                                                                                <img
-                                                                                    src={`https://image.tmdb.org/t/p/w154${item.poster_path ? item.poster_path : item.profile_path}`}
-                                                                                    alt={item.title || item.name}
-                                                                                    loading="lazy"
-                                                                                />
+                                                                <>
+                                                                    <div className="list_card person_card" key={index}>
+                                                                        <Link
+                                                                            to={`${item.character ? `/person/${item.id}` : `/detail/${params.type}/${item.id}`}`}>
+                                                                            {
+                                                                                item.poster_path || item.profile_path ? (
+                                                                                    <picture>
+                                                                                        <img
+                                                                                            src={`https://image.tmdb.org/t/p/w154${item.poster_path ? item.poster_path : item.profile_path}`}
+                                                                                            alt={item.title || item.name}
+                                                                                            loading="lazy"
+                                                                                        />
+                                                                                    </picture>
+                                                                                ) : (
+                                                                                    <picture className="img_none">
+                                                                                        <img src={imgNone} alt="img_none"
+                                                                                             loading="lazy"/>
+                                                                                    </picture>
+                                                                                )
+                                                                            }
+                                                                            <h3>{item.title || item.name}</h3>
+                                                                        </Link>
 
-                                                                            ) : (
-                                                                                <picture className="img_none">
-                                                                                    <img src={imgNone} alt="img_none" loading="lazy"/>
-                                                                                </picture>
-                                                                            )
-                                                                        }
-                                                                        <h3>{item.title || item.name}</h3>
-                                                                    </Link>
-                                                                </div>
+                                                                    </div>
+
+                                                                </>
+
                                                             ))}
+                                                            <Link to={`/detail/${params.type}/${params.id}/credits`}>
+                                                                전체보기
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -297,15 +315,16 @@ export default function ItemDetail() {
                                 <div className="title"><h2>추천 작품</h2></div>
                                 {
                                     recommendUrl.length !== 0 ? (
-                                        <List type={params.type} list={recommendUrl} class={"item_list"}></List>        
+                                        <List type={params.type} list={recommendUrl} class={"item_list"}></List>
                                     ) : (
                                         <p className="recommend_none">
-                                            &#x1F622; {detailData?.title || detailData?.name}의 충분한 평가가 이뤄지지않아 아직 추천드릴 작품이 없어요<br/>
+                                            &#x1F622; {detailData?.title || detailData?.name}의 충분한 평가가 이뤄지지않아 아직 추천드릴
+                                            작품이 없어요<br/>
                                         </p>
                                     )
                                 }
                             </div>
-                            
+
                         </div>
                     </>
                 )

@@ -8,6 +8,7 @@ import PersonDetail from "./components/PersonDetail";
 import SeasonDetail from "./components/SeasonDetail";
 import NotFound from "./components/NotFound";
 import PageLayout from "./components/PageLayout";
+import CreaditDetail from "./components/CreaditDetail";
 
 export default function App() {
     return (
@@ -16,6 +17,7 @@ export default function App() {
                 <Route path='/' element={<Main />} />
                 <Route path='/search' element={<Search />} />
                 <Route path='/detail/:type/:id' element={<ItemDetail />} />
+                <Route path='/detail/:type/:id/credits' element={<CreaditDetail />} />
                 <Route path='/genre/:type/:number' element={<Genre />} />
                 <Route path='/person/:id' element={<PersonDetail />} />
                 <Route path='/:type/season/:id/episode' element={<SeasonDetail />} />

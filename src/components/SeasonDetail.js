@@ -51,6 +51,7 @@ export default function SeasonDetail() {
                     setLoading(false);
                 }
             }
+
             fetchApi();
             movieActions();
             seasonActions();
@@ -75,9 +76,9 @@ export default function SeasonDetail() {
                                         alt="" loading="lazy"/>
                                 </picture>
                                 <div className="season_tit">
-                        <span className="season_date">
-                            {year}
-                        </span>
+                                    <span className="season_date">
+                                        {year}
+                                    </span>
                                     <p>
                                         {detailData?.name}
                                     </p>
@@ -86,7 +87,8 @@ export default function SeasonDetail() {
 
                         </section>
                         <div className="episode_info">
-                            <select className="season_select" onChange={seasonNumber} value={selectSeason || lastSeason}>
+                            <select className="season_select" onChange={seasonNumber}
+                                    value={selectSeason || lastSeason}>
                                 {
                                     detailData?.seasons?.map((item, key) => {
                                         return (
