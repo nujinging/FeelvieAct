@@ -120,12 +120,23 @@
 @media screen and (max-width: 768px) {
   .genre_keyword {
     padding:0 2.5rem;
+    .genre_item {
+      font-size:1.875rem;
+    }
   }
   .genre_box {
     padding:0 2.5rem;
+    .genre_sort {
+      select {
+        font-size:1.875rem;
+      }
+    }
     .genre_list {
       .genre_card {
         width: calc(100% - 66% - 2rem);
+        .tit {
+          font-size:1.5rem;
+        }
       }
     }
   }

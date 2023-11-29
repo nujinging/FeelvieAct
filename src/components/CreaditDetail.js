@@ -19,15 +19,18 @@ export default function CreaditDetail() {
     const detailData = useSelector(state => state.movies.movieData);
 
     const [castClose, setCastClose] = useState(true);
+    const [crewClose, setCrewClose] = useState(true);
 
     // 뒤로가기
     const pageBack = () => {
         navigate(-1)
     };
 
-    // 접기
-    const listClose = () => {
+    const castMore = () => {
         setCastClose(!castClose);
+    }
+    const crewMore = () => {
+        setCrewClose(!crewClose);
     }
 
     useEffect(() => {
@@ -80,58 +83,58 @@ export default function CreaditDetail() {
                             <div className="box cast">
                                 <h2 className="credits_tit">
                                     배역 {castUrl.length}
-                                    <button type="button" className="list_close" onClick={listClose}>접기</button>
+                                    <button type="button" className={`list_close ${castClose ? '' : 'close'}`} onClick={castMore}>
+                                        {castClose ? '접기' : '더보기'}
+                                    </button>
                                 </h2>
-                                {
-                                    castClose ? (
-                                        <button type="button" onClick={listClose} className="list_open">더보기</button>
-                                    ) : (
-                                        <ul className="cast_list">
-                                            {
-                                                castUrl?.map((item, index) => {
-                                                        return (
-                                                            <li key={index} className="credits_item">
-                                                                <Link to={`/person/${item.id}`} className="credits_link">
-                                                                    {
-                                                                        item.profile_path === null ? (
-                                                                            <picture className="img_none">
-                                                                                <img src={imgNone} alt="img_none"
-                                                                                     loading="lazy"/>
-                                                                            </picture>
-                                                                        ) : (
-                                                                            <picture>
-                                                                                <img
-                                                                                    src={`https://image.tmdb.org/t/p/w154/${item.profile_path}`}
-                                                                                    alt={item.name}
-                                                                                    loading="lazy"
-                                                                                />
-                                                                            </picture>
-                                                                        )
-                                                                    }
+                                <ul className={`cast_list ${castClose ? '' : 'close'}`}>
+                                    {
+                                        castUrl?.map((item, index) => {
+                                                return (
+                                                    <li key={index} className="credits_item">
+                                                        <Link to={`/person/${item.id}`} className="credits_link">
+                                                            {
+                                                                item.profile_path === null ? (
+                                                                    <picture className="img_none">
+                                                                        <img src={imgNone} alt="img_none"
+                                                                             loading="lazy"/>
+                                                                    </picture>
+                                                                ) : (
+                                                                    <picture>
+                                                                        <img
+                                                                            src={`https://image.tmdb.org/t/p/w154/${item.profile_path}`}
+                                                                            alt={item.name}
+                                                                            loading="lazy"
+                                                                        />
+                                                                    </picture>
+                                                                )
+                                                            }
 
-                                                                    <div className="info">
-                                                                        <h3 className="name">{item.name}</h3>
-                                                                        {
-                                                                            item.character && (
-                                                                                <h4 className="character">{item.character}</h4>
-                                                                            )
-                                                                        }
+                                                            <div className="info">
+                                                                <h3 className="name">{item.name}</h3>
+                                                                {
+                                                                    item.character && (
+                                                                        <h4 className="character">{item.character}</h4>
+                                                                    )
+                                                                }
 
-                                                                    </div>
-                                                                </Link>
-                                                            </li>
-                                                        )
-                                                    }
+                                                            </div>
+                                                        </Link>
+                                                    </li>
                                                 )
                                             }
-                                        </ul>
-                                    )
-                                }
-
+                                        )
+                                    }
+                                </ul>
                             </div>
                             <div className="box crew">
-                                <h2 className="credits_tit">제작진 {crewUrl.length}</h2>
-                                <ul className="crew_list">
+                                <h2 className="credits_tit">
+                                    제작진 {crewUrl.length}
+                                    <button type="button" className={`list_close ${crewClose ? '' : 'close'}`} onClick={crewMore}>
+                                        {crewClose ? '접기' : '더보기'}
+                                    </button>
+                                </h2>
+                                <ul className={`crew_list ${crewClose ? '' : 'close'}`}>
                                     {
                                         crewUrl?.map((item, index) => {
                                             return (

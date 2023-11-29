@@ -131,7 +131,7 @@ export default function Search() {
                             </strong> 검색은 어떠세요?</h1>
                         <p>
                             예를 들면 <span>스파이 패밀리</span> 요 😎<br/>
-                            물론 영화 <span>기생충</span>도 좋은 작품이죠 !<br/>
+                            물론 영화 <span>극한직업</span>도 좋은 작품이죠 !<br/>
                             검색할 땐 띄어쓰기를 정확히 해주세요 !
                         </p>
                     </div>
