@@ -10,7 +10,7 @@ export default function List(props) {
     return (
         <Swiper
             slidesPerView={'auto'} navigation={true} modules={[Navigation]}
-            className={`swiper item_slide`}
+            className={`swiper item_slide ${props.class}`}
         >
             {props.list.map(item => (
                 <SwiperSlide

@@ -41,7 +41,7 @@ export default function ItemDetail() {
     ]
 
     /* 등장인물 */
-    const creditsArray = creditsUrl ? creditsUrl.slice(0, 5) : [];
+    const creditsArray = creditsUrl ? creditsUrl.slice(0, 20) : [];
 
     // 영화 상세설명 더보기
     const overviewMoreClick = () => {
@@ -261,43 +261,14 @@ export default function ItemDetail() {
                                         {
                                             creditsArray.length !== 0 && (
                                                 <div className="item_box">
-                                                    <div className="title"><h2>등장인물</h2></div>
-                                                    <div className="m_person_slide">
-                                                        <div className="item_slide">
-                                                            {creditsArray.map((item, index) => (
-                                                                <>
-                                                                    <div className="list_card person_card" key={index}>
-                                                                        <Link
-                                                                            to={`${item.character ? `/person/${item.id}` : `/detail/${params.type}/${item.id}`}`}>
-                                                                            {
-                                                                                item.poster_path || item.profile_path ? (
-                                                                                    <picture>
-                                                                                        <img
-                                                                                            src={`https://image.tmdb.org/t/p/w154${item.poster_path ? item.poster_path : item.profile_path}`}
-                                                                                            alt={item.title || item.name}
-                                                                                            loading="lazy"
-                                                                                        />
-                                                                                    </picture>
-                                                                                ) : (
-                                                                                    <picture className="img_none">
-                                                                                        <img src={imgNone} alt="img_none"
-                                                                                             loading="lazy"/>
-                                                                                    </picture>
-                                                                                )
-                                                                            }
-                                                                            <h3>{item.title || item.name}</h3>
-                                                                        </Link>
-
-                                                                    </div>
-
-                                                                </>
-
-                                                            ))}
-                                                            <Link to={`/detail/${params.type}/${params.id}/credits`}>
-                                                                전체보기
-                                                            </Link>
-                                                        </div>
-                                                    </div>
+                                                    <div className="title"><h2>등장인물</h2><Link
+                                                        to={`/detail/${params.type}/${params.id}/credits`}
+                                                        className="credits_more">
+                                                        더보기
+                                                    </Link></div>
+                                                    <List type={params.type} list={creditsArray}
+                                                          class={`${creditsArray.length < 10 ? 'credits_more_card' : ''}`}>
+                                                    </List>
                                                 </div>
                                             )
                                         }
