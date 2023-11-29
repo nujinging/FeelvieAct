@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import Loading from "./Loading";
 import imgNone from "../images/img_card_none.png";
+import useScrollFixed from "../hooks/useScrollFixed";
+import useScrollTop from "../hooks/useScrollTop";
 
 export default function Search() {
     const [searchWord, setSearchWord] = useState('');
@@ -11,6 +13,10 @@ export default function Search() {
     const [loading, setLoading] = useState(false);
     const [intro, setIntro] = useState(true);
     const [searchNone, setSearchNone] = useState(false);
+
+    // 공통 스크롤 감지
+    const scrollFixed = useScrollFixed();
+
 
     // 엔터 방지
     const searchEnter = (event) => {
@@ -137,7 +143,13 @@ export default function Search() {
                     </div>
                 </div>
             )}
-
+            {
+                scrollFixed && (
+                    <button type="button" className="top_btn" onClick={useScrollTop}>
+                        <span className="blind">위로</span>
+                    </button>
+                )
+            }
         </div>
     );
 }

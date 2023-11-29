@@ -7,6 +7,7 @@ import {Navigation} from "swiper/modules";
 import imgNone from "../images/img_card_none.png";
 
 export default function List(props) {
+    console.log(props.list)
     return (
         <Swiper
             slidesPerView={'auto'} navigation={true} modules={[Navigation]}
@@ -14,10 +15,10 @@ export default function List(props) {
         >
             {props.list.map(item => (
                 <SwiperSlide
-                    className={`list_card ${item.character ? 'person_card' : 'item_card'}`}
+                    className={`list_card ${item.known_for_department ? 'person_card' : 'item_card'}`}
                     key={item.id}
                 >
-                    <Link to={`${item.title || item.name ? `/detail/${props.type}/${item.id}` : `/person/${item.id}`}`}>
+                    <Link to={`${item.overview ? `/detail/${props.type}/${item.id}` : `/person/${item.id}`} `}>
                         {
                             item.poster_path ? (
                                 <img

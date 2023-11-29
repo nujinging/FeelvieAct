@@ -59,6 +59,7 @@
     }
     .item_slide {
       padding:0;
+      overflow:hidden;
       .swiper-button-prev {
         &:after {
           content:none;

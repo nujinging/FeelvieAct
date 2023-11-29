@@ -9,6 +9,8 @@ import LoadingProgress from "./LoadingProgress";
 import Loading from "./Loading";
 import {debounce} from 'lodash';
 import imgNone from './../images/img_card_none.png'
+import useScrollFixed from "../hooks/useScrollFixed";
+import useScrollTop from "../hooks/useScrollTop";
 
 export default function Genre() {
     const {type, number} = useParams();
@@ -24,7 +26,8 @@ export default function Genre() {
     const [selectedValue, setSelectedValue] = useState('');
     const [page, setPage] = useState(1);
 
-    const [headerFixed, setHeaderFixed] = useState(false);
+    // 공통 스크롤 감지
+    const scrollFixed = useScrollFixed();
 
     // 상단 프로그래스바
     const calculateProgress = () => {
@@ -39,22 +42,6 @@ export default function Genre() {
         navigate(`/genre/${type}/${itemId}`);
     };
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    const handleScroll = () => {
-        const scrollY = window.scrollY;
-        if (scrollY > 100) {
-            setHeaderFixed(true);
-        } else {
-            setHeaderFixed(false);
-        }
-    };
 
     // 정렬 선택
     const SortClick = async (event) => {
@@ -147,7 +134,7 @@ export default function Genre() {
     return (
         <>
             <div className={`genre_top $`}>
-                <Swiper className={`genre_keyword ${headerFixed ? "fixed" : ""}`} slidesPerView={"auto"}>
+                <Swiper className={`genre_keyword ${scrollFixed ? "fixed" : ""}`} slidesPerView={"auto"}>
                     <div className="swiper-wrapper">
                         <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
                                      onClick={() => genreChange('All')}
@@ -232,6 +219,15 @@ export default function Genre() {
                         )
                     }
                 </div>
+
+                {
+                    scrollFixed && (
+                        <button type="button" className="top_btn" onClick={useScrollTop}>
+                            <span className="blind">위로</span>
+                        </button>
+                    )
+                }
+
             </div>
         </>
     );

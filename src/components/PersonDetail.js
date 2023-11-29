@@ -7,6 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./Loading";
 import {AxiosError} from "axios";
+import useScrollFixed from "../hooks/useScrollFixed";
+import useScrollTop from "../hooks/useScrollTop";
 
 export default function PersonDetail() {
     const params = useParams();
@@ -19,6 +21,9 @@ export default function PersonDetail() {
     const [filmoLoading, setFilmoLoading] = useState(true);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
+
+    // 공통 스크롤 감지
+    const scrollFixed = useScrollFixed();
 
     // 배우 필모그래피 TAB
     const typeChange = (type) => {
@@ -76,7 +81,8 @@ export default function PersonDetail() {
         try {
             // 배우 인기 필모그래피
             const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
-            setArtPopular(popular)
+            setArtPopular(popular);
+            console.log(artPopular)
         } catch (error) {
             console.log(error)
         }
@@ -207,6 +213,13 @@ export default function PersonDetail() {
 
                         </div>
                     </section>
+                )
+            }
+            {
+                scrollFixed && (
+                    <button type="button" className="top_btn" onClick={useScrollTop}>
+                        <span className="blind">위로</span>
+                    </button>
                 )
             }
         </div>

@@ -68,12 +68,6 @@ export default function ItemDetail() {
                 setRecommendUrl(recommend.data.results);
                 setOttUrl(ottList.data.results.KR);
 
-
-                console.log(detailData);
-                console.log(seasonData);
-                console.log(credits);
-
-
                 // TV 일때만 시리즈
                 if (params.type === 'tv') {
                     await dispatch(seasonActions(params.id, 1));

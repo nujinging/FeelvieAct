@@ -2,11 +2,14 @@ import './../scss/header.scss';
 import { Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import logoImage from './../images/logo.png'
+import useScrollFixed from "../hooks/useScrollFixed";
 
 export default function Header() {
     const location = useLocation();
-    const [headerFixed, setHeaderFixed] = useState(false);
     const number = 'All';
+
+    // 공통 스크롤 감지
+    const scrollFixed = useScrollFixed();
 
     const pageRefresh = (path) => {
         if (location.pathname !== path) {
@@ -20,24 +23,9 @@ export default function Header() {
         }
     };
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    const handleScroll = () => {
-        const scrollY = window.scrollY;
-        if (scrollY > 100) {
-            setHeaderFixed(true);
-        } else {
-            setHeaderFixed(false);
-        }
-    };
     return (
-        <header className={`wrap_header ${headerFixed ? "fixed" : ""}`}>
+        <header className={`wrap_header ${scrollFixed ? "fixed" : ""}`}>
             <div className="header_container">
                 <div className="navigation">
                     <Link to="/" onClick={() => pageRefresh('/')}>

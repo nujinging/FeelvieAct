@@ -6,6 +6,8 @@ import {seasonActions} from "../actions/seasonActions";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./Loading";
 import AxiosError from "./AxiosError";
+import useScrollTop from "../hooks/useScrollTop";
+import useScrollFixed from "../hooks/useScrollFixed";
 
 export default function SeasonDetail() {
     const params = useParams();
@@ -16,6 +18,9 @@ export default function SeasonDetail() {
     const [error, setError] = useState(null);
     const detailData = useSelector(state => state.movies.movieData);
     const seasonData = useSelector(state => state.movies.seasonData);
+
+    // 공통 스크롤 감지
+    const scrollFixed = useScrollFixed();
 
     /* 마지막 시즌부터 보여주기 */
     const lastSeason = detailData?.number_of_seasons;
@@ -149,7 +154,13 @@ export default function SeasonDetail() {
                                 )
                             }
                         </div>
-
+                        {
+                            scrollFixed && (
+                                <button type="button" className="top_btn" onClick={useScrollTop}>
+                                    <span className="blind">위로</span>
+                                </button>
+                            )
+                        }
                     </div>
                 )
             }
