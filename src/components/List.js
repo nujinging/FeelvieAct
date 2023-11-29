@@ -17,7 +17,7 @@ export default function List(props) {
                     className={`list_card ${item.character ? 'person_card' : 'item_card'}`}
                     key={item.id}
                 >
-                    <Link to={`${item.character ? `/person/${item.id}` : `/detail/${props.type}/${item.id}`}`}>
+                    <Link to={`${item.title || item.name ? `/detail/${props.type}/${item.id}` : `/person/${item.id}`}`}>
                         {
                             item.poster_path ? (
                                 <img

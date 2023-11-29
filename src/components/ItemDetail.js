@@ -10,7 +10,6 @@ import List from "./List";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
 import Loading from "./Loading";
-import imgNone from "../images/img_card_none.png";
 import AxiosError from "./AxiosError";
 
 export default function ItemDetail() {

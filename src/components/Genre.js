@@ -24,6 +24,8 @@ export default function Genre() {
     const [selectedValue, setSelectedValue] = useState('');
     const [page, setPage] = useState(1);
 
+    const [headerFixed, setHeaderFixed] = useState(false);
+
     // 상단 프로그래스바
     const calculateProgress = () => {
         return !listLoading ? 0 : 100;
@@ -35,6 +37,23 @@ export default function Genre() {
         setProgressState(true);
         setGenreNumber(itemId);
         navigate(`/genre/${type}/${itemId}`);
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const handleScroll = () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 100) {
+            setHeaderFixed(true);
+        } else {
+            setHeaderFixed(false);
+        }
     };
 
     // 정렬 선택
@@ -126,88 +145,94 @@ export default function Genre() {
     }
 
     return (
-        <div className="item_container genre">
-
-            {
-                progressState && (
-                    <LoadingProgress progress={calculateProgress()}></LoadingProgress>
-                )
-            }
-
-            <Swiper className="genre_keyword" slidesPerView={"auto"}>
-                <div className="swiper-wrapper">
-                    <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
-                                 onClick={() => genreChange('All')}
-                    >
-                        All
-                    </SwiperSlide>
-                    {genreTitle?.map((item, index) => {
-                        return (
-                            <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`}
-                                         key={index}
-                                         onClick={() => genreChange(item.id)}>
-                                {item.name}
-                            </SwiperSlide>
-                        )
-                    })}
-                </div>
-            </Swiper>
+        <>
+            <div className={`genre_top $`}>
+                <Swiper className={`genre_keyword ${headerFixed ? "fixed" : ""}`} slidesPerView={"auto"}>
+                    <div className="swiper-wrapper">
+                        <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+                                     onClick={() => genreChange('All')}
+                        >
+                            All
+                        </SwiperSlide>
+                        {genreTitle?.map((item, index) => {
+                            return (
+                                <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`}
+                                             key={index}
+                                             onClick={() => genreChange(item.id)}>
+                                    {item.name}
+                                </SwiperSlide>
+                            )
+                        })}
+                    </div>
+                </Swiper>
 
 
-            <div className="genre_box">
-                <div className="genre_sort">
-                    <select onChange={SortClick} value={selectedValue}>
-                        <option value="popularityDesc">인기도 내림차순</option>
-                        <option value="popularityAsc">인기도 오름차순</option>
-                        <option value="dateDesc">상영일 내림차순</option>
-                        <option value="dateAsc">상열일 오름차순</option>
-                    </select>
-                </div>
+            </div>
+
+            <div className="item_container genre">
 
                 {
-                    listLoading ? (
-                        <Loading/>
-                    ) : (
-                        <ul className="genre_list">
-                            {genreList?.map((item, index) => {
-                                return (
-                                    <>
-                                        <li className="genre_card" key={index}>
-                                            <Link to={`/detail/${type}/${item.id}`} className="link">
-                                                {
-                                                    item.poster_path ? (
-                                                        <picture>
-                                                            <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path}`}
-                                                                 alt={item.title || item.name} loading="lazy"/>
-                                                        </picture>
-
-                                                    ) : (
-                                                        <picture className="img_none">
-                                                            <img src={imgNone} alt="img_none" loading="lazy"/>
-                                                        </picture>
-                                                    )
-                                                }
-                                                <p className="tit">
-                                                    {item.title || item.name}
-                                                </p>
-                                            </Link>
-                                        </li>
-                                    </>
-                                )
-                            })}
-                            <li className="more_card">
-                                {
-                                    loading ? (
-                                        <Loading/>
-                                    ) : (
-                                        <button type="button" className="list_more" onClick={listMoreBtn}>더보기</button>
-                                    )
-                                }
-                            </li>
-                        </ul>
+                    progressState && (
+                        <LoadingProgress progress={calculateProgress()}></LoadingProgress>
                     )
                 }
+
+                <div className="genre_box">
+                    <div className="genre_sort">
+                        <select onChange={SortClick} value={selectedValue}>
+                            <option value="popularityDesc">인기도 내림차순</option>
+                            <option value="popularityAsc">인기도 오름차순</option>
+                            <option value="dateDesc">상영일 내림차순</option>
+                            <option value="dateAsc">상열일 오름차순</option>
+                        </select>
+                    </div>
+                    {
+                        listLoading ? (
+                            <Loading/>
+                        ) : (
+                            <ul className="genre_list">
+                                {genreList?.map((item, index) => {
+                                    return (
+                                        <>
+                                            <li className="genre_card" key={index}>
+                                                <Link to={`/detail/${type}/${item.id}`} className="link">
+                                                    {
+                                                        item.poster_path ? (
+                                                            <picture>
+                                                                <img
+                                                                    src={`https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path}`}
+                                                                    alt={item.title || item.name} loading="lazy"/>
+                                                            </picture>
+
+                                                        ) : (
+                                                            <picture className="img_none">
+                                                                <img src={imgNone} alt="img_none" loading="lazy"/>
+                                                            </picture>
+                                                        )
+                                                    }
+                                                    <p className="tit">
+                                                        {item.title || item.name}
+                                                    </p>
+                                                </Link>
+                                            </li>
+                                        </>
+                                    )
+                                })}
+                                <li className="more_card">
+                                    {
+                                        loading ? (
+                                            <Loading/>
+                                        ) : (
+                                            <button type="button" className="list_more"
+                                                    onClick={listMoreBtn}>더보기</button>
+                                        )
+                                    }
+                                </li>
+                            </ul>
+                        )
+                    }
+                </div>
             </div>
-        </div>
+        </>
     );
 }

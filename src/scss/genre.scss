@@ -1,7 +1,22 @@
 .genre_keyword {
-  margin-bottom:3rem;
-  padding: 0 3.75rem;
-
+  position:fixed;
+  top:5.5rem;
+  left:4rem;
+  padding:2rem 0;
+  backdrop-filter: blur(0px);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  color: rgba(255, 255, 255, 1);
+  -webkit-transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
+  transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
+  background-color: rgba(0, 0, 0, 0);
+  &.fixed {
+    transform: translateZ(0);
+    background-image: linear-gradient(rgba(0, 0, 0, .7), transparent);
+    color: #fff;
+    transition: background-color .3s linear 0s;
+    backdrop-filter: blur(30px);
+    background-color: rgba(0, 0, 0, .7);
+  }
   .genre_item {
     width: auto;
     padding: 0.625rem 1.25rem;
@@ -23,24 +38,29 @@
     }
   }
 }
-.genre_box {
-  padding:0 4rem;
-  .genre_sort {
-    margin-bottom: 2.25rem;
 
-    select {
-      padding: 0.5rem 1.25rem 0.5rem 0;
-      color: #fff;
-      font-size: 1.375rem;
-      font-weight: bold;
-      border: none;
-      background: none;
+.genre_top {
+  padding:2rem 3.75rem;
+}
+.genre_sort {
+  margin-bottom: 2.25rem;
 
-      option {
-        color: #000;
-      }
+  select {
+    padding: 0.5rem 1.25rem 0.5rem 0;
+    color: #fff;
+    font-size: 1.375rem;
+    font-weight: bold;
+    border: none;
+    background: none;
+
+    option {
+      color: #000;
     }
   }
+}
+.genre_box {
+  padding:0 4rem;
+
   .genre_list {
     display: flex;
     flex-wrap: wrap;
@@ -118,19 +138,26 @@
 
 
 @media screen and (max-width: 768px) {
+  .item_container {
+    &.genre {
+      padding-top:9.375rem;
+    }
+  }
   .genre_keyword {
-    padding:0 2.5rem;
+    left:2.5rem;
+    padding:2rem 0;
     .genre_item {
+      font-size:1.875rem;
+    }
+  }
+  .genre_sort {
+    select {
       font-size:1.875rem;
     }
   }
   .genre_box {
     padding:0 2.5rem;
-    .genre_sort {
-      select {
-        font-size:1.875rem;
-      }
-    }
+
     .genre_list {
       .genre_card {
         width: calc(100% - 66% - 2rem);

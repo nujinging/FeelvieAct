@@ -22,7 +22,7 @@ export default function PersonDetail() {
 
     // 배우 필모그래피 TAB
     const typeChange = (type) => {
-        setTypeTabs(type)
+        setTypeTabs(type);
     };
 
     // 배우 SNS
@@ -173,9 +173,14 @@ export default function PersonDetail() {
                                                                 <Link to={`/detail/${typeTabs}/${item.id}`}
                                                                       className="link">
                                                                     <div className="tit">
-                                                                     <span>
+                                                                        {
+                                                                            item.release_date && item.first_air_date &&  (
+                                                                                <span>
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>
+                                                                            )
+                                                                        }
+
                                                                         <p>
                                                                             {item.title || item.original_name}
                                                                         </p>

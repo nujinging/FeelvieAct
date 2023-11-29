@@ -54,6 +54,28 @@
     padding: 9.375rem 5rem 5rem 26.25rem;
     overflow: hidden;
     z-index: 1;
+    .title {
+      padding:0;
+    }
+    .item_slide {
+      padding:0;
+      .swiper-button-prev {
+        &:after {
+          content:none;
+        }
+        &:before {
+          content: none;
+        }
+      }
+      .swiper-button-next {
+        &:after {
+          content:none;
+        }
+        &:before {
+          content: none;
+        }
+      }
+    }
     .person_name {
       display: flex;
       align-items: center;
@@ -167,7 +189,7 @@
       .work_top {
         display: flex;
         align-items: center;
-        margin-bottom: 1.875rem;
+        margin-bottom: 3rem;
 
         h3 {
           font-size: 1.875rem;
