@@ -7,6 +7,8 @@ import Loading from "./Loading";
 import imgNone from "../images/img_card_none.png";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
+import useScrollFixed from "../hooks/useScrollFixed";
+import useScrollTop from "../hooks/useScrollTop";
 
 export default function CreaditDetail() {
     const params = useParams();
@@ -20,6 +22,9 @@ export default function CreaditDetail() {
 
     const [castClose, setCastClose] = useState(true);
     const [crewClose, setCrewClose] = useState(true);
+
+    // 공통 스크롤 감지
+    const scrollFixed = useScrollFixed();
 
     // 뒤로가기
     const pageBack = () => {
@@ -169,8 +174,13 @@ export default function CreaditDetail() {
                             </div>
 
                         </div>
-
-
+                        {
+                            scrollFixed && (
+                                <button type="button" className="top_btn" onClick={useScrollTop}>
+                                    <span className="blind">위로</span>
+                                </button>
+                            )
+                        }
                     </div>
                 )
             }
