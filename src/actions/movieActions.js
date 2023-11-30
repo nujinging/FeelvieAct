@@ -12,5 +12,6 @@ export const movieActions = (id, number) => async (dispatch) => {
         dispatch(ottUrl(ott));
 
     } catch (error) {
+        console.log(error)
     }
 };

@@ -5,5 +5,6 @@ export const seasonActions = (id, number) => async (dispatch) => {
         const season = await movieApi.seasons(id, number)
         dispatch(seasonUrl(season));
     } catch (error) {
+        console.log(error)
     }
 };

@@ -4,7 +4,6 @@ const initialState = {
     socialData : null,
     seasonData: null,
     ottData: null,
-    loading: true,
 };
 
 const movieReducer = (state = initialState, action) => {
