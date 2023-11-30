@@ -23,7 +23,6 @@ export default function Header() {
         }
     };
 
-
     return (
         <header className={`wrap_header ${scrollFixed ? "fixed" : ""}`}>
             <div className="header_container">

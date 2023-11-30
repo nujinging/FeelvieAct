@@ -7,7 +7,6 @@ import {Navigation} from "swiper/modules";
 import imgNone from "../images/img_card_none.png";
 
 export default function List(props) {
-    console.log(props.list)
     return (
         <Swiper
             slidesPerView={'auto'} navigation={true} modules={[Navigation]}

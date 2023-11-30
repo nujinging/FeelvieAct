@@ -18,8 +18,6 @@ export default function EventModal() {
         }
     }, [modalOpen]);
 
-
-    console.log(modalOpen)
     // 하루동안 보지 않기
     const onedayShow = () => {
         localStorage.setItem('modalOpen', 'false');

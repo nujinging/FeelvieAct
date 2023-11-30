@@ -17,7 +17,6 @@ export default function Search() {
     // 공통 스크롤 감지
     const scrollFixed = useScrollFixed();
 
-
     // 엔터 방지
     const searchEnter = (event) => {
         if (event && event.key === 'Enter') {

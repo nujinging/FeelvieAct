@@ -82,7 +82,6 @@ export default function PersonDetail() {
             // 배우 인기 필모그래피
             const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
             setArtPopular(popular);
-            console.log(artPopular)
         } catch (error) {
             console.log(error)
         }

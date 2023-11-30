@@ -42,7 +42,6 @@ export default function Genre() {
         navigate(`/genre/${type}/${itemId}`);
     };
 
-
     // 정렬 선택
     const SortClick = async (event) => {
         try {
@@ -67,7 +66,6 @@ export default function Genre() {
                 default:
                     break;
             }
-
             setGenreList(genreUrl.data.results);
         } catch (error) {
             console.log(error)
@@ -101,7 +99,6 @@ export default function Genre() {
                 console.log(error)
             }
         }
-
         fetchApi();
     }, [type, genreNumber]);
 
