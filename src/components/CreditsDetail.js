@@ -10,7 +10,7 @@ import {movieActions} from "../actions/movieActions";
 import useScrollFixed from "../hooks/useScrollFixed";
 import useScrollTop from "../hooks/useScrollTop";
 
-export default function CreaditDetail() {
+export default function CreditsDetail() {
     const params = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
