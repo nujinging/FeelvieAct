@@ -20,6 +20,7 @@ export default function Main() {
     const [dayType, setDayType] = useState('movie');
     const [weekType, setWeekType] = useState('movie');
 
+    // 가장 인기 타입
     const popularChange = (type) => {
         setPopularLoading(true);
         setPopularType(type);
@@ -28,14 +29,22 @@ export default function Main() {
         }
     };
 
+    // 오늘 인기 타입
     const dayChange = (type) => {
         setDayLoading(true);
         setDayType(type);
+        if (type  === dayType) {
+            setDayLoading(false);
+        }
     };
 
+    // 이번즈 인기 타입
     const weekChange = (type) => {
         setWeekLoading(true);
         setWeekType(type);
+        if (type  === weekType) {
+            setWeekLoading(false);
+        }
     };
 
     useEffect(() => {
