@@ -45,10 +45,12 @@ react-scripts: 5.0.1
 
 ## Search
 ![search](https://github.com/nujinging/FeelvieAct/assets/78008757/b99b9c12-60a7-43af-ae3f-ff10d7449367)
+![searchResult](https://github.com/nujinging/FeelvieAct/assets/78008757/7299a103-92ab-431c-8f81-f94a1fb4a310)
 - 입력 후 0.7초 뒤 API 호출
 - 입력값이 없을 시엔 "안내문구 노출"
 - 입력값이 있으나 결과값이 없을 경우 "검색결과없음 노출"
 - 입력값, 결과값 모두 있을 경우 "리스트 노출"
+- Movie, Tv, Actor 뱃지로 구분
 
 ## Art Detail
 ![movieDetail](https://github.com/nujinging/FeelvieAct/assets/78008757/3c189c93-4091-40b9-8aac-f41d09227bce)
@@ -108,9 +110,11 @@ react-scripts: 5.0.1
 - 전체시즌보기로 페이지로 이동이 가능하여 간략한 내용만 모여줌
 
 ## NotFound
+![notFound](https://github.com/nujinging/FeelvieAct/assets/78008757/0c30e92d-20a1-4f6a-920d-59d10f0a016f)
 - 주소없는 404 페이지
 
 ## AxiosError
+![axoisError](https://github.com/nujinging/FeelvieAct/assets/78008757/a90d60d0-bc12-4b96-b8c2-7e0f73a06740)
 - Api 404 페이지
 
 ## PageLayout
