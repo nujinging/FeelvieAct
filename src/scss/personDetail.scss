@@ -139,12 +139,11 @@
         display: inline-block;
         margin-bottom: 3.125rem;
         font-size: 1.75rem;
-
+        vertical-align:top;
         dt {
           margin-bottom: 0.938rem;
           font-weight: bold;
         }
-
         & + dl {
           margin-left: 3.125rem;
         }

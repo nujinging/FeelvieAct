@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import {AxiosError} from "axios";
 import useScrollFixed from "../hooks/useScrollFixed";
 import useScrollTop from "../hooks/useScrollTop";
+import imgNone from "../images/img_card_none.png";
 
 export default function PersonDetail() {
   const params = useParams();
@@ -83,7 +84,8 @@ export default function PersonDetail() {
       const popular = [...artUrl].sort((a, b) => b.vote_average - a.vote_average).slice(0, 5);
       setArtPopular(popular);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      setError(error);
     }
   }, [artUrl]);
 
@@ -101,11 +103,20 @@ export default function PersonDetail() {
                 ? `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${artPopular[0]?.backdrop_path})`
                 : null
             }}>
-              <picture>
-                <img
-                  src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`}
-                  alt="Person Poster" loading="lazy"/>
-              </picture>
+              {
+                dataUrl.profile_path? (
+                  <picture>
+                    <img
+                      src={`${dataUrl.profile_path ? `https://image.tmdb.org/t/p/w300/${dataUrl.profile_path}` : ''}`}
+                      alt="Person Poster" loading="lazy"/>
+                  </picture>
+                ) : (
+                  <picture className="img_none">
+                    <img src={imgNone} alt="img_none" loading="lazy"/>
+                  </picture>
+                )
+              }
+
             </div>
             <div className="person_info">
               <div className="person_name">
@@ -130,12 +141,17 @@ export default function PersonDetail() {
               </div>
 
               <div className="person_desc">
+                {
+                  dataUrl.birthday && (
+                    <dl>
+                      <dt>생년월일</dt>
+                      <dd>{dataUrl.birthday}</dd>
+                    </dl>
+
+                  )
+                }
                 <dl>
-                  <dt>생년월일</dt>
-                  <dd>{dataUrl.birthday}</dd>
-                </dl>
-                <dl>
-                  <dt>성별</dt>
+                <dt>성별</dt>
                   <dd>
                     {dataUrl.gender === '1' ? '여자' : '남자'}
                   </dd>
