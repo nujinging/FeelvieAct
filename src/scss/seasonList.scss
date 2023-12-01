@@ -15,7 +15,9 @@
 
   .season_info {
     width: 100%;
-
+    &>p {
+      font-size:1.5rem;
+    }
     .season_tit {
       display: flex;
       align-items: center;
