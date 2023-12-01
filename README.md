@@ -32,8 +32,7 @@ react-scripts: 5.0.1
 - 전체적인 이미지에 loading lazy 적용
 
 ## Main
-![main](https://github.com/nujinging/FeelvieAct/assets/78008757/af722543-9160-49b0-9ffa-994ad260e89d)
-
+![main](https://github.com/nujinging/FeelvieAct/assets/78008757/36e592b1-1b53-4e75-8468-b86f9e59b674)
 - 홈배너와 "상영중, 가장 인기, 오늘 인기, 이번주 인기" 총 네항목의 리스트를 보여줌
 
 ## Genre
