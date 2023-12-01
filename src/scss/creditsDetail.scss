@@ -7,19 +7,23 @@
   color: #fff;
   background-size: cover;
   background-position: center;
+
   .credits_poster {
     position: relative;
     width: 18.75rem;
     z-index: 1;
+
     .credits_tit {
       margin-top: 1.75rem;
       font-size: 1.625rem;
       font-weight: bold;
       text-align: center;
+
       p {
         line-height: initial;
       }
     }
+
     .credits_back {
       display: flex;
       align-items: center;
@@ -40,14 +44,16 @@
         content: ''
       }
     }
+
     .credits_img {
       img {
-        display:block;
+        display: block;
         width: 100%;
         border-radius: 0.5rem;
       }
     }
   }
+
   &::before {
     content: "";
     position: absolute;
@@ -65,74 +71,90 @@
     background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   }
 }
+
 .credits_box {
   position: relative;
   z-index: 1;
   margin: 9.375rem 5rem 5rem 28.25rem;
-  display:flex;
+  display: flex;
   overflow: hidden;
+
   .list_close {
-    display:none;
+    display: none;
   }
+
   .box {
-    width:100%;
+    width: 100%;
+
     .credits_tit {
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:2.5rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
       color: #fff;
       font-size: 1.875rem;
       font-weight: bold;
       line-height: 2.5rem;
     }
+
     .list_open {
-      margin-left:auto;
-      color:#fff;
+      margin-left: auto;
+      color: #fff;
       font-size: 1.875rem;
       font-weight: bold;
       line-height: 2.5rem;
     }
+
     ul {
-      display:block;
+      display: block;
+
       .credits_item {
-        width:30rem;
+        width: 30rem;
+
         .credits_link {
           picture {
-            margin-right:2rem;
+            margin-right: 2rem;
           }
-          display:flex;
-          img {
-            display:block;
 
-            width:6.25rem;
-            height:9.375rem;
-            border-radius:0.5rem;
+          display: flex;
+
+          img {
+            display: block;
+
+            width: 6.25rem;
+            height: 9.375rem;
+            border-radius: 0.5rem;
           }
+
           .info {
             color: #fff;
             font-size: 1.375rem;
             line-height: 2.5rem;
+
             .name {
               margin-top: 0.938rem;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
             }
+
             .character {
-              font-weight:normal;
+              font-weight: normal;
             }
+
             .job {
-              font-weight:normal;
+              font-weight: normal;
             }
           }
         }
-        &+.credits_item {
-          margin-top:3rem;
+
+        & + .credits_item {
+          margin-top: 3rem;
         }
       }
     }
-    &+.box {
-      margin-left:5rem;
+
+    & + .box {
+      margin-left: 5rem;
     }
   }
 }
@@ -164,32 +186,37 @@
     }
 
     .credits_img {
-      display:block;
+      display: block;
       margin: 0 auto;
       width: 22rem;
     }
   }
 
   .credits_box {
-    display:block;
-    margin:0 2.5rem 9.375rem;
+    display: block;
+    margin: 0 2.5rem 9.375rem;
+
     .box {
-      width:100%;
+      width: 100%;
+
       .credits_tit {
-        font-size:2.5rem;
+        font-size: 2.5rem;
+
         .list_close {
-          display:inline-flex;
-          align-items:center;
-          margin-left:auto;
-          color:#fff;
+          display: inline-flex;
+          align-items: center;
+          margin-left: auto;
+          color: #fff;
           font-size: 1.875rem;
           font-weight: bold;
           line-height: 2.5rem;
+
           &.close {
             &:after {
-            transform: rotate(-180deg);
+              transform: rotate(-180deg);
             }
           }
+
           &:after {
             display: block;
             margin-left: 8px;
@@ -200,19 +227,24 @@
           }
         }
       }
+
       ul {
-        display:block;
+        display: block;
+
         &.close {
-          display:none;
+          display: none;
         }
+
         .credits_item {
-          width:100%;
+          width: 100%;
+
           .credits_link {
             .info {
               .name {
                 font-size: 1.875rem;
                 line-height: 2.875rem;
               }
+
               .character {
                 font-size: 1.875rem;
                 line-height: 2.875rem;
@@ -221,9 +253,10 @@
           }
         }
       }
-      &+.box {
-        margin-top:5rem;
-        margin-left:0;
+
+      & + .box {
+        margin-top: 5rem;
+        margin-left: 0;
       }
     }
   }

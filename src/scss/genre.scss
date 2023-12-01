@@ -1,14 +1,15 @@
 .genre_keyword {
-  position:fixed;
-  top:5.5rem;
-  left:4rem;
-  padding:2rem 0;
+  position: fixed;
+  top: 5.5rem;
+  left: 4rem;
+  padding: 2rem 0;
   backdrop-filter: blur(0px);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
   color: rgba(255, 255, 255, 1);
   -webkit-transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   background-color: rgba(0, 0, 0, 0);
+
   &.fixed {
     transform: translateZ(0);
     background-image: linear-gradient(rgba(0, 0, 0, .7), transparent);
@@ -17,6 +18,7 @@
     backdrop-filter: blur(30px);
     background-color: rgba(0, 0, 0, .7);
   }
+
   .genre_item {
     width: auto;
     padding: 0.625rem 1.25rem;
@@ -40,8 +42,9 @@
 }
 
 .genre_top {
-  padding:2rem 3.75rem;
+  padding: 2rem 3.75rem;
 }
+
 .genre_sort {
   margin-bottom: 2.25rem;
 
@@ -58,8 +61,9 @@
     }
   }
 }
+
 .genre_box {
-  padding:0 4rem;
+  padding: 0 4rem;
 
   .genre_list {
     display: flex;
@@ -118,6 +122,7 @@
 .genre_btm {
   text-align: center;
 }
+
 .more_card {
   width: calc(100% - 86% - 2rem);
 
@@ -139,29 +144,31 @@
 @media screen and (max-width: 768px) {
   .item_container {
     &.genre {
-      padding-top:9.375rem;
+      padding-top: 9.375rem;
     }
   }
   .genre_keyword {
-    left:2.5rem;
-    padding:2rem 0;
+    left: 2.5rem;
+    padding: 2rem 0;
+
     .genre_item {
-      font-size:1.875rem;
+      font-size: 1.875rem;
     }
   }
   .genre_sort {
     select {
-      font-size:1.875rem;
+      font-size: 1.875rem;
     }
   }
   .genre_box {
-    padding:0 2.5rem;
+    padding: 0 2.5rem;
 
     .genre_list {
       .genre_card {
         width: calc(100% - 66% - 2rem);
+
         .tit {
-          font-size:1.5rem;
+          font-size: 1.5rem;
         }
       }
     }

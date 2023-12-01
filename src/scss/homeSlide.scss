@@ -1,16 +1,18 @@
 .home_banner {
-  position:relative;
-  display:block;
-  height:43.75rem;
+  position: relative;
+  display: block;
+  height: 43.75rem;
   animation: showItem 0.5s ease-in;
   background-position: 50%;
   background-size: cover;
+
   &:hover {
     .swiper-button-prev,
     .swiper-button-next {
       display: flex
     }
   }
+
   &:before {
     content: "";
     display: block;
@@ -35,7 +37,7 @@
     position: absolute;
     left: 3.125rem;
     bottom: 6.25rem;
-    color:#fff;
+    color: #fff;
     text-align: left;
     z-index: 10;
 

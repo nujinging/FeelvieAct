@@ -1,7 +1,7 @@
 .item_slide {
   display: flex;
   overflow: visible;
-  padding:0 3.75rem;
+  padding: 0 3.75rem;
 
   .swiper-wrapper {
     transform: translateZ(0);
@@ -129,16 +129,19 @@
 .credits_more_card {
   .swiper-button-prev {
     &:after {
-      content:none;
+      content: none;
     }
+
     &:before {
       content: none;
     }
   }
+
   .swiper-button-next {
     &:after {
-      content:none;
+      content: none;
     }
+
     &:before {
       content: none;
     }

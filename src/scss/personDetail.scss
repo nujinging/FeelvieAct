@@ -54,29 +54,36 @@
     padding: 9.375rem 5rem 5rem 26.25rem;
     overflow: hidden;
     z-index: 1;
+
     .title {
-      padding:0;
+      padding: 0;
     }
+
     .item_slide {
-      padding:0;
-      overflow:hidden;
+      padding: 0;
+      overflow: hidden;
+
       .swiper-button-prev {
         &:after {
-          content:none;
+          content: none;
         }
+
         &:before {
           content: none;
         }
       }
+
       .swiper-button-next {
         &:after {
-          content:none;
+          content: none;
         }
+
         &:before {
           content: none;
         }
       }
     }
+
     .person_name {
       display: flex;
       align-items: center;
@@ -203,7 +210,7 @@
           & + li {
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top:1px solid #ffffff3d;
+            border-top: 1px solid #ffffff3d;
           }
 
           &:hover {
@@ -264,6 +271,7 @@
       }
 
     }
+
     .person_info {
       padding: 0 2.5rem 9.375rem;
       animation: showItem 0.5s ease-in;
@@ -272,6 +280,7 @@
         display: block;
         margin: 0.938rem 0;
         text-align: center;
+
         h1 {
           font-size: 3.25rem;
         }
@@ -304,24 +313,27 @@
       .work {
         .work_list {
           li {
-            &+li {
-              margin-top:2rem;
-              padding-top:2rem;
-              border-top:1px solid #313131;
+            & + li {
+              margin-top: 2rem;
+              padding-top: 2rem;
+              border-top: 1px solid #313131;
             }
+
             .link {
-              flex-wrap:wrap;
+              flex-wrap: wrap;
+
               .tit {
-                width:100%;
-                max-width:100%;
-                font-size:1.875rem;
+                width: 100%;
+                max-width: 100%;
+                font-size: 1.875rem;
               }
+
               .char {
-                margin-top:8px;
-                width:100%;
-                max-width:100%;
-                font-size:1.5rem;
-                text-align:left;
+                margin-top: 8px;
+                width: 100%;
+                max-width: 100%;
+                font-size: 1.5rem;
+                text-align: left;
               }
             }
           }
