@@ -108,9 +108,11 @@ react-scripts: 5.0.1
 - 전체시즌보기로 페이지로 이동이 가능하여 간략한 내용만 모여줌
 
 ## NotFound
+![notFound](https://github.com/nujinging/FeelvieAct/assets/78008757/0c30e92d-20a1-4f6a-920d-59d10f0a016f)
 - 주소없는 404 페이지
 
 ## AxiosError
+![axoisError](https://github.com/nujinging/FeelvieAct/assets/78008757/a90d60d0-bc12-4b96-b8c2-7e0f73a06740)
 - Api 404 페이지
 
 ## PageLayout
