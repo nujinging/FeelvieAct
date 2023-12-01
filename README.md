@@ -45,10 +45,12 @@ react-scripts: 5.0.1
 
 ## Search
 ![search](https://github.com/nujinging/FeelvieAct/assets/78008757/b99b9c12-60a7-43af-ae3f-ff10d7449367)
+![searchResult](https://github.com/nujinging/FeelvieAct/assets/78008757/7299a103-92ab-431c-8f81-f94a1fb4a310)
 - 입력 후 0.7초 뒤 API 호출
 - 입력값이 없을 시엔 "안내문구 노출"
 - 입력값이 있으나 결과값이 없을 경우 "검색결과없음 노출"
 - 입력값, 결과값 모두 있을 경우 "리스트 노출"
+- Movie, Tv, Actor 뱃지로 구분
 
 ## Art Detail
 ![movieDetail](https://github.com/nujinging/FeelvieAct/assets/78008757/3c189c93-4091-40b9-8aac-f41d09227bce)
