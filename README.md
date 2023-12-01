@@ -17,7 +17,7 @@ https://feelvieact.netlify.app/
 
 ### Installation
 ```
-npm install --save swiper axios react-router-dom redux redux-thunk lodash
+npm install --save swiper axios react-router-dom redux redux-thunk lodash js-cookie
 ```
 ### Verson
 ```
