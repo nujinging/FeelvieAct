@@ -1,10 +1,11 @@
 import '../../scss/modal.scss';
 import {useEffect, useState} from "react";
 import mainEvent from '../../images/img_main_event.png'
+import Cookies from 'js-cookie';
 
 export default function EventModal() {
   const [modalOpen, setModalOpen] = useState(() => {
-    const dontStorage = localStorage.getItem('modalOpen');
+    const dontStorage = Cookies.get('modalOpen');
     return dontStorage !== 'false';
   });
   const openModal = () => {
@@ -12,7 +13,7 @@ export default function EventModal() {
   }
 
   useEffect(() => {
-    const dontStorage = localStorage.getItem('modalOpen');
+    const dontStorage = Cookies.get('modalOpen');
     if (dontStorage === 'false') {
       setModalOpen(false);
     }
@@ -20,17 +21,17 @@ export default function EventModal() {
 
   // 하루동안 보지 않기
   const onedayShow = () => {
-    localStorage.setItem('modalOpen', 'false');
+    Cookies.set('modalOpen', 'false');
     setModalOpen(false);
     setTimeout(() => {
-      localStorage.setItem('modalOpen', 'true');
+      Cookies.set('modalOpen', 'true');
       setModalOpen(true);
     }, 24 * 60 * 60 * 1000);
   };
 
   // 다시는 보지 않기
   const doNotShow = () => {
-    localStorage.setItem('modalOpen', 'false');
+    Cookies.set('modalOpen', 'false');
     setModalOpen(false);
   }
 
