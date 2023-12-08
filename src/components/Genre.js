@@ -131,7 +131,7 @@ export default function Genre() {
 
   return (
     <>
-      <div className={`genre_top $`}>
+      <div className="genre_top">
         <Swiper className={`genre_keyword ${scrollFixed ? "fixed" : ""}`} slidesPerView={"auto"}>
           <div className="swiper-wrapper">
             <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
