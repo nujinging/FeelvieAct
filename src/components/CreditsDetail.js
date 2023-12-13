@@ -25,12 +25,6 @@ export default function CreditsDetail() {
 
   // 공통 스크롤 감지
   const scrollFixed = useScrollFixed();
-
-  // 뒤로가기
-  const pageBack = () => {
-    navigate(-1)
-  };
-
   const castMore = () => {
     setCastClose(!castClose);
   }
@@ -71,7 +65,6 @@ export default function CreditsDetail() {
             <section className="credits_detail"
                      style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path})`}}>
               <div className="credits_poster">
-                <button className="credits_back" onClick={pageBack}>메인으로 돌아가기</button>
                 <picture className="credits_img">
                   <img
                     src={detailData?.poster_path ? `https://image.tmdb.org/t/p/w342${detailData?.poster_path}` : ``}

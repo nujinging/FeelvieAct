@@ -23,28 +23,6 @@
         line-height: initial;
       }
     }
-
-    .credits_back {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.75rem;
-      padding: 0.5rem;
-      color: #fff;
-      font-size: 1.625rem;
-      font-weight: bold;
-      border: none;
-      background: none;
-
-      &:before {
-        display: block;
-        margin-right: 0.5rem;
-        width: 24px;
-        height: 24px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M10 13.3327L4.66667 7.99935L10 2.66602' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-        content: ''
-      }
-    }
-
     .credits_img {
       img {
         display: block;
@@ -170,10 +148,6 @@
     .credits_poster {
       margin: 0 auto;
       width: 100%;
-
-      .credits_back {
-        font-size: 2rem;
-      }
 
       .credits_tit {
         margin-bottom: 3.5rem;

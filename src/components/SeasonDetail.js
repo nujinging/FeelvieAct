@@ -33,11 +33,6 @@ export default function SeasonDetail() {
     SetSelectSeason(event.target.value);
   };
 
-  // 뒤로가기
-  const pageBack = () => {
-    navigate(-1)
-  };
-
   useEffect(() => {
       async function fetchApi() {
         try {
@@ -74,7 +69,6 @@ export default function SeasonDetail() {
             <section className="season_detail"
                      style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${detailData?.backdrop_path})`}}>
               <div className="season_poster">
-                <button className="season_back" onClick={pageBack}>메인으로 돌아가기</button>
                 <picture className="season_img">
                   <img
                     src={seasonData?.poster_path ? `https://image.tmdb.org/t/p/w342${seasonData?.poster_path}` : ``}

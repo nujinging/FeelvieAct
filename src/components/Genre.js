@@ -168,7 +168,7 @@ export default function Genre() {
               <option value="popularityDesc">인기도 내림차순</option>
               <option value="popularityAsc">인기도 오름차순</option>
               <option value="dateDesc">상영일 내림차순</option>
-              <option value="dateAsc">상열일 오름차순</option>
+              <option value="dateAsc">상영일 오름차순</option>
             </select>
           </div>
           {
