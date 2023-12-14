@@ -6,8 +6,8 @@ import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./components/Loading";
-import VideoModal from "./Modal/VideoModal";
-import ImgModal from "./Modal/ImgModal";
+import VideoModal from "./modal/VideoModal";
+import ImgModal from "./modal/ImgModal";
 
 export default function MediaDetail() {
   const params = useParams();

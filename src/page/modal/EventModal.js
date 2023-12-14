@@ -1,4 +1,4 @@
-import '../../scss/modal.scss';
+import '../../scss/modal/modal.scss';
 import {useEffect, useState} from "react";
 import mainEvent from '../../images/img_main_event.png'
 import Cookies from 'js-cookie';

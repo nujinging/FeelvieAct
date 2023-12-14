@@ -4,7 +4,7 @@ import Loading from "./components/Loading";
 
 const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
 const LazyList = lazy(() => import("./components/List"));
-const LazyEventModal = lazy(() => import("./Modal/EventModal"));
+const LazyEventModal = lazy(() => import("./modal/EventModal"));
 
 export default function Main() {
   const [popularLoading, setPopularLoading] = useState(true);

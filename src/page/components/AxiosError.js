@@ -1,3 +1,4 @@
+import './../../scss/components/axiosError.scss'
 export default function AxiosError() {
   return (
     <div className="axios_error">
