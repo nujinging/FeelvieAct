@@ -6,7 +6,7 @@ import Genre from "./components/Genre";
 import Search from "./components/Search";
 import PersonDetail from "./components/PersonDetail";
 import SeasonDetail from "./components/SeasonDetail";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/components/NotFound";
 import PageLayout from "./components/PageLayout";
 import CreditsDetail from "./components/CreditsDetail";
 

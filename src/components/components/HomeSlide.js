@@ -1,4 +1,4 @@
-import './../scss/homeSlide.scss';
+import '../../scss/homeSlide.scss';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, Pagination, Navigation} from 'swiper/modules';
 import "swiper/css";
@@ -10,6 +10,8 @@ export default function HomeSlide(props) {
   const [itemId, setItemId] = useState(null);
   const navigate = useNavigate();
   const slideList = props.list.slice(0, 5);
+
+  console.log(props)
 
   // 영화 디테일 페이지 이동
   const pageLink = (itemId) => {

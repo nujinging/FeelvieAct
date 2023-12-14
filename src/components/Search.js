@@ -2,7 +2,7 @@ import './../scss/search.scss'
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
-import Loading from "./Loading";
+import Loading from "./components/Loading";
 import imgNone from "../images/img_card_none.png";
 import useScrollFixed from "../hooks/useScrollFixed";
 import useScrollTop from "../hooks/useScrollTop";
@@ -139,8 +139,8 @@ export default function Search() {
                 TV 프로그램
               </strong> 검색은 어떠세요?</h1>
             <p>
-              예를 들면 <span>스파이 패밀리</span> 요 😎<br/>
-              물론 영화 <span>극한직업</span>도 좋은 작품이죠 !<br/>
+              예를 들면 <Link to="https://feelvieact.netlify.app/detail/tv/120089" target="_blank" className="search_link">스파이 패밀리</Link> 요 😎<br/>
+              물론 영화 <Link to="https://feelvieact.netlify.app/detail/movie/567646" target="_blank" className="search_link">극한직업</Link>도 좋은 작품이죠 !<br/>
               검색할 땐 띄어쓰기를 정확히 해주세요 !
             </p>
           </div>

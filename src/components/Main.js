@@ -1,9 +1,9 @@
 import {movieApi} from "./../util/movieApi";
 import {useState, useEffect, lazy, Suspense} from 'react';
-import Loading from "./Loading";
+import Loading from "./components/Loading";
 
-const LazyHomeSlide = lazy(() => import("./HomeSlide"));
-const LazyList = lazy(() => import("./List"));
+const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
+const LazyList = lazy(() => import("./components/List"));
 const LazyEventModal = lazy(() => import("./Modal/EventModal"));
 
 export default function Main() {

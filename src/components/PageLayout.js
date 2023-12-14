@@ -1,7 +1,8 @@
 import './../scss/common.scss';
 import './../scss/reset.scss';
 import {Outlet} from "react-router-dom";
-import Header from "./Header";
+import Header from "./Layout/Header";
+import Footer from "./Layout/Footer";
 
 export default function PageLayout() {
   // 현재 경로에 맞는 하위 경로의 컴포넌트 렌더링 - Outlet
@@ -9,6 +10,7 @@ export default function PageLayout() {
     <>
       <Header/>
       <Outlet/>
+      <Footer/>
     </>
   );
 }

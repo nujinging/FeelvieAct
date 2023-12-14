@@ -1,10 +1,10 @@
-import './../scss/list.scss';
+import '../../scss/list.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import {Link} from "react-router-dom";
 import {Navigation} from "swiper/modules";
-import imgNone from "../images/img_card_none.png";
+import imgNone from "../../images/img_card_none.png";
 
 export default function List(props) {
   return (
