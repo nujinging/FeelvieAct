@@ -1,5 +1,7 @@
 ## Front-End *👩 김유진*
 
+# FeelvieAct
+
 영화 ,TV 프로그램을 수집하는 TMDB의 API를 활용한 반응형 작품/배우 소개 페이지
 
 '느낌'이라는 뜻의 Feel와 프랑스어로 '삶'을 의미하는 두 단어를 조합한 Feelvie에 React의 Act를 붙여 탄생
