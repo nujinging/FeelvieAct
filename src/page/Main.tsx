@@ -28,7 +28,7 @@ export default function Main() {
   // 클릭할때마다 loading이 활성화되고 클릭한 Type을 담는다
   // 클릭한 타입과 현재의 타입이 같다면 로딩도, list도 재랜더링 되지않는다
   // 가장 인기 타입
-  const popularChange = (type) => {
+  const popularChange = (type : 'movie' | 'tv') => {
     setPopularLoading(true);
     setPopularType(type);
     if (type  === popularType) {
@@ -37,7 +37,7 @@ export default function Main() {
   };
 
   // 오늘 인기 타입
-  const dayChange = (type) => {
+  const dayChange = (type : 'movie' | 'tv') => {
     setDayLoading(true);
     setDayType(type);
     if (type === dayType) {
@@ -46,7 +46,7 @@ export default function Main() {
   };
 
   // 이번주 인기 타입
-  const weekChange = (type) => {
+  const weekChange = (type : 'movie' | 'tv') => {
     setWeekLoading(true);
     setWeekType(type);
     if (type === weekType) {
