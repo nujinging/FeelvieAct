@@ -6,20 +6,24 @@ const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
 const LazyList = lazy(() => import("./components/List"));
 const LazyEventModal = lazy(() => import("./modal/EventModal"));
 
+type ItemState = boolean;
+type MediaType = 'movie' | 'tv';
+type MediaItem = any[];
+
 export default function Main() {
-  const [popularLoading, setPopularLoading] = useState(true);
-  const [dayLoading, setDayLoading] = useState(true);
-  const [weekLoading, setWeekLoading] = useState(true);
-  const [playing, setPlaying] = useState([]);
+  const [popularLoading, setPopularLoading] = useState<ItemState>(true);
+  const [dayLoading, setDayLoading] = useState<ItemState>(true);
+  const [weekLoading, setWeekLoading] = useState<ItemState>(true);
+  const [playing, setPlaying] = useState<MediaItem[]>([]);
 
-  const [main, setMain] = useState([]);
-  const [popular, setPopular] = useState([]);
-  const [day, setDay] = useState([]);
-  const [week, setWeek] = useState([]);
+  const [main, setMain] = useState<MediaItem[]>([]);
+  const [popular, setPopular] = useState<MediaItem[]>([]);
+  const [day, setDay] = useState<MediaItem[]>([]);
+  const [week, setWeek] = useState<MediaItem[]>([]);
 
-  const [popularType, setPopularType] = useState('movie');
-  const [dayType, setDayType] = useState('movie');
-  const [weekType, setWeekType] = useState('movie');
+  const [popularType, setPopularType] = useState<MediaType>('movie');
+  const [dayType, setDayType] = useState<MediaType>('movie');
+  const [weekType, setWeekType] = useState<MediaType>('movie');
 
   // 클릭할때마다 loading이 활성화되고 클릭한 Type을 담는다
   // 클릭한 타입과 현재의 타입이 같다면 로딩도, list도 재랜더링 되지않는다

@@ -6,8 +6,8 @@ import {seasonActions} from "../actions/seasonActions";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./components/Loading";
 import AxiosError from "./components/AxiosError";
-import useScrollTop from "../hooks/useScrollTop";
-import useScrollFixed from "../hooks/useScrollFixed";
+import useScrollTop from "../commonEvent/useScrollTop";
+import useScrollFixed from "../commonEvent/useScrollFixed";
 
 export default function SeasonDetail() {
   const params = useParams();

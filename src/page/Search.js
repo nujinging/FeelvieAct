@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
 import Loading from "./components/Loading";
 import imgNone from "../images/img_card_none.png";
-import useScrollFixed from "../hooks/useScrollFixed";
-import useScrollTop from "../hooks/useScrollTop";
+import useScrollFixed from "../commonEvent/useScrollFixed";
+import useScrollTop from "../commonEvent/useScrollTop";
 
 export default function Search() {
   const [searchWord, setSearchWord] = useState('');

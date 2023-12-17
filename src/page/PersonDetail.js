@@ -7,8 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./components/Loading";
 import {AxiosError} from "axios";
-import useScrollFixed from "../hooks/useScrollFixed";
-import useScrollTop from "../hooks/useScrollTop";
+import useScrollFixed from "../commonEvent/useScrollFixed";
+import useScrollTop from "../commonEvent/useScrollTop";
 import imgNone from "../images/img_card_none.png";
 
 export default function PersonDetail() {

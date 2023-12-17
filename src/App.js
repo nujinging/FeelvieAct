@@ -1,6 +1,6 @@
 import './scss/layout/common.scss';
 import {Route, Routes} from 'react-router-dom';
-import Main from "./page/Main";
+import Main from "./page/Main.tsx";
 import ItemDetail from "./page/ItemDetail";
 import Genre from "./page/Genre";
 import Search from "./page/Search";

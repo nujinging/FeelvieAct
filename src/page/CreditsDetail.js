@@ -7,8 +7,8 @@ import Loading from "./components/Loading";
 import imgNone from "../images/img_card_none.png";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
-import useScrollFixed from "../hooks/useScrollFixed";
-import useScrollTop from "../hooks/useScrollTop";
+import useScrollFixed from "../commonEvent/useScrollFixed";
+import useScrollTop from "../commonEvent/useScrollTop";
 
 export default function CreditsDetail() {
   const params = useParams();

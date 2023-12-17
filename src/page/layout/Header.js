@@ -2,7 +2,7 @@ import '../../scss/layout/header.scss';
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import logoImage from '../../images/logo.png'
-import useScrollFixed from "../../hooks/useScrollFixed";
+import useScrollFixed from "../../commonEvent/useScrollFixed";
 
 export default function Header() {
   const location = useLocation();
