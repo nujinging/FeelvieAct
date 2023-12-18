@@ -4,7 +4,7 @@ import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import {seasonActions} from "../actions/seasonActions";
-import Loading from "./Loading";
+import Loading from "./components/Loading";
 
 export default function SeasonList() {
   const params = useParams();

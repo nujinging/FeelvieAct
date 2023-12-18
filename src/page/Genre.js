@@ -5,12 +5,12 @@ import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import LoadingProgress from "./LoadingProgress";
-import Loading from "./Loading";
+import LoadingProgress from "./components/LoadingProgress";
+import Loading from "./components/Loading";
 import {debounce} from 'lodash';
 import imgNone from './../images/img_card_none.png'
-import useScrollFixed from "../hooks/useScrollFixed";
-import useScrollTop from "../hooks/useScrollTop";
+import useScrollFixed from "../commonEvent/useScrollFixed";
+import useScrollTop from "../commonEvent/useScrollTop";
 
 export default function Genre() {
   const {type, number} = useParams();

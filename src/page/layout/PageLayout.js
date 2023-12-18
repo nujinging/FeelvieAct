@@ -1,5 +1,5 @@
-import './../scss/common.scss';
-import './../scss/reset.scss';
+import '../../scss/layout/common.scss';
+import '../../scss/layout/reset.scss';
 import {Outlet} from "react-router-dom";
 import Header from "./Header";
 

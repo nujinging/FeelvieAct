@@ -1,4 +1,4 @@
-import '../../scss/modal.scss';
+import '../../scss/modal/modal.scss';
 
 export default function VideoModal({item, onClose}) {
   return (

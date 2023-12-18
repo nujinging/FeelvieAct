@@ -6,11 +6,11 @@ import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {movieActions} from "../actions/movieActions";
 import {seasonActions} from "../actions/seasonActions";
-import List from "./List";
+import List from "./components/List";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
-import Loading from "./Loading";
-import AxiosError from "./AxiosError";
+import Loading from "./components/Loading";
+import AxiosError from "./components/AxiosError";
 
 export default function ItemDetail() {
   const params = useParams();

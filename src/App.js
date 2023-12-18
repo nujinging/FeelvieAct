@@ -1,14 +1,14 @@
-import './scss/common.scss';
+import './scss/layout/common.scss';
 import {Route, Routes} from 'react-router-dom';
-import Main from "./components/Main";
-import ItemDetail from "./components/ItemDetail";
-import Genre from "./components/Genre";
-import Search from "./components/Search";
-import PersonDetail from "./components/PersonDetail";
-import SeasonDetail from "./components/SeasonDetail";
-import NotFound from "./components/NotFound";
-import PageLayout from "./components/PageLayout";
-import CreditsDetail from "./components/CreditsDetail";
+import Main from "./page/Main.tsx";
+import ItemDetail from "./page/ItemDetail";
+import Genre from "./page/Genre";
+import Search from "./page/Search";
+import PersonDetail from "./page/PersonDetail";
+import SeasonDetail from "./page/SeasonDetail";
+import NotFound from "./page/components/NotFound";
+import PageLayout from "./page/layout/PageLayout";
+import CreditsDetail from "./page/CreditsDetail";
 
 export default function App() {
   return (

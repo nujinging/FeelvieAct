@@ -2,13 +2,13 @@ import './../scss/creditsDetail.scss';
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
-import AxiosError from "./AxiosError";
-import Loading from "./Loading";
+import AxiosError from "./components/AxiosError";
+import Loading from "./components/Loading";
 import imgNone from "../images/img_card_none.png";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
-import useScrollFixed from "../hooks/useScrollFixed";
-import useScrollTop from "../hooks/useScrollTop";
+import useScrollFixed from "../commonEvent/useScrollFixed";
+import useScrollTop from "../commonEvent/useScrollTop";
 
 export default function CreditsDetail() {
   const params = useParams();
