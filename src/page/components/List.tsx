@@ -10,19 +10,20 @@ interface ListItem {
   id: number;
   title: string;
   name: string;
-  overview: string;
-  poster_path: string;
-  profile_path: string;
-  known_for_department: string;
+  overview?: string;
+  poster_path?: string;
+  profile_path?: string;
+  known_for_department?: string;
 }
 
 interface ListProps {
   list: ListItem[];
-  type: string;
+  type: 'movie' | 'person';
   className: string;
 }
 
-const List: React.FunctionComponent<ListProps> = ({ list, type, className: itemClass }) => {
+
+const List: React.FC<ListProps> = ({ list, type, className: itemClass }: ListProps) => {
   return (
     <Swiper
       slidesPerView={'auto'} navigation={true} modules={[Navigation]}

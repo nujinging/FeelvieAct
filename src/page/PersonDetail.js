@@ -2,7 +2,7 @@ import './../scss/personDetail.scss'
 import {movieApi} from "../util/movieApi";
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import List from "./components/List";
+import List from "./components/List.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../actions/movieActions";
 import Loading from "./components/Loading";

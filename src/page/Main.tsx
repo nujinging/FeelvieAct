@@ -3,7 +3,7 @@ import {useState, useEffect, lazy, Suspense} from 'react';
 import Loading from "./components/Loading";
 
 const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
-const LazyList = lazy(() => import("./components/List"));
+const LazyList = lazy(() => import("./components/List.tsx"));
 const LazyEventModal = lazy(() => import("./modal/EventModal"));
 
 type ItemState = boolean;
