@@ -1,14 +1,10 @@
 import {movieApi} from "./../util/movieApi";
 import {useState, useEffect, lazy, Suspense} from 'react';
 import Loading from "./components/Loading";
-
+import { ItemState, MediaType, MediaItem } from './../types/commonTypes.tsx';
 const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
 const LazyList = lazy(() => import("./components/List.tsx"));
 const LazyEventModal = lazy(() => import("./modal/EventModal"));
-
-type ItemState = boolean;
-type MediaType = 'movie' | 'tv';
-type MediaItem = any[];
 
 export default function Main() {
   const [popularLoading, setPopularLoading] = useState<ItemState>(true);

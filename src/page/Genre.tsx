@@ -1,5 +1,6 @@
 import './../scss/genre.scss';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import { ItemState, MediaType, MediaItem, SelectValue, GenreNumber, pageNumber } from './../types/commonTypes.tsx';
 import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi";
@@ -16,15 +17,15 @@ export default function Genre() {
   const {type, number} = useParams();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
-  const [listLoading, setListLoading] = useState(true);
-  const [progressState, setProgressState] = useState(true);
+  const [loading, setLoading] = useState<ItemState>(false);
+  const [listLoading, setListLoading] = useState<ItemState>(true);
+  const [progressState, setProgressState] = useState<ItemState>(true);
 
-  const [genreTitle, setGenreTitle] = useState([]);
-  const [genreList, setGenreList] = useState([]);
-  const [genreNumber, setGenreNumber] = useState('All');
-  const [selectedValue, setSelectedValue] = useState('');
-  const [page, setPage] = useState(1);
+  const [genreTitle, setGenreTitle] = useState<MediaItem[]>([]);
+  const [genreList, setGenreList] = useState<MediaItem[]>([]);
+  const [genreNumber, setGenreNumber] = useState<GenreNumber>('All');
+  const [selectedValue, setSelectedValue] = useState<SelectValue>('');
+  const [page, setPage] = useState<pageNumber>(1);
 
 // 공통 스크롤 감지
   const scrollFixed = useScrollFixed();
@@ -35,7 +36,7 @@ export default function Genre() {
   };
 
 // 장르 선택
-  const genreChange = async (itemId) => {
+  const genreChange = async (itemId : string) => {
     setListLoading(true);
     setProgressState(true);
     setGenreNumber(itemId);
@@ -43,7 +44,7 @@ export default function Genre() {
   };
 
 // 정렬 선택
-  const SortClick = async (event) => {
+  const SortClick = async (event : React.ChangeEvent<HTMLSelectElement>) => {
     try {
       setSelectedValue(event.target.value);
       setProgressState(true);

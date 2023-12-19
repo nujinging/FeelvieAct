@@ -2,7 +2,7 @@ import './scss/layout/common.scss';
 import {Route, Routes} from 'react-router-dom';
 import Main from "./page/Main.tsx";
 import ItemDetail from "./page/ItemDetail";
-import Genre from "./page/Genre";
+import Genre from "./page/Genre.tsx";
 import Search from "./page/Search";
 import PersonDetail from "./page/PersonDetail";
 import SeasonDetail from "./page/SeasonDetail";
