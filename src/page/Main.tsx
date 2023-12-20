@@ -1,7 +1,7 @@
-import {movieApi} from "./../util/movieApi";
+import {movieApi} from "../util/movieApi";
 import {useState, useEffect, lazy, Suspense} from 'react';
 import Loading from "./components/Loading";
-import { ItemState, MediaType, MediaItem } from './../types/commonTypes.tsx';
+import { ItemState, MediaType, MediaItem } from '../types/commonTypes';
 const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
 const LazyList = lazy(() => import("./components/List.tsx"));
 const LazyEventModal = lazy(() => import("./modal/EventModal"));
@@ -10,8 +10,8 @@ export default function Main() {
   const [popularLoading, setPopularLoading] = useState<ItemState>(true);
   const [dayLoading, setDayLoading] = useState<ItemState>(true);
   const [weekLoading, setWeekLoading] = useState<ItemState>(true);
-  const [playing, setPlaying] = useState<MediaItem[]>([]);
 
+  const [playing, setPlaying] = useState<MediaItem[]>([]);
   const [main, setMain] = useState<MediaItem[]>([]);
   const [popular, setPopular] = useState<MediaItem[]>([]);
   const [day, setDay] = useState<MediaItem[]>([]);
@@ -91,7 +91,7 @@ export default function Main() {
             <div className="title">
               <h2>&#x1F3AC; 지금 상영중이에요!</h2>
             </div>
-            <LazyList type="movie" list={playing} class={"item_list"}/>
+            <LazyList type="movie" list={playing} class={"item_list"} />
           </div>
 
           <div className="item_box">

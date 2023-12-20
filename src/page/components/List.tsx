@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {Navigation} from "swiper/modules";
 import imgNone from "../../images/img_card_none.png";
 
-interface ListItem {
+interface MediaItem {
   id: number;
   title: string;
   name: string;
@@ -17,13 +17,13 @@ interface ListItem {
 }
 
 interface ListProps {
-  list: ListItem[];
+  list: MediaItem[];
   type: 'movie' | 'person';
-  className: string;
+  class: string;
 }
 
 
-const List: React.FC<ListProps> = ({ list, type, className: itemClass }: ListProps) => {
+const List: React.FC<ListProps> = ({ list, type, class: itemClass }: ListProps) => {
   return (
     <Swiper
       slidesPerView={'auto'} navigation={true} modules={[Navigation]}
