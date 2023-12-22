@@ -21,8 +21,8 @@ export default function App() {
         <Route path='/genre/:type/:number' element={<Genre/>}/>
         <Route path='/person/:id' element={<PersonDetail/>}/>
         <Route path='/:type/season/:id/episode' element={<SeasonDetail/>}/>
+        <Route path="*" element={<NotFound/>}/>
       </Route>
-      <Route path="*" element={<NotFound/>}/>
     </Routes>
   );
 }
