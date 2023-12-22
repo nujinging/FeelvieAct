@@ -22,7 +22,7 @@ https://velog.io/@nujinging/series/FeelvieAct
 
 ### Installation
 ```
-npm install --save swiper axios react-router-dom redux redux-thunk lodash js-cookie
+npm install --save swiper axios react-router-dom redux redux-thunk lodash js-cookie typescript @types/react @types/react-dom @types/react-router-dom
 ```
 ### Verson
 ```
