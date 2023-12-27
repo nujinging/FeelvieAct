@@ -195,13 +195,12 @@ export default function PersonDetail() {
                                       className="link">
                                   <div className="tit">
                                     {
-                                      item.release_date && item.first_air_date && (
+                                      (item.release_date || item.first_air_date) && (
                                         <span>
                                                     {item.release_date ? item.release_date.substring(0, 4) : item.first_air_date ? item.first_air_date.substring(0, 4) : null}
                                                 </span>
                                       )
                                     }
-
                                     <p>
                                       {item.title || item.original_name}
                                     </p>
