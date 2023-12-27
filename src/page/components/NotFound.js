@@ -1,6 +1,6 @@
 import './../../scss/components/notFound.scss';
 
-export default function NotFound() {
+const NotFound: React.FC = () => {
   return (
     <div className="not_found">
       <div className="txt">
@@ -16,3 +16,5 @@ export default function NotFound() {
     </div>
   );
 }
+
+export default NotFound

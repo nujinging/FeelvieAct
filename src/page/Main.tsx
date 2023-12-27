@@ -1,8 +1,8 @@
 import {movieApi} from "../util/movieApi";
 import {useState, useEffect, lazy, Suspense} from 'react';
-import Loading from "./components/Loading";
+import Loading from "./components/Loading.tsx";
 import { ItemState, MediaType, MediaItem } from '../types/commonTypes';
-const LazyHomeSlide = lazy(() => import("./components/HomeSlide"));
+const LazyHomeSlide = lazy(() => import("./components/HomeSlide.tsx"));
 const LazyList = lazy(() => import("./components/List.tsx"));
 const LazyEventModal = lazy(() => import("./modal/EventModal"));
 

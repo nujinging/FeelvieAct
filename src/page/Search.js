@@ -2,7 +2,7 @@ import './../scss/search.scss'
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {movieApi} from "../util/movieApi";
-import Loading from "./components/Loading";
+import Loading from "./components/Loading.tsx";
 import imgNone from "../images/img_card_none.png";
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";

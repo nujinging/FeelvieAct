@@ -6,7 +6,12 @@ import "swiper/css/navigation";
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 
-export default function HomeSlide(props) {
+
+interface HomeSlideProps {
+  list : any[],
+  type : string
+}
+const HomeSlide : React.FC<HomeSlideProps> = (props) => {
   const [itemId, setItemId] = useState(null);
   const navigate = useNavigate();
   const slideList = props.list.slice(0, 5);
@@ -47,3 +52,5 @@ export default function HomeSlide(props) {
     </Swiper>
   );
 }
+
+export default HomeSlide;

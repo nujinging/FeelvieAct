@@ -1,6 +1,6 @@
 import {detailUrl, socialUrl, ottUrl} from '../util/action';
 import {movieApi} from "../util/movieApi";
-import AxiosError from "../page/components/AxiosError";
+import AxiosError from "../page/components/AxiosError.tsx";
 
 export const movieActions = (id, number) => async (dispatch) => {
   try {

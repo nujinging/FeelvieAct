@@ -9,8 +9,8 @@ import {seasonActions} from "../actions/seasonActions";
 import List from "./components/List.tsx";
 import SeasonList from "./SeasonList";
 import MediaDetail from "./MediaDetail";
-import Loading from "./components/Loading";
-import AxiosError from "./components/AxiosError";
+import Loading from "./components/Loading.tsx";
+import AxiosError from "./components/AxiosError.tsx";
 
 export default function ItemDetail() {
   const params = useParams();

@@ -1,6 +1,10 @@
 import './../../scss/components/loading.scss';
 
-export default function LoadingProgress(props) {
+interface ProgressProps {
+  progress: number;
+}
+
+const LoadingProgress: React.FC<ProgressProps> = (props) => {
   return (
     <div className="progress"
          style={{
@@ -9,3 +13,5 @@ export default function LoadingProgress(props) {
     ></div>
   );
 }
+
+export default LoadingProgress;

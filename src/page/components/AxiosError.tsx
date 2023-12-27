@@ -1,5 +1,6 @@
 import './../../scss/components/axiosError.scss'
-export default function AxiosError() {
+
+const AxiosError: React.FC = () => {
   return (
     <div className="axios_error">
       <div className="txt">
@@ -15,3 +16,5 @@ export default function AxiosError() {
     </div>
   );
 }
+
+export default AxiosError;
