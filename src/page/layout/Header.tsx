@@ -1,21 +1,20 @@
 import '../../scss/layout/header.scss';
 import {Link, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
 import logoImage from '../../images/logo.png'
 import useScrollFixed from "../../commonEvent/useScrollFixed";
 
-export default function Header() {
+const Header : React.FC = () => {
   const location = useLocation();
-  const number = 'All';
+  const number : string = 'All';
 
   // 공통 스크롤 감지
   const scrollFixed = useScrollFixed();
-  const pageRefresh = (path) => {
+  const pageRefresh = (path : string) => {
     if (location.pathname !== path) {
       window.location.href = path;
     }
   };
-  const GenreRefresh = (path) => {
+  const GenreRefresh = (path : string) => {
     if (location.pathname.includes(path)) {
       window.location.href = `${path}/All`;
     }
@@ -47,3 +46,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;

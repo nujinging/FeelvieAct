@@ -4,7 +4,7 @@ import Loading from "./components/Loading.tsx";
 import { ItemState, MediaType, MediaItem } from '../types/commonTypes';
 const LazyHomeSlide = lazy(() => import("./components/HomeSlide.tsx"));
 const LazyList = lazy(() => import("./components/List.tsx"));
-const LazyEventModal = lazy(() => import("./modal/EventModal"));
+const LazyEventModal = lazy(() => import("./modal/EventModal.tsx"));
 
 export default function Main() {
   const [popularLoading, setPopularLoading] = useState<ItemState>(true);

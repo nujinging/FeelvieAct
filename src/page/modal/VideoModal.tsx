@@ -1,6 +1,12 @@
 import '../../scss/modal/modal.scss';
 
-export default function VideoModal({item, onClose}) {
+interface videoModalType {
+    item : {
+        key : string;
+    };
+    onClose : (() => void)
+}
+const VideoModal : React.FC<videoModalType> = ({item, onClose}) => {
   return (
     <div className="video_modal">
       <div className="inner">
@@ -12,3 +18,5 @@ export default function VideoModal({item, onClose}) {
     </div>
   );
 }
+
+export default VideoModal;

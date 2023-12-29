@@ -1,6 +1,15 @@
 import '../../scss/modal/modal.scss';
 
-export default function ImgModal({item, onClose}) {
+interface imgModalType {
+    item : {
+        width : string;
+        height: string;
+        file_path : string;
+    };
+    onClose : ()=> void;
+}
+
+const ImgModal : React.FC<imgModalType> = ({item, onClose}) => {
   return (
     <div className="img_modal" onClick={() => onClose()}>
       <div className="inner">
@@ -20,4 +29,5 @@ export default function ImgModal({item, onClose}) {
   );
 }
 
+export default ImgModal;
 

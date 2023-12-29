@@ -3,16 +3,16 @@ import {useEffect, useState} from "react";
 import mainEvent from '../../images/img_main_event.png'
 import Cookies from 'js-cookie';
 
-export default function EventModal() {
-  const [modalOpen, setModalOpen] = useState(() => {
+const EventModal : React.FC = () => {
+  const [modalOpen, setModalOpen] = useState<Boolean>(() => {
     const dontStorage = Cookies.get('modalOpen');
     return dontStorage !== 'false';
   });
-  const openModal = () => {
+  const openModal = () : void => {
     setModalOpen(false)
   }
 
-  useEffect(() => {
+  useEffect(() : void => {
     const dontStorage = Cookies.get('modalOpen');
     if (dontStorage === 'false') {
       setModalOpen(false);
@@ -20,7 +20,7 @@ export default function EventModal() {
   }, [modalOpen]);
 
   // 하루동안 보지 않기
-  const onedayShow = () => {
+  const onedayShow = () : void => {
     Cookies.set('modalOpen', 'false');
     setModalOpen(false);
     setTimeout(() => {
@@ -30,7 +30,7 @@ export default function EventModal() {
   };
 
   // 다시는 보지 않기
-  const doNotShow = () => {
+  const doNotShow = () : void => {
     Cookies.set('modalOpen', 'false');
     setModalOpen(false);
   }
@@ -56,3 +56,5 @@ export default function EventModal() {
     )
   )
 }
+
+export default EventModal;

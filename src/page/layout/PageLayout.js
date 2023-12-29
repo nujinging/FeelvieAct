@@ -1,9 +1,9 @@
 import '../../scss/layout/common.scss';
 import '../../scss/layout/reset.scss';
 import {Outlet} from "react-router-dom";
-import Header from "./Header";
+import Header from "./Header.tsx";
 
-export default function PageLayout() {
+const PageLayout : React.FC = () => {
   // 현재 경로에 맞는 하위 경로의 컴포넌트 렌더링 - Outlet
   return (
     <>
@@ -12,3 +12,4 @@ export default function PageLayout() {
     </>
   );
 }
+export default PageLayout;
