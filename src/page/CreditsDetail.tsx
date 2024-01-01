@@ -10,18 +10,18 @@ import {movieActions} from "../actions/movieActions";
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
 
-export default function CreditsDetail() {
-  const params = useParams();
+const CreditsDetail: React.FC = () => {
+  const params = useParams<{type : string ; id : number}>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [castUrl, setCastsUrl] = useState();
-  const [crewUrl, setCrewsUrl] = useState();
-  const detailData = useSelector(state => state.movies.movieData);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [error, setError] = useState<Boolean>(null);
+  const [castUrl, setCastsUrl] = useState<any>();
+  const [crewUrl, setCrewsUrl] = useState<any>();
+  const detailData = useSelector((state) => state.movies.movieData);
 
-  const [castClose, setCastClose] = useState(true);
-  const [crewClose, setCrewClose] = useState(true);
+  const [castClose, setCastClose] = useState<Boolean>(true);
+  const [crewClose, setCrewClose] = useState<Boolean>(true);
 
   // 공통 스크롤 감지
   const scrollFixed = useScrollFixed();
@@ -181,4 +181,4 @@ export default function CreditsDetail() {
   );
 }
 
-
+export default CreditsDetail;

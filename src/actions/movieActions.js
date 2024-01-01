@@ -1,4 +1,4 @@
-import {detailUrl, socialUrl, ottUrl} from '../util/action';
+import {detailUrl, socialUrl, ottUrl} from '../util/action.ts';
 import {movieApi} from "../util/movieApi";
 import AxiosError from "../page/components/AxiosError.tsx";
 

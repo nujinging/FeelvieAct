@@ -12,27 +12,27 @@ import MediaDetail from "./MediaDetail";
 import Loading from "./components/Loading.tsx";
 import AxiosError from "./components/AxiosError.tsx";
 
-export default function ItemDetail() {
-  const params = useParams();
+const ItemDetail : React.FC = () => {
+  const params = useParams<{type : string ; id : number}>();
   const dispatch = useDispatch();
 // detailData, socialData, seasonData 를 Redux 스토어에서 상태를 가져와서 사용
   const detailData = useSelector(state => state.movies.movieData);
   const socialData = useSelector(state => state.movies.socialData);
   const seasonData = useSelector(state => state.movies.seasonData);
 
-  const [ottUrl, setOttUrl] = useState();
-  const [creditsUrl, setCreditsUrl] = useState();
-  const [recommendUrl, setRecommendUrl] = useState([]);
+  const [ottUrl, setOttUrl] = useState<any>();
+  const [creditsUrl, setCreditsUrl] = useState<any>();
+  const [recommendUrl, setRecommendUrl] = useState<any>([]);
 
-  const [loading, setLoading] = useState(true);
-  const [creditsLoading, setCreditsLoading] = useState(true);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [creditsLoading, setCreditsLoading] = useState<Boolean>(true);
   const [error, setError] = useState(null);
 
 // 줄거리가 3줄이상 이상 나올 시 더보기 버튼 생성
   const overviewText = useRef(null);
-  const [overflowMore, setOverviewMore] = useState(false);
-  const [overviewExpanded, setOverviewExpanded] = useState(false);
-  const [ottState, setOttState] = useState(false);
+  const [overflowMore, setOverviewMore] = useState<Boolean>(false);
+  const [overviewExpanded, setOverviewExpanded] = useState<Boolean>(false);
+  const [ottState, setOttState] = useState<Boolean>(false);
 
   /* 소셜 */
   const socialMedia = [
@@ -302,4 +302,4 @@ export default function ItemDetail() {
   );
 }
 
-
+export default ItemDetail;
