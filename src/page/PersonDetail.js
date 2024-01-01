@@ -1,5 +1,5 @@
 import './../scss/personDetail.scss'
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import List from "./components/List.tsx";

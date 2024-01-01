@@ -1,4 +1,4 @@
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 import {useState, useEffect, lazy, Suspense} from 'react';
 import Loading from "./components/Loading.tsx";
 import { ItemState, MediaType, MediaItem } from '../types/commonTypes';

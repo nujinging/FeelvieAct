@@ -1,5 +1,5 @@
 import {seasonUrl} from '../util/action.ts';
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 
 export const seasonActions = (id, number) => async (dispatch) => {
   try {

@@ -1,6 +1,6 @@
 import './../scss/mediaSlide.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";

@@ -1,7 +1,7 @@
 import './../scss/creditsDetail.scss';
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 import AxiosError from "./components/AxiosError.tsx";
 import Loading from "./components/Loading.tsx";
 import imgNone from "../images/img_card_none.png";

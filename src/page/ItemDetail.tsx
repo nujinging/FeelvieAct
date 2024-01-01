@@ -1,6 +1,6 @@
 import "swiper/css";
 import './../scss/itemDetail.scss';
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 import {useEffect, useState, useRef} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
@@ -15,8 +15,7 @@ import AxiosError from "./components/AxiosError.tsx";
 const ItemDetail : React.FC = () => {
   const params = useParams<{type : string ; id : number}>();
   const dispatch = useDispatch();
-// detailData, socialData, seasonData 를 Redux 스토어에서 상태를 가져와서 사용
-  const detailData = useSelector(state => state.movies.movieData);
+    const movieData = useSelector((state) => state.movies.movieData);
   const socialData = useSelector(state => state.movies.socialData);
   const seasonData = useSelector(state => state.movies.seasonData);
 

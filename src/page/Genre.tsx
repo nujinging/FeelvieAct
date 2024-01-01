@@ -3,7 +3,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import { ItemState, MediaType, MediaItem, SelectValue, GenreNumber, pageNumber } from '../types/commonTypes';
 import "swiper/css";
 import "swiper/css/navigation";
-import {movieApi} from "../util/movieApi";
+import {movieApi} from "../util/movieApi.ts";
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import LoadingProgress from "./components/LoadingProgress.tsx";

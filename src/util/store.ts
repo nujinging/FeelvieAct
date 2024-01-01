@@ -1,14 +1,15 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import movieReducer, { MovieReducerState } from './movieReducer.ts';
+import moviesReducer from "./movieReducer.ts";
 
 interface RootState {
-    movies: MovieReducerState;
+    movies: ReturnType<typeof moviesReducer>;
 }
 
-const rootReducer = combineReducers<RootState>({
-    movies: movieReducer,
+const rootReducer = combineReducers({
+    movies: moviesReducer
 });
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
