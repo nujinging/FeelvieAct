@@ -7,19 +7,18 @@ import imgNone from "../images/img_card_none.png";
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
 
-export default function Search() {
-  const [searchWord, setSearchWord] = useState('');
-  const [searchList, setSearchList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [intro, setIntro] = useState(true);
-  const [searchNone, setSearchNone] = useState(false);
+const Search : React.FC = () => {
+  const [searchWord, setSearchWord] = useState<String>('');
+  const [searchList, setSearchList] = useState<any>([]);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [intro, setIntro] = useState<Boolean>(true);
+  const [searchNone, setSearchNone] = useState<Boolean>(false);
 
   // 공통 스크롤 감지
   const scrollFixed = useScrollFixed();
 
-
   // 엔터 방지
-  const searchEnter = (event) => {
+  const searchEnter = (event : any) : void => {
     if (event && event.key === 'Enter') {
       searchChange(event);
       event.preventDefault();
@@ -51,7 +50,7 @@ export default function Search() {
 
 
   // 검색 인풋 값 변경
-  const searchChange = (event) => {
+  const searchChange = (event : any) : void => {
     setSearchWord(event.target.value);
     // 백스페이스 키를 눌러서 입력값을 지운 경우
     if (event.target.value === '') {
@@ -157,5 +156,4 @@ export default function Search() {
   );
 }
 
-
-
+export default Search;

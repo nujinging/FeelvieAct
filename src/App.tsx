@@ -3,14 +3,14 @@ import {Route, Routes} from 'react-router-dom';
 import Main from "./page/Main.tsx";
 import ItemDetail from "./page/ItemDetail.tsx";
 import Genre from "./page/Genre.tsx";
-import Search from "./page/Search";
-import PersonDetail from "./page/PersonDetail";
-import SeasonDetail from "./page/SeasonDetail";
-import NotFound from "./page/components/NotFound";
+import Search from "./page/Search.tsx";
+import PersonDetail from "./page/PersonDetail.tsx";
+import SeasonDetail from "./page/SeasonDetail.tsx";
+import NotFound from "./page/components/NotFound.tsx";
 import PageLayout from "./page/layout/PageLayout.tsx";
 import CreditsDetail from "./page/CreditsDetail.tsx";
 
-export default function App() {
+const App : React.FC = () => {
   return (
     <Routes>
       <Route element={<PageLayout/>}>
@@ -26,3 +26,5 @@ export default function App() {
     </Routes>
   );
 }
+
+export default App;

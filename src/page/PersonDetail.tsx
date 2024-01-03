@@ -11,15 +11,15 @@ import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
 import imgNone from "../images/img_card_none.png";
 
-export default function PersonDetail() {
-  const params = useParams();
-  const [typeTabs, setTypeTabs] = useState('movie');
-  const [dataUrl, setDataUrl] = useState();
-  const [socialUrl, setSocialUrl] = useState();
-  const [artUrl, setArtUrl] = useState([]);
-  const [artPopular, setArtPopular] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filmoLoading, setFilmoLoading] = useState(true);
+const PersonDetail : React.FC = () => {
+  const params = useParams<{type : string ; id : number}>();
+  const [typeTabs, setTypeTabs] = useState<String>('movie');
+  const [dataUrl, setDataUrl] = useState<any>();
+  const [socialUrl, setSocialUrl] = useState<any>();
+  const [artUrl, setArtUrl] = useState<any>([]);
+  const [artPopular, setArtPopular] = useState<any>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [filmoLoading, setFilmoLoading] = useState<Boolean>(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ export default function PersonDetail() {
   const scrollFixed = useScrollFixed();
 
   // 배우 필모그래피 TAB
-  const typeChange = (type) => {
+  const typeChange = (type : string) => {
     setTypeTabs(type);
   };
 
@@ -240,4 +240,5 @@ export default function PersonDetail() {
   );
 }
 
+export default PersonDetail;
 

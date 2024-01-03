@@ -9,13 +9,13 @@ import AxiosError from "./components/AxiosError.tsx";
 import useScrollTop from "../commonEvent/useScrollTop";
 import useScrollFixed from "../commonEvent/useScrollFixed";
 
-export default function SeasonDetail() {
-  const params = useParams();
+const SeasonDetail : React.FC = () => {
+  const params = useParams({type : string ; id : number});
   const navigate = useNavigate();
-  const [selectSeason, SetSelectSeason] = useState();
+  const [selectSeason, SetSelectSeason] = useState<any>();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [error, setError] = useState<any>(null);
   const detailData = useSelector(state => state.movies.movieData);
   const seasonData = useSelector(state => state.movies.seasonData);
 
@@ -29,7 +29,7 @@ export default function SeasonDetail() {
   const year = detailData?.first_air_date.substring(0, 4);
 
   // 시리즈 넘버 변경
-  const seasonNumber = (event) => {
+  const seasonNumber = (event : any) : void => {
     SetSelectSeason(event.target.value);
   };
 
@@ -162,5 +162,6 @@ export default function SeasonDetail() {
   );
 }
 
+export default SeasonDetail;
 
 

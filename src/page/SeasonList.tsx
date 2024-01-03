@@ -7,22 +7,22 @@ import {seasonActions} from "../actions/seasonActions";
 import Loading from "./components/Loading.tsx";
 
 export default function SeasonList() {
-  const params = useParams();
+  const params = useParams({type : string, id : number});
   const dispatch = useDispatch();
   const detailData = useSelector(state => state.movies.movieData);
   const seasonData = useSelector(state => state.movies.seasonData);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<Boolean>(true)
 
   // 마지막 시즌 보여주기
   const lastSeason = detailData?.number_of_seasons;
 
   // 시즌 줄거리 더보기
   const overviewText = useRef(null);
-  const [overviewMore, setOverviewMore] = useState(false);
-  const [seasonState, setSeasonState] = useState(false);
+  const [overviewMore, setOverviewMore] = useState<Boolean>(false);
+  const [seasonState, setSeasonState] = useState<Boolean>(false);
 
   // 시리즈 더보기
-  const seasonMoreClick = () => {
+  const seasonMoreClick = () : void => {
     setSeasonState(!seasonState);
   }
 

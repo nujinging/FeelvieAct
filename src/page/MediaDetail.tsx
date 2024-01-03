@@ -9,23 +9,23 @@ import Loading from "./components/Loading.tsx";
 import VideoModal from "./modal/VideoModal.tsx";
 import ImgModal from "./modal/ImgModal.tsx";
 
-export default function MediaDetail() {
-  const params = useParams();
+const MediaDetail : React.FC = () => {
+  const params = useParams<{type : string ; id : number}>();
   const dispatch = useDispatch();
 
-  const [imgDetail, setImgDetail] = useState();
-  const [videoDetail, setVideoDetail] = useState();
-  const [videoUrl, setVideoUrl] = useState([]);
-  const [imagesUrl, setImagesUrl] = useState({backdrops: [], posters: []});
+  const [imgDetail, setImgDetail] = useState<String>();
+  const [videoDetail, setVideoDetail] = useState<String>();
+  const [videoUrl, setVideoUrl] = useState<any>([]);
+  const [imagesUrl, setImagesUrl] = useState<any>({backdrops: [], posters: []});
 
-  const [imgModal, setImgModal] = useState(false);
-  const [videoModal, setVideoModal] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [mediaState, setMediaState] = useState(false);
-  const [mediaType, setMediaType] = useState('video');
+  const [imgModal, setImgModal] = useState<Boolean>(false);
+  const [videoModal, setVideoModal] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [mediaState, setMediaState] = useState<Boolean>(false);
+  const [mediaType, setMediaType] = useState<String>('video');
 
   // 미디어 - 배경, 포스터
-  const mediaTab = (type) => {
+  const mediaTab = (type : string) : void => {
     setMediaType(type);
     setMediaState(true);
     if (type === mediaType) {
@@ -49,7 +49,7 @@ export default function MediaDetail() {
 
   useEffect(() => {
     // 데이터가 제대로 들어오긴 하나, 용량으로 조금 버벅거려 0.2초 딜레이 줌
-    setTimeout(() => {
+    setTimeout(() : void  => {
       if (videoUrl || imagesUrl) {
         setMediaState(false);
       }
@@ -58,17 +58,17 @@ export default function MediaDetail() {
   }, [mediaType]);
 
   // 이미지 모달
-  const imgModalOpen = (item) => {
+  const imgModalOpen = (item : any) : void => {
     setImgModal(!imgModal);
     setImgDetail(item);
   };
   // 비디오 모달
-  const videoModalOpen = (item, item_key) => {
-    setVideoModal(!videoModal);
-    setVideoDetail(item);
-  }
+    const videoModalOpen = ({ item, item_key }: { item: any; item_key: any }) => {
+        setVideoModal(!videoModal);
+        setVideoDetail(item);
+    }
 
-  useEffect(() => {
+    useEffect(() => {
     async function fetchApi() {
       try {
         setLoading(true);
@@ -187,3 +187,4 @@ export default function MediaDetail() {
   );
 }
 
+export default MediaDetail;
