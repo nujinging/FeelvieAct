@@ -1,5 +1,5 @@
-import {seasonUrl} from '../util/action.ts';
-import {movieApi} from "../util/movieApi.ts";
+import {seasonUrl} from '../util/action';
+import {movieApi} from "../util/movieApi";
 
 const seasonActions = (id : number,  number : number) => async (dispatch) => {
   try {

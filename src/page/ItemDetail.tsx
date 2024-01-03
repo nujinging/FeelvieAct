@@ -15,7 +15,7 @@ import AxiosError from "./components/AxiosError.tsx";
 const ItemDetail : React.FC = () => {
   const params = useParams<{type : string ; id : number}>();
   const dispatch = useDispatch();
-    const movieData = useSelector((state) => state.movies.movieData);
+  const movieData = useSelector((state) => state.movies.movieData);
   const socialData = useSelector(state => state.movies.socialData);
   const seasonData = useSelector(state => state.movies.seasonData);
 
