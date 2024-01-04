@@ -4,11 +4,11 @@ import {movieApi} from "../util/movieApi.ts";
 import {useEffect, useState, useRef} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {movieActions} from "../actions/movieActions";
-import {seasonActions} from "../actions/seasonActions";
+import {movieActions} from "../actions/movieActions.tsx";
+import {seasonActions} from "../actions/seasonActions.tsx";
 import List from "./components/List.tsx";
-import SeasonList from "./SeasonList";
-import MediaDetail from "./MediaDetail";
+import SeasonList from "./SeasonList.tsx";
+import MediaDetail from "./MediaDetail.tsx";
 import Loading from "./components/Loading.tsx";
 import AxiosError from "./components/AxiosError.tsx";
 

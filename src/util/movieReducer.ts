@@ -15,19 +15,19 @@ const initialState: MovieReducerState = {
 type MovieReducerAction =
     | {
     type: "SEND_DATA";
-    payload: any; // 적절한 데이터 타입으로 지정해 주세요
+    payload: any;
 }
     | {
     type: "SEND_SOCIAL";
-    payload: any; // 적절한 데이터 타입으로 지정해 주세요
+    payload: any;
 }
     | {
     type: "SEND_OTT";
-    payload: any; // 적절한 데이터 타입으로 지정해 주세요
+    payload: any;
 }
     | {
     type: "SEND_SEASON";
-    payload: any; // 적절한 데이터 타입으로 지정해 주세요
+    payload: any;
 };
 
 const movieReducer = (

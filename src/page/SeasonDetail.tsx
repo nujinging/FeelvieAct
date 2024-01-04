@@ -2,15 +2,15 @@ import './../scss/seasonDetail.scss'
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {seasonActions} from "../actions/seasonActions";
-import {movieActions} from "../actions/movieActions";
+import {seasonActions} from "../actions/seasonActions.tsx";
+import {movieActions} from "../actions/movieActions.tsx";
 import Loading from "./components/Loading.tsx";
 import AxiosError from "./components/AxiosError.tsx";
 import useScrollTop from "../commonEvent/useScrollTop";
 import useScrollFixed from "../commonEvent/useScrollFixed";
 
 const SeasonDetail : React.FC = () => {
-  const params = useParams({type : string ; id : number});
+  const params = useParams({type : string , id : number});
   const navigate = useNavigate();
   const [selectSeason, SetSelectSeason] = useState<any>();
   const dispatch = useDispatch();

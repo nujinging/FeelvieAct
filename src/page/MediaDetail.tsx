@@ -4,7 +4,7 @@ import {movieApi} from "../util/movieApi.ts";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {movieActions} from "../actions/movieActions";
+import {movieActions} from "../actions/movieActions.tsx";
 import Loading from "./components/Loading.tsx";
 import VideoModal from "./modal/VideoModal.tsx";
 import ImgModal from "./modal/ImgModal.tsx";

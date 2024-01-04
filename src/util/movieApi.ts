@@ -19,9 +19,9 @@ const request = axios.create({
 
 export const movieApi = {
   // 메인 리스트
-  nowPlaying: (type : MovieDetailParams) => request.get(`${type}/now_playing`),
-  popular: (type : MovieDetailParams) => request.get(`${type}/popular`),
-  today: ({type , time_window} : MovieDetailParams) => request.get(`trending/${type}/${time_window}`),
+  nowPlaying: (type : 'movie' | 'tv') => request.get(`${type}/now_playing`),
+  popular: (type : 'movie' | 'tv') => request.get(`${type}/popular`),
+  today: (type : 'movie' | 'tv', time_window : 'day' | 'week') => request.get(`trending/${type}/${time_window}`),
 
   // 작품 정보
   detail: ({type, movie_id} : MovieDetailParams) => request.get(`${type}/${movie_id}`),

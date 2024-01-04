@@ -2,8 +2,8 @@ import '../scss/seasonList.scss'
 import {useEffect, useRef, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../actions/movieActions";
-import {seasonActions} from "../actions/seasonActions";
+import {movieActions} from "../actions/movieActions.tsx";
+import {seasonActions} from "../actions/seasonActions.tsx";
 import Loading from "./components/Loading.tsx";
 
 export default function SeasonList() {

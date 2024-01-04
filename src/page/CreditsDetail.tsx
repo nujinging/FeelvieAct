@@ -6,7 +6,7 @@ import AxiosError from "./components/AxiosError.tsx";
 import Loading from "./components/Loading.tsx";
 import imgNone from "../images/img_card_none.png";
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../actions/movieActions";
+import {movieActions} from "../actions/movieActions.tsx";
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
 
