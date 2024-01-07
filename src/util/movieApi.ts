@@ -36,18 +36,18 @@ export const movieApi = {
     seasonVideo: (type: 'movie' | 'tv', movie_id: number) => request.get(`${type}/${movie_id}/videos?&language=fr&include_image_language=fr,null,kr`),
 
     // 장르
-    genreTitle: (type: MovieDetailParams) => request.get(`genre/${type}/list`),
-    genreList: ({type, genre_number}: MovieDetailParams) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
-    popularScroll: ({type, page}: MovieDetailParams) => request.get(`${type}/popular?page=${page}`),
-    genreScroll: ({type, genre_number, page}: MovieDetailParams) => request.get(`discover/${type}?with_genres=${genre_number}&page=${page}`),
-    genrePopularDesc: ({type, genre_number}: MovieDetailParams) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
-    genrePopularAsc: ({type, genre_number}: MovieDetailParams) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),
-    genreDateDesc: ({type, genre_number}: MovieDetailParams) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.desc`),
-    genreDateAsc: ({type, genre_number}: MovieDetailParams) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
+    genreTitle: (type: 'movie' | 'tv') => request.get(`genre/${type}/list`),
+    genreList: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
+    popularScroll: (type: 'movie' | 'tv', page : number) => request.get(`${type}/popular?page=${page}`),
+    genreScroll: (type: 'movie' | 'tv', page : number, genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&page=${page}`),
+    genrePopularDesc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
+    genrePopularAsc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),
+    genreDateDesc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.desc`),
+    genreDateAsc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
 
     // 인물 정보
-    person: (id: MovieDetailParams) => request.get(`person/${id}`),
-    personArt: ({type, id}: MovieDetailParams) => request.get(`person/${type}/${id}_credits`),
+    person: (id : number) => request.get(`person/${id}`),
+    personArt: (type: 'movie' | 'tv', id : number) => request.get(`person/${type}/${id}_credits`),
 
     // 검색
     search: (keyword: string) => request.get(`search/multi`, {
