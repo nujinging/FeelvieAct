@@ -12,8 +12,14 @@ import {debounce} from 'lodash';
 import imgNone from '../images/img_card_none.png';
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
+interface GenreItem {
+    id: number;
+    title?: string;
+    name?: string;
+    poster_path?: string;
+}
 
-export default function Genre() {
+const Genre: React.FC<GenreItem> = () => {
   const {type, number} = useParams();
   const navigate = useNavigate();
 
@@ -232,3 +238,4 @@ export default function Genre() {
   );
 }
 
+export default Genre;

@@ -1,6 +1,6 @@
 import { detailUrl, socialUrl, ottUrl } from '../util/action.ts';
 import { movieApi } from '../util/movieApi.ts';
-export const movieActions = (id, number) => async (dispatch) => {
+export const movieActions = (id : number,  number : number) => async (dispatch) => {
   try {
     const detail = await movieApi.detail(id, number);
     dispatch(detailUrl(detail));
@@ -12,6 +12,5 @@ export const movieActions = (id, number) => async (dispatch) => {
     dispatch(ottUrl(ott));
   } catch (error) {
     console.error(error);
-    console.log('여기인가')
   }
 };

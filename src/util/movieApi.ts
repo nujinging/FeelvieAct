@@ -1,14 +1,5 @@
 import axios from 'axios';
 
-interface MovieDetailParams {
-    type: string;
-    movie_id: number;
-    time_window: string;
-    genre_number: number;
-    page: number;
-    id: number;
-}
-
 const request = axios.create({
     baseURL: `https://api.themoviedb.org/3/`,
     params: {
