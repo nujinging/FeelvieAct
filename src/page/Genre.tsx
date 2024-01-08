@@ -13,13 +13,13 @@ import imgNone from '../images/img_card_none.png';
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
 interface GenreItem {
-    id: number;
+    id?: any;
     title?: string;
     name?: string;
     poster_path?: string;
 }
 
-const Genre: React.FC<GenreItem> = () => {
+const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
   const {type, number} = useParams();
   const navigate = useNavigate();
 
@@ -27,8 +27,8 @@ const Genre: React.FC<GenreItem> = () => {
   const [listLoading, setListLoading] = useState<ItemState>(true);
   const [progressState, setProgressState] = useState<ItemState>(true);
 
-  const [genreTitle, setGenreTitle] = useState<MediaItem[]>([]);
-  const [genreList, setGenreList] = useState<MediaItem[]>([]);
+  const [genreTitle, setGenreTitle] = useState<GenreItem[]>([]);
+  const [genreList, setGenreList] = useState<GenreItem[]>([]);
   const [genreNumber, setGenreNumber] = useState<GenreNumber>('All');
   const [selectedValue, setSelectedValue] = useState<SelectValue>('');
   const [page, setPage] = useState<pageNumber>(1);
