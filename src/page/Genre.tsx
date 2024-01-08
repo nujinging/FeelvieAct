@@ -146,7 +146,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
             >
               All
             </SwiperSlide>
-            {genreTitle?.map((item, index) => {
+            {genreTitle?.map((item : GenreItem, index : number) => {
               return (
                 <SwiperSlide className={`genre_item ${genreNumber === item.id ? 'active' : ''}`}
                              key={index}
@@ -183,7 +183,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
               <Loading/>
             ) : (
               <ul className="genre_list">
-                {genreList?.map((item, index) => {
+                {genreList?.map((item : GenreItem, index: number) => {
                   return (
                     <>
                       <li className="genre_card" key={index}>

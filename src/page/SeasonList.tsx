@@ -9,8 +9,8 @@ import Loading from "./components/Loading.tsx";
 export default function SeasonList() {
   const params = useParams({type : string, id : number});
   const dispatch = useDispatch();
-  const detailData = useSelector(state => state.movies.movieData);
-  const seasonData = useSelector(state => state.movies.seasonData);
+  const detailData = useSelector((state: { movies: { movieData: any } }) => state.movies.movieData);
+  const seasonData = useSelector((state: { movies: { seasonData: any } }) => state.movies.seasonData);
   const [loading, setLoading] = useState<Boolean>(true)
 
   // 마지막 시즌 보여주기
