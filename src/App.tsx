@@ -18,7 +18,7 @@ const App : React.FC = () => {
         <Route path='/search' element={<Search/>}/>
         <Route path='/detail/:type/:id' element={<ItemDetail/>}/>
         <Route path='/detail/:type/:id/credits' element={<CreditsDetail/>}/>
-        <Route path='/genre/:type/:number' element={<Genre/>}/>
+        <Route path='/genre/:type/:gerneNumberParams' element={<Genre/>}/>
         <Route path='/person/:id' element={<PersonDetail/>}/>
         <Route path='/:type/season/:id/episode' element={<SeasonDetail/>}/>
         <Route path="*" element={<NotFound/>}/>

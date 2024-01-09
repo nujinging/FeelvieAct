@@ -20,7 +20,7 @@ interface GenreItem {
 }
 
 const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
-  const {type, number} = useParams();
+  const {type, gerneNumberParams} = useParams();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<ItemState>(false);
@@ -92,10 +92,10 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
         const genre = await movieApi.genreTitle(type);
         setGenreTitle(genre.data.genres);
 
-        if (number === 'All') {
+        if (gerneNumberParams === 'All') {
           const popular = await movieApi.popular(type);
           setGenreList(popular.data.results);
-          setGenreNumber(number);
+          setGenreNumber(gerneNumberParams);
         } else {
           const genreUrl = await movieApi.genreList(type, genreNumber);
           setGenreList(genreUrl.data.results);
@@ -114,7 +114,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
     const nextPage = page + 1;
     const PageData = async () => {
       try {
-        if (number === 'All') {
+        if (gerneNumberParams === 'All') {
           const popularScroll = await movieApi.popularScroll(type, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
         } else {

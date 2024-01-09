@@ -6,7 +6,7 @@ const LazyHomeSlide = lazy(() => import("./components/HomeSlide.tsx"));
 const LazyList = lazy(() => import("./components/List.tsx"));
 const LazyEventModal = lazy(() => import("./modal/EventModal.tsx"));
 
-export default function Main() {
+const Main : React.FC = () => {
   const [popularLoading, setPopularLoading] = useState<ItemState>(true);
   const [dayLoading, setDayLoading] = useState<ItemState>(true);
   const [weekLoading, setWeekLoading] = useState<ItemState>(true);
@@ -192,3 +192,5 @@ export default function Main() {
     </Suspense>
   )
 }
+
+export default Main;
