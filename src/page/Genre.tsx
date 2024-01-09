@@ -20,7 +20,7 @@ interface GenreItem {
 }
 
 const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
-  const {type, gerneNumberParams} = useParams();
+  const {type, gerneNumberParams} = useParams() as { type : MediaType , gerneNumberParams : any};
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<ItemState>(false);
@@ -30,6 +30,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
   const [genreTitle, setGenreTitle] = useState<GenreItem[]>([]);
   const [genreList, setGenreList] = useState<GenreItem[]>([]);
   const [genreNumber, setGenreNumber] = useState<GenreNumber>('All');
+
   const [selectedValue, setSelectedValue] = useState<SelectValue>('');
   const [page, setPage] = useState<pageNumber>(1);
 
@@ -42,7 +43,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
   };
 
 // 장르 선택
-  const genreChange = async (itemId : string) => {
+  const genreChange = async (itemId : GenreNumber) => {
     setListLoading(true);
     setProgressState(true);
     setGenreNumber(itemId);
@@ -59,16 +60,16 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
       let genreUrl;
       switch (event.target.value) {
         case 'popularityDesc' :
-          genreUrl = await movieApi.genrePopularDesc(type, genreNumber);
+          genreUrl = await movieApi.genrePopularDesc(type, gerneNumberParams);
           break;
         case 'popularityAsc' :
-          genreUrl = await movieApi.genrePopularAsc(type, genreNumber);
+          genreUrl = await movieApi.genrePopularAsc(type, gerneNumberParams);
           break;
         case 'dateDesc' :
-          genreUrl = await movieApi.genreDateDesc(type, genreNumber);
+          genreUrl = await movieApi.genreDateDesc(type, gerneNumberParams);
           break;
         case  'dateAsc' :
-          genreUrl = await movieApi.genreDateAsc(type, genreNumber);
+          genreUrl = await movieApi.genreDateAsc(type, gerneNumberParams);
           break;
         default:
           break;
@@ -97,7 +98,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           setGenreList(popular.data.results);
           setGenreNumber(gerneNumberParams);
         } else {
-          const genreUrl = await movieApi.genreList(type, genreNumber);
+          const genreUrl = await movieApi.genreList(type, gerneNumberParams);
           setGenreList(genreUrl.data.results);
         }
         setProgressState(false);
@@ -118,7 +119,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           const popularScroll = await movieApi.popularScroll(type, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
         } else {
-          const genreUrlScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
+          const genreUrlScroll = await movieApi.genreScroll(type, gerneNumberParams, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
         }
       } finally {

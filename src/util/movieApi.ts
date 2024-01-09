@@ -31,7 +31,7 @@ export const movieApi = {
     genreList: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
     popularScroll: (type: 'movie' | 'tv', page : number) => request.get(`${type}/popular?page=${page}`),
     genreScroll: (type: 'movie' | 'tv', page : number, genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&page=${page}`),
-    genrePopularDesc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
+    genrePopularDesc: (type: "movie" | "tv", genre_number: string | number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.desc`),
     genrePopularAsc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=popularity.asc`),
     genreDateDesc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.desc`),
     genreDateAsc: (type: 'movie' | 'tv', genre_number : number) => request.get(`discover/${type}?with_genres=${genre_number}&sort_by=primary_release_date.asc`),
