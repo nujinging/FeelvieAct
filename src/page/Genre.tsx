@@ -39,7 +39,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
 
     const handleSortChange = (value: string) => {
         setSelectedSort(value);
-        // 여기에서 선택된 값을 사용하거나 필요에 따라 다른 작업을 수행할 수 있습니다.
+        console.log(value);
     }
 
 // 공통 스크롤 감지
@@ -178,7 +178,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           )
         }
 
-        {/*<GenreSortSelect onSelectChange={handleSortChange}></GenreSortSelect>*/}
+        <GenreSortSelect onSelectChange={handleSortChange}></GenreSortSelect>
 
         <div className="genre_box">
           <div className="genre_sort">
