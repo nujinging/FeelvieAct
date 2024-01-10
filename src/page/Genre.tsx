@@ -12,6 +12,7 @@ import {debounce} from 'lodash';
 import imgNone from '../images/img_card_none.png';
 import useScrollFixed from "../commonEvent/useScrollFixed";
 import useScrollTop from "../commonEvent/useScrollTop";
+import GenreSortSelect from "./components/GenreSortSelect.tsx";
 interface GenreItem {
     id?: any;
     title?: string;
@@ -33,6 +34,13 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
 
   const [selectedValue, setSelectedValue] = useState<SelectValue>('');
   const [page, setPage] = useState<pageNumber>(1);
+
+  const [selectedSort, setSelectedSort] = useState<string>('');
+
+    const handleSortChange = (value: string) => {
+        setSelectedSort(value);
+        // 여기에서 선택된 값을 사용하거나 필요에 따라 다른 작업을 수행할 수 있습니다.
+    }
 
 // 공통 스크롤 감지
   const scrollFixed = useScrollFixed();
@@ -169,6 +177,8 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
             <LoadingProgress progress={calculateProgress()}></LoadingProgress>
           )
         }
+
+        {/*<GenreSortSelect onSelectChange={handleSortChange}></GenreSortSelect>*/}
 
         <div className="genre_box">
           <div className="genre_sort">
