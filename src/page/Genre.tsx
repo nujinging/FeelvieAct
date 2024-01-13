@@ -21,7 +21,7 @@ interface GenreItem {
 }
 
 const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
-  const {type, genreNumberParams} = useParams() as { type : MediaType , genreNumberParams :  typeGenreTitleNumber};
+  const {type, genreNumberParams} = useParams() as { type : MediaType , genreNumberParams : any};
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<ItemState>(false);
@@ -55,6 +55,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
     setListLoading(true);
     setProgressState(true);
     setGenreNumber(itemId);
+    console.log(itemId);
     navigate(`/genre/${type}/${itemId}`);
   };
 
@@ -101,12 +102,12 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
         const genre = await movieApi.genreTitle(type);
         setGenreTitle(genre.data.genres);
 
-        if (genreNumberParams === 'All') {
+        if (genreNumber === 'All') {
           const popular = await movieApi.popular(type);
           setGenreList(popular.data.results);
           setGenreNumber(genreNumberParams);
         } else {
-          const genreUrl = await movieApi.genreList(type, genreNumberParams);
+          const genreUrl = await movieApi.genreList(type, genreNumber);
           setGenreList(genreUrl.data.results);
         }
         setProgressState(false);
@@ -117,7 +118,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
     }
 
     fetchApi();
-  }, [type, genreNumber]);
+  }, [type, genreNumber, genreNumberParams]);
 
   const ListMore = debounce(() => {
     const nextPage = page + 1;
@@ -127,7 +128,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           const popularScroll = await movieApi.popularScroll(type, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
         } else {
-          const genreUrlScroll = await movieApi.genreScroll(type, genreNumberParams, nextPage);
+          const genreUrlScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
         }
       } finally {
@@ -150,7 +151,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
       <div className="genre_top">
         <Swiper className={`genre_keyword ${scrollFixed ? "fixed" : ""}`} slidesPerView={"auto"}>
           <div className="swiper-wrapper">
-            <SwiperSlide className={`genre_item ${genreNumber === 'All' ? 'active' : ''}`}
+            <SwiperSlide className={`genre_item ${genreNumberParams === 'All' ? 'active' : ''}`}
                          onClick={() => genreChange('All')}
             >
               All
