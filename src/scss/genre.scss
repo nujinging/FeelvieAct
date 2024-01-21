@@ -4,11 +4,10 @@
   left: 4rem;
   padding: 2rem 0;
   backdrop-filter: blur(0px);
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
   color: rgba(255, 255, 255, 1);
   -webkit-transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
   transition: backdrop-filter 0.3s linear, background-color 0.3s linear;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 1);
 
   &.fixed {
     transform: translateZ(0);

@@ -1,6 +1,6 @@
 import './../scss/genre.scss';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import { ItemState, MediaType, MediaItem, SelectValue, typeGenreTitleNumber, pageNumber } from '../types/commonTypes';
+import { ItemState, MediaType, MediaItem, SelectValue, typeGenreTitleNumber } from '../types/commonTypes';
 import "swiper/css";
 import "swiper/css/navigation";
 import {movieApi} from "../util/movieApi.ts";
@@ -32,7 +32,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
   const [genreList, setGenreList] = useState<GenreItem[]>([]);
   const [genreNumber, setGenreNumber] = useState<typeGenreTitleNumber>('All');
 
-  const [page, setPage] = useState<pageNumber>(1);
+  const [page, setPage] = useState<number>(1);
 
   const [selectedSort, setSelectedSort] = useState<string>('');
 
@@ -97,11 +97,9 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
     async function fetchApi() {
       setProgressState(true);
       setListLoading(true);
-
       try {
         const genre = await movieApi.genreTitle(type);
         setGenreTitle(genre.data.genres);
-
         if (genreNumber === 'All') {
           const popular = await movieApi.popular(type);
           setGenreList(popular.data.results);
@@ -110,6 +108,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           const genreUrl = await movieApi.genreList(type, genreNumber);
           setGenreList(genreUrl.data.results);
         }
+
         setProgressState(false);
         setListLoading(false);
       } catch (error) {
@@ -120,6 +119,15 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
     fetchApi();
   }, [type, genreNumber, genreNumberParams]);
 
+
+
+    /* 리스트 더보기 */
+    const listMoreBtn = () => {
+        setLoading(true);
+        ListMore();
+        console.log(genreList)
+    }
+
   const ListMore = debounce(() => {
     const nextPage = page + 1;
     const PageData = async () => {
@@ -128,7 +136,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           const popularScroll = await movieApi.popularScroll(type, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
         } else {
-          const genreUrlScroll = await movieApi.genreScroll(type, genreNumberParams as number, nextPage);
+          const genreUrlScroll = await movieApi.genreScroll(type, genreNumber as number, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
         }
       } finally {
@@ -138,13 +146,10 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
     };
     setPage(nextPage);
     PageData();
+      console.log(nextPage)
+      console.log(genreList)
   }, 1000);
 
-  /* 리스트 더보기 */
-  const listMoreBtn = () => {
-    setLoading(true);
-    ListMore();
-  }
 
   return (
     <>
