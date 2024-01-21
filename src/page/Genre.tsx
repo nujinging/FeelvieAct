@@ -32,14 +32,12 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
   const [genreList, setGenreList] = useState<GenreItem[]>([]);
   const [genreNumber, setGenreNumber] = useState<typeGenreTitleNumber>('All');
 
-  const [selectedValue, setSelectedValue] = useState<SelectValue>('');
   const [page, setPage] = useState<pageNumber>(1);
 
   const [selectedSort, setSelectedSort] = useState<string>('');
 
     const handleSortChange = (value: string) => {
         setSelectedSort(value);
-        console.log(value);
     }
 
 // 공통 스크롤 감지
@@ -60,37 +58,39 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
   };
 
 // 정렬 선택
-  const SortClick = async (event : React.ChangeEvent<HTMLSelectElement>) => {
-    try {
-      setSelectedValue(event.target.value);
-      setProgressState(true);
-      setListLoading(true);
 
-      let genreUrl;
-      switch (event.target.value) {
-        case 'popularityDesc' :
-          genreUrl = await movieApi.genrePopularDesc(type, genreNumberParams as number);
-          break;
-        case 'popularityAsc' :
-          genreUrl = await movieApi.genrePopularAsc(type, genreNumberParams as number);
-          break;
-        case 'dateDesc' :
-          genreUrl = await movieApi.genreDateDesc(type, genreNumberParams as number);
-          break;
-        case  'dateAsc' :
-          genreUrl = await movieApi.genreDateAsc(type, genreNumberParams as number);
-          break;
-        default:
-          break;
+  useEffect(()=> {
+      async function sortChange() {
+          try {
+              setProgressState(true);
+              setListLoading(true);
+              let genreUrl;
+              switch (selectedSort) {
+                  case 'popularityDesc' :
+                      genreUrl = await movieApi.genrePopularDesc(type, genreNumberParams as number);
+                      break;
+                  case 'popularityAsc' :
+                      genreUrl = await movieApi.genrePopularAsc(type, genreNumberParams as number);
+                      break;
+                  case 'dateDesc' :
+                      genreUrl = await movieApi.genreDateDesc(type, genreNumberParams as number);
+                      break;
+                  case  'dateAsc' :
+                      genreUrl = await movieApi.genreDateAsc(type, genreNumberParams as number);
+                      break;
+                  default:
+                      break;
+              }
+              setGenreList(genreUrl.data.results);
+          } catch (error) {
+              console.log(error)
+          } finally {
+              setProgressState(false);
+              setListLoading(false);
+          }
       }
-      setGenreList(genreUrl.data.results);
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setProgressState(false);
-      setListLoading(false);
-    }
-  }
+      sortChange();
+  }, [selectedSort])
 
 // 장르 변경 시 리스트 변경
   useEffect(() => {
@@ -128,7 +128,7 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
           const popularScroll = await movieApi.popularScroll(type, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...popularScroll.data.results]);
         } else {
-          const genreUrlScroll = await movieApi.genreScroll(type, genreNumber, nextPage);
+          const genreUrlScroll = await movieApi.genreScroll(type, genreNumberParams as number, nextPage);
           setGenreList((prevGenreList) => [...prevGenreList, ...genreUrlScroll.data.results]);
         }
       } finally {
@@ -182,14 +182,6 @@ const Genre: React.FC<GenreItem> = ({id, title, name, poster_path}) => {
         <GenreSortSelect onSelectChange={handleSortChange}></GenreSortSelect>
 
         <div className="genre_box">
-          <div className="genre_sort">
-            <select onChange={SortClick} value={selectedValue}>
-              <option value="popularityDesc">인기도 내림차순</option>
-              <option value="popularityAsc">인기도 오름차순</option>
-              <option value="dateDesc">상영일 내림차순</option>
-              <option value="dateAsc">상영일 오름차순</option>
-            </select>
-          </div>
           {
             listLoading ? (
               <Loading/>

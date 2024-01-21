@@ -9,6 +9,7 @@ const GenreSortSelect: React.FC<GenreSortSelectProps> = ({ onSelectChange }) => 
     const SortClick = async (event : React.ChangeEvent<HTMLSelectElement>) => {
         try {
             setSelectedValue(event.target.value);
+            onSelectChange(event.target.value);
         } catch (error) {
             console.log(error)
         }
